@@ -1,14 +1,14 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'email' => array(
@@ -41,10 +41,11 @@ return array(
 	),
 	'password' => array(
 		'invalid' => 'La contraseña no es válida.',
+		'provided_password_too_long' => 'The provided password is too long.',	// TODO
 	),
 	'tos' => array(
 		'feedback' => array(
-			'invalid' => 'Debe aceptar los Términos de Servicio para poder registrarse.',
+			'invalid' => 'Debe aceptar los términos de servicio para poder registrarse.',
 		),
 	),
 	'username' => array(

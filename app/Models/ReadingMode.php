@@ -1,27 +1,19 @@
 <?php
+declare(strict_types=1);
 
 /**
  * Manage the reading modes in FreshRSS.
  */
 class FreshRSS_ReadingMode {
 
-	protected string $id;
 	protected string $name;
-	protected string $title;
-	/** @var array{'c':string,'a':string,'params':array<string,mixed>} */
-	protected array $urlParams;
-	protected bool $isActive = false;
 
 	/**
 	 * ReadingMode constructor.
-	 * @param array{'c':string,'a':string,'params':array<string,mixed>} $urlParams
+	 * @param array{c:string,a:string,params:array<string,mixed>} $urlParams
 	 */
-	public function __construct(string $id, string $title, array $urlParams, bool $active) {
-		$this->id = $id;
-		$this->name = _i($id);
-		$this->title = $title;
-		$this->urlParams = $urlParams;
-		$this->isActive = $active;
+	public function __construct(protected string $id, protected string $title, protected array $urlParams, protected bool $isActive) {
+		$this->name = _i($this->id);
 	}
 
 	public function getId(): string {
@@ -46,12 +38,12 @@ class FreshRSS_ReadingMode {
 		return $this;
 	}
 
-	/** @return array{'c':string,'a':string,'params':array<string,mixed>} */
+	/** @return array{c:string,a:string,params:array<string,mixed>} */
 	public function getUrlParams(): array {
 		return $this->urlParams;
 	}
 
-	/** @param array{'c':string,'a':string,'params':array<string,mixed>} $urlParams */
+	/** @param array{c:string,a:string,params:array<string,mixed>} $urlParams */
 	public function setUrlParams(array $urlParams): FreshRSS_ReadingMode {
 		$this->urlParams = $urlParams;
 		return $this;
@@ -67,7 +59,7 @@ class FreshRSS_ReadingMode {
 	}
 
 	/**
-	 * @return array<FreshRSS_ReadingMode> the built-in reading modes
+	 * @return list<FreshRSS_ReadingMode> the built-in reading modes
 	 */
 	public static function getReadingModes(): array {
 		$actualView = Minz_Request::actionName();

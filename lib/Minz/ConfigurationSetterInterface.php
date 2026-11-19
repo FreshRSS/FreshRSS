@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 interface Minz_ConfigurationSetterInterface {
 
@@ -15,5 +16,5 @@ interface Minz_ConfigurationSetterInterface {
 	 * @param string $key the key to update.
 	 * @param mixed $value the value to set.
 	 */
-	public function handle(&$data, string $key, $value): void;
+	public function handle(array &$data, string $key, mixed $value): void;
 }

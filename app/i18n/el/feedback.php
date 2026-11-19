@@ -1,144 +1,152 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'access' => array(
-		'denied' => 'You don’t have permission to access this page',	// TODO
-		'not_found' => 'You are looking for a page that doesn’t exist',	// TODO
+		'denied' => 'Δεν έχετε άδεια πρόσβασης σε αυτή τη σελίδα',
+		'not_found' => 'Αναζητάτε μια σελίδα που δεν υπάρχει',
 	),
 	'admin' => array(
-		'optimization_complete' => 'Optimization complete',	// TODO
+		'optimization_complete' => 'Η βελτιστοποίηση ολοκληρώθηκε',
 	),
 	'api' => array(
 		'password' => array(
-			'failed' => 'Your password cannot be modified',	// TODO
-			'updated' => 'Your password has been modified',	// TODO
+			'failed' => 'Ο κωδικός πρόσβασής σας δεν μπορεί να τροποποιηθεί',
+			'updated' => 'Ο κωδικός πρόσβασής σας έχει τροποποιηθεί',
 		),
 	),
 	'auth' => array(
 		'login' => array(
-			'invalid' => 'Login is invalid',	// TODO
-			'success' => 'You are connected',	// TODO
+			'invalid' => 'Μη έγκυρη σύνδεση',
+			'success' => 'Είστε συνδεδεμένος/η',
 		),
 		'logout' => array(
-			'success' => 'You are disconnected',	// TODO
+			'success' => 'Έχετε αποσυνδεθεί',
 		),
 	),
 	'conf' => array(
-		'error' => 'An error occurred while saving configuration',	// TODO
-		'query_created' => 'Query “%s” has been created.',	// TODO
-		'shortcuts_updated' => 'Shortcuts have been updated',	// TODO
-		'updated' => 'Configuration has been updated',	// TODO
+		'error' => 'Παρουσιάστηκε σφάλμα κατά την αποθήκευση της διαμόρφωσης',
+		'query_created' => 'Το ερώτημα «%s» δημιουργήθηκε.',
+		'shortcuts_updated' => 'Οι συντομεύσεις έχουν ενημερωθεί',
+		'updated' => 'Η διαμόρφωση έχει ενημερωθεί',
 	),
 	'extensions' => array(
-		'already_enabled' => '%s is already enabled',	// TODO
-		'cannot_remove' => '%s cannot be removed',	// TODO
+		'already_enabled' => 'Το %s είναι ήδη ενεργοποιημένο',
+		'cannot_remove' => 'Το %s δεν μπορεί να αφαιρεθεί',
 		'disable' => array(
-			'ko' => '%s cannot be disabled. <a href="%s">Check FreshRSS logs</a> for details.',	// TODO
-			'ok' => '%s is now disabled',	// TODO
+			'ko' => 'Το %s δεν μπορεί να απενεργοποιηθεί. <a href="%s">Ελέγξτε τα αρχεία καταγραφής του FreshRSS</a> για λεπτομέρειες.',
+			'ok' => 'Το %s είναι πλέον απενεργοποιημένο',
 		),
 		'enable' => array(
-			'ko' => '%s cannot be enabled. <a href="%s">Check FreshRSS logs</a> for details.',	// TODO
-			'ok' => '%s is now enabled',	// TODO
+			'ko' => 'Το %s δεν μπορεί να ενεργοποιηθεί. <a href="%s">Ελέγξτε τα αρχεία καταγραφής του FreshRSS</a> για λεπτομέρειες.',
+			'ok' => 'Το %s είναι πλέον ενεργοποιημένο',
 		),
-		'no_access' => 'You have no access on %s',	// TODO
-		'not_enabled' => '%s is not enabled',	// TODO
-		'not_found' => '%s does not exist',	// TODO
-		'removed' => '%s removed',	// TODO
+		'invalid_view_mode' => 'Μη έγκυρη λειτουργία προβολής «%s»! Επιστροφή στην «Κανονική προβολή».',
+		'no_access' => 'Δεν έχετε πρόσβαση στο %s',
+		'not_enabled' => 'Το %s δεν είναι ενεργοποιημένο',
+		'not_found' => 'Το %s δεν υπάρχει',
+		'removed' => 'Το %s αφαιρέθηκε',
 	),
 	'import_export' => array(
-		'export_no_zip_extension' => 'The ZIP extension is not present on your server. Please try to export files one by one.',	// TODO
-		'feeds_imported' => 'Your feeds have been imported. If you are done importing, you can now click the <i>Update feeds</i> button.',	// TODO
-		'feeds_imported_with_errors' => 'Your feeds have been imported, but some errors occurred. If you are done importing, you can now click the <i>Update feeds</i> button.',	// TODO
-		'file_cannot_be_uploaded' => 'File cannot be uploaded!',	// TODO
-		'no_zip_extension' => 'The ZIP extension is not present on your server.',	// TODO
-		'zip_error' => 'An error occurred during ZIP processing.',	// TODO
+		'export_no_zip_extension' => 'Η επέκταση ZIP δεν υπάρχει στον διακομιστή σας. Παρακαλούμε δοκιμάστε να εξάγετε τα αρχεία ένα προς ένα.',
+		'feeds_imported' => 'Οι ροές σας έχουν εισαχθεί. Αν ολοκληρώσατε την εισαγωγή, μπορείτε τώρα να κάνετε κλικ στο κουμπί <i>Ενημέρωση ροών</i>.',
+		'feeds_imported_with_errors' => 'Οι ροές σας έχουν εισαχθεί, αλλά παρουσιάστηκαν κάποια σφάλματα. Αν ολοκληρώσατε την εισαγωγή, μπορείτε τώρα να κάνετε κλικ στο κουμπί <i>Ενημέρωση ροών</i>.',
+		'file_cannot_be_uploaded' => 'Το αρχείο δεν μπορεί να μεταφορτωθεί!',
+		'no_zip_extension' => 'Η επέκταση ZIP δεν υπάρχει στον διακομιστή σας.',
+		'zip_error' => 'Παρουσιάστηκε σφάλμα κατά την επεξεργασία του ZIP.',
 	),
 	'profile' => array(
-		'error' => 'Your profile cannot be modified',	// TODO
-		'updated' => 'Your profile has been modified',	// TODO
+		'error' => 'Το προφίλ σας δεν μπορεί να τροποποιηθεί',
+		'passwords_dont_match' => 'Οι κωδικοί πρόσβασης δεν ταιριάζουν',
+		'updated' => 'Το προφίλ σας έχει τροποποιηθεί',
 	),
 	'sub' => array(
-		'actualize' => 'Updating',	// TODO
+		'actualize' => 'Ενημέρωση',
 		'articles' => array(
-			'marked_read' => 'The selected articles have been marked as read.',	// TODO
-			'marked_unread' => 'The articles have been marked as unread.',	// TODO
+			'marked_read' => 'Τα επιλεγμένα άρθρα έχουν σημειωθεί ως αναγνωσμένα.',
+			'marked_unread' => 'Τα άρθρα έχουν σημειωθεί ως μη αναγνωσμένα.',
 		),
 		'category' => array(
-			'created' => 'Category %s has been created.',	// TODO
-			'deleted' => 'Category has been deleted.',	// TODO
-			'emptied' => 'Category has been emptied',	// TODO
-			'error' => 'Category cannot be updated',	// TODO
-			'name_exists' => 'Category name already exists.',	// TODO
-			'no_id' => 'You must specify the id of the category.',	// TODO
-			'no_name' => 'Category name cannot be empty.',	// TODO
-			'not_delete_default' => 'You cannot delete the default category!',	// TODO
-			'not_exist' => 'The category does not exist!',	// TODO
-			'over_max' => 'You have reached your limit of categories (%d)',	// TODO
-			'updated' => 'Category has been updated.',	// TODO
+			'created' => 'Η κατηγορία %s δημιουργήθηκε.',
+			'deleted' => 'Η κατηγορία διαγράφηκε.',
+			'emptied' => 'Η κατηγορία εκκενώθηκε',
+			'error' => 'Η κατηγορία δεν μπορεί να ενημερωθεί',
+			'name_exists' => 'Το όνομα της κατηγορίας υπάρχει ήδη.',
+			'no_id' => 'Πρέπει να ορίσετε το ID της κατηγορίας.',
+			'no_name' => 'Το όνομα της κατηγορίας δεν μπορεί να είναι κενό.',
+			'not_delete_default' => 'Δεν μπορείτε να διαγράψετε την προεπιλεγμένη κατηγορία!',
+			'not_exist' => 'Η κατηγορία δεν υπάρχει!',
+			'over_max' => 'Έχετε φτάσει στο όριο των κατηγοριών σας (%d)',
+			'updated' => 'Η κατηγορία έχει ενημερωθεί.',
 		),
 		'feed' => array(
-			'actualized' => '<em>%s</em> has been updated',	// TODO
-			'actualizeds' => 'RSS feeds have been updated',	// TODO
-			'added' => 'RSS feed <em>%s</em> has been added',	// TODO
-			'already_subscribed' => 'You have already subscribed to <em>%s</em>',	// TODO
-			'cache_cleared' => '<em>%s</em> cache has been cleared',	// TODO
-			'deleted' => 'Feed has been deleted',	// TODO
-			'error' => 'Feed cannot be updated',	// TODO
-			'internal_problem' => 'The newsfeed could not be added. <a href="%s">Check FreshRSS logs</a> for details. You can try force adding by appending <code>#force_feed</code> to the URL.',	// TODO
-			'invalid_url' => 'URL <em>%s</em> is invalid',	// TODO
-			'n_actualized' => '%d feeds have been updated',	// TODO
-			'n_entries_deleted' => '%d articles have been deleted',	// TODO
-			'no_refresh' => 'There are no feeds to refresh',	// TODO
-			'not_added' => '<em>%s</em> could not be added',	// TODO
-			'not_found' => 'Feed cannot be found',	// TODO
-			'over_max' => 'You have reached your limit of feeds (%d)',	// TODO
-			'reloaded' => '<em>%s</em> has been reloaded',	// TODO
-			'selector_preview' => array(
-				'http_error' => 'Failed to load website content.',	// TODO
-				'no_entries' => 'There are no articles in this feed. You need at least one article to create a preview.',	// TODO
-				'no_feed' => 'Internal error (feed cannot be found).',	// TODO
-				'no_result' => 'The selector didn’t match anything. As a fallback the original feed text will be displayed instead.',	// TODO
-				'selector_empty' => 'The selector is empty. You need to define one to create a preview.',	// TODO
+			'actualized' => 'Η <em>%s</em> έχει ενημερωθεί',
+			'actualizeds' => 'Οι ροές RSS έχουν ενημερωθεί',
+			'added' => 'Η ροή RSS <em>%s</em> προστέθηκε',
+			'already_subscribed' => 'Είστε ήδη εγγεγραμμένος/η στο <em>%s</em>',
+			'cache_cleared' => 'Η μνήμη cache της <em>%s</em> έχει εκκαθαριστεί',
+			'deleted' => 'Η ροή διαγράφηκε',
+			'error' => 'Η ροή δεν μπορεί να ενημερωθεί',
+			'favicon' => array(
+				'too_large' => 'Το μεταφορτωμένο εικονίδιο είναι πολύ μεγάλο. Το μέγιστο μέγεθος αρχείου είναι <em>%s</em>.',
+				'unsupported_format' => 'Μη υποστηριζόμενη μορφή αρχείου εικόνας!',
 			),
-			'updated' => 'Feed has been updated',	// TODO
+			'internal_problem' => 'Η ροή ειδήσεων δεν μπορούσε να προστεθεί. <a href="%s">Ελέγξτε τα αρχεία καταγραφής του FreshRSS</a> για λεπτομέρειες. Μπορείτε να δοκιμάσετε να την προσθέσετε με δύναμη appending <code>#force_feed</code> στο URL.',
+			'invalid_url' => 'Το URL <em>%s</em> είναι μη έγκυρο',
+			'n_actualized' => '%d ροές έχουν ενημερωθεί',
+			'n_entries_deleted' => '%d άρθρα έχουν διαγραφεί',
+			'no_refresh' => 'Δεν υπάρχουν ροές για ανανέωση',
+			'not_added' => 'Η <em>%s</em> δεν μπορούσε να προστεθεί',
+			'not_found' => 'Η ροή δεν βρέθηκε',
+			'over_max' => 'Έχετε φτάσει στο όριο των ροών σας (%d)',
+			'reloaded' => 'Η <em>%s</em> έχει επαναφορτωθεί',
+			'selector_preview' => array(
+				'http_error' => 'Αποτυχία φόρτωσης περιεχομένου ιστότοπου.',
+				'no_entries' => 'Δεν υπάρχουν άρθρα σε αυτή τη ροή. Χρειάζεστε τουλάχιστον ένα άρθρο για να δημιουργήσετε προεπισκόπηση.',
+				'no_feed' => 'Εσωτερικό σφάλμα (η ροή δεν βρέθηκε).',
+				'no_result' => 'Ο επιλογέας δεν ταίριαξε με τίποτα. Ως εναλλακτική λύση, θα εμφανιστεί το αρχικό κείμενο της ροής.',
+				'selector_empty' => 'Ο επιλογέας είναι κενός. Πρέπει να ορίσετε έναν για να δημιουργήσετε προεπισκόπηση.',
+			),
+			'updated' => 'Η ροή έχει ενημερωθεί',
 		),
-		'purge_completed' => 'Purge completed (%d articles deleted)',	// TODO
+		'purge_completed' => 'Η εκκαθάριση ολοκληρώθηκε (%d άρθρα διαγράφηκαν)',
 	),
 	'tag' => array(
-		'created' => 'Label “%s” has been created.',	// TODO
-		'name_exists' => 'Label name already exists.',	// TODO
-		'renamed' => 'Label “%s” has been renamed to “%s”.',	// TODO
+		'created' => 'Η ετικέτα «%s» δημιουργήθηκε.',
+		'error' => 'Η ετικέτα δεν μπόρεσε να ενημερωθεί!',
+		'name_exists' => 'Το όνομα της ετικέτας υπάρχει ήδη.',
+		'renamed' => 'Η ετικέτα «%s» μετονομάστηκε σε «%s».',
+		'updated' => 'Η ετικέτα έχει ενημερωθεί.',
 	),
 	'update' => array(
-		'can_apply' => 'FreshRSS will now be updated to the <strong>version %s</strong>.',	// DIRTY
-		'error' => 'The update process has encountered an error: %s',	// TODO
-		'file_is_nok' => 'New <strong>version %s</strong> available, but check permissions on <em>%s</em> directory. HTTP server must have have write permission',	// DIRTY
-		'finished' => 'Update complete!',	// TODO
-		'none' => 'No update to apply',	// DIRTY
-		'server_not_found' => 'Update server cannot be found. [%s]',	// TODO
+		'can_apply' => 'Το FreshRSS θα ενημερωθεί τώρα στην <strong>έκδοση %s</strong>.',
+		'error' => 'Η διαδικασία ενημέρωσης αντιμετώπισε ένα σφάλμα: %s',
+		'file_is_nok' => 'Νέα <strong>έκδοση %s</strong> διαθέσιμη, αλλά ελέγξτε τα δικαιώματα στον κατάλογο <em>%s</em>. Ο διακομιστής HTTP πρέπει να έχει δικαίωμα εγγραφής',
+		'finished' => 'Η ενημέρωση ολοκληρώθηκε!',
+		'none' => 'Δεν υπάρχει ενημέρωση για εφαρμογή',
+		'server_not_found' => 'Ο διακομιστής ενημέρωσης δεν βρέθηκε. [%s]',
 	),
 	'user' => array(
 		'created' => array(
-			'_' => 'User %s has been created',	// TODO
-			'error' => 'User %s cannot be created',	// TODO
+			'_' => 'Ο χρήστης %s δημιουργήθηκε',
+			'error' => 'Ο χρήστης %s δεν μπορεί να δημιουργηθεί',
 		),
 		'deleted' => array(
-			'_' => 'User %s has been deleted',	// TODO
-			'error' => 'User %s cannot be deleted',	// TODO
+			'_' => 'Ο χρήστης %s διαγράφηκε',
+			'error' => 'Ο χρήστης %s δεν μπορεί να διαγραφεί',
 		),
 		'updated' => array(
-			'_' => 'User %s has been updated',	// TODO
-			'error' => 'User %s has not been updated',	// TODO
+			'_' => 'Ο χρήστης %s ενημερώθηκε',
+			'error' => 'Ο χρήστης %s δεν ενημερώθηκε',
 		),
 	),
 );

@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 interface I18nValidatorInterface {
 
@@ -13,6 +14,6 @@ interface I18nValidatorInterface {
 	/**
 	 * Display the validation report.
 	 */
-	public function displayReport(): string;
+	public function displayReport(bool $percentage_only = false): string;
 
 }

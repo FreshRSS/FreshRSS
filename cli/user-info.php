@@ -1,38 +1,47 @@
 #!/usr/bin/env php
 <?php
-require(__DIR__ . '/_cli.php');
+declare(strict_types=1);
+require __DIR__ . '/_cli.php';
 
 const DATA_FORMAT = "%-7s | %-20s | %-5s | %-7s | %-25s | %-15s | %-10s | %-10s | %-10s | %-10s | %-10s | %-10s | %-5s | %-10s\n";
 
-$params = array(
-	'user:',
-	'header',
-	'json',
-);
-$options = getopt('h', $params);
+$cliOptions = new class extends CliOptionsParser {
+	/** @var array<int,string> $user */
+	public array $user;
+	public bool $header;
+	public bool $json;
+	public bool $humanReadable;
+	/** Disable database size */
+	public bool $noDbSize;
+	/** Disable database counts */
+	public bool $noDbCounts;
 
-if (!validateOptions($argv, $params)) {
-	fail('Usage: ' . basename(__FILE__) . ' (-h --header --json --user username --user username …)');
+	public function __construct() {
+		$this->addOption('user', (new CliOption('user'))->typeOfArrayOfString());
+		$this->addOption('header', (new CliOption('header'))->withValueNone());
+		$this->addOption('json', (new CliOption('json'))->withValueNone());
+		$this->addOption('humanReadable', (new CliOption('human-readable', 'h'))->withValueNone());
+		$this->addOption('noDbSize', (new CliOption('no-db-size'))->withValueNone());
+		$this->addOption('noDbCounts', (new CliOption('no-db-counts'))->withValueNone());
+		parent::__construct();
+	}
+};
+
+if (!empty($cliOptions->errors)) {
+	fail('FreshRSS error: ' . array_shift($cliOptions->errors) . "\n" . $cliOptions->usage);
 }
 
-if (empty($options['user'])) {
-	$users = listUsers();
-} elseif (is_array($options['user'])) {
-	$users = $options['user'];
-} else {
-	$users = array($options['user']);
-}
+$users = $cliOptions->user ?? FreshRSS_user_Controller::listUsers();
 
 sort($users);
 
-$formatJson = isset($options['json']);
 $jsonOutput = [];
-if ($formatJson) {
-	unset($options['header']);
-	unset($options['h']);
+if ($cliOptions->json) {
+	$cliOptions->header = false;
+	$cliOptions->humanReadable = false;
 }
 
-if (array_key_exists('header', $options)) {
+if ($cliOptions->header) {
 	printf(
 		DATA_FORMAT,
 		'default',
@@ -55,38 +64,48 @@ if (array_key_exists('header', $options)) {
 foreach ($users as $username) {
 	$username = cliInitUser($username);
 
-	$catDAO = FreshRSS_Factory::createCategoryDao($username);
-	$feedDAO = FreshRSS_Factory::createFeedDao($username);
-	$entryDAO = FreshRSS_Factory::createEntryDao($username);
-	$tagDAO = FreshRSS_Factory::createTagDao($username);
-	$databaseDAO = FreshRSS_Factory::createDatabaseDAO($username);
-
-	$nbEntries = $entryDAO->countUnreadRead();
-	$nbFavorites = $entryDAO->countUnreadReadFavorites();
-	$feedList = $feedDAO->listFeedsIds();
-
-	$data = array(
-		'default' => $username === FreshRSS_Context::$system_conf->default_user ? '*' : '',
-		'user' => $username,
-		'admin' => FreshRSS_Context::$user_conf->is_admin ? '*' : '',
-		'enabled' => FreshRSS_Context::$user_conf->enabled ? '*' : '',
-		'last_user_activity' => FreshRSS_UserDAO::mtime($username),
-		'database_size' => $databaseDAO->size(),
-		'categories' => $catDAO->count(),
-		'feeds' => count($feedList),
-		'reads' => (int)$nbEntries['read'],
-		'unreads' => (int)$nbEntries['unread'],
-		'favourites' => (int)$nbFavorites['all'],
-		'tags' => $tagDAO->count(),
-		'lang' => FreshRSS_Context::$user_conf->language,
-		'mail_login' => FreshRSS_Context::$user_conf->mail_login,
-	);
-	if (isset($options['h'])) {	//Human format
-		$data['last_user_activity'] = date('c', $data['last_user_activity']);
-		$data['database_size'] = format_bytes($data['database_size']);
+	if ($cliOptions->noDbCounts) {
+		$catDAO = null;
+		$feedDAO = null;
+		$tagDAO = null;
+		$nbEntries = null;
+	} else {
+		$catDAO = FreshRSS_Factory::createCategoryDao($username);
+		$feedDAO = FreshRSS_Factory::createFeedDao($username);
+		$entryDAO = FreshRSS_Factory::createEntryDao($username);
+		$tagDAO = FreshRSS_Factory::createTagDao($username);
+		$nbEntries = $entryDAO->countAsStates();
+	}
+	if ($cliOptions->noDbSize) {
+		$databaseDAO = null;
+	} else {
+		$databaseDAO = FreshRSS_Factory::createDatabaseDAO($username);
 	}
 
-	if ($formatJson) {
+	$data = [
+		'default' => $username === FreshRSS_Context::systemConf()->default_user ? '*' : '',
+		'user' => $username,
+		'admin' => FreshRSS_Context::userConf()->is_admin ? '*' : '',
+		'enabled' => FreshRSS_Context::userConf()->enabled ? '*' : '',
+		'last_user_activity' => FreshRSS_UserDAO::mtime($username),
+		'database_size' => isset($databaseDAO) ? $databaseDAO->size() : '?',
+		'categories' => isset($catDAO) ? $catDAO->count() : '?',
+		'feeds' => isset($feedDAO) ? $feedDAO->count() : '?',
+		'reads' => isset($nbEntries) ? $nbEntries['read'] : '?',
+		'unreads' => isset($nbEntries) ? $nbEntries['unread'] : '?',
+		'favourites' => isset($nbEntries) ? $nbEntries['favorites'] : '?',
+		'tags' => isset($tagDAO) ? $tagDAO->count() : '?',
+		'lang' => FreshRSS_Context::userConf()->language,
+		'mail_login' => FreshRSS_Context::userConf()->mail_login,
+	];
+	if ($cliOptions->humanReadable) {	//Human format
+		$data['last_user_activity'] = date('c', $data['last_user_activity']);
+		if (ctype_digit($data['database_size'])) {
+			$data['database_size'] = format_bytes($data['database_size']);
+		}
+	}
+
+	if ($cliOptions->json) {
 		$data['default'] = !empty($data['default']);
 		$data['admin'] = !empty($data['admin']);
 		$data['enabled'] = !empty($data['enabled']);
@@ -97,7 +116,7 @@ foreach ($users as $username) {
 	}
 }
 
-if ($formatJson) {
+if ($cliOptions->json) {
 	echo json_encode($jsonOutput), "\n";
 }
 

@@ -1,17 +1,11 @@
 <?php
+	declare(strict_types=1);
 	/** @var FreshRSS_View $this */
 	if (FreshRSS_Auth::hasAccess()) {
 		$this->partial('aside_configure');
 	}
 ?>
-
 <main class="post content<?= !FreshRSS_Auth::hasAccess() ? ' centered' : ''?>">
-	<?php if (FreshRSS_Auth::hasAccess()) {?>
-	<div class="link-back-wrapper">
-		<a class="link-back" href="<?= _url('index', 'index') ?>"><?= _t('gen.action.back_to_rss_feeds') ?></a>
-	</div>
-	<?php } ?>
-
 	<h1><?= _t('index.about') ?></h1>
 	<p><?= _t('index.about.freshrss_description') ?></p>
 
@@ -24,6 +18,40 @@
 	<h2><?= _t('index.about.bugs_reports') ?></h2>
 	<?= _t('index.about.github') ?>
 
+	<?php if (FreshRSS_Auth::hasAccess('admin')) { ?>
+		<details class="envInfo">
+			<summary><?= _t('index.about.bug_reports.environment_information') ?></summary>
+			<dl>
+				<dt><?= _t('index.about.bug_reports.environment_information.version_frss') ?></dt>
+				<dd><?= htmlspecialchars(FRESHRSS_VERSION, ENT_NOQUOTES, 'UTF-8') ?></dd>
+				<dt><?= _t('index.about.bug_reports.environment_information.version_php') ?></dt>
+				<dd><?= htmlspecialchars(PHP_VERSION, ENT_NOQUOTES, 'UTF-8') ?></dd>
+				<dt><?= _t('index.about.bug_reports.environment_information.version_curl') ?></dt>
+				<?php
+					$curlVersion = curl_version() ?: [];
+					$curlVersionVersion = is_string($curlVersion['version'] ?? null) ? $curlVersion['version'] : '';
+					$sslversion = is_string($curlVersion['ssl_version'] ?? null) ? $curlVersion['ssl_version'] : '';
+				?>
+				<dd><?= htmlspecialchars($curlVersionVersion, ENT_NOQUOTES, 'UTF-8') ?></dd>
+				<dd><?= htmlspecialchars($sslversion, ENT_NOQUOTES, 'UTF-8') ?></dd>
+				<dt><?= _t('index.about.bug_reports.environment_information.database') ?></dt>
+				<dd><?= htmlspecialchars(FreshRSS_Context::systemConf()->db['type'], ENT_NOQUOTES, 'UTF-8') ?></dd>
+				<?php $databaseDAO = FreshRSS_Factory::createDatabaseDAO(); ?>
+				<dd><?= htmlspecialchars($databaseDAO->version(), ENT_NOQUOTES, 'UTF-8') ?></dd>
+				<?php if ($databaseDAO->pdoClientVersion() !== $databaseDAO->version()): ?>
+					<dd><?= htmlspecialchars($databaseDAO->pdoClientVersion(), ENT_NOQUOTES, 'UTF-8') ?></dd>
+				<?php endif; ?>
+				<dt><?= _t('index.about.bug_reports.environment_information.server_software') ?></dt>
+				<dd>
+					<?= is_string($_SERVER['SERVER_SOFTWARE'] ?? null) ? $_SERVER['SERVER_SOFTWARE'] : '' ?><br />
+					<?= htmlspecialchars(php_uname('s') . ' ' . php_uname('r') . ' ' . php_uname('v') . ' ' . php_uname('m'), ENT_NOQUOTES, 'UTF-8') ?>
+				</dd>
+				<dt><?= _t('index.about.bug_reports.environment_information.browser') ?></dt>
+				<dd><?= is_string($_SERVER['HTTP_USER_AGENT'] ?? null) ? htmlspecialchars($_SERVER['HTTP_USER_AGENT'], ENT_NOQUOTES, 'UTF-8') : '' ?></dd>
+			</dl>
+		</details>
+	<?php } ?>
+
 	<h2><?= _t('index.about.license') ?></h2>
 	<?= _t('index.about.agpl3') ?>
 
@@ -33,17 +61,14 @@
 		<?= FRESHRSS_VERSION ?>
 
 		<?php
-		$env = FreshRSS_Context::$system_conf->environment;
-		if ($env !== 'production' && FreshRSS_Context::$user_conf->is_admin) { ?>
+		$env = FreshRSS_Context::systemConf()->environment;
+		if ($env !== 'production' && FreshRSS_Context::userConf()->is_admin) { ?>
 			<h2>data/config.php</h2>
 			<code>'environment' => '<?= $env; ?>'</code><br />
 			<?php
 		}
 	}
 	?>
-
-	<h2><?= _t('index.about.credits') ?></h2>
-	<p><?= _t('index.about.credits_content') ?></p>
 </main>
 
 <?php if (!FreshRSS_Auth::hasAccess()) { ?>

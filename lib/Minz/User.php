@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /**
  * The Minz_User class handles the user information.
@@ -13,7 +14,7 @@ final class Minz_User {
 	 * @return string the name of the current user, or null if there is none
 	 */
 	public static function name(): ?string {
-		$currentUser = trim(Minz_Session::param(Minz_User::CURRENT_USER, ''));
+		$currentUser = trim(Minz_Session::paramString(Minz_User::CURRENT_USER));
 		return $currentUser === '' ? null : $currentUser;
 	}
 

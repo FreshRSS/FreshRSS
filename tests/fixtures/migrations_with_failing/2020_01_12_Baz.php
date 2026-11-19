@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 class FreshRSS_Migration_2020_01_12_Baz {
 	/**

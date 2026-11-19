@@ -11,12 +11,36 @@ if [ "$(id -u)" -ne 0 ]; then
 	exit 3
 fi
 
+# Always fix permissions on the data and extensions directories
+# If specified, only fix the data and extensions directories
+data_path="${DATA_PATH:-./data}"
+if [ "${1:-}" = "--only-userdirs" ]; then
+	to_update="./extensions"
+else
+	to_update="."
+fi
+
+mkdir -p "${data_path}/users/_/"
+
+if getent group www-data >/dev/null; then
+	www_group="www-data" # Debian, Alpine
+elif getent group apache >/dev/null; then
+	www_group="apache" # Alpine
+elif getent group http >/dev/null; then
+	www_group="http" # Arch Linux
+else
+	echo >&2 '⛔ No Apache group {www-data, apache, http} found!'
+	exit 4
+fi
+
 # Based on group access
-chown -R :www-data .
+chown -R :$www_group "$data_path" "$to_update" ||
+	echo >&2 "⚠️ Could not change group ownership on '$data_path' or '$to_update'"
 
 # Read files, and directory traversal
-chmod -R g+rX .
+chmod -R g+rX "$data_path" "$to_update" ||
+	echo >&2 "⚠️ Could not set read/traversal permissions on '$data_path' or '$to_update'"
 
-# Write access
-mkdir -p ./data/users/_/
-chmod -R g+w ./data/
+# Write access to data
+chmod -R g+w "$data_path" ||
+	echo >&2 "⚠️ Could not set write permissions on '$data_path'"

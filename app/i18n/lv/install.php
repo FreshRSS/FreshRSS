@@ -1,14 +1,14 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'action' => array(
@@ -17,14 +17,6 @@ return array(
 		'keep_install' => 'Saglabāt iepriekšējo konfigurāciju',
 		'next_step' => 'Iet uz nākamo soli',
 		'reinstall' => 'Pārinstalēt FreshRSS',
-	),
-	'auth' => array(
-		'form' => 'Tīmekļa veidlapa (tradicionālā, nepieciešams JavaScript)',
-		'http' => 'HTTP (pieredzējušiem lietotājiem ar HTTPS)',
-		'none' => 'Bez (bīstami)',
-		'password_form' => 'Parole<br /><small>(Web-formas pieteikšanās metodei)</small>',
-		'password_format' => 'Vismaz 7 rakstzīmes',
-		'type' => 'Autentifikācijas metode',
 	),
 	'bdd' => array(
 		'_' => 'Datubāze',
@@ -58,6 +50,23 @@ return array(
 			'nok' => 'Pārbaudiet atļaujas <em>%1$s</em> mapē priekš lietotāja <em>%2$s</em>. HTTP serverim jābūt piešķirtām rakstīšanas atļaujām.',
 			'ok' => 'Ar datu mapes atļaujām viss ir kārtībā.',
 		),
+		'database-connection' => array(
+			'nok' => 'Database connection error.',	// TODO
+			'ok' => 'Database connection is good.',	// TODO
+		),
+		'database-table' => array(
+			'nok' => 'Database table "%s" is incomplete.',	// TODO
+			'ok' => 'Database table "%s" is good.',	// TODO
+		),
+		'database-tables' => array(
+			'nok' => 'Some database tables are missing.',	// TODO
+			'ok' => 'All database tables exist.',	// TODO
+		),
+		'database-title' => 'Database',	// TODO
+		'docroot' => array(
+			'nok' => 'Your web server document root does not seem to point to the <code>./p/</code> folder. Other folders such as <code>./data/</code> may be publicly accessible.',	// TODO
+			'ok' => 'Your web server document root correctly points to the <code>./p/</code> folder.',	// TODO
+		),
 		'dom' => array(
 			'nok' => 'Nevar atrast nepieciešamo bibliotēku, lai pārlūkotu DOM (php-xml pakete).',
 			'ok' => 'Jums ir nepieciešamā bibliotēka, lai pārlūkotu DOM.',
@@ -69,6 +78,15 @@ return array(
 		'fileinfo' => array(
 			'nok' => 'Nevar atrast PHP fileinfo bibliotēku (fileinfo pakotne).',
 			'ok' => 'Jums ir fileinfo bibliotēka.',
+		),
+		'files' => 'Failu instalācija',
+		'gmp' => array(
+			'nok' => 'Cannot find the required GMP extension for 32-bit PHP (php-gmp package).',	// TODO
+			'ok' => 'You have the GMP extension required for 32-bit PHP.',	// TODO
+		),
+		'intl' => array(
+			'nok' => 'Cannot find the recommended library php-intl for internationalisation.',	// TODO
+			'ok' => 'You have the recommended library php-intl for internationalisation.',	// TODO
 		),
 		'json' => array(
 			'nok' => 'Nevar atrast JSON (php-json pakete).',
@@ -82,11 +100,22 @@ return array(
 			'nok' => 'Nevar atrast nepieciešamo bibliotēku regulārajām izteiksmēm (php-pcre).',
 			'ok' => 'Jums ir nepieciešamā regulāro izteiksmju bibliotēka (PCRE).',
 		),
+		'pdo-mysql' => array(
+			'nok' => 'Cannot find the required PDO driver for MySQL/MariaDB.',	// TODO
+		),
+		'pdo-pgsql' => array(
+			'nok' => 'Cannot find the required PDO driver for PostgreSQL.',	// TODO
+		),
+		'pdo-sqlite' => array(
+			'nok' => 'Cannot find the PDO driver for SQLite.',	// TODO
+			'ok' => 'You have the PDO driver for SQLite.',	// TODO
+		),
 		'pdo' => array(
-			'nok' => 'Nevar atrast PDO vai kādu no atbalstītajiem draiveriem (pdo_mysql, pdo_sqlite, pdo_pgsql).',
-			'ok' => 'Jums ir PDO un vismaz viens no atbalstītajiem draiveriem (pdo_mysql, pdo_sqlite, pdo_pgsql).',
+			'nok' => 'Nevar atrast PDO vai kādu no atbalstītajiem draiveriem (pdo_sqlite, pdo_pgsql, pdo_mysql).',
+			'ok' => 'Jums ir PDO un vismaz viens no atbalstītajiem draiveriem (pdo_sqlite, pdo_pgsql, pdo_mysql).',
 		),
 		'php' => array(
+			'_' => 'PHP instalācija',
 			'nok' => 'Jūsu PHP versija ir %s, bet FreshRSS nepieciešama vismaz %s versija.',
 			'ok' => 'Jūsu PHP versija (%s) ir saderīga ar FreshRSS.',
 		),
@@ -95,7 +124,11 @@ return array(
 			'nok' => 'Pārbaudiet atļaujas <em>%1$s</em> mapē priekš lietotāja <em>%2$s</em>. HTTP serverim jābūt piešķirtām rakstīšanas atļaujām.',
 			'ok' => 'Ar pagaidu mapes atļaujām viss ir kārtībā.',
 		),
-		'unknown_process_username' => 'unknown',	// TODO
+		'tokens' => array(
+			'nok' => 'Pārbaudiet atļaujas <em>./data/tokens</em> mapē. HTTP serverim jābūt piešķirtām rakstīšanas atļaujām.',
+			'ok' => 'Ar žetonu mapes atļaujām viss ir kārtībā.',
+		),
+		'unknown_process_username' => 'nezināms',
 		'users' => array(
 			'nok' => 'Pārbaudiet atļaujas <em>%1$s</em> mapē priekš lietotāja <em>%2$s</em>. HTTP serverim jābūt piešķirtām rakstīšanas atļaujām.',
 			'ok' => 'Ar lietotāju mapes atļaujām viss ir kārtībā.',
@@ -103,6 +136,10 @@ return array(
 		'xml' => array(
 			'nok' => 'Nevar atrast nepieciešamo bibliotēku XML analizēšanai.',
 			'ok' => 'Jums ir XML analizēšanai nepieciešamā bibliotēka.',
+		),
+		'zip' => array(
+			'nok' => 'Nevar atrast ZIP paplašinājumu (php-zip pakete).',
+			'ok' => 'Jums ir ZIP paplašinājums.',
 		),
 	),
 	'conf' => array(
@@ -112,7 +149,7 @@ return array(
 	'congratulations' => 'Apsveicam!',
 	'default_user' => array(
 		'_' => 'Noklusējuma lietotāja lietotājvārds',
-		'max_char' => 'ne vairāk kā 16 burtu un ciparu zīmes',
+		'max_char' => '1-39 characters: letters, digits, and <code>. _ @ -</code>',	// TODO
 	),
 	'fix_errors_before' => 'Lūdzu izlabojat kļūdas pirms ejat uz nākamo soli.',
 	'javascript_is_better' => 'FreshRSS ir patīkamāks, ja ir iespējots JavaScript',

@@ -1,14 +1,14 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'access' => array(
@@ -50,6 +50,7 @@ return array(
 			'ko' => '%s sa nepodarilo povoliť. <a href="%s">Prečítajte si záznamy FreshRSS</a>, ak chcete poznať podrobnosti.',
 			'ok' => '%s je teraz povolený',
 		),
+		'invalid_view_mode' => 'Invalid view mode “%s”! Fall back to “Normal view”.',	// TODO
 		'no_access' => 'Nemáte prístup k %s',
 		'not_enabled' => '%s nie je povolený',
 		'not_found' => '%s neexistuje',
@@ -57,14 +58,15 @@ return array(
 	),
 	'import_export' => array(
 		'export_no_zip_extension' => 'ZIP rozšírenie sa na vašom serveri nenachádza. Prosím, skúste exportovať súbory pojednom.',
-		'feeds_imported' => 'Váš kanál bol importovaný a bude aktualizovaný / Your feeds have been imported. If you are done importing, you can now click the <i>Update feeds</i> button.',	// DIRTY
-		'feeds_imported_with_errors' => 'Vaše kanály boli importované, ale vyskytli sa chyby / Your feeds have been imported, but some errors occurred. If you are done importing, you can now click the <i>Update feeds</i> button.',	// DIRTY
+		'feeds_imported' => 'Vaše kanály boli importované. Ak ste s importovaním skončili, kliknite na tlačidlo <i>Aktualizovať kanále</i>.',
+		'feeds_imported_with_errors' => 'Vaše kanály boli importované, ale vyskytli sa chyby. Ak ste s importovaním skončili, kliknite na tlačidlo <i>Aktualizovať kanále</i>.',
 		'file_cannot_be_uploaded' => 'Súbor sa nepodarilo nahrať!',
 		'no_zip_extension' => 'ZIP rozšírenie sa na vašom serveri nenachádza.',
-		'zip_error' => 'Počas importovania ZIP sa vyskytla chyba.',	// DIRTY
+		'zip_error' => 'Počas importovania ZIP súboru sa vyskytla chyba.',
 	),
 	'profile' => array(
 		'error' => 'Váš profil nie je možné upraviť',
+		'passwords_dont_match' => 'Passwords don’t match',	// TODO
 		'updated' => 'Váš profil bol upravený',
 	),
 	'sub' => array(
@@ -94,6 +96,10 @@ return array(
 			'cache_cleared' => '<em>%s</em> vyrovnávacia pamäť bola vymazaná',
 			'deleted' => 'Kanál bol vymazaný',
 			'error' => 'Kanál sa nepodarilo aktualizovať',
+			'favicon' => array(
+				'too_large' => 'Uploaded icon is too large. The maximum file size is <em>%s</em>.',	// TODO
+				'unsupported_format' => 'Unsupported image file format!',	// TODO
+			),
 			'internal_problem' => 'Kanál sa nepodarilo pridať. <a href="%s">Prečítajte si záznamy FreshRSS</a>, ak chcete poznať podrobnosti. Skúste pridať kanál pomocou <code>#force_feed</code> v odkaze (URL).',
 			'invalid_url' => 'Odkaz <em>%s</em> je neplatný',
 			'n_actualized' => 'Počet aktualizovaných kanálov: %d',
@@ -116,8 +122,10 @@ return array(
 	),
 	'tag' => array(
 		'created' => 'Štítok “%s” bol vytvorený.',
+		'error' => 'Štítok sa nepodarilo aktualizovať!',
 		'name_exists' => 'Názov štítku už existuje.',
 		'renamed' => 'Štítok “%s” bol premenovaný na “%s”.',
+		'updated' => 'Štítok bol aktualizovaný.',
 	),
 	'update' => array(
 		'can_apply' => 'FreshRSS sa teraz aktualizuje <strong>na verziu %s</strong>.',

@@ -66,9 +66,6 @@ function init_popup_preview_selector() {
 	});
 }
 
-/**
- * Allow a <select class="select-show"> to hide/show elements defined by <option data-show="elem-id"></option>
- */
 function init_disable_elements_on_update(parent) {
 	const inputs = parent.querySelectorAll('input[data-disable-update]');
 	for (const input of inputs) {
@@ -90,8 +87,11 @@ function init_select_show(parent) {
 		const options = select.querySelectorAll('option[data-show]');
 		const shows = {};	// To allow multiple options to show the same element
 		for (const option of options) {
-			if (!shows[option.dataset.show]) {
-				shows[option.dataset.show] = option.selected;
+			const targets = option.dataset.show.split(' ');	// Allow multiple targets
+			for (const target of targets) {
+				if (!shows[target]) {
+					shows[target] = option.selected;
+				}
 			}
 		}
 
@@ -108,6 +108,28 @@ function init_select_show(parent) {
 		select.addEventListener('change', (e) => listener(e.target));
 		listener(select);
 	}
+}
+
+function init_json_feed_detection(parent) {
+	const url = parent.querySelector('#url_rss');
+	const kind = parent.querySelector('#feed_kind');
+	if (!url || !kind) {
+		return;
+	}
+
+	const jsonKind = kind.querySelector('option[data-json-feed="1"]');
+	const details = kind.closest('details');
+	const detect = () => {
+		if (kind.value === kind.options[0]?.value && jsonKind && /(?:\b|_)json(?:\b|_)/i.test(url.value)) {
+			kind.value = jsonKind.value;
+			kind.dispatchEvent(new Event('change', { bubbles: true }));
+			if (details) {
+				details.open = true;
+			}
+		}
+	};
+	url.addEventListener('input', detect);
+	detect();
 }
 
 /** Automatically validate XPath textarea fields */
@@ -157,6 +179,7 @@ function init_feed_afterDOM() {
 		init_popup();
 		init_popup_preview_selector();
 		init_select_show(document.body);
+		init_json_feed_detection(document.body);
 		init_disable_elements_on_update(document.body);
 		init_password_observers(document.body);
 		init_valid_xpath(document.body);

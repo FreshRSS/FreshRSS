@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 class FreshRSS_fever_Util {
 	private const FEVER_PATH = DATA_PATH . '/fever';
@@ -28,10 +29,7 @@ class FreshRSS_fever_Util {
 	 * @throws FreshRSS_Context_Exception
 	 */
 	public static function getKeyPath(string $feverKey): string {
-		if (FreshRSS_Context::$system_conf === null) {
-			throw new FreshRSS_Context_Exception('System configuration not initialised!');
-		}
-		$salt = sha1(FreshRSS_Context::$system_conf->salt);
+		$salt = sha1(FreshRSS_Context::systemConf()->salt);
 		return self::FEVER_PATH . '/.key-' . $salt . '-' . $feverKey . '.txt';
 	}
 
@@ -40,7 +38,7 @@ class FreshRSS_fever_Util {
 	 * @return string|false the Fever key, or false if the update failed
 	 * @throws FreshRSS_Context_Exception
 	 */
-	public static function updateKey(string $username, string $passwordPlain) {
+	public static function updateKey(string $username, #[\SensitiveParameter] string $passwordPlain): string|false {
 		if (!self::checkFeverPath()) {
 			return false;
 		}
@@ -64,7 +62,7 @@ class FreshRSS_fever_Util {
 	 * @throws FreshRSS_Context_Exception
 	 */
 	public static function deleteKey(string $username): bool {
-		$userConfig = get_user_configuration($username);
+		$userConfig = FreshRSS_UserConfiguration::getForUser($username);
 		if ($userConfig === null) {
 			return false;
 		}

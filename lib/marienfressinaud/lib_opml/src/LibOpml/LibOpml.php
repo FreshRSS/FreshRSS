@@ -143,18 +143,30 @@ class LibOpml
      */
     public function parseString($xml)
     {
+        $xml = trim($xml);
+
+        if (!$xml) {
+            throw new Exception('OPML string cannot be empty');
+        }
+
         $dom = new \DOMDocument();
         $dom->recover = true;
         $dom->encoding = 'UTF-8';
 
+        libxml_use_internal_errors(true);
+
         try {
-            $result = @$dom->loadXML($xml);
+            $result = $dom->loadXML($xml, LIBXML_NONET | LIBXML_NOWARNING);
+            $error = $this->getLibxmlError();
         } catch (\Exception | \Error $e) {
             $result = false;
+            $error = $e->getMessage();
         }
 
-        if (!$result || !$dom->documentElement) {
-            throw new Exception('OPML string is not valid XML');
+        libxml_use_internal_errors(false);
+
+        if ($error) {
+            throw new Exception($error);
         }
 
         $opml_element = $dom->documentElement;
@@ -766,5 +778,28 @@ class LibOpml
         if ($this->strict) {
             throw new Exception($message);
         }
+    }
+
+    /**
+     * Return a formatted error if any libxml error is returned by
+     * libxml_get_errors(). In non-strict mode, only fatal errors are reported.
+     */
+    private function getLibxmlError(): string
+    {
+        $libxml_error = '';
+        $errors = libxml_get_errors();
+
+        foreach ($errors as $error) {
+            if (!$this->strict && $error->level < LIBXML_ERR_FATAL) {
+                continue;
+            }
+
+            $message = trim($error->message);
+            $message .= " (line {$error->line}, column {$error->column}, code {$error->code})";
+
+            $libxml_error .= $message . "\n";
+        }
+
+        return trim($libxml_error);
     }
 }

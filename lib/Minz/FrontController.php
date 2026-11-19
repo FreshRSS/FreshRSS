@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 # ***** BEGIN LICENSE BLOCK *****
 # MINZ - a free PHP Framework like Zend Framework
 # Copyright (C) 2011 Marien Fressinaud
@@ -14,7 +16,7 @@
 # GNU Affero General Public License for more details.
 #
 # You should have received a copy of the GNU Affero General Public License
-# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #
 # ***** END LICENSE BLOCK *****
 
@@ -28,21 +30,24 @@ class Minz_FrontController {
 	protected Minz_Dispatcher $dispatcher;
 
 	/**
-	 * Constructeur
-	 * Initialise le dispatcher, met à jour la Request
+	 * Constructor
+	 * Initializes the dispatcher and updates the request
 	 */
-	public function __construct () {
+	public function __construct() {
 		try {
 			$this->setReporting();
 
 			Minz_Request::init();
 
-			$url = Minz_Url::build();
-			$url['params'] = array_merge(
-				empty($url['params']) || !is_array($url['params']) ? [] : $url['params'],
-				$_POST
-			);
-			Minz_Request::forward($url);
+			// Build the current request's URL and forward to it directly.
+			// If needed, a redirect is issued instead to correct the public relative path.
+			// Only GET parameters are part of the URL, and hence of the original request or of a redirect.
+			Minz_Request::forward(Minz_Url::build(), redirect: Minz_Request::pathInfo() !== '');
+
+			// POST parameters (which may contain passwords) are added afterwards so that they never end up in a URL.
+			$post = array_filter($_POST, 'is_string', ARRAY_FILTER_USE_KEY);
+			unset($post['rid']);	// Request ID is only taken from GET
+			Minz_Request::_params(array_merge(Minz_Request::params(), $post));
 		} catch (Minz_Exception $e) {
 			Minz_Log::error($e->getMessage());
 			self::killApp($e->getMessage());
@@ -52,11 +57,13 @@ class Minz_FrontController {
 	}
 
 	/**
-	 * Démarre l'application (lance le dispatcher et renvoie la réponse)
+	 * Starts the application (runs the dispatcher and sends the response)
 	 */
 	public function run(): void {
 		try {
 			$this->dispatcher->run();
+		} catch (Minz_BadRequestException $e) {
+			Minz_Error::error(400, ['error' => [$e->getMessage()]], redirect: true);
 		} catch (Minz_Exception $e) {
 			try {
 				Minz_Log::error($e->getMessage());
@@ -77,9 +84,8 @@ class Minz_FrontController {
 
 	/**
 	 * Kills the programme
-	 * @return never
 	 */
-	public static function killApp(string $txt = '') {
+	public static function killApp(string $txt = ''): never {
 		header('HTTP/1.1 500 Internal Server Error', true, 500);
 		if (function_exists('errorMessageInfo')) {
 			//If the application has defined a custom error message function

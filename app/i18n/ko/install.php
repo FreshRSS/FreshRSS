@@ -1,14 +1,14 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'action' => array(
@@ -17,14 +17,6 @@ return array(
 		'keep_install' => '이전 설정 유지',
 		'next_step' => '다음 단계',
 		'reinstall' => 'FreshRSS 다시 설치',
-	),
-	'auth' => array(
-		'form' => '웹폼 (전통적인 방식, 자바스크립트 필요)',
-		'http' => 'HTTP (HTTPS를 사용하는 고급 사용자용)',
-		'none' => '사용하지 않음 (위험)',
-		'password_form' => '암호<br /><small>(웹폼 로그인 방식 사용시)</small>',
-		'password_format' => '7 글자 이상이어야 합니다',
-		'type' => '인증 방식',
 	),
 	'bdd' => array(
 		'_' => '데이터베이스',
@@ -58,6 +50,23 @@ return array(
 			'nok' => '<em>%s</em> 디렉토리의 권한을 확인하세요. HTTP 서버가 쓰기 권한을 가지고 있어야 합니다',
 			'ok' => 'data 디렉토리의 권한이 올바르게 설정되었습니다.',
 		),
+		'database-connection' => array(
+			'nok' => 'Database connection error.',	// TODO
+			'ok' => 'Database connection is good.',	// TODO
+		),
+		'database-table' => array(
+			'nok' => 'Database table "%s" is incomplete.',	// TODO
+			'ok' => 'Database table "%s" is good.',	// TODO
+		),
+		'database-tables' => array(
+			'nok' => 'Some database tables are missing.',	// TODO
+			'ok' => 'All database tables exist.',	// TODO
+		),
+		'database-title' => 'Database',	// TODO
+		'docroot' => array(
+			'nok' => 'Your web server document root does not seem to point to the <code>./p/</code> folder. Other folders such as <code>./data/</code> may be publicly accessible.',	// TODO
+			'ok' => 'Your web server document root correctly points to the <code>./p/</code> folder.',	// TODO
+		),
 		'dom' => array(
 			'nok' => 'DOM을 다룰 수 있는 라이브러리를 찾을 수 없습니다 (php-xml 패키지).',
 			'ok' => 'DOM을 다룰 수 있는 라이브러리가 설치되어 있습니다.',
@@ -69,6 +78,15 @@ return array(
 		'fileinfo' => array(
 			'nok' => 'fileinfo 라이브러리를 찾을 수 없습니다 (fileinfo 패키지).',
 			'ok' => 'fileinfo 라이브러리가 설치되어 있습니다.',
+		),
+		'files' => '파일 시스템 설치 요구사항',
+		'gmp' => array(
+			'nok' => 'Cannot find the required GMP extension for 32-bit PHP (php-gmp package).',	// TODO
+			'ok' => 'You have the GMP extension required for 32-bit PHP.',	// TODO
+		),
+		'intl' => array(
+			'nok' => 'Cannot find the recommended library php-intl for internationalisation.',	// TODO
+			'ok' => 'You have the recommended library php-intl for internationalisation.',	// TODO
 		),
 		'json' => array(
 			'nok' => 'JSON 확장 기능을 찾을 수 없습니다 (php-json 패키지).',
@@ -82,18 +100,33 @@ return array(
 			'nok' => '정규표현식을 위한 라이브러리를 찾을 수 없습니다 (php-pcre).',
 			'ok' => '정규표현식을 위한 라이브러리가 설치되어 있습니다 (PCRE).',
 		),
+		'pdo-mysql' => array(
+			'nok' => 'Cannot find the required PDO driver for MySQL/MariaDB.',	// TODO
+		),
+		'pdo-pgsql' => array(
+			'nok' => 'Cannot find the required PDO driver for PostgreSQL.',	// TODO
+		),
+		'pdo-sqlite' => array(
+			'nok' => 'Cannot find the PDO driver for SQLite.',	// TODO
+			'ok' => 'You have the PDO driver for SQLite.',	// TODO
+		),
 		'pdo' => array(
-			'nok' => '지원가능한 드라이버나 PDO를 찾을 수 없습니다 (pdo_mysql, pdo_sqlite, pdo_pgsql).',
-			'ok' => '최소 하나의 지원가능한 드라이버와 PDO가 설치되어 있습니다 (pdo_mysql, pdo_sqlite, pdo_pgsql).',
+			'nok' => '지원가능한 드라이버나 PDO를 찾을 수 없습니다 (pdo_sqlite, pdo_pgsql, pdo_mysql).',
+			'ok' => '최소 하나의 지원가능한 드라이버와 PDO가 설치되어 있습니다 (pdo_sqlite, pdo_pgsql, pdo_mysql).',
 		),
 		'php' => array(
+			'_' => 'PHP 설치 요구사항',
 			'nok' => 'PHP 버전은 %s 이지만, FreshRSS에는 최소 %s의 버전이 필요합니다.',
-			'ok' => 'PHP 버전은 %s 이고, FreshRSS와 호환 가능합니다.',
+			'ok' => 'PHP 버전은 %s 이고, FreshRSS와 호환가능 합니다.',
 		),
 		'reload' => '다시 확인',
 		'tmp' => array(
 			'nok' => '<em>%s</em> 디렉토리의 권한을 확인하세요. HTTP 서버가 쓰기 권한을 가지고 있어야 합니다.',
 			'ok' => 'temp 디렉토리의 권한이 올바르게 설정되었습니다.',
+		),
+		'tokens' => array(
+			'nok' => '<em>./data/tokens</em> 디렉토리의 권한을 확인하세요. HTTP 서버가 쓰기 권한을 가지고 있어야 합니다',
+			'ok' => 'tokens 디렉토리의 권한이 올바르게 설정되어 있습니다',
 		),
 		'unknown_process_username' => '알 수 없음',
 		'users' => array(
@@ -104,6 +137,10 @@ return array(
 			'nok' => 'XML 해석을 위한 라이브러리르 찾을 수 없습니다.',
 			'ok' => 'XML 해석을 위한 라이브러리가 설치되어 있습니다.',
 		),
+		'zip' => array(
+			'nok' => 'ZIP 확장 기능을 찾을 수 없습니다 (php-zip 패키지).',
+			'ok' => 'ZIP 확장 기능이 설치되어 있습니다.',
+		),
 	),
 	'conf' => array(
 		'_' => '일반 설정',
@@ -112,7 +149,7 @@ return array(
 	'congratulations' => '축하합니다!',
 	'default_user' => array(
 		'_' => '기본 사용자 이름',
-		'max_char' => '알파벳과 숫자를 포함할 수 있고 최대 16 글자',
+		'max_char' => '1-39 characters: letters, digits, and <code>. _ @ -</code>',	// TODO
 	),
 	'fix_errors_before' => '다음 단계로 가기 전에 문제를 해결하세요.',
 	'javascript_is_better' => 'FreshRSS는 자바스크립트를 사용할 때 더욱 쾌적하고 강력합니다',

@@ -1,37 +1,61 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'about' => array(
 		'_' => 'A prepaus',
 		'agpl3' => '<a href="https://www.gnu.org/licenses/agpl-3.0.html">AGPL 3</a>',	// IGNORE
+		'bug_reports' => array(
+			'environment_information' => array(
+				'_' => 'System information',	// TODO
+				'browser' => 'Browser',	// TODO
+				'database' => 'Database',	// TODO
+				'server_software' => 'Server software',	// TODO
+				'version_curl' => 'cURL version',	// TODO
+				'version_frss' => 'FreshRSS version',	// TODO
+				'version_php' => 'PHP version',	// TODO
+			),
+		),
 		'bugs_reports' => 'Senhalament de problèmas',
-		'credits' => 'Crèdits',
-		'credits_content' => 'Unes elements de l’estil venon del <a href="http://twitter.github.io/bootstrap/">projècte Bootstrap</a> encara que FreshRSS utilize pas aqueste framework. Las <a href="https://gitlab.gnome.org/Archive/gnome-icon-theme-symbolic">icònas</a> venon del <a href="https://www.gnome.org/">projècte GNOME</a>. La polissa <em>Open Sans</em> utilizada foguèt creada per en <a href="https://fonts.google.com/specimen/Open+Sans">Steve Matteson</a>. FreshRSS es basat sus <a href="https://framagit.org/marienfressinaud/MINZ">Minz</a>, un framework PHP.',
 		'documentation' => 'Documentation',	// TODO
 		'freshrss_description' => 'FreshRSS es un agregador de fluxes RSS per l’auto-albergar tal. Sa tòca es d’èsser leugièr e de bon utilizar de prima abòrd mas tanben d’èsser potent e parametrable.',
-		'github' => '<a href="https://github.com/FreshRSS/FreshRSS/issues">sus Github</a>',
+		'github' => '<a href="https://github.com/FreshRSS/FreshRSS/issues">sus GitHub</a>',
 		'license' => 'Licéncia',
 		'project_website' => 'Site del projècte',
 		'title' => 'A prepaus',
 		'version' => 'Version',	// IGNORE
 	),
 	'feed' => array(
-		'add' => 'Podètz ajustar de fluxes.',
 		'empty' => 'I a pas cap de flux de mostrar.',
+		'published' => array(
+			'_' => 'Published',	// TODO
+			'future' => 'Published in the future',	// TODO
+			'today' => 'Published today',	// TODO
+			'yesterday' => 'Published yesterday',	// TODO
+		),
+		'received' => array(
+			'_' => 'Received',	// TODO
+			'today' => 'Received today',	// TODO
+			'yesterday' => 'Received yesterday',	// TODO
+		),
 		'rss_of' => 'Flux RSS de %s',
 		'title' => 'Flux màger',
 		'title_fav' => 'Favorits',
 		'title_global' => 'Vista generala',
+		'userModified' => array(
+			'_' => 'Modified by user',	// TODO
+			'today' => 'Modified by user today',	// TODO
+			'yesterday' => 'Modified by user yesterday',	// TODO
+		),
 	),
 	'log' => array(
 		'_' => 'Jornals d’audit',	// IGNORE
@@ -46,24 +70,56 @@ return array(
 		'bookmark_query' => 'Marcar aquesta requèsta',
 		'favorites' => 'Favorits (%s)',
 		'global_view' => 'Vista generala',
+		'important' => 'Important feeds',	// TODO
 		'main_stream' => 'Flux màger',
 		'mark_all_read' => 'O marcar tot coma legit',
 		'mark_cat_read' => 'Marcar la categoria coma legida',
 		'mark_feed_read' => 'Marcar lo flux coma legit',
 		'mark_selection_unread' => 'Marcar la seleccion coma pas legida',
-		'newer_first' => 'Mai recents en primièr',
+		'mylabels' => 'Mas etiquetas',
 		'non-starred' => 'Mostrar los pas favorits',
 		'normal_view' => 'Vista normala',
-		'older_first' => 'Mai ancians en primièr',
 		'queries' => 'Filtres utilizaire',
 		'read' => 'Mostrar los legits',
 		'reader_view' => 'Vista lectura',
 		'rss_view' => 'Flux RSS',
 		'search_short' => 'Recercar',
+		'sort' => array(
+			'asc' => 'Ascending',	// TODO
+			'c' => array(
+				'name_asc' => 'Category, feed titles A→Z',	// TODO
+				'name_desc' => 'Category, feed titles Z→A',	// TODO
+			),
+			'date_asc' => 'Publication date 1→9',	// TODO
+			'date_desc' => 'Publication date 9→1',	// TODO
+			'desc' => 'Descending',	// TODO
+			'f' => array(
+				'name_asc' => 'Feed title A→Z',	// TODO
+				'name_desc' => 'Feed title Z→A',	// TODO
+			),
+			'id_asc' => 'Freshly received last',	// TODO
+			'id_desc' => 'Freshly received first',	// TODO
+			'length_asc' => 'Content length 1→9',	// TODO
+			'length_desc' => 'Content length 9→1',	// TODO
+			'link_asc' => 'Link A→Z',	// TODO
+			'link_desc' => 'Link Z→A',	// TODO
+			'primary' => array(
+				'_' => 'Sorting criterion',	// TODO
+				'help' => 'Sorting by <em>received</em> date is recommended in most cases, for consistency and performance',	// TODO
+			),
+			'rand' => 'Random order',	// TODO
+			'secondary' => array(
+				'_' => 'Secondary sorting criterion',	// TODO
+				'help' => 'Only relevant when the primary sorting criterion is categories or feeds titles',	// TODO
+			),
+			'title_asc' => 'Title A→Z',	// TODO
+			'title_desc' => 'Title Z→A',	// TODO
+			'user_modified_asc' => 'User modified 1→9',	// TODO
+			'user_modified_desc' => 'User modified 9→1',	// TODO
+		),
 		'starred' => 'Mostrar los favorits',
 		'stats' => 'Estatisticas',
 		'subscription' => 'Gestion dels abonaments',
-		'tags' => 'Mas etiquetas',
 		'unread' => 'Mostar los pas legits',
 	),
 	'share' => 'Partejar',

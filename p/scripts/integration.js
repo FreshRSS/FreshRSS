@@ -15,7 +15,7 @@ const init_integration = function () {
 		const shareTypes = event.target.closest('.group-controls').querySelector('select');
 		const shareType = shareTypes.options[shareTypes.selectedIndex];
 		const template = document.getElementById(shareType.getAttribute('data-form') + '-share');
-		let newShare = template.content.cloneNode(true).querySelector('formgroup').outerHTML;
+		let newShare = template.content.cloneNode(true).querySelector('fieldset').outerHTML;
 
 		newShare = newShare.replace(/##label##/g, shareType.text);
 		newShare = newShare.replace(/##type##/g, shareType.value);
@@ -23,7 +23,7 @@ const init_integration = function () {
 		newShare = newShare.replace(/##key##/g, shares);
 		newShare = newShare.replace(/##method##/g, shareType.getAttribute('data-method'));
 		newShare = newShare.replace(/##field##/g, shareType.getAttribute('data-field'));
-		event.target.closest('formgroup').insertAdjacentHTML('beforebegin', newShare);
+		event.target.closest('fieldset').insertAdjacentHTML('beforebegin', newShare);
 		shares++;
 	});
 

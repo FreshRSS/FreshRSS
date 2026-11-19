@@ -21,7 +21,7 @@
 /*=== Buttons */
 .btn {
 	margin: 0;
-	padding: 5px 10px;
+	padding: 0.25rem 0.5rem;
 	min-height: 20px;
 	line-height: 1.4;
 }
@@ -74,13 +74,13 @@
 	font-size: 0.7rem;
 }
 
-/*=== Day indication */
-.day {
+/*=== Transition indication, e.g. day */
+.transition {
 	font-size: 0.9rem;
 	line-height: 2;
 }
 
-.day .name {
+.transition .name {
 	font-size: 1em;
 	opacity: 0.6;
 }
@@ -130,8 +130,11 @@
 
 /*=== Content of feed articles */
 /*=== Notification and actualize notification */
+.notification {
+	padding: 0.5rem 3rem 0.5rem 0.5rem;
+}
 /*=== "Load more" part */
-#bigMarkAsRead {
+#bigMarkAsRead.big {
 	font-size: 1.2em;
 }
 

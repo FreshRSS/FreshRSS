@@ -1,15 +1,31 @@
 <?php
+	declare(strict_types=1);
 	/** @var FreshRSS_View $this */
 	FreshRSS::preLayout();
+	$class = [];
+	if (Minz_Request::controllerName() !== '') {
+		$class[] = 'controller_' . Minz_Request::controllerName();
+	} else {
+		$class[] = 'file_' . pathinfo(is_string($_SERVER['SCRIPT_NAME'] ?? null) ? $_SERVER['SCRIPT_NAME'] : '', PATHINFO_FILENAME);
+	}
+	$dir = '';
+	if (_t('gen.dir') === 'rtl') {
+		$dir = ' dir="rtl"';
+		$class[] = 'rtl';
+	}
+	$class[] = 'theme_' . FreshRSS_Context::userConf()->theme;
+	if (FreshRSS_Context::userConf()->darkMode !== 'no') {
+		$class[] = 'darkMode_' . FreshRSS_Context::userConf()->darkMode;
+	}
+	if (FreshRSS_Auth::hasAccess()) {
+		$class[] = 'logged_in';
+	}
+	$class = array_map(
+		fn($c) => preg_replace('/\s/', '', $c), $class
+	);
 ?>
 <!DOCTYPE html>
-<html lang="<?= FreshRSS_Context::$user_conf->language ?>" xml:lang="<?= FreshRSS_Context::$user_conf->language ?>"<?php
-$class = '';
-if (_t('gen.dir') === 'rtl') {
-	echo ' dir="rtl"';
-	$class = 'rtl ';
-}
-?> class="<?= $class ?><?= (FreshRSS_Context::$user_conf->darkMode === 'no') ? '' : 'darkMode_' . FreshRSS_Context::$user_conf->darkMode ?>">
+<html lang="<?= FreshRSS_Context::userConf()->language ?>"<?= $dir ?> xml:lang="<?= FreshRSS_Context::userConf()->language ?>" class="<?= implode(' ', $class) ?>">
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
@@ -20,16 +36,16 @@ if (_t('gen.dir') === 'rtl') {
 		</script>
 		<?= FreshRSS_View::headScript() ?>
 		<link rel="manifest" href="<?= Minz_Url::display('/themes/manifest.json') ?>" />
-		<link rel="shortcut icon" id="favicon" type="image/x-icon" sizes="16x16 64x64" href="<?= Minz_Url::display('/favicon.ico') ?>" />
+		<link rel="icon" id="favicon" type="image/svg+xml" href="<?= Minz_Url::display('/themes/icons/favicon.svg') ?>" />
 		<link rel="icon msapplication-TileImage apple-touch-icon" type="image/png" sizes="256x256" href="<?= Minz_Url::display('/themes/icons/favicon-256.png') ?>" />
 		<link rel="apple-touch-icon" href="<?= Minz_Url::display('/themes/icons/apple-touch-icon.png') ?>" />
 		<meta name="apple-mobile-web-app-capable" content="yes" />
 		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
-		<meta name="apple-mobile-web-app-title" content="<?= FreshRSS_Context::$system_conf->title ?>">
+		<meta name="apple-mobile-web-app-title" content="<?= FreshRSS_Context::systemConf()->title ?>">
 		<meta name="msapplication-TileColor" content="#FFF" />
 		<meta name="theme-color" content="#FFF" />
-<?php if (!FreshRSS_Context::$system_conf->allow_referrer) { ?>
-		<meta name="referrer" content="never" />
+<?php if (!FreshRSS_Context::systemConf()->allow_referrer) { ?>
+		<meta name="referrer" content="no-referrer" />
 <?php } ?>
 		<?= FreshRSS_View::headTitle() ?>
 <?php
@@ -37,19 +53,27 @@ if (_t('gen.dir') === 'rtl') {
 	if ($this->rss_title != '') {
 		$url_rss = $url_base;
 		$url_rss['a'] = 'rss';
+		if (FreshRSS_Auth::hasAccess()) {
+			$url_rss['params']['user'] = Minz_User::name() ?? '';
+			$url_rss['params']['token'] = FreshRSS_Context::userConf()->token;
+		}
 		unset($url_rss['params']['rid']);
-		if (FreshRSS_Context::$user_conf->since_hours_posts_per_rss) {
-			$url_rss['params']['hours'] = FreshRSS_Context::$user_conf->since_hours_posts_per_rss;
+		if (FreshRSS_Context::userConf()->since_hours_posts_per_rss) {
+			$url_rss['params']['hours'] = FreshRSS_Context::userConf()->since_hours_posts_per_rss;
 		}
 ?>
 		<link rel="alternate" type="application/rss+xml" title="<?= $this->rss_title ?>" href="<?= Minz_Url::display($url_rss) ?>" />
-<?php } if (FreshRSS_Context::isAll() || FreshRSS_Context::isCategory() || FreshRSS_Context::isFeed()) {
+<?php } if (FreshRSS_Context::isAll() || FreshRSS_Context::isAllAndCategories() || FreshRSS_Context::isAllAndArchived() || FreshRSS_Context::isCategory() || FreshRSS_Context::isFeed()) {
 		$opml_rss = $url_base;
 		$opml_rss['a'] = 'opml';
+		if (FreshRSS_Auth::hasAccess()) {
+			$opml_rss['params']['user'] = Minz_User::name() ?? '';
+			$opml_rss['params']['token'] = FreshRSS_Context::userConf()->token;
+		}
 		unset($opml_rss['params']['rid']);
 ?>
 		<link rel="outline" type="text/x-opml" title="OPML" href="<?= Minz_Url::display($opml_rss) ?>" />
-<?php } if (FreshRSS_Context::$system_conf->allow_robots) { ?>
+<?php } if (FreshRSS_Context::systemConf()->allow_robots) { ?>
 		<meta name="description" content="<?= htmlspecialchars(FreshRSS_Context::$name . ' | ' . FreshRSS_Context::$description, ENT_COMPAT, 'UTF-8') ?>" />
 <?php } else { ?>
 		<meta name="robots" content="noindex,nofollow" />
@@ -76,16 +100,18 @@ if (_t('gen.dir') === 'rtl') {
 <?php
 	$msg = '';
 	$status = 'closed';
-	if (!empty($this->notification)) {
-		$msg = $this->notification['content'];
-		$status = $this->notification['type'];
-
+	$notificationName = '';
+	$notif = Minz_Request::getNotification();
+	if (!empty($notif)) {
+		$msg = $notif['content'];
+		$status = $notif['type'];
+		$notificationName = $notif['notificationName'];
 		invalidateHttpCache();
 	}
 ?>
-<div id="notification" class="notification <?= $status ?>">
-	<span class="msg"><?= $msg ?></span>
-	<a class="close" href=""><?= _i('close') ?></a>
+<div role="dialog" id="notification" class="notification <?= $status ?> <?= $notificationName ?>" aria-describedby="dialogMsg">
+	<span class="msg" id="dialogMsg"><?= $msg ?></span>
+	<button class="close" title="<?= _t('gen.action.close') ?>"><?= _i('close') ?></button>
 </div>
 	</body>
 </html>

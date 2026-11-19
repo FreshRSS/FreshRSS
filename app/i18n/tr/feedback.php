@@ -1,27 +1,27 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'access' => array(
-		'denied' => 'Bu sayfaya erişim yetkiniz yok',
-		'not_found' => 'Varolmayan bir sayfa arıyorsunuz',
+		'denied' => 'Bu sayfaya erişim izniniz yok',
+		'not_found' => 'Var olmayan bir sayfayı arıyorsunuz',
 	),
 	'admin' => array(
 		'optimization_complete' => 'Optimizasyon tamamlandı',
 	),
 	'api' => array(
 		'password' => array(
-			'failed' => 'Şifreniz değiştirilemedi',
-			'updated' => 'Şifreniz değiştirildi',
+			'failed' => 'Parolanız değiştirilemedi',
+			'updated' => 'Parolanız değiştirildi',
 		),
 	),
 	'auth' => array(
@@ -30,99 +30,107 @@ return array(
 			'success' => 'Bağlantı kuruldu',
 		),
 		'logout' => array(
-			'success' => 'Bağlantı koptu',
+			'success' => 'Bağlantınız kesildi',
 		),
 	),
 	'conf' => array(
-		'error' => 'Yapılandırma ayarları kaydedilirken hata oluştu',
-		'query_created' => 'Sorgu “%s” oluşturuldu.',
-		'shortcuts_updated' => 'Kısayollar yenilendi',
-		'updated' => 'Yapılandırm ayarları yenilendi',
+		'error' => 'Yapılandırma kaydedilirken bir hata oluştu',
+		'query_created' => '“%s” sorgusu oluşturuldu.',
+		'shortcuts_updated' => 'Kısayollar güncellendi',
+		'updated' => 'Yapılandırma güncellendi',
 	),
 	'extensions' => array(
-		'already_enabled' => '%s zaten aktif',
-		'cannot_remove' => '%s silinemez',
+		'already_enabled' => '%s zaten etkin',
+		'cannot_remove' => '%s kaldırılamaz',
 		'disable' => array(
-			'ko' => '%s gösterilemiyor. Detaylar için <a href="%s">FreshRSS log kayıtlarını</a> kontrol edin.',
-			'ok' => '%s pasif',
+			'ko' => '%s devre dışı bırakılamadı. Ayrıntılar için <a href="%s">FreshRSS günlüklerini kontrol edin</a>.',
+			'ok' => '%s artık devre dışı',
 		),
 		'enable' => array(
-			'ko' => '%s aktifleştirilemiyor. Detaylar için <a href="%s">FreshRSS log kayıtlarını</a> kontrol edin.',
-			'ok' => '%s aktif',
+			'ko' => '%s etkinleştirilemedi. Ayrıntılar için <a href="%s">FreshRSS günlüklerini kontrol edin</a>.',
+			'ok' => '%s artık etkin',
 		),
-		'no_access' => '%s de yetkiniz yok',
-		'not_enabled' => '%s henüz aktif değil',
-		'not_found' => '%s bulunmamaktadır',
-		'removed' => '%s silindi',
+		'invalid_view_mode' => 'Geçersiz görünüm modu “%s”! "Normal görünüm"e dön.',
+		'no_access' => '%s üzerinde erişiminiz yok',
+		'not_enabled' => '%s etkin değil',
+		'not_found' => '%s mevcut değil',
+		'removed' => '%s kaldırıldı',
 	),
 	'import_export' => array(
-		'export_no_zip_extension' => 'ZIP eklentisi mevcut sunucunuzda yer almıyor. Lütfen başka dosya formatında dışarı aktarmayı deneyin.',
-		'feeds_imported' => 'Akışlarınız içe aktarıldı ve şimdi güncellenecek / Your feeds have been imported. If you are done importing, you can now click the <i>Update feeds</i> button.',	// DIRTY
-		'feeds_imported_with_errors' => 'Akışlarınız içeri aktarıldı ama bazı hatalar meydana geldi / Your feeds have been imported, but some errors occurred. If you are done importing, you can now click the <i>Update feeds</i> button.',	// DIRTY
+		'export_no_zip_extension' => 'Sunucunuzda ZIP uzantısı mevcut değil. Lütfen dosyaları tek tek dışa aktarmayı deneyin.',
+		'feeds_imported' => 'Beslemeleriniz içe aktarıldı. İçe aktarma işleminiz bittiyse, şimdi <i>Beslemeleri güncelle</i> düğmesine tıklayabilirsiniz.',
+		'feeds_imported_with_errors' => 'Beslemeleriniz içe aktarıldı, ancak bazı hatalar oluştu. İçe aktarma işleminiz bittiyse, şimdi <i>Beslemeleri güncelle</i> düğmesine tıklayabilirsiniz.',
 		'file_cannot_be_uploaded' => 'Dosya yüklenemedi!',
-		'no_zip_extension' => 'ZIP eklentisi mevcut sunucunuzda yer almıyor.',
-		'zip_error' => 'ZIP içe aktarımı sırasında hata meydana geldi.',	// DIRTY
+		'no_zip_extension' => 'Sunucunuzda ZIP uzantısı mevcut değil.',
+		'zip_error' => 'ZIP işleme sırasında bir hata oluştu.',
 	),
 	'profile' => array(
-		'error' => 'Profiliniz düzenlenemedi',
-		'updated' => 'Profiliniz düzenlendi',
+		'error' => 'Profiliniz değiştirilemedi',
+		'passwords_dont_match' => 'Parolalar eşleşmiyor',
+		'updated' => 'Profiliniz değiştirildi',
 	),
 	'sub' => array(
-		'actualize' => 'Güncelleme',
+		'actualize' => 'Güncelleniyor',
 		'articles' => array(
-			'marked_read' => 'Seçili makaleler okundu olarak işaretlendi.',
-			'marked_unread' => 'Seçili makaleler okunmadı olarak işaretlendi.',
+			'marked_read' => 'Seçilen makaleler okundu olarak işaretlendi.',
+			'marked_unread' => 'Makaleler okunmadı olarak işaretlendi.',
 		),
 		'category' => array(
-			'created' => 'Kategori %s oluşturuldu.',
+			'created' => '%s kategorisi oluşturuldu.',
 			'deleted' => 'Kategori silindi.',
 			'emptied' => 'Kategori boşaltıldı',
 			'error' => 'Kategori güncellenemedi',
-			'name_exists' => 'Kategori ismi zaten bulunmakta.',
-			'no_id' => 'Kategori id sinden emin olmalısınız.',
-			'no_name' => 'Kategori ismi boş olamaz.',
-			'not_delete_default' => 'Öntanımlı kategoriyi silemezsiniz!',
-			'not_exist' => 'Kategori bulunmamakta!',
-			'over_max' => 'Kategori limitini aştınız (%d)',
-			'updated' => 'Karegori güncellendi.',
+			'name_exists' => 'Kategori adı zaten mevcut.',
+			'no_id' => 'Kategorinin kimliğini belirtmelisiniz.',
+			'no_name' => 'Kategori adı boş olamaz.',
+			'not_delete_default' => 'Varsayılan kategoriyi silemezsiniz!',
+			'not_exist' => 'Kategori mevcut değil!',
+			'over_max' => 'Kategori limitinize ulaştınız (%d)',
+			'updated' => 'Kategori güncellendi.',
 		),
 		'feed' => array(
 			'actualized' => '<em>%s</em> güncellendi',
-			'actualizeds' => 'RSS akışları güncellendi',
-			'added' => '<em>%s</em> RSS akışı eklendi',
-			'already_subscribed' => '<em>%s</em> için zaten aboneliğiniz bulunmakta',
+			'actualizeds' => 'RSS beslemeleri güncellendi',
+			'added' => '<em>%s</em> RSS beslemesi eklendi',
+			'already_subscribed' => '<em>%s</em> beslemesine zaten abonesiniz',
 			'cache_cleared' => '<em>%s</em> önbelleği temizlendi',
-			'deleted' => 'Akış silindi',
-			'error' => 'Akış güncellenemiyor',
-			'internal_problem' => 'RSS akışı eklenemiyor. Detaylar için <a href="%s">FreshRSS log kayıtlarını</a> kontrol edin. You can try force adding by appending <code>#force_feed</code> to the URL.',	// DIRTY
-			'invalid_url' => 'URL <em>%s</em> geçersiz',
-			'n_actualized' => '%d akışları güncellendi',
-			'n_entries_deleted' => '%d makaleleri silindi',
-			'no_refresh' => 'Yenilenecek akış yok…',
+			'deleted' => 'Besleme silindi',
+			'error' => 'Besleme güncellenemedi',
+			'favicon' => array(
+				'too_large' => 'Yüklenen simge çok büyük. Maksimum dosya boyutu <em>%s</em>.',
+				'unsupported_format' => 'Desteklenmeyen görüntü dosyası biçimi!',
+			),
+			'internal_problem' => 'Haber akışı eklenemedi. Ayrıntılar için <a href="%s">FreshRSS günlüklerini kontrol edin</a>. URL’ye <code>#force_feed</code> ekleyerek zorla eklemeyi deneyebilirsiniz.',
+			'invalid_url' => '<em>%s</em> URL’si geçersiz',
+			'n_actualized' => '%d besleme güncellendi',
+			'n_entries_deleted' => '%d makale silindi',
+			'no_refresh' => 'Yenilenecek besleme yok',
 			'not_added' => '<em>%s</em> eklenemedi',
-			'not_found' => 'Akış bulunamadı',
-			'over_max' => 'Akış limitini aştınız (%d)',
+			'not_found' => 'Besleme bulunamadı',
+			'over_max' => 'Besleme limitinize ulaştınız (%d)',
 			'reloaded' => '<em>%s</em> yeniden yüklendi',
 			'selector_preview' => array(
-				'http_error' => 'İnternet site içeriği yüklenirken sorun oluştu.',
-				'no_entries' => 'Bu akışta hiç makale yok. Görünüm oluşturmak için en az bir makale var olmalıdır.',
-				'no_feed' => 'İç sunucu hatası (akış bulunamadı).',
-				'no_result' => 'Seçici herhanbir şey ile eşleşmiyor. Yedek olarak bunun yerine orijinal akış metni görüntülenecektir.',
-				'selector_empty' => 'Seçici boş. Görüntülemek için bir tane tanımlamalısınız.',
+				'http_error' => 'Web sitesi içeriği yüklenemedi.',
+				'no_entries' => 'Bu beslemede makale yok. Önizleme oluşturmak için en az bir makale gerekli.',
+				'no_feed' => 'Dahili hata (besleme bulunamadı).',
+				'no_result' => 'Seçici hiçbir şeyle eşleşmedi. Yedek olarak orijinal besleme metni görüntülenecek.',
+				'selector_empty' => 'Seçici boş. Önizleme oluşturmak için bir tane tanımlamanız gerekiyor.',
 			),
-			'updated' => 'Akış güncellendi',
+			'updated' => 'Besleme güncellendi',
 		),
 		'purge_completed' => 'Temizleme tamamlandı (%d makale silindi)',
 	),
 	'tag' => array(
 		'created' => '“%s” etiketi oluşturuldu.',
-		'name_exists' => 'Etiket zaten mevcut.',
-		'renamed' => '“%s” isimli etiketin ismi “%s” olarak değiştirildi.',
+		'error' => 'Etiket güncellenemedi!',
+		'name_exists' => 'Etiket adı zaten mevcut.',
+		'renamed' => '“%s” etiketi “%s” olarak yeniden adlandırıldı.',
+		'updated' => 'Etiket güncellendi.',
 	),
 	'update' => array(
-		'can_apply' => 'FreshRSS <strong>%s sürümüne</strong> güncellenecek.',
-		'error' => 'Güncelleme işlemi sırasında hata: %s',
-		'file_is_nok' => '<strong>%s sürümüne</strong>. <em>%s</em> klasör yetkisini kontrol edin. HTTP yazma yetkisi olmalı',
+		'can_apply' => 'FreshRSS için bir güncelleme mevcut: <strong>Sürüm %s</strong>.',
+		'error' => 'Güncelleme işlemi bir hatayla karşılaştı: %s',
+		'file_is_nok' => 'FreshRSS için bir güncelleme mevcut (<strong>Sürüm %s</strong>), ancak <em>%s</em> dizinindeki izinleri kontrol edin. HTTP sunucusunun yazma izni olmalı',
 		'finished' => 'Güncelleme tamamlandı!',
 		'none' => 'Güncelleme yok',
 		'server_not_found' => 'Güncelleme sunucusu bulunamadı. [%s]',
@@ -138,7 +146,7 @@ return array(
 		),
 		'updated' => array(
 			'_' => '%s kullanıcısı güncellendi',
-			'error' => '%s kullanıcısı güncellenmedi',
+			'error' => '%s kullanıcısı güncellenemedi',
 		),
 	),
 );

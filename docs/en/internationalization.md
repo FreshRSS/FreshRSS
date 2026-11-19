@@ -6,7 +6,7 @@ Thanks to our contributors, FreshRSS is translated into [more than 20 languages]
 
 It is common (and that’s an understatement) to want to show some text to the user. The problem is that FreshRSS has users of different nationalities. It is therefore necessary to be able to manage different languages in order not to remain confined to English or French.
 
-The solution is to use the `Minz_Translate` module, which allows dynamic translation of FreshRSS. Before using this module, it is necessary to know where to find the strings to be translated. Each language has its own subdirectory in a parent directory named `app/i18n/`. For example, English language files are located in [`app/i18n/en/`](/app/i18n/en/). There are seven different files:
+The solution is to use the `Minz_Translate` module, which allows dynamic translation of FreshRSS. Before using this module, it is necessary to know where to find the strings to be translated. Each language has its own subdirectory in a parent directory named `app/i18n/`. For example, English language files are located in [`app/i18n/en/`](https://github.com/FreshRSS/FreshRSS/tree/edge/app/i18n/en). There are seven different files:
 
 * `admin.php` for anything related to FreshRSS administration
 * `conf.php` for configuration
@@ -19,7 +19,7 @@ The solution is to use the `Minz_Translate` module, which allows dynamic transla
 
 This organization makes it possible to avoid a single huge translation file.
 
-The translation files are quite simple: it’s only a matter of returning a PHP array containing the translations. As an example, here’s an extract from [`app/i18n/fr/gen.php`](/app/i18n/fr/gen.php):
+The translation files are quite simple: it’s only a matter of returning a PHP array containing the translations. As an example, here’s an extract from [`app/i18n/fr/gen.php`](https://github.com/FreshRSS/FreshRSS/blob/edge/app/i18n/fr/gen.php):
 
 ```php
 <?php
@@ -42,6 +42,8 @@ return array(
 Each value can be referenced by a key: it consists of a series of identifiers separated by dots. The first identifier indicates from which file to extract the translation, while the following ones indicate array entries. Thus, the `gen.freshrss.about` key is referencing the `about` entry from the `freshrss` entry which is part of the main array returned by the `gen.php` file. This allows us to further organize our translation files.
 
 You should not have to write the array by yourself and we provide several commands to ease the manipulation of these files. Let’s see some common use cases.
+
+> ℹ Check [`freshrss-i18n/SKILL.md`](https://github.com/FreshRSS/FreshRSS/blob/edge/.github/skills/freshrss-i18n/SKILL.md) for detailed coding conventions (both for humans and AI agents).
 
 ## Add support for a new language
 
@@ -67,6 +69,10 @@ make i18n-format
 
 It will remove the comments on the lines that you’ve changed, and will reformat the file correctly. If you’ve made any mistakes, it will fix them automatically or it will tell you it can’t (well… the command will dramatically fail without any damage, don’t worry).
 
+Entries marked `// DIRTY` need review. Formatting adds the current English text after the marker, for example `// DIRTY - Save your changes`, so you can compare it with the translation on the same line. Remove the marker once you have reviewed the translation.
+
+For translations with a single plural form, the comment includes both English forms, labelled `Singular:` and `Plural:`.
+
 The strings to translate can be easily found in the translations files thanks to the tag we spoke about at the end of the previous section. Indeed, it indicates to our tools that the strings are not translated yet. This means you can find them with Git. For instance for the Greek language:
 
 ```sh
@@ -83,7 +89,7 @@ make i18n-ignore-key lang=fr key=index.about.version
 
 This command adds an IGNORE comment on the translation so the key can be considered as translated.
 
-## Add/remove/update a key
+## Add/remove/update/rename a key
 
 If you’re developing a new part of the application, you might want to declare a new translation key. Your first impulse would be to add the key to each file manually: don’t do that, it’s very painful. We provide another command:
 
@@ -107,6 +113,11 @@ make i18n-update-key key=the.key.to.change value='The new string in English'
 
 The key will simply be removed and added back with the new value.
 
+If you want to move/rename a key, you can use:
+```sh
+make i18n-move-key key=the.key.to.move new-key=new.location.of.the.key
+```
+
 ## How to access a translation programmatically
 
 To access these translations, you must use the `_t()` function (which is a shortcut for `Minz_Translate::t()`). Code example:
@@ -119,7 +130,7 @@ To access these translations, you must use the `_t()` function (which is a short
 
 The function expects a translation key, but there’s a special case that sometimes makes life easier: the `_` identifier. This must necessarily be present at the end of the chain and gives a value to the higher-level identifier. It’s pretty hard to explain but very simple to understand. In the example given above, an `_` is associated with the value `FreshRSS`: this means that there is no need to write `_t('gen.freshrss._')` but `_t('gen.freshrss')` suffices.
 
-`_t()` can take any number of variables. The variables will then be replaced in the translation if it contains some “conversion specifications” (usually `%s` or `%d`). You can learn more about these specifications in the [`sprintf()` PHP function documentation](https://www.php.net/manual/function.sprintf).
+`_t()` can take any number of variables. The variables will then be replaced in the translation if it contains some “conversion specifications” (usually `%s` or `%d`). You can learn more about these specifications in the [`sprintf()` PHP function documentation](https://www.php.net/function.sprintf).
 
 For instance, the English translation for `gen.auth.keep_logged_in` is `Keep me logged in <small>(%s days)</small>`. It means this translation expects a string to be passed as an argument to the `t()` function (well, it should be a `%d` because we want a number here, but it doesn’t matter). For instance:
 

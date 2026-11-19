@@ -61,4 +61,11 @@ function onchange_maxNumbersOfAccounts(ev) {
 init_selectInputChanger();
 init_maxNumbersOfAccountsStatus();
 
+const slider = document.getElementById('slider');
+if (slider) {
+	slider.addEventListener('freshrss:slider-load', function (e) {
+		init_selectInputChanger();
+	});
+}
+
 // @license-end

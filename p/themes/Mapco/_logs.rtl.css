@@ -1,0 +1,5 @@
+/*=== LOGS */
+/*=========*/
+.log-item.log-error {
+	background-color: rgba(var(--main-first), 0.2);
+}

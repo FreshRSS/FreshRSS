@@ -1,4 +1,4 @@
-# Minz Framework
+# Minz framework
 
 Minz is the homemade PHP framework used by FreshRSS.
 
@@ -173,7 +173,7 @@ $url_array = [
 $feedback_good = 'All went well!';
 $feedback_bad = 'Oops, something went wrong.';
 
-Minz_Request::good($feedback_good, $url_array);
+Minz_Request::good($feedback_good, $url_array, showNotification: FreshRSS_Context::userConf()->good_notification_timeout > 0);
 
 // or
 
@@ -184,7 +184,7 @@ Minz_Request::bad($feedback_bad, $url_array);
 
 ## Translation Management
 
-This part [is explained here](/docs/en/internationalization.md).
+This part [is explained here](../../internationalization.md).
 
 ## Migration
 

@@ -1,6 +1,6 @@
 // @license magnet:?xt=urn:btih:0b31508aeb0634b347b8270c7bee4d411b5d4109&dn=agpl-3.0.txt AGPL-3.0
 'use strict';
-/* globals context, init_load_more, init_posts, init_stream */
+/* globals context, init_load_more, init_posts, init_stream, enforce_referrer_allowlist */
 
 let panel_loading = false;
 
@@ -19,15 +19,16 @@ function load_panel(link) {
 			return;
 		}
 		const html = this.response;
-		const foreign = html.querySelectorAll('.nav_menu, #stream .day, #stream .flux, #stream-footer, #stream.prompt');
+		const foreign = html.querySelectorAll('.nav_menu, #stream .day, #stream .flux, .stream-footer, #stream.prompt');
 		const panel = document.getElementById('panel');
 		foreign.forEach(function (el) {
 			panel.appendChild(document.adoptNode(el));
 		});
-		panel.querySelectorAll('.nav_menu > :not([id="nav_menu_read_all"])').forEach(function (el) {
+		panel.querySelectorAll('.nav_menu > :not(.nav_menu_read_all)').forEach(function (el) {
 			el.remove();
 		});
 
+		enforce_referrer_allowlist(panel);
 		init_load_more(panel);
 		init_posts();
 
@@ -43,13 +44,13 @@ function load_panel(link) {
 
 		// We already have a click listener in main.js
 		panel.addEventListener('click', function (ev) {
-			const b = ev.target.closest('#nav_menu_read_all button, #bigMarkAsRead');
+			const b = ev.target.closest('.nav_menu_read_all button, #bigMarkAsRead');
 			if (b) {
 				console.log(b.formAction);
 
 				const req2 = new XMLHttpRequest();
 				req2.open('POST', b.formAction, false);
-				req2.setRequestHeader('Content-Type', 'application/json');
+				req2.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
 				req2.send(JSON.stringify({
 					_csrf: context.csrf,
 				}));
@@ -84,15 +85,14 @@ function init_close_panel() {
 }
 
 function init_global_view() {
-	// TODO: should be based on generic classes
-	document.querySelectorAll('.box a').forEach(function (a) {
+	document.querySelectorAll('.open-panel').forEach(function (a) {
 		a.onclick = function (ev) {
 			load_panel(a.href);
 			return false;
 		};
 	});
 
-	document.querySelectorAll('.nav_menu #nav_menu_read_all, .nav_menu .toggle_aside').forEach(function (el) {
+	document.querySelectorAll('.nav_menu .nav_menu_read_all, .nav_menu .toggle_aside').forEach(function (el) {
 		el.remove();
 	});
 

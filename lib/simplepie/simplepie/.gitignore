@@ -1,0 +1,10 @@
+*sandbox*
+demo/cache/*
+SimplePie.compiled.php
+vendor/
+composer.lock
+phpstan.neon
+phpunit.xml
+.php-cs-fixer.cache
+.phpunit.cache/
+.phpunit.result.cache

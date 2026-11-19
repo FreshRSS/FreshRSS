@@ -1,136 +1,173 @@
 <?php
 
-/******************************************************************************/
-/* Each entry of that file can be associated with a comment to indicate its   */
-/* state. When there is no comment, it means the entry is fully translated.   */
-/* The recognized comments are (comment matching is case-insensitive):        */
-/*   + TODO: the entry has never been translated.                             */
-/*   + DIRTY: the entry has been translated but needs to be updated.          */
-/*   + IGNORE: the entry does not need to be translated.                      */
-/* When a comment is not recognized, it is discarded.                         */
-/******************************************************************************/
+/******************************************************************************
+ * Each entry of that file can be associated with a comment to indicate its   *
+ * state. When there is no comment, it means the entry is fully translated.   *
+ * The recognized comments are (comment matching is case-insensitive):        *
+ *   + TODO: the entry has never been translated.                             *
+ *   + DIRTY: the entry has been translated but needs to be updated.          *
+ *   + IGNORE: the entry does not need to be translated.                      *
+ * When a comment is not recognized, it is discarded.                         *
+ ******************************************************************************/
 
 return array(
 	'action' => array(
-		'finish' => 'Complete installation',	// TODO
-		'fix_errors_before' => 'Please all fix errors before continuing to the next step.',	// TODO
-		'keep_install' => 'Keep previous configuration',	// TODO
-		'next_step' => 'Go to the next step',	// TODO
-		'reinstall' => 'Reinstall FreshRSS',	// TODO
-	),
-	'auth' => array(
-		'form' => 'Web form (traditional',
-		'http' => 'HTTP (for advanced users with HTTPS)',	// TODO
-		'none' => 'None (dangerous)',	// TODO
-		'password_form' => 'Password<br /><small>(for the Web-form login method)</small>',	// TODO
-		'password_format' => 'At least 7 characters',	// TODO
-		'type' => 'Authentication method',	// TODO
+		'finish' => 'مراحل نصب به پایان رسید',
+		'fix_errors_before' => 'لطفاً تمام خطاها را قبل از رفتن به مرحله بعد برطرف کنید.',
+		'keep_install' => 'پیکربندی قبلی را حفظ کنید',
+		'next_step' => 'به مرحله بعد بروید',
+		'reinstall' => 'نصب مجدد FreshRSS',
 	),
 	'bdd' => array(
-		'_' => 'Database',	// TODO
+		'_' => 'پایگاه داده',
 		'conf' => array(
-			'_' => 'Database configuration',	// TODO
-			'ko' => 'Verify your database configuration.',	// TODO
-			'ok' => 'Database configuration has been saved.',	// TODO
+			'_' => 'پیکربندی پایگاه داده',
+			'ko' => 'پیکربندی پایگاه داده خود را بررسی کنید.',
+			'ok' => 'تنظیمات پایگاه داده ذخیره شد.',
 		),
-		'host' => 'Host',	// TODO
-		'password' => 'Database password',	// TODO
-		'prefix' => 'Table prefix',	// TODO
-		'type' => 'Type of database',	// TODO
-		'username' => 'Database username',	// TODO
+		'host' => 'هاست',
+		'password' => 'رمز عبور پایگاه داده',
+		'prefix' => 'پیشوند جدول',
+		'type' => 'نوع پایگاه داده',
+		'username' => 'نام کاربری پایگاه داده',
 	),
 	'check' => array(
-		'_' => 'Checks',	// TODO
-		'already_installed' => 'We have detected that FreshRSS is already installed!',	// TODO
+		'_' => 'بررسی‌ها',
+		'already_installed' => 'تشخیص دادیم که FreshRSS قبلاً نصب شده است.',
 		'cache' => array(
-			'nok' => 'Check permissions on the <em>%1$s</em> directory for <em>%2$s</em> user. The HTTP server must have write permission.',	// TODO
-			'ok' => 'Permissions on the cache directory are good.',	// TODO
+			'nok' => 'مجوزهای دایرکتوری <em>%1$s</em> را برای کاربر <em>%2$s</em> بررسی کنید. سرور وب به دسترسی نوشتن نیاز دارد.',
+			'ok' => 'مجوزهای موجود در فهرست حافظه پنهان خوب است.',
 		),
 		'ctype' => array(
-			'nok' => 'Cannot find the required library for character type checking (php-ctype).',	// TODO
-			'ok' => 'You have the required library for character type checking (ctype).',	// TODO
+			'nok' => 'کتابخانه مورد نیاز برای بررسی نوع کاراکتر (php-ctype) را نمی‌توان پیدا کرد.',
+			'ok' => 'شما کتابخانه مورد نیاز برای بررسی نوع کاراکتر (ctype) را دارید.',
 		),
 		'curl' => array(
-			'nok' => 'Cannot find the cURL library (php-curl package).',	// TODO
-			'ok' => 'You have the cURL library.',	// TODO
+			'nok' => 'کتابخانه cURL (بسته php-curl) پیدا نشد.',
+			'ok' => 'شما کتابخانه cURL را دارید.',
 		),
 		'data' => array(
-			'nok' => 'Check permissions on the <em>%1$s</em> directory for <em>%2$s</em> user. The HTTP server must have write permission.',	// TODO
-			'ok' => 'Permissions on the data directory are good.',	// TODO
+			'nok' => 'مجوزهای دایرکتوری <em>%1$s</em> را برای کاربر <em>%2$s</em> بررسی کنید. سرور HTTP باید مجوز نوشتن داشته باشد.',
+			'ok' => 'مجوزهای مربوط به دایرکتوری داده خوب است.',
+		),
+		'database-connection' => array(
+			'nok' => 'خطا در اتصال به پایگاه داده.',
+			'ok' => 'اتصال به پایگاه داده درست است.',
+		),
+		'database-table' => array(
+			'nok' => 'جدول پایگاه داده "%s" ناقص است.',
+			'ok' => 'جدول پایگاه داده "%s" درست است.',
+		),
+		'database-tables' => array(
+			'nok' => 'برخی جدول‌های پایگاه داده وجود ندارند.',
+			'ok' => 'همه جدول‌های پایگاه داده وجود دارند.',
+		),
+		'database-title' => 'پایگاه داده',
+		'docroot' => array(
+			'nok' => 'Your web server document root does not seem to point to the <code>./p/</code> folder. Other folders such as <code>./data/</code> may be publicly accessible.',	// TODO
+			'ok' => 'Your web server document root correctly points to the <code>./p/</code> folder.',	// TODO
 		),
 		'dom' => array(
-			'nok' => 'Cannot find the required library to browse the DOM.',	// TODO
-			'ok' => 'You have the required library to browse the DOM.',	// TODO
+			'nok' => 'کتابخانه مورد نیاز برای مرور DOM را نمی‌توان پیدا کرد.',
+			'ok' => 'شما کتابخانه مورد نیاز برای مرور DOM را دارید.',
 		),
 		'favicons' => array(
-			'nok' => 'Check permissions on the <em>%1$s</em> directory for <em>%2$s</em> user. The HTTP server must have write permission.',	// TODO
-			'ok' => 'Permissions on the favicons directory are good.',	// TODO
+			'nok' => 'مجوزهای دایرکتوری <em>%1$s</em> را برای کاربر <em>%2$s</em> بررسی کنید. سرور HTTP باید مجوز نوشتن داشته باشد.',
+			'ok' => 'دسترسی‌ها به پوشه‌ی favicons خوب است.',
 		),
 		'fileinfo' => array(
-			'nok' => 'Cannot find the PHP fileinfo library (fileinfo package).',	// TODO
-			'ok' => 'You have the fileinfo library.',	// TODO
+			'nok' => 'نمی‌توانم کتابخانه‌ی PHP fileinfo (بسته‌ی fileinfo) را پیدا کنم.',
+			'ok' => 'شما کتابخانه fileinfo را دارید.',
+		),
+		'files' => ' نصب فایل',
+		'gmp' => array(
+			'nok' => 'Cannot find the required GMP extension for 32-bit PHP (php-gmp package).',	// TODO
+			'ok' => 'You have the GMP extension required for 32-bit PHP.',	// TODO
+		),
+		'intl' => array(
+			'nok' => 'کتابخانه پیشنهادی php-intl برای بین‌المللی‌سازی پیدا نشد.',
+			'ok' => 'کتابخانه پیشنهادی php-intl برای بین‌المللی‌سازی روی سیستم شما نصب است.',
 		),
 		'json' => array(
-			'nok' => 'Cannot find the recommended library to parse JSON.',	// TODO
-			'ok' => 'You have the recommended library to parse JSON.',	// TODO
+			'nok' => 'کتابخانه پیشنهادی برای تجزیه JSON پیدا نشد.',
+			'ok' => 'شما کتابخانه پیشنهادی برای تجزیه JSON را دارید.',
 		),
 		'mbstring' => array(
-			'nok' => 'Cannot find the recommended library mbstring for Unicode.',	// TODO
-			'ok' => 'You have the recommended library mbstring for Unicode.',	// TODO
+			'nok' => 'کتابخانه ضروری mbstring جهت پشتیبانی از یونیکد پیدا نشد',
+			'ok' => 'کتابخانه توصیه شده mbstring برای یونیکد روی سیستم شما نصب است.',
 		),
 		'pcre' => array(
-			'nok' => 'Cannot find the required library for regular expressions (php-pcre).',	// TODO
-			'ok' => 'You have the required library for regular expressions (PCRE).',	// TODO
+			'nok' => 'کتابخانه مورد نیاز برای عبارات منظم (php-pcre) را نمی‌توان پیدا کرد',
+			'ok' => 'شما کتابخانه مورد نیاز برای عبارات منظم (PCRE) را دارید.',
+		),
+		'pdo-mysql' => array(
+			'nok' => 'درایور PDO مورد نیاز برای MySQL/MariaDB پیدا نشد.',
+		),
+		'pdo-pgsql' => array(
+			'nok' => 'درایور PDO مورد نیاز برای PostgreSQL پیدا نشد.',
+		),
+		'pdo-sqlite' => array(
+			'nok' => 'درایور PDO برای SQLite پیدا نشد.',
+			'ok' => 'درایور PDO برای SQLite روی سیستم شما نصب است.',
 		),
 		'pdo' => array(
-			'nok' => 'Cannot find PDO or one of the supported drivers (pdo_mysql, pdo_sqlite, pdo_pgsql).',	// TODO
-			'ok' => 'You have PDO and at least one of the supported drivers (pdo_mysql, pdo_sqlite, pdo_pgsql).',	// TODO
+			'nok' => 'نمی‌توان PDO یا یکی از درایورهای پشتیبانی‌شده (pdo_mysql، pdo_sqlite، pdo_pgsql) را پیدا کرد.',
+			'ok' => 'شما PDO و حداقل یکی از درایورهای پشتیبانی شده (pdo_mysql، pdo_sqlite، pdo_pgsql) را دارید.',
 		),
 		'php' => array(
-			'nok' => 'Your PHP version is %s, but FreshRSS requires at least version %s.',	// TODO
-			'ok' => 'Your PHP version, %s, is compatible with FreshRSS.',	// TODO
+			'_' => 'نصب PHP',
+			'nok' => ' نسخه PHP شما %s است اما FreshRSS حداقل به نسخه %s نیاز دارد.',
+			'ok' => ' نسخه PHP شما (%s) با FreshRSS سازگار است.',
 		),
-		'reload' => 'Check again',	// TODO
+		'reload' => 'دوباره بررسی کنید',
 		'tmp' => array(
-			'nok' => 'Check permissions on the <em>%1$s</em> directory for <em>%2$s</em> user. The HTTP server must have write permissions.',	// TODO
-			'ok' => 'Permissions on the temp directory are good.',	// TODO
+			'nok' => 'مجوزهای دایرکتوری <em>%1$s</em> را برای کاربر <em>%2$s</em> بررسی کنید. سرور HTTP باید مجوزهای نوشتن داشته باشد.',
+			'ok' => 'مجوزهای مربوط به دایرکتوری موقت خوب است.',
 		),
-		'unknown_process_username' => 'unknown',	// TODO
+		'tokens' => array(
+			'nok' => ' مجوزهای دایرکتوری <em>./data/tokens</em> را بررسی کنید. سرور HTTP باید مجوز نوشتن داشته باشد',
+			'ok' => ' مجوزهای دایرکتوری توکن ها خوب است.',
+		),
+		'unknown_process_username' => 'ناشناخته',
 		'users' => array(
-			'nok' => 'Check permissions on the <em>%1$s</em> directory for <em>%2$s</em> user. The HTTP server must have write permissions.',	// TODO
-			'ok' => 'Permissions on the users directory are good.',	// TODO
+			'nok' => 'مجوزهای دایرکتوری <em>%1$s</em> را برای کاربر <em>%2$s</em> بررسی کنید. سرور HTTP باید مجوزهای نوشتن داشته باشد.',
+			'ok' => 'مجوزهای مربوط به دایرکتوری کاربران خوب است.',
 		),
 		'xml' => array(
-			'nok' => 'Cannot find the required library to parse XML.',	// TODO
-			'ok' => 'You have the required library to parse XML.',	// TODO
+			'nok' => 'کتابخانه مورد نیاز برای تجزیه XML پیدا نمی‌شود.',
+			'ok' => 'شما کتابخانه مورد نیاز برای تجزیه XML را دارید.',
+		),
+		'zip' => array(
+			'nok' => ' نمی توان پسوند ZIP (بسته php-zip) را پیدا کرد.',
+			'ok' => ' شما پسوند ZIP را دارید.',
 		),
 	),
 	'conf' => array(
-		'_' => 'General configuration',	// TODO
-		'ok' => 'General configuration has been saved.',	// TODO
+		'_' => 'پیکربندی عمومی',
+		'ok' => 'پیکربندی عمومی ذخیره شده است.',
 	),
-	'congratulations' => 'Congratulations!',	// TODO
+	'congratulations' => 'تبریک می‌گویم!',
 	'default_user' => array(
-		'_' => 'Username of the default user',	// TODO
-		'max_char' => 'maximum 16 alphanumeric characters',	// TODO
+		'_' => 'نام کاربری کاربر پیش‌فرض',
+		'max_char' => '1-39 characters: letters, digits, and <code>. _ @ -</code>',	// TODO
 	),
-	'fix_errors_before' => 'Please fix errors before continuing to the next step.',	// TODO
-	'javascript_is_better' => 'FreshRSS is more pleasant with JavaScript enabled',	// TODO
+	'fix_errors_before' => 'لطفا قبل از رفتن به مرحله بعدی، خطاها را برطرف کنید.',
+	'javascript_is_better' => 'FreshRSS با فعال بودن جاوااسکریپت کارآمدتر است.',
 	'js' => array(
-		'confirm_reinstall' => 'You will lose your previous configuration by reinstalling FreshRSS. Are you sure you want to continue?',	// TODO
+		'confirm_reinstall' => 'با نصب مجدد FreshRSS، تنظیمات قبلی خود را از دست خواهید داد. آیا مطمئن هستید که می‌خواهید ادامه دهید؟',
 	),
 	'language' => array(
-		'_' => 'Language',	// TODO
-		'choose' => 'Choose a language for FreshRSS',	// TODO
-		'defined' => 'Language has been defined.',	// TODO
+		'_' => 'زبان',
+		'choose' => 'یک زبان برای FreshRSS انتخاب کنید',
+		'defined' => 'زبان تعریف شده است.',
 	),
-	'missing_applied_migrations' => 'Something went wrong; you should create an empty file <em>%s</em> manually.',	// TODO
-	'ok' => 'The installation process was successful.',	// TODO
+	'missing_applied_migrations' => 'مشکلی پیش آمده است؛ شما باید یک فایل خالی <em>%s</em> به صورت دستی ایجاد کنید.',
+	'ok' => 'مراحل نصب با موفقیت انجام شد.',
 	'session' => array(
-		'nok' => 'The web server seems to be incorrectly configured for cookies required for PHP sessions!',	// TODO
+		'nok' => 'به نظر می‌رسد وب سرور برای کوکی‌های مورد نیاز برای جلسات PHP به طور نادرست پیکربندی شده است!',
 	),
-	'step' => 'step %d',	// TODO
-	'steps' => 'Steps',	// TODO
-	'this_is_the_end' => 'This is the end',	// TODO
-	'title' => 'Installation · FreshRSS',	// TODO
+	'step' => 'مرحله %d',
+	'steps' => 'مراحل',
+	'this_is_the_end' => 'پایان',
+	'title' => 'نصب · FreshRSS',
 );

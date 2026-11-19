@@ -1,7 +1,9 @@
 <?php
+declare(strict_types=1);
+
 /**
  * MINZ - Copyright 2011 Marien Fressinaud
- * Sous licence AGPL3 <http://www.gnu.org/licenses/>
+ * Licensed under AGPL3 <https://www.gnu.org/licenses/>
 */
 
 /**
@@ -17,17 +19,18 @@ class Minz_View {
 	/** @var array<string> */
 	private static array $base_pathnames = [APP_PATH];
 	private static string $title = '';
-	/** @var array<array{'media':string,'url':string}> */
+	/** @var array<array{media:string,url:string}> */
 	private static array $styles = [];
-	/** @var array<array{'url':string,'id':string,'defer':bool,'async':bool}> */
+	/** @var array<array{url:string,id:string,defer:bool,async:bool}> */
 	private static array $scripts = [];
-	/** @var string|array{'dark'?:string,'light'?:string,'default'?:string} */
+	/** @var string|array{dark?:string,light?:string,default?:string} */
 	private static $themeColors;
 	/** @var array<string,mixed> */
 	private static array $params = [];
 
 	/**
 	 * Determines if a layout is used or not
+	 * @throws Minz_ConfigurationException
 	 */
 	public function __construct() {
 		$this->_layout(self::LAYOUT_DEFAULT);
@@ -36,11 +39,12 @@ class Minz_View {
 	}
 
 	/**
-	 * @deprecated Change the view file based on controller and action.
+	 * Change the view file based on controller and action.
 	 */
+	#[Deprecated('Use Minz_View::_path() instead.')]
 	public function change_view(string $controller_name, string $action_name): void {
 		Minz_Log::warning('Minz_View::change_view is deprecated, it will be removed in a future version. Please use Minz_View::_path instead.');
-		$this->_path($controller_name. '/' . $action_name . '.phtml');
+		$this->_path($controller_name . '/' . $action_name . '.phtml');
 	}
 
 	/**
@@ -68,9 +72,9 @@ class Minz_View {
 	 */
 	public function build(): void {
 		if ($this->layout_filename !== '') {
-			$this->buildLayout ();
+			$this->buildLayout();
 		} else {
-			$this->render ();
+			$this->render();
 		}
 	}
 
@@ -126,9 +130,9 @@ class Minz_View {
 	 * @param string $part the partial element to be added
 	 */
 	public function partial(string $part): void {
-		$fic_partial = self::LAYOUT_PATH_NAME . '/' . $part . '.phtml';
-		if (!$this->includeFile($fic_partial)) {
-			Minz_Log::warning('File not found: `' . $fic_partial . '`');
+		$partial_file = self::LAYOUT_PATH_NAME . '/' . $part . '.phtml';
+		if (!$this->includeFile($partial_file)) {
+			Minz_Log::warning('File not found: `' . $partial_file . '`');
 		}
 	}
 
@@ -137,9 +141,9 @@ class Minz_View {
 	 * @param string $helper the element to be displayed
 	 */
 	public function renderHelper(string $helper): void {
-		$fic_helper = '/views/helpers/' . $helper . '.phtml';
-		if (!$this->includeFile($fic_helper)) {
-			Minz_Log::warning('File not found: `' . $fic_helper . '`');
+		$helper_file = '/views/helpers/' . $helper . '.phtml';
+		if (!$this->includeFile($helper_file)) {
+			Minz_Log::warning('File not found: `' . $helper_file . '`');
 		}
 	}
 
@@ -154,8 +158,35 @@ class Minz_View {
 	}
 
 	/**
+	 * Writes renderHelper() into a file, without keeping the whole output in memory
+	 * @param string $helper the element to be treated
+	 * @param string $filename the path of the file to write
+	 * @throws Minz_PermissionDeniedException
+	 */
+	public function helperToFile(string $helper, string $filename): void {
+		$file = fopen($filename, 'wb');
+		if ($file === false) {
+			throw new Minz_PermissionDeniedException($filename);
+		}
+		$written = true;
+		ob_start(static function (string $buffer) use ($file, &$written): string {
+			$written = $written && fwrite($file, $buffer) !== false;
+			return '';
+		}, 65536);	// Write to the file by chunks of 64 KiB
+		try {
+			$this->renderHelper($helper);
+		} finally {
+			ob_end_flush();
+			$written = fclose($file) && $written;
+		}
+		if (!$written) {
+			throw new Minz_PermissionDeniedException($filename);
+		}
+	}
+
+	/**
 	 * Choose the current view layout.
-	 * @param string|null $layout the layout name to use, false to use no layouts.
+	 * @param string|null $layout the layout name to use, null to use no layouts.
 	 */
 	public function _layout(?string $layout): void {
 		if ($layout != null) {
@@ -167,9 +198,9 @@ class Minz_View {
 
 	/**
 	 * Choose if we want to use the layout or not.
-	 * @deprecated Please use the `_layout` function instead.
 	 * @param bool $use true if we want to use the layout, false else
 	 */
+	#[Deprecated('Use Minz_View::_layout() instead.')]
 	public function _useLayout(bool $use): void {
 		Minz_Log::warning('Minz_View::_useLayout is deprecated, it will be removed in a future version. Please use Minz_View::_layout instead.');
 		if ($use) {
@@ -203,7 +234,7 @@ class Minz_View {
 	 */
 	public static function headStyle(): string {
 		$styles = '';
-		foreach(self::$styles as $style) {
+		foreach (self::$styles as $style) {
 			$styles .= '<link rel="stylesheet" ' .
 				($style['media'] === 'all' ? '' : 'media="' . $style['media'] . '" ') .
 				'href="' . $style['url'] . '" />';
@@ -218,34 +249,48 @@ class Minz_View {
 	 * @param bool $cond Conditional comment for IE, now deprecated and ignored @deprecated
 	 */
 	public static function prependStyle(string $url, string $media = 'all', bool $cond = false): void {
-		array_unshift (self::$styles, array (
+		if ($url === '') {
+			return;
+		}
+		foreach (self::$styles as $style) {
+			if ($style['url'] === $url) {
+				return;
+			}
+		}
+		array_unshift(self::$styles, [
 			'url' => $url,
 			'media' => $media,
-		));
+		]);
 	}
 
 	/**
 	 * Append a `<link>` element referencing stylesheet.
-	 * @param string $url
-	 * @param string $media
 	 * @param bool $cond Conditional comment for IE, now deprecated and ignored @deprecated
 	 */
 	public static function appendStyle(string $url, string $media = 'all', bool $cond = false): void {
-		self::$styles[] = array (
+		if ($url === '') {
+			return;
+		}
+		foreach (self::$styles as $style) {
+			if ($style['url'] === $url) {
+				return;
+			}
+		}
+		self::$styles[] = [
 			'url' => $url,
 			'media' => $media,
-		);
+		];
 	}
 
 	/**
-	 * @param string|array{'dark'?:string,'light'?:string,'default'?:string} $themeColors
+	 * @param string|array{dark?:string,light?:string,default?:string} $themeColors
 	 */
-	public static function appendThemeColors($themeColors): void {
+	public static function appendThemeColors(string|array $themeColors): void {
 		self::$themeColors = $themeColors;
 	}
 
 	/**
-	 * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta/name/theme-color
+	 * https://developer.mozilla.org/docs/Web/HTML/Reference/Elements/meta/name/theme-color
 	 */
 	public static function metaThemeColor(): string {
 		$meta = '';
@@ -289,48 +334,62 @@ class Minz_View {
 	}
 	/**
 	 * Prepend a `<script>` element.
-	 * @param string $url
 	 * @param bool $cond Conditional comment for IE, now deprecated and ignored @deprecated
 	 * @param bool $defer Use `defer` flag
 	 * @param bool $async Use `async` flag
 	 * @param string $id Add a script `id` attribute
 	 */
 	public static function prependScript(string $url, bool $cond = false, bool $defer = true, bool $async = true, string $id = ''): void {
-		array_unshift(self::$scripts, array (
+		if ($url === '') {
+			return;
+		}
+		foreach (self::$scripts as $script) {
+			if ($script['url'] === $url) {
+				return;
+			}
+		}
+		array_unshift(self::$scripts, [
 			'url' => $url,
 			'defer' => $defer,
 			'async' => $async,
 			'id' => $id,
-		));
+		]);
 	}
 
 	/**
 	 * Append a `<script>` element.
-	 * @param string $url
 	 * @param bool $cond Conditional comment for IE, now deprecated and ignored @deprecated
 	 * @param bool $defer Use `defer` flag
 	 * @param bool $async Use `async` flag
 	 * @param string $id Add a script `id` attribute
 	 */
 	public static function appendScript(string $url, bool $cond = false, bool $defer = true, bool $async = true, string $id = ''): void {
-		self::$scripts[] = array (
+		if ($url === '') {
+			return;
+		}
+		foreach (self::$scripts as $script) {
+			if ($script['url'] === $url) {
+				return;
+			}
+		}
+		self::$scripts[] = [
 			'url' => $url,
 			'defer' => $defer,
 			'async' => $async,
 			'id' => $id,
-		);
+		];
 	}
 
 	/**
 	 * Management of parameters added to the view
-	 * @param mixed $value
 	 */
-	public static function _param(string $key, $value): void {
+	public static function _param(string $key, mixed $value): void {
 		self::$params[$key] = $value;
 	}
 
 	public function attributeParams(): void {
 		foreach (Minz_View::$params as $key => $value) {
+			// @phpstan-ignore property.dynamicName
 			$this->$key = $value;
 		}
 	}
