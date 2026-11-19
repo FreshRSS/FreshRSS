@@ -11,6 +11,7 @@ if (function_exists('opcache_reset')) {
 }
 header("Content-Security-Policy: default-src 'self'; frame-ancestors 'none'");
 header('Referrer-Policy: same-origin');
+header('Cross-Origin-Opener-Policy: same-origin');
 
 require LIB_PATH . '/lib_install.php';
 

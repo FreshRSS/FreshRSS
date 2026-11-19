@@ -100,6 +100,7 @@ abstract class Minz_ActionController {
 
 	/**
 	 * Send HTTP Content-Security-Policy header based on declared policies.
+	 * Also sends Cross-Origin-Opener-Policy.
 	 */
 	public function declareCspHeader(): void {
 		$policies = [];
@@ -110,6 +111,7 @@ abstract class Minz_ActionController {
 			$policies[] = $directive . ' ' . $sources;
 		}
 		header('Content-Security-Policy: ' . implode('; ', $policies));
+		header('Cross-Origin-Opener-Policy: same-origin');
 	}
 
 	/**
