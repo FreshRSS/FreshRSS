@@ -46,8 +46,10 @@ The script is named *actualize_script.php* and is located in the *app* folder. T
 Here is an example to trigger article update every hour.
 
 ```cron
-0 * * * * php /path/to/FreshRSS/app/actualize_script.php > /tmp/FreshRSS.log 2>&1
+0 * * * * php -f /usr/share/FreshRSS/app/actualize_script.php >> /tmp/FreshRSS.log 2>&1
 ```
+
+For further advice on cron, see [the admin instructions for cron](../admins/08_FeedUpdates.md#cron-as-a-trigger).
 
 ## Online cron
 

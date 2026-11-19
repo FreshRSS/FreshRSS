@@ -100,6 +100,9 @@ final class FreshRSS_Context {
 	 */
 	public static function initUser(string $username = '', bool $userMustExist = true): void {
 		FreshRSS_Context::$user_conf = null;
+		// Per-user caches must not survive a change of user:
+		self::$categories = [];
+		self::$tags = [];
 		if (!isset($_SESSION)) {
 			Minz_Session::init('FreshRSS');
 		}
@@ -303,7 +306,7 @@ final class FreshRSS_Context {
 			}
 		}
 
-		self::$number = Minz_Request::paramInt('nb') ?: FreshRSS_Context::userConf()->posts_per_page;
+		self::$number = max(0, Minz_Request::paramInt('nb')) ?: FreshRSS_Context::userConf()->posts_per_page;
 		if (self::$number > FreshRSS_Context::userConf()->max_posts_per_rss) {
 			self::$number = max(
 				FreshRSS_Context::userConf()->max_posts_per_rss,

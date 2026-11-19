@@ -140,7 +140,7 @@ final class FreshRSS_http_Util {
 			if (is_string($idn) && $idn != '') {
 				$puny = idn_to_ascii($idn);
 				$pos = strpos($url, $idn);
-				if ($puny != false && $pos !== false) {
+				if ($pos !== false && is_string($puny) && preg_match('/^[a-z0-9._-]+$/iD', $puny) === 1) {
 					$url = substr_replace($url, $puny, $pos, strlen($idn));
 				}
 			}

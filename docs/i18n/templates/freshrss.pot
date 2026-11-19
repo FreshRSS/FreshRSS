@@ -7837,7 +7837,7 @@ msgstr ""
 #: en/./users/09_refreshing_feeds.md:48
 #, no-wrap
 msgid ""
-"0 * * * * php /path/to/FreshRSS/app/actualize_script.php > /tmp/FreshRSS.log "
+"0 * * * * php /path/to/FreshRSS/app/actualize_script.php >> /tmp/FreshRSS.log "
 "2>&1\n"
 msgstr ""
 
