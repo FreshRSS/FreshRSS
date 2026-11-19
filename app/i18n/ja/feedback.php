@@ -80,12 +80,14 @@ return array(
 			'deleted' => 'カテゴリ「%s」を削除しました',
 			'emptied' => 'カテゴリ「%s」を空にしました',
 			'error' => 'カテゴリを更新できません',
+			'muted' => 'Feeds of the category have been muted',	// TODO
 			'name_exists' => '同名のカテゴリが既に存在します',
 			'no_id' => 'カテゴリIDを指定する必要があります',
 			'no_name' => 'カテゴリ名は空にできません',
 			'not_delete_default' => 'デフォルトカテゴリは消去できません',
 			'not_exist' => 'カテゴリが存在しません',
 			'over_max' => 'カテゴリ数の上限（%d）に達しました',
+			'unmuted' => 'Feeds of the category have been unmuted',	// TODO
 			'updated' => 'カテゴリが更新されました',
 		),
 		'feed' => array(

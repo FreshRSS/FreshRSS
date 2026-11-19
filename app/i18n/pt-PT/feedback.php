@@ -80,12 +80,14 @@ return array(
 			'deleted' => 'A categoria foi apagada.',
 			'emptied' => 'A categoria foi limpa',
 			'error' => 'A categoria não pode ser atualizada',
+			'muted' => 'Feeds of the category have been muted',	// TODO
 			'name_exists' => 'Este nome de categoria já existe.',
 			'no_id' => ' precisa de especificar um id para a categoria.',
 			'no_name' => 'O nome da categoria não pode estar vazio.',
 			'not_delete_default' => ' não pode apagar uma categoria predefinida!',
 			'not_exist' => 'A categoria não existe!',
 			'over_max' => ' atingiu o seu limite de categorias (%d)',
+			'unmuted' => 'Feeds of the category have been unmuted',	// TODO
 			'updated' => 'A categoria foi atualizada.',
 		),
 		'feed' => array(

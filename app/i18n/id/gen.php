@@ -35,6 +35,7 @@ return array(
 		'menu' => array(
 			'open' => 'Buka menu',
 		),
+		'mute_all_feeds' => 'Mute all feeds',	// TODO
 		'nav_buttons' => array(
 			'next' => 'Artikel selanjutnya',
 			'prev' => 'Artikel sebelumnya',
@@ -50,6 +51,7 @@ return array(
 		'see_website' => 'Lihat situs',
 		'submit' => 'Kirim',
 		'truncate' => 'Hapus semua artikel',
+		'unmute_all_feeds' => 'Unmute all feeds',	// TODO
 		'update' => 'Perbarui',
 	),
 	'auth' => array(

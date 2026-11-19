@@ -80,12 +80,14 @@ return array(
 			'deleted' => 'Kateqoriya silindi.',
 			'emptied' => 'Kateqoriya boşaldıldı',
 			'error' => 'Kateqoriya yenilənə bilmədi',
+			'muted' => 'Feeds of the category have been muted',	// TODO
 			'name_exists' => 'Kateqoriya adı artıq mövcuddur.',
 			'no_id' => 'Kateqoriyanın ID-sini göstərməlisiniz.',
 			'no_name' => 'Kateqoriya adı boş ola bilməz.',
 			'not_delete_default' => 'Standart kateqoriyanı silə bilməzsiniz!',
 			'not_exist' => 'Kateqoriya mövcud deyil!',
 			'over_max' => 'Kateqoriya limitinizə çatdınız (%d)',
+			'unmuted' => 'Feeds of the category have been unmuted',	// TODO
 			'updated' => 'Kateqoriya yeniləndi.',
 		),
 		'feed' => array(

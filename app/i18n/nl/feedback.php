@@ -80,12 +80,14 @@ return array(
 			'deleted' => 'Categorie is verwijderd.',
 			'emptied' => 'Categorie is leeg gemaakt',
 			'error' => 'Categorie kan niet worden vernieuwd',
+			'muted' => 'Feeds of the category have been muted',	// TODO
 			'name_exists' => 'Categorie naam bestaat al.',
 			'no_id' => 'U moet de id specificeren of de categorie.',
 			'no_name' => 'Categorie naam mag niet leeg zijn.',
 			'not_delete_default' => 'U kunt de standaard categorie niet verwijderen!',
 			'not_exist' => 'De categorie bestaat niet!',
 			'over_max' => 'Maximum aantal categorieën bereikt (%d)',
+			'unmuted' => 'Feeds of the category have been unmuted',	// TODO
 			'updated' => 'Categorie vernieuwd.',
 		),
 		'feed' => array(

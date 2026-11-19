@@ -35,6 +35,7 @@ return array(
 		'menu' => array(
 			'open' => '打开菜单',
 		),
+		'mute_all_feeds' => 'Mute all feeds',	// TODO
 		'nav_buttons' => array(
 			'next' => '下一篇文章',
 			'prev' => '上一篇文章',
@@ -50,6 +51,7 @@ return array(
 		'see_website' => '网站中查看',
 		'submit' => '提交',
 		'truncate' => '删除所有文章',
+		'unmute_all_feeds' => 'Unmute all feeds',	// TODO
 		'update' => '更新',
 	),
 	'auth' => array(

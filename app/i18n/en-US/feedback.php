@@ -80,12 +80,14 @@ return array(
 			'deleted' => 'Category has been deleted.',	// IGNORE
 			'emptied' => 'Category has been emptied',	// IGNORE
 			'error' => 'Category cannot be updated',	// IGNORE
+			'muted' => 'Feeds of the category have been muted',	// IGNORE
 			'name_exists' => 'Category name already exists.',	// IGNORE
 			'no_id' => 'You must specify the id of the category.',	// IGNORE
 			'no_name' => 'Category name cannot be empty.',	// IGNORE
 			'not_delete_default' => 'You cannot delete the default category!',	// IGNORE
 			'not_exist' => 'The category does not exist!',	// IGNORE
 			'over_max' => 'You have reached your limit of categories (%d)',	// IGNORE
+			'unmuted' => 'Feeds of the category have been unmuted',	// IGNORE
 			'updated' => 'Category has been updated.',	// IGNORE
 		),
 		'feed' => array(

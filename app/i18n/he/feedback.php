@@ -80,12 +80,14 @@ return array(
 			'deleted' => 'Category has been deleted.',	// TODO
 			'emptied' => 'הקטגוריה רוקנה',
 			'error' => 'Category cannot be updated',	// TODO
+			'muted' => 'Feeds of the category have been muted',	// TODO
 			'name_exists' => 'Category name already exists.',	// TODO
 			'no_id' => 'You must precise the id of the category.',
 			'no_name' => 'Category name cannot be empty.',	// TODO
 			'not_delete_default' => 'You cannot delete the default category!',	// TODO
 			'not_exist' => 'The category does not exist!',	// TODO
 			'over_max' => 'You have reached your limit of categories (%d)',	// TODO
+			'unmuted' => 'Feeds of the category have been unmuted',	// TODO
 			'updated' => 'Category has been updated.',	// TODO
 		),
 		'feed' => array(

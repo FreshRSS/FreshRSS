@@ -80,12 +80,14 @@ return array(
 			'deleted' => 'Usunięto kategorię.',
 			'emptied' => 'Kategoria jest pusta',
 			'error' => 'Nie można zaktualizować kategorii',
+			'muted' => 'Feeds of the category have been muted',	// TODO
 			'name_exists' => 'Nazwa kategorii już istnieje.',
 			'no_id' => 'Należy podać identyfikator kategorii.',
 			'no_name' => 'Nazwa kategorii nie może być pusta.',
 			'not_delete_default' => 'Nie wolno usunąć domyślnej kategorii!',
 			'not_exist' => 'Kategoria nie istnieje!',
 			'over_max' => 'Osiągnięto ustawiony limit kategorii (%d)',
+			'unmuted' => 'Feeds of the category have been unmuted',	// TODO
 			'updated' => 'Zaktualizowano kategorię.',
 		),
 		'feed' => array(

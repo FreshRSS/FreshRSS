@@ -35,6 +35,7 @@ return array(
 		'menu' => array(
 			'open' => 'Avaa valikko',
 		),
+		'mute_all_feeds' => 'Mute all feeds',	// TODO
 		'nav_buttons' => array(
 			'next' => 'Seuraava artikkeli',
 			'prev' => 'Edellinen artikkeli',
@@ -50,6 +51,7 @@ return array(
 		'see_website' => 'Siirry sivustolle',
 		'submit' => 'Lähetä',
 		'truncate' => 'Poista kaikki artikkelit',
+		'unmute_all_feeds' => 'Unmute all feeds',	// TODO
 		'update' => 'Päivitä',
 	),
 	'auth' => array(

@@ -80,12 +80,14 @@ return array(
 			'deleted' => 'Kategorie byla odstraněna.',
 			'emptied' => 'Kategorie byla vyprázdněna',
 			'error' => 'Kategorii nelze aktualizovat',
+			'muted' => 'Feeds of the category have been muted',	// TODO
 			'name_exists' => 'Název kategorie již existuje.',
 			'no_id' => 'Musíte zadat ID kategorie.',
 			'no_name' => 'Název kategorie nemůže být prázdný.',
 			'not_delete_default' => 'Nemůžete odstranit výchozí kategorii!',
 			'not_exist' => 'Tato kategorie neexistuje!',
 			'over_max' => 'Dosáhli jste maximálního počtu kategorií (%d)',
+			'unmuted' => 'Feeds of the category have been unmuted',	// TODO
 			'updated' => 'Kategorie byla aktualizována.',
 		),
 		'feed' => array(

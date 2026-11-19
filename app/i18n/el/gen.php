@@ -35,6 +35,7 @@ return array(
 		'menu' => array(
 			'open' => 'Άνοιγμα επιλογών',
 		),
+		'mute_all_feeds' => 'Mute all feeds',	// TODO
 		'nav_buttons' => array(
 			'next' => 'Επόμενο άρθρο',
 			'prev' => 'Προηγούμενο άρθρο',
@@ -50,6 +51,7 @@ return array(
 		'see_website' => 'Προβολή ιστοσελίδας',
 		'submit' => 'Καταχώρηση',
 		'truncate' => 'Διαγραφή όλων των άρθρων',
+		'unmute_all_feeds' => 'Unmute all feeds',	// TODO
 		'update' => 'Ενημέρωση',
 	),
 	'auth' => array(

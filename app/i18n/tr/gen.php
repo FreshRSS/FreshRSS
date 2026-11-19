@@ -35,6 +35,7 @@ return array(
 		'menu' => array(
 			'open' => 'Menüyü aç',
 		),
+		'mute_all_feeds' => 'Mute all feeds',	// TODO
 		'nav_buttons' => array(
 			'next' => 'Sonraki makale',
 			'prev' => 'Önceki makale',
@@ -50,6 +51,7 @@ return array(
 		'see_website' => 'Web sitesini gör',
 		'submit' => 'Gönder',
 		'truncate' => 'Tüm makaleleri sil',
+		'unmute_all_feeds' => 'Unmute all feeds',	// TODO
 		'update' => 'Güncelle',
 	),
 	'auth' => array(

@@ -35,6 +35,7 @@ return array(
 		'menu' => array(
 			'open' => 'Menü megnyitása',
 		),
+		'mute_all_feeds' => 'Mute all feeds',	// TODO
 		'nav_buttons' => array(
 			'next' => 'Következő cikk',
 			'prev' => 'Előző cikk',
@@ -50,6 +51,7 @@ return array(
 		'see_website' => 'Ugrás a forrásra',
 		'submit' => 'Mentés',
 		'truncate' => 'Minden cikk törlése',
+		'unmute_all_feeds' => 'Unmute all feeds',	// TODO
 		'update' => 'Frissít',
 	),
 	'auth' => array(

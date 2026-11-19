@@ -35,6 +35,7 @@ return array(
 		'menu' => array(
 			'open' => 'Адкрыць меню',
 		),
+		'mute_all_feeds' => 'Mute all feeds',	// TODO
 		'nav_buttons' => array(
 			'next' => 'Перайсці да наступнага артыкула',
 			'prev' => 'Перайсці да папярэдняга артыкула',
@@ -50,6 +51,7 @@ return array(
 		'see_website' => 'Праглядзець сайт',
 		'submit' => 'Адправіць',
 		'truncate' => 'Выдаліць усе артыкулы',
+		'unmute_all_feeds' => 'Unmute all feeds',	// TODO
 		'update' => 'Абнавіць',
 	),
 	'auth' => array(

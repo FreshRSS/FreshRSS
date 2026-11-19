@@ -80,12 +80,14 @@ return array(
 			'deleted' => 'La catégorie a été supprimée.',
 			'emptied' => 'La catégorie a été vidée.',
 			'error' => 'La catégorie n’a pas pu être modifiée',
+			'muted' => 'Feeds of the category have been muted',	// TODO
 			'name_exists' => 'Une catégorie possède déjà ce nom.',
 			'no_id' => 'Vous devez préciser l’id de la catégorie.',
 			'no_name' => 'Vous devez préciser un nom pour la catégorie.',
 			'not_delete_default' => 'Vous ne pouvez pas supprimer la catégorie par défaut !',
 			'not_exist' => 'Cette catégorie n’existe pas !',
 			'over_max' => 'Vous avez atteint votre limite de catégories (%d)',
+			'unmuted' => 'Feeds of the category have been unmuted',	// TODO
 			'updated' => 'La catégorie a été mise à jour.',
 		),
 		'feed' => array(

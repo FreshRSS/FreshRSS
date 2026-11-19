@@ -35,6 +35,7 @@ return array(
 		'menu' => array(
 			'open' => 'Atverti meniu',
 		),
+		'mute_all_feeds' => 'Mute all feeds',	// TODO
 		'nav_buttons' => array(
 			'next' => 'Kitas straipsnis',
 			'prev' => 'Ankstesnis straipsnis',
@@ -50,6 +51,7 @@ return array(
 		'see_website' => 'Žiūrėti svetainę',
 		'submit' => 'Pateikti',
 		'truncate' => 'Ištrinti visus straipsnius',
+		'unmute_all_feeds' => 'Unmute all feeds',	// TODO
 		'update' => 'Atnaujinti',
 	),
 	'auth' => array(

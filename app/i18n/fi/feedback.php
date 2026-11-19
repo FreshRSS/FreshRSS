@@ -80,12 +80,14 @@ return array(
 			'deleted' => 'Luokka on poistettu.',
 			'emptied' => 'Luokka on tyhjennetty',
 			'error' => 'Luokan päivitys ei onnistu',
+			'muted' => 'Feeds of the category have been muted',	// TODO
 			'name_exists' => 'Luokan nimi on jo käytössä.',
 			'no_id' => 'Määritä luokan tunnus.',
 			'no_name' => 'Luokan nimi ei voi olla tyhjä.',
 			'not_delete_default' => 'Oletusluokkaa ei voi poistaa.',
 			'not_exist' => 'Luokkaa ei ole.',
 			'over_max' => 'Enimmäismäärä luokkia on luotu (%d)',
+			'unmuted' => 'Feeds of the category have been unmuted',	// TODO
 			'updated' => 'Luokka on päivitetty.',
 		),
 		'feed' => array(
