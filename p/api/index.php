@@ -11,6 +11,7 @@ if (!FreshRSS_Context::hasSystemConf()) {
 $frameAncestors = FreshRSS_Context::systemConf()->attributeString('csp.frame-ancestors') ?? "'none'";
 header("Content-Security-Policy: default-src 'self'; frame-ancestors $frameAncestors");
 header('X-Content-Type-Options: nosniff');
+header('Cross-Origin-Opener-Policy: same-origin');
 
 if (Minz_Request::pathInfo() !== '') {
 	// Do not allow trailing slashes
