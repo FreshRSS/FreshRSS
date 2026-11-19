@@ -76,9 +76,9 @@ class Minz_ModelPdo {
 				$this->pdo->setPrefix('');
 				break;
 			case 'pgsql':
-				$dsn = 'pgsql:host=' . (empty($dbServer['host']) ? $db['host'] : $dbServer['host']);
+				$dsn = "pgsql:host='" . addcslashes(empty($dbServer['host']) ? $db['host'] : $dbServer['host'], "'\\") . "'";
 				if (!empty($db['base'])) {
-					$dsn .= ';dbname=' . $db['base'];
+					$dsn .= ";dbname='" . addcslashes($db['base'], "'\\") . "'";
 				}
 				if (!empty($dbServer['port'])) {
 					$dsn .= ';port=' . $dbServer['port'];
