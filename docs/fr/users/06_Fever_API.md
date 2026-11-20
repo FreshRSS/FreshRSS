@@ -32,6 +32,7 @@ Connectez ensuite votre application mobile en utilisant l’adresse de l’API
 |[Unread](https://www.goldenhillsoftware.com/unread/)                 |iOS                  |Source fermée                                             |
 |[Reeder Classic](https://www.reederapp.com/classic/)                                |iOS                  |Source fermée                                              |
 |[ReadKit](https://readkit.app/)                           |macOS                |Source fermée                                              |
+|[PoweReader](https://powereader.app/)                     |iOS, macOS           |Source fermée                                             |
 
 > ℹ️ Voir une [meilleure liste des applications mobiles compatibles](https://github.com/FreshRSS/FreshRSS/blob/edge/README.fr.md#apis-et-applications-natives).
 

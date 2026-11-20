@@ -201,6 +201,7 @@ and [Fever API](https://freshrss.github.io/FreshRSS/en/developers/06_Fever_API.h
 | [Unread](https://www.goldenhillsoftware.com/unread/)                            | iOS         | –                                                            | ✓✓                   | Fever            | ✓            | ?        | ?                             | ?                  | ✓         | –     | –       | –           |
 | [Fiery Feeds](https://voidstern.net/fiery-feeds)         | iOS         | –                                                            | ✓✓                   | Fever            | ?            | ?        | ?                             | ?                  | ?         | –     | –       | –           |
 | [Netnewswire](https://netnewswire.com/)                                      | iOS, macOS  | [✓](https://github.com/Ranchero-Software/NetNewsWire)        | Work in progress       | GReader          | ✓            | ?        | ?                             | ?                  | ✓         | –     | –       | ✓           |
+| [PoweReader](https://powereader.app/)                                                 | iOS, macOS  | –                                                            | ✓✓                   | Fever            | ✓            | ?        | –                             | –                  | ✓         | –     | –       | –           |
 
 # Included libraries
 
