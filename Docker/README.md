@@ -166,7 +166,7 @@ docker run --rm --sig-proxy=false \
 ```
 
 This will start a server on port 8080, based on your local PHP code, which will show the logs directly in your terminal.
-Press <kbd>Control</kbd>+<kbd>C</kbd> to exit.
+Press <kbd>Control</kbd>+<kbd>C</kbd> 3 times to exit.
 
 ### Special development images
 
