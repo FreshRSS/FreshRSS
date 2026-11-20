@@ -21,6 +21,10 @@ final class UserCSSExtension extends Minz_Extension {
 
 		$this->registerTranslates();
 
+		if (FreshRSS_Auth::requestReauth()) {
+			return;
+		}
+
 		if (Minz_Request::isPost()) {
 			$css_rules = Minz_Request::paramString('css-rules', plaintext: true);
 			$this->saveFile(self::FILENAME, $css_rules);

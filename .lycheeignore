@@ -3,6 +3,7 @@
 ^https://[^/]+\.domain/
 ^http://wiremock:8080/
 ^http://freshrss/
+^https://example.net
 
 # URLs used in source code / tests
 ^http://www\.blogger\.com/feeds/1/posts
