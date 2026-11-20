@@ -20,7 +20,7 @@ class FreshRSS_index_Controller extends FreshRSS_ActionController {
 
 		// Fallback to 'normal' if the preferred mode was not found
 		if ($viewMode === null) {
-			Minz_Request::setBadNotification(_t('feedback.extensions.invalid_view_mode', $preferred_output));
+			Minz_Request::setBadNotification(_t('feedback.extensions.invalid_view_mode', htmlspecialchars($preferred_output, ENT_COMPAT, 'UTF-8')));
 			$viewMode = FreshRSS_ViewMode::getAllModes()['normal'];
 		}
 
