@@ -45,6 +45,69 @@ final class httpUtilTest extends \PHPUnit\Framework\TestCase {
 		];
 	}
 
+	/**
+	 * @param array<int,mixed> $options
+	 * @param array<int,mixed> $expected
+	 */
+	#[DataProvider('provideProxyOptions')]
+	public function test_normalizeProxyOptions(array $options, array $expected): void {
+		self::assertEquals($expected, FreshRSS_http_Util::normalizeProxyOptions($options));
+	}
+
+	/** @return array<string,array{array<int,mixed>,array<int,mixed>}> */
+	public static function provideProxyOptions(): array {
+		return [
+			'CURLOPT_PROXYPORT is added' => [
+				[CURLOPT_PROXY => 'proxy.internal', CURLOPT_PROXYTYPE => CURLPROXY_HTTP, CURLOPT_PROXYPORT => 3128],
+				[CURLOPT_PROXY => 'proxy.internal:3128', CURLOPT_PROXYTYPE => CURLPROXY_HTTP]],
+			'port in CURLOPT_PROXY wins' => [
+				[CURLOPT_PROXY => 'proxy.internal:3128', CURLOPT_PROXYPORT => 4000],
+				[CURLOPT_PROXY => 'proxy.internal:3128', CURLOPT_PROXYTYPE => CURLPROXY_HTTP]],
+			'scheme in system config' => [
+				[CURLOPT_PROXY => 'http://proxy.internal:3128/'],
+				[CURLOPT_PROXY => 'proxy.internal:3128', CURLOPT_PROXYTYPE => CURLPROXY_HTTP]],
+			'scheme wins over type' => [
+				[CURLOPT_PROXY => 'socks5h://user:pass@proxy.internal', CURLOPT_PROXYTYPE => CURLPROXY_HTTP],
+				[CURLOPT_PROXY => 'user:pass@proxy.internal:1080', CURLOPT_PROXYTYPE => CURLPROXY_SOCKS5_HOSTNAME]],
+			'scheme with CURLOPT_PROXYPORT' => [
+				[CURLOPT_PROXY => 'http://proxy.internal', CURLOPT_PROXYPORT => 3128],
+				[CURLOPT_PROXY => 'proxy.internal:3128', CURLOPT_PROXYTYPE => CURLPROXY_HTTP]],
+			'scheme in uppercase' => [
+				[CURLOPT_PROXY => 'HTTP://proxy.internal:3128'],
+				[CURLOPT_PROXY => 'proxy.internal:3128', CURLOPT_PROXYTYPE => CURLPROXY_HTTP]],
+			'HTTPS scheme' => [
+				[CURLOPT_PROXY => 'https://proxy.internal'],
+				[CURLOPT_PROXY => 'proxy.internal:443', CURLOPT_PROXYTYPE => 2]],
+			'unsupported scheme is left as is' => [
+				[CURLOPT_PROXY => 'ftp://proxy.internal:3128'],
+				[CURLOPT_PROXY => 'ftp://proxy.internal:3128']],
+			'default port for HTTPS' => [
+				[CURLOPT_PROXY => 'proxy.internal', CURLOPT_PROXYTYPE => 2],
+				[CURLOPT_PROXY => 'proxy.internal:443', CURLOPT_PROXYTYPE => 2]],
+			'IPv6 without port' => [
+				[CURLOPT_PROXY => '[::1]', CURLOPT_PROXYPORT => 3128],
+				[CURLOPT_PROXY => '[::1]:3128', CURLOPT_PROXYTYPE => CURLPROXY_HTTP]],
+			'IPv6 with port' => [
+				[CURLOPT_PROXY => '[::1]:3128'],
+				[CURLOPT_PROXY => '[::1]:3128', CURLOPT_PROXYTYPE => CURLPROXY_HTTP]],
+			'invalid value is left as is' => [
+				[CURLOPT_PROXY => 'http://127.0.0.1:8080/://8.8.8.8'],
+				[CURLOPT_PROXY => 'http://127.0.0.1:8080/://8.8.8.8']],
+			'proxy disabled' => [
+				[CURLOPT_PROXY => 'proxy.internal', CURLOPT_PROXYTYPE => -1],
+				[CURLOPT_PROXY => 'proxy.internal', CURLOPT_PROXYTYPE => -1]],
+			'no proxy' => [[CURLOPT_PROXYPORT => 3128], [CURLOPT_PROXYPORT => 3128]],
+		];
+	}
+
+	public function test_proxyPortIsUsedByAllowlistCheck(): void {
+		putenv('INTERNAL_HOST_ALLOWLIST=127.0.0.1:3128');
+		$options = FreshRSS_http_Util::normalizeProxyOptions([CURLOPT_PROXY => '127.0.0.1', CURLOPT_PROXYPORT => 3128]);
+		self::assertIsString($options[CURLOPT_PROXY]);
+		self::assertSame([], FreshRSS_http_Util::getCurlResolveInfo('http://' . $options[CURLOPT_PROXY]));
+		putenv('INTERNAL_HOST_ALLOWLIST');
+	}
+
 	#[DataProvider('provideUrlsForCheckUrl')]
 	public function test_checkUrl(string $url, string|false $expected): void {
 		self::assertSame($expected, FreshRSS_http_Util::checkUrl($url));

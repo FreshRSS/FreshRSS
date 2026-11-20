@@ -170,8 +170,8 @@ return [
 		//CURLOPT_PROXYTYPE => CURLPROXY_HTTP,
 		//CURLOPT_PROXY => '127.0.0.1',
 		//CURLOPT_PROXYPORT => 8080,
-		//CURLOPT_PROXYAUTH => CURLAUTH_BASIC,
-		//CURLOPT_PROXYUSERPWD => 'user:password',
+		// Alternatively, the type and port can be given in the address: //CURLOPT_PROXY => 'http://127.0.0.1:8080',
+		// CURLOPT_PROXYAUTH and CURLOPT_PROXYUSERPWD are not supported, credentials can be put in the URL instead.
 	],
 
 	'db' => [
