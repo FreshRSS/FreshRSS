@@ -37,14 +37,13 @@ final class headerTest extends \PHPUnit\Framework\TestCase {
 		$view = new FreshRSS_View();
 		$view->_path('../layout/header.phtml');
 		$view->html_url = 'https://example.net/';
-		$html = new DOMDocument();
-		self::assertTrue($html->loadHTML($view->renderToString(), LIBXML_NONET | LIBXML_NOERROR | LIBXML_NOWARNING));
-		$inputs = (new DOMXPath($html))->query('//form[.//input[@name="search"]]/input[@name="sort"]');
-		self::assertNotFalse($inputs);
+		// Fragment of a page, so prefix with `<!DOCTYPE html>`
+		$doc = Dom\HTMLDocument::createFromString('<!DOCTYPE html>' . $view->renderToString(), Dom\HTML_NO_DEFAULT_NS);
+		$inputs = (new Dom\XPath($doc))->query('//form[.//input[@name="search"]]/input[@name="sort"]');
 		self::assertSame($expectedSort === null ? 0 : 1, $inputs->length);
 		if ($expectedSort !== null) {
 			$input = $inputs->item(0);
-			self::assertInstanceOf(DOMElement::class, $input);
+			self::assertInstanceOf(Dom\Element::class, $input);
 			self::assertSame('hidden', $input->getAttribute('type'));
 			self::assertSame($expectedSort, $input->getAttribute('value'));
 		}

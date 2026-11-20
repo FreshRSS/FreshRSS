@@ -645,7 +645,7 @@ class File implements Response
     /**
      * @param array<string, string> $headers
      * @param array<int, mixed> $curl_options
-     * @return \CurlHandle
+     * @return resource
      */
     private static function curlInit(
         string $url,
@@ -656,6 +656,9 @@ class File implements Response
         bool $setAcceptEncoding = true
     ) {
         $fp = curl_init();
+        if ($fp === false) {
+            throw new \SimplePie\Exception('Could not initialize cURL');
+        }
 
         $headers2 = [];
         foreach ($headers as $key => $value) {
@@ -683,8 +686,13 @@ class File implements Response
         curl_setopt($fp, CURLOPT_FAILONERROR, true);
         curl_setopt($fp, CURLOPT_TIMEOUT, $timeout);
         curl_setopt($fp, CURLOPT_CONNECTTIMEOUT, $timeout);
-        // curl_setopt($fp, CURLOPT_REFERER, \SimplePie\Misc::url_remove_credentials($url)); // FreshRSS removed
-        curl_setopt($fp, CURLOPT_USERAGENT, $useragent);
+        // $referer = \SimplePie\Misc::url_remove_credentials($url);
+        // if ($referer !== '') {
+        //     curl_setopt($fp, CURLOPT_REFERER, $referer); // FreshRSS removed
+        // }
+        if ($useragent !== '') {
+            curl_setopt($fp, CURLOPT_USERAGENT, $useragent);
+        }
         curl_setopt($fp, CURLOPT_HTTPHEADER, $headers2);
         foreach ($curl_options as $curl_param => $curl_value) {
             curl_setopt($fp, $curl_param, $curl_value);

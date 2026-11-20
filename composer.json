@@ -32,9 +32,7 @@
 		"ext-pdo": "*",
 		"ext-pdo_sqlite": "*",
 		"ext-session": "*",
-		"ext-simplexml": "*",
 		"ext-xml": "*",
-		"ext-xmlreader": "*",
 		"ext-zend-opcache": "*",
 		"ext-zip": "*",
 		"ext-zlib": "*"
@@ -55,6 +53,7 @@
 	"require-dev": {
 		"php": ">=8.2",
 		"ext-phar": "*",
+		"ext-simplexml": "*",
 		"ext-tokenizer": "*",
 		"ext-xmlwriter": "*",
 		"phpstan/phpstan": "^2.2",

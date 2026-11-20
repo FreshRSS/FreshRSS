@@ -69,15 +69,16 @@ class Parser implements RegistryAware
      */
     public function parse(string &$data, string $encoding, string $url = '')
     {
-        if (class_exists('DOMXpath') && function_exists('Mf2\parse')) {
-            $doc = new \DOMDocument();
-            @$doc->loadHTML($data);
-            $xpath = new \DOMXpath($doc);
+        if (class_exists(\Dom\XPath::class) && function_exists('Mf2\parse')) {
+            // NB: Unlike with the legacy DOM API, parsing never fails (no recovery needed),
+            // and errors are swallowed by `LIBXML_NOERROR`.
+            $doc = \Dom\HTMLDocument::createFromString($data, LIBXML_NOERROR);
+            $xpath = new \Dom\XPath($doc);
             // Check for both h-feed and h-entry, as both a feed with no entries
             // and a list of entries without an h-feed wrapper are both valid.
             $query = '//*[contains(concat(" ", @class, " "), " h-feed ") or '.
                 'contains(concat(" ", @class, " "), " h-entry ")]';
-            /** @var \DOMNodeList<\DOMElement> $result */
+            /** @var \Dom\NodeList<\Dom\Element> $result */
             $result = $xpath->query($query);
             if ($result->length !== 0) {
                 return $this->parse_microformats($data, $url);
@@ -94,22 +95,27 @@ class Parser implements RegistryAware
         // Strip BOM:
         // UTF-32 Big Endian BOM
         if (substr($data, 0, 4) === "\x00\x00\xFE\xFF") {
+            /** @phpstan-ignore parameterByRef.type (for PHP < 8.0) */
             $data = substr($data, 4);
         }
         // UTF-32 Little Endian BOM
         elseif (substr($data, 0, 4) === "\xFF\xFE\x00\x00") {
+            /** @phpstan-ignore parameterByRef.type (for PHP < 8.0) */
             $data = substr($data, 4);
         }
         // UTF-16 Big Endian BOM
         elseif (substr($data, 0, 2) === "\xFE\xFF") {
+            /** @phpstan-ignore parameterByRef.type (for PHP < 8.0) */
             $data = substr($data, 2);
         }
         // UTF-16 Little Endian BOM
         elseif (substr($data, 0, 2) === "\xFF\xFE") {
+            /** @phpstan-ignore parameterByRef.type (for PHP < 8.0) */
             $data = substr($data, 2);
         }
         // UTF-8 BOM
         elseif (substr($data, 0, 3) === "\xEF\xBB\xBF") {
+            /** @phpstan-ignore parameterByRef.type (for PHP < 8.0) */
             $data = substr($data, 3);
         }
 
@@ -121,6 +127,7 @@ class Parser implements RegistryAware
         if (substr($data, 0, 5) === '<?xml' && strspn(substr($data, 5, 1), "\x09\x0A\x0D\x20") && ($pos = strpos($data, '?>')) !== false) {
             $declaration = $this->registry->create(DeclarationParser::class, [substr($data, 5, $pos - 5)]);
             if ($declaration->parse()) {
+                /** @phpstan-ignore parameterByRef.type (for PHP < 8.0) */
                 $data = substr($data, $pos + 2);
                 $data = '<?xml version="' . $declaration->version . '" encoding="' . $encoding . '" standalone="' . (($declaration->standalone) ? 'yes' : 'no') . '"?>' . "\n" .
                     self::set_doctype($data);
@@ -134,107 +141,45 @@ class Parser implements RegistryAware
 
         $return = true;
 
-        static $xml_is_sane = null;
-        if ($xml_is_sane === null) {
-            $parser_check = xml_parser_create();
-            xml_parse_into_struct($parser_check, '<foo>&amp;</foo>', $values);
-            if (\PHP_VERSION_ID < 80000) {
-                xml_parser_free($parser_check);
-            }
-            $xml_is_sane = isset($values[0]['value']);
-        }
-
         // Create the parser
-        if ($xml_is_sane) {
-            $xml = xml_parser_create_ns($this->encoding, $this->separator);
-            xml_parser_set_option($xml, XML_OPTION_SKIP_WHITE, 1);
-            xml_parser_set_option($xml, XML_OPTION_CASE_FOLDING, 0);
-            if (defined('XML_OPTION_PARSE_HUGE')) {
-                xml_parser_set_option($xml, XML_OPTION_PARSE_HUGE, 1);
-            }
-            xml_set_character_data_handler($xml, [$this, 'cdata']);
-            xml_set_element_handler($xml, [$this, 'tag_open'], [$this, 'tag_close']);
+        $xml = xml_parser_create_ns($this->encoding, $this->separator);
+        xml_parser_set_option($xml, XML_OPTION_SKIP_WHITE, 1);
+        xml_parser_set_option($xml, XML_OPTION_CASE_FOLDING, 0);
+        if (defined('XML_OPTION_PARSE_HUGE')) {
+            xml_parser_set_option($xml, XML_OPTION_PARSE_HUGE, 1);
+        }
+        xml_set_character_data_handler($xml, [$this, 'cdata']);
+        xml_set_element_handler($xml, [$this, 'tag_open'], [$this, 'tag_close']);
 
-            // Parse!
-            $wrapper = @is_writable(sys_get_temp_dir()) ? 'php://temp' : 'php://memory';
-            if (($stream = fopen($wrapper, 'r+')) &&
-                fwrite($stream, $data) &&
-                rewind($stream)) {
-                //Parse by chunks not to use too much memory
-                do {
-                    $stream_data = (string) fread($stream, 1048576);
+        // Parse!
+        $wrapper = @is_writable(sys_get_temp_dir()) ? 'php://temp' : 'php://memory';
+        if (($stream = fopen($wrapper, 'r+')) &&
+            fwrite($stream, $data) &&
+            rewind($stream)) {
+            //Parse by chunks not to use too much memory
+            do {
+                $stream_data = (string) fread($stream, 1048576);
 
-                    if (!xml_parse($xml, $stream_data, feof($stream))) {
-                        $this->error_code = xml_get_error_code($xml);
-                        $this->error_string = xml_error_string($this->error_code) ?: "Unknown";
-                        $return = false;
-                        break;
-                    }
-                } while (!feof($stream));
-                fclose($stream);
-            } else {
-                $return = false;
-            }
-
-            $this->current_line = xml_get_current_line_number($xml);
-            $this->current_column = xml_get_current_column_number($xml);
-            $this->current_byte = xml_get_current_byte_index($xml);
-            if (\PHP_VERSION_ID < 80000) {
-                xml_parser_free($xml);
-            }
-            return $return;
+                if (!xml_parse($xml, $stream_data, feof($stream))) {
+                    $this->error_code = xml_get_error_code($xml);
+                    $this->error_string = xml_error_string($this->error_code) ?: "Unknown";
+                    $return = false;
+                    break;
+                }
+            } while (!feof($stream));
+            fclose($stream);
+        } else {
+            $return = false;
         }
 
-        libxml_clear_errors();
-        $xml = new \XMLReader();
-        $xml->xml($data);
-        while (@$xml->read()) {
-            switch ($xml->nodeType) {
-                case \XMLReader::END_ELEMENT:
-                    if ($xml->namespaceURI !== '') {
-                        $tagName = $xml->namespaceURI . $this->separator . $xml->localName;
-                    } else {
-                        $tagName = $xml->localName;
-                    }
-                    $this->tag_close(null, $tagName);
-                    break;
-                case \XMLReader::ELEMENT:
-                    $empty = $xml->isEmptyElement;
-                    if ($xml->namespaceURI !== '') {
-                        $tagName = $xml->namespaceURI . $this->separator . $xml->localName;
-                    } else {
-                        $tagName = $xml->localName;
-                    }
-                    $attributes = [];
-                    while ($xml->moveToNextAttribute()) {
-                        if ($xml->namespaceURI !== '') {
-                            $attrName = $xml->namespaceURI . $this->separator . $xml->localName;
-                        } else {
-                            $attrName = $xml->localName;
-                        }
-                        $attributes[$attrName] = $xml->value;
-                    }
-                    $this->tag_open(null, $tagName, $attributes);
-                    if ($empty) {
-                        $this->tag_close(null, $tagName);
-                    }
-                    break;
-                case \XMLReader::TEXT:
-
-                case \XMLReader::CDATA:
-                    $this->cdata(null, $xml->value);
-                    break;
-            }
-        }
-        if ($error = libxml_get_last_error()) {
-            $this->error_code = $error->code;
-            $this->error_string = $error->message;
-            $this->current_line = $error->line;
-            $this->current_column = $error->column;
-            return false;
+        $this->current_line = xml_get_current_line_number($xml);
+        $this->current_column = xml_get_current_column_number($xml);
+        $this->current_byte = xml_get_current_byte_index($xml);
+        if (\PHP_VERSION_ID < 80000) {
+            xml_parser_free($xml);
         }
 
-        return true;
+        return $return;
     }
 
     /**
@@ -289,6 +234,7 @@ class Parser implements RegistryAware
      * @param XMLParser|resource|null $parser
      * @param array<string, string> $attributes
      * @return void
+     * @phpstan-ignore class.notFound (XMLParser requires PHP >= 8.0)
      */
     public function tag_open($parser, string $tag, array $attributes)
     {
@@ -345,6 +291,7 @@ class Parser implements RegistryAware
     /**
      * @param XMLParser|resource|null $parser
      * @return void
+     * @phpstan-ignore class.notFound (XMLParser requires PHP >= 8.0)
      */
     public function cdata($parser, string $cdata)
     {
@@ -358,6 +305,7 @@ class Parser implements RegistryAware
     /**
      * @param XMLParser|resource|null $parser
      * @return void
+     * @phpstan-ignore class.notFound (XMLParser requires PHP >= 8.0)
      */
     public function tag_close($parser, string $tag)
     {
