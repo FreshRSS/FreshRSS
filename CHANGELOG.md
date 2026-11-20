@@ -32,6 +32,7 @@ See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 	* GReader API: compare `Authorization:GoogleLogin` and other headers case insensitive [#9534](https://github.com/FreshRSS/FreshRSS/pull/9534)
 	* Return false when the configuration file cannot be replaced [#9580](https://github.com/FreshRSS/FreshRSS/pull/9580)
 	* Fix technical details in documentation system [#9520](https://github.com/FreshRSS/FreshRSS/pull/9520), [#9521](https://github.com/FreshRSS/FreshRSS/pull/9521)
+	* Fix `make start` development webserver stopping on terminal resize [#9603](https://github.com/FreshRSS/FreshRSS/pull/9603)
 * Security
 	* 💥 Replace bcrypt challenge auth with direct password comparison [#9358](https://github.com/FreshRSS/FreshRSS/pull/9358), [#9550](https://github.com/FreshRSS/FreshRSS/pull/9550), [#9566](https://github.com/FreshRSS/FreshRSS/pull/9566)
 	* Search: quote parentheses and `OR` when serialising terms [#9541](https://github.com/FreshRSS/FreshRSS/pull/9541)
