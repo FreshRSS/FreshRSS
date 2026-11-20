@@ -116,7 +116,7 @@ docker pull freshrss/freshrss:edge
 docker stop freshrss
 docker rename freshrss freshrss_old
 # See the run section above for the full command
-docker run ... --name freshrss freshrss/freshrss:edge
+docker run ... -d --name freshrss freshrss/freshrss:edge
 # If everything is working, delete the old container
 docker rm freshrss_old
 ```
@@ -154,7 +154,7 @@ while reading the source code from your local (git) directory, like the followin
 
 ```sh
 cd ./FreshRSS/
-docker run --rm \
+docker run --rm --sig-proxy=false \
   -p 8080:80 \
   -e FRESHRSS_ENV=development \
   -e TZ=Europe/Paris \
@@ -166,7 +166,7 @@ docker run --rm \
 ```
 
 This will start a server on port 8080, based on your local PHP code, which will show the logs directly in your terminal.
-Press <kbd>Control</kbd>+<kbd>C</kbd> to exit.
+Press <kbd>Control</kbd>+<kbd>C</kbd> 3 times to exit.
 
 ### Special development images
 
@@ -259,7 +259,7 @@ Changes in [Apache `.htaccess` files](https://httpd.apache.org/docs/trunk/howto/
 In particular, if you want FreshRSS to use HTTP-based login (instead of the easier Web form login), you can mount your own `./FreshRSS/p/i/.htaccess`:
 
 ```sh
-docker run ...
+docker run -d ...
   -v /your/.htaccess:/var/www/FreshRSS/p/i/.htaccess \
   -v /your/.htpasswd:/var/www/FreshRSS/data/.htpasswd \
   ...
@@ -632,7 +632,7 @@ containing a valid cron minute definition such as `13,43` (recommended) or `*/20
 Not passing the `CRON_MIN` environment variable – or setting it to empty string – will disable the cron daemon.
 
 ```sh
-docker run ... \
+docker run -d ... \
   -e CRON_MIN=13,43 \
   --name freshrss freshrss/freshrss:edge
 ```
