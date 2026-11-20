@@ -1,6 +1,8 @@
 <?php
 declare(strict_types=1);
 
+use PHPUnit\Framework\Attributes\DataProvider;
+
 final class EntryTest extends \PHPUnit\Framework\TestCase {
 
 	#[\Override]
@@ -116,5 +118,57 @@ final class EntryTest extends \PHPUnit\Framework\TestCase {
 		$this->expectException(\TypeError::class);
 		// @phpstan-ignore argument.type
 		$entry->_id(1700000000000001.0);
+	}
+
+	/** @return array<string,array{string,string}> */
+	public static function provideFullContent(): array {
+		$start = '<!-- FULLCONTENT start //-->';
+		$end = '<!-- FULLCONTENT end //-->';
+		$full = $start . '<p title="' . $end . '">Full</p>' . "\n" . '<video><source src="https://example.net/a.webm"></video>' . $end;
+		// The text of the delimiters in attribute values, as serialised by libxml2
+		$original = '<p title="' . $start . '">Original</p> &amp; <b title=\'' . $end . '" <!--="x"><form><button>x</button>-->\'>content</b>';
+		$pi = '<?x ' . $start . '<b title=\'"<!--><form><button>x</button>-->\'>content</b><?x ' . $end;
+		return [
+			'none' => ['<p>Original</p> &amp; <b>content</b>', '<p>Original</p> &amp; <b>content</b>'],
+			'prepend' => [$full . $original, $original],
+			'append' => [$original . $full, $original],
+			'replace' => [$full, ''],
+			'attributes' => [$original, $original],
+			'processing instructions' => [$pi, $pi],
+			'comment, then attribute' => [$start . '<p>Full</p>' . $original, $start . '<p>Full</p>' . $original],
+		];
+	}
+
+	#[DataProvider('provideFullContent')]
+	public function test_originalContent_onlyCutsAtComments(string $content, string $expected): void {
+		$entry = new FreshRSS_Entry(1, 'guid', 'Title', '', $content, 'https://example.net/article');
+		self::assertSame($expected, $entry->originalContent());
+	}
+
+	public function test_loadEntries_doesNotCutAtFullContentCommentsOfFeed(): void {
+		$rss = <<<'XML'
+			<?xml version="1.0" encoding="UTF-8"?>
+			<rss version="2.0">
+				<channel>
+					<title>Feed</title>
+					<link>https://example.net/</link>
+					<item>
+						<title>Article</title>
+						<link>https://example.net/article</link>
+						<guid isPermaLink="false">fullcontent-001</guid>
+						<description><![CDATA[<p title="<!-- FULLCONTENT start //-->">Hello</p>
+							<b title='<!-- FULLCONTENT end //-->" <!--="x"><form><button>x</button></form>-->'>bold</b>]]></description>
+					</item>
+				</channel>
+			</rss>
+			XML;
+
+		$entries = self::entriesFromRss($rss);
+		self::assertCount(1, $entries);
+
+		$doc = new DOMDocument();
+		self::assertTrue($doc->loadHTML('<meta charset="UTF-8">' . $entries[0]->content(withEnclosures: false), LIBXML_NONET | LIBXML_NOERROR | LIBXML_NOWARNING));
+		self::assertCount(0, $doc->getElementsByTagName('form'));
+		self::assertSame('<!-- FULLCONTENT start //-->', $doc->getElementsByTagName('p')->item(0)?->getAttribute('title'));
 	}
 }

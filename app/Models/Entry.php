@@ -208,8 +208,51 @@ class FreshRSS_Entry extends Minz_Model {
 	 * Provides the original content without additional content potentially added by loadCompleteContent().
 	 */
 	public function originalContent(): string {
-		return $this->attributeString('original_content') ??
-			preg_replace('#<!-- FULLCONTENT start //-->.*<!-- FULLCONTENT end //-->#s', '', $this->content) ?? '';
+		return $this->attributeString('original_content') ?? self::removeFullContent($this->content);
+	}
+
+	/**
+	 * Safely remove the content added by `loadCompleteContent()` between its two HTML comments.
+	 */
+	private static function removeFullContent(string $html): string {
+		if (!str_contains($html, '<!-- FULLCONTENT ')) {
+			return $html;
+		}
+		// Label the markers with an unpredictable token
+		$token = bin2hex(random_bytes(16));
+		$markers = [];
+		$labelled = preg_replace_callback('#<!-- FULLCONTENT (start|end) //-->#',
+			/** @param list<array{string,int}> $matches */
+			static function (array $matches) use (&$markers, $token): string {
+				$label = $token . '-' . $matches[0][1];
+				$markers[$label] = [$matches[1][0] === 'start', $matches[0][1]];
+				return '<!--' . $label . '-->';
+			}, $html, flags: PREG_OFFSET_CAPTURE);
+		if (!is_string($labelled)) {
+			return $html;
+		}
+		$start = null;
+		$end = null;
+		foreach ((new Dom\XPath(Dom\HTMLDocument::createFromString($labelled, LIBXML_NOERROR)))->query('//comment()') as $comment) {
+			/** @var \DOMComment|\DOMNode $comment */
+			$candidate = $markers[$comment->textContent ?? ''] ?? null;
+			if ($candidate === null) {
+				continue;
+			}
+			[$isStart, $offset] = $candidate;
+			if ($start === null) {
+				if ($isStart) {
+					$start = $offset;
+				}
+			} elseif (!$isStart) {
+				$end = $offset + strlen('<!-- FULLCONTENT end //-->');
+				break;
+			}
+		}
+		if ($start === null || $end === null) {
+			return $html;
+		}
+		return substr($html, 0, $start) . substr($html, $end);
 	}
 
 	/**
