@@ -65,11 +65,11 @@
 					</div>
 					<ul>
 						<li class="item"><a href="<?= _url('user', 'profile') ?>"><?= _t('gen.menu.user_profile') ?></a></li>
-						<?php if (FreshRSS_Auth::accessNeedsAction()): ?>
+						<?php if (FreshRSS_Auth::accessNeedsAction() || FreshRSS_auth_Controller::isOidc()): ?>
 						<li class="item">
 							<form method="POST">
 								<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
-								<button class="as-link signout" formaction="<?= _url('auth', 'logout') ?>"><?= _t('gen.auth.logout'); ?><?= _i('logout') ?></button>
+								<button class="as-link signout" formaction="<?= FreshRSS_auth_Controller::getLogoutUrl() ?>"><?= _t('gen.auth.logout'); ?><?= _i('logout') ?></button>
 							</form>
 						</li>
 						<?php else: ?>
