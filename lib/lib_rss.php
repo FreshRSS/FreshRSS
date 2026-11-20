@@ -344,15 +344,32 @@ function cleanCache(int $hours = 720): void {
 
 /**
  * Add native lazy loading by inserting a `loading="lazy"` attribute right after
- * the tag name of img/image/iframe/track/video elements that do not have one.
+ * the tag name of img/image/iframe elements that do not have one,
+ * and use `data-original` attribute for video/track elements and their poster/src attributes.
  * @param string $content is the text we want to parse
  */
 function lazyimg(string $content): string {
-	return preg_replace(
-		'/<((?:img|image|iframe|track|video)\b)(?![^>]*\b(?:loading|data-original)=)([^>]*+)>/i',
+	$content = preg_replace(
+		'/<((?:img|image|iframe)\b)(?![^>]{0,1000}\b(?:loading|data-original)=)([^>]{0,1000}+)>/i',
 		'<$1 loading="lazy"$2>',
 		$content
-	) ?? '';
+	) ?? $content;
+
+	$placeholder = Minz_Url::display('/themes/icons/grey.gif');
+	return preg_replace(
+		[
+			'/<((?:video)(?![^>]{0,1000}\bdata-original=)[^>]{1,1000}?)(?<![\w\'"-])poster="([^"]+)"([^>]*)>/i',
+			'/<((?:video)(?![^>]{0,1000}\bdata-original=)[^>]{1,1000}?)(?<![\w\'"-])poster=\'([^\']+)\'([^>]*)>/i',
+			'/<((?:track)(?![^>]{0,1000}\bdata-original=)[^>]{1,1000}?)(?<![\w\'"-])src="([^"]+)"([^>]*)>/i',
+			'/<((?:track)(?![^>]{0,1000}\bdata-original=)[^>]{1,1000}?)(?<![\w\'"-])src=\'([^\']+)\'([^>]*)>/i',
+		], [
+			'<$1poster="' . $placeholder . '" data-original="$2"$3>',
+			'<$1poster=\'' . $placeholder . '\' data-original=\'$2\'$3>',
+			'<$1src="' . $placeholder . '" data-original="$2"$3>',
+			'<$1src=\'' . $placeholder . '\' data-original=\'$2\'$3>',
+		],
+		$content
+	) ?? $content;
 }
 
 /** @return numeric-string */
