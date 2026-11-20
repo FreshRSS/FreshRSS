@@ -702,6 +702,8 @@ final class FreshRSS_Context {
 			}
 			if ($collator instanceof \Collator) {
 				$collator->setAttribute(\Collator::NUMERIC_COLLATION, \Collator::ON);
+				// Accent-sensitive but case-insensitive:
+				$collator->setAttribute(\Collator::STRENGTH, \Collator::SECONDARY);
 			}
 		}
 
