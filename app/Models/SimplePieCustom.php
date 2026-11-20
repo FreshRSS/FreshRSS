@@ -44,6 +44,7 @@ final class FreshRSS_SimplePieCustom extends \SimplePie\SimplePie
 				unset($curl_options[CURLOPT_PROXY]);
 			}
 		}
+		$curl_options = FreshRSS_http_Util::normalizeProxyOptions($curl_options);
 		if (defined('CURLOPT_PROTOCOLS_STR') && is_int(CURLOPT_PROTOCOLS_STR)) {
 			$curl_options[CURLOPT_PROTOCOLS_STR] = 'http,https';
 			if (defined('CURLOPT_REDIR_PROTOCOLS_STR') && is_int(CURLOPT_REDIR_PROTOCOLS_STR)) {
