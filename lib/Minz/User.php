@@ -11,10 +11,17 @@ final class Minz_User {
 	public const CURRENT_USER = 'currentUser';
 
 	/**
+	 * Name of the user of the current request as last set by `change()` (empty string if cleared), or null if not set yet.
+	 * Kept apart from the session, which is shared with concurrent requests and reloaded at each access:
+	 * another request changing the current user of the session (e.g. login, logout) must not change the user of a running request.
+	 */
+	private static ?string $name = null;
+
+	/**
 	 * @return string the name of the current user, or null if there is none
 	 */
 	public static function name(): ?string {
-		$currentUser = trim(Minz_Session::paramString(Minz_User::CURRENT_USER));
+		$currentUser = self::$name ?? trim(Minz_Session::paramString(Minz_User::CURRENT_USER));
 		return $currentUser === '' ? null : $currentUser;
 	}
 
@@ -23,6 +30,7 @@ final class Minz_User {
 	 */
 	public static function change(string $name = ''): void {
 		$name = trim($name);
+		self::$name = $name;
 		Minz_Session::_param(Minz_User::CURRENT_USER, $name === '' ? false : $name);
 	}
 }

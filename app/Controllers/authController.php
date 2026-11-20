@@ -154,20 +154,22 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 
 			usleep(random_int(100, 10000));	// Primitive mitigation of timing attacks, in μs
 
-			FreshRSS_Context::initUser($username);
-			if (!FreshRSS_Context::hasUserConf()) {
+			// Do not use `FreshRSS_Context::initUser()` before the password is verified
+			$userConf = FreshRSS_user_Controller::checkUsername($username) && FreshRSS_user_Controller::userExists($username) ?
+				FreshRSS_UserConfiguration::getForUser($username) : null;
+			if ($userConf === null) {
 				self::loginFailed(403, _t('feedback.auth.login.invalid'));
 				return;
 			}
 
-			if (!FreshRSS_Context::userConf()->enabled || FreshRSS_Context::userConf()->passwordHash == '') {
+			if (!$userConf->enabled || $userConf->passwordHash == '') {
 				usleep(random_int(100, 5000));	// Primitive mitigation of timing attacks, in μs
 				self::loginFailed(403, _t('feedback.auth.login.invalid'));
 				return;
 			}
 
 			$ok = FreshRSS_FormAuth::checkCredentials(
-				$username, FreshRSS_Context::userConf()->passwordHash, $passwordPlain
+				$username, $userConf->passwordHash, $passwordPlain
 			);
 			if ($ok) {
 				try {
@@ -180,7 +182,7 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 				// Set session parameters to give access to the user.
 				Minz_Session::_params([
 					Minz_User::CURRENT_USER => $username,
-					'passwordHash' => FreshRSS_Context::userConf()->passwordHash,
+					'passwordHash' => $userConf->passwordHash,
 					'csrf' => false,
 				]);
 				FreshRSS_Auth::giveAccess();
