@@ -163,7 +163,7 @@ final class EntryTest extends \PHPUnit\Framework\TestCase {
 	}
 
 	/**
-	 * Test security of full content markers
+	 * Legacy full-content of legacy entries (unsafe) already in database.
 	 */
 	public function test_loadEntries_withMarkerEchoesInAttributesOfFeed(): void {
 		$rss = <<<'XML'
@@ -186,8 +186,30 @@ final class EntryTest extends \PHPUnit\Framework\TestCase {
 		$entries = self::entriesFromRss($rss);
 		self::assertCount(1, $entries);
 
+		// The legacy markers echoed in attribute values are still detected and cut at ingest
+		self::assertStringNotContainsString('<!-- FULLCONTENT', $entries[0]->content(withEnclosures: false));
+	}
+
+	/**
+	 * Test security of full-content markers for new content updates.
+	 */
+	public function test_originalContent_withForgedMarkersInNewContentUpdate(): void {
+		$delimiter = bin2hex(random_bytes(16));
+
+		// Attacker-forged content echoing the legacy markers inside attribute values, as serialised by libxml2
+		$forged = '<p title="<!-- FULLCONTENT start //-->">Hello</p> &amp; ' .
+			'<b title=\'<!-- FULLCONTENT end //-->" <!--="x"><form><button>x</button></form>-->\'>bold</b>';
+		// Freshly fetched content wrapped by loadCompleteContent(), prepended to the original content
+			$full = "<!-- FULLCONTENT {$delimiter} start //--><p>Full</p><!-- FULLCONTENT {$delimiter} end //-->";
+		$entry = new FreshRSS_Entry(1, 'guid', 'Title', '', $full . $forged, 'https://example.net/article');
+		$entry->_attribute('full_content_delimiter', $delimiter);
+
+		// Only the span of the secret unique delimiter is cut; the forged markers are inert
+		self::assertSame($forged, $entry->originalContent());
+
+		// Re-parsing the remaining content must not enable any forged element
 		$doc = new DOMDocument();
-		self::assertTrue($doc->loadHTML('<meta charset="UTF-8">' . $entries[0]->content(withEnclosures: false), LIBXML_NONET | LIBXML_NOERROR | LIBXML_NOWARNING));
+		self::assertTrue($doc->loadHTML('<meta charset="UTF-8">' . $forged, LIBXML_NONET | LIBXML_NOERROR | LIBXML_NOWARNING));
 		self::assertCount(0, $doc->getElementsByTagName('form'));
 		self::assertSame('p', $doc->getElementsByTagName('p')->item(0)?->nodeName);
 	}
