@@ -360,6 +360,7 @@ class FreshRSS_extension_Controller extends FreshRSS_ActionController {
 		$content_type = self::MIME_TYPES[$mimeType];
 		header("Content-Type: {$content_type}");
 		header("Content-Disposition: inline; filename='{$filename}'");
+		header('X-Content-Type-Options: nosniff');
 		header('Referrer-Policy: same-origin');
 		if (file_exists(DATA_PATH . '/no-cache.txt') || !httpConditional($mtime, cacheSeconds: 604800, cachePrivacy: 0)) {
 			$contents = $extension->getFile($filename);

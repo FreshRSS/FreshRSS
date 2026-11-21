@@ -47,16 +47,24 @@ build: ## Build a Docker image
 start: ## Start the development environment (use Docker)
 	$(DOCKER) network create --driver bridge $(NETWORK) || true
 	$(foreach extension,$(extensions),$(eval volumes=$(volumes) --volume $(extension):/var/www/FreshRSS/extensions/$(notdir $(extension)):z))
+	@# No TTY and no --sig-proxy: a terminal resize (SIGWINCH) must not reach Apache, which treats it as a graceful stop.
+	@# Ctrl+C is relayed by stopping the container instead.
+	trap '$(DOCKER) stop freshrss-dev >/dev/null' INT TERM; \
 	$(DOCKER) run \
-		-it \
 		--rm \
+		--sig-proxy=false \
 		--volume $(shell pwd):/var/www/FreshRSS:z \
 		$(volumes) \
 		--publish $(PORT):80 \
 		--env FRESHRSS_ENV=development \
 		--name freshrss-dev \
 		--network $(NETWORK) \
-		docker.io/freshrss/freshrss:$(TAG)
+		docker.io/freshrss/freshrss:$(TAG) & \
+	pid=$$!; \
+	wait $$pid; \
+	status=$$?; \
+	if [ "$$status" -gt 128 ]; then wait $$pid; status=$$?; fi; \
+	exit $$status
 
 .PHONY: stop
 stop: ## Stop FreshRSS container if any
