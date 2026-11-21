@@ -163,11 +163,7 @@ final class EntryTest extends \PHPUnit\Framework\TestCase {
 	}
 
 	/**
-	 * Note: removeFullContent() is a best-effort heuristic (see its docblock): a copy of the
-	 * legacy markers inside an attribute value can be spuriously matched and trimmed (accepted risk).
-	 * Here we only assert that the stored content is still valid HTML without artefacts such as a
-	 * stray `<form>` element, and implicitly that the genuine (uniquely delimited) full-content
-	 * wrappers, which an article cannot predict, are never confused with such echoes.
+	 * Test security of full content markers
 	 */
 	public function test_loadEntries_withMarkerEchoesInAttributesOfFeed(): void {
 		$rss = <<<'XML'

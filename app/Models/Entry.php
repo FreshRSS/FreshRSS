@@ -206,20 +206,18 @@ class FreshRSS_Entry extends Minz_Model {
 
 	/**
 	 * Provides the original content without additional content potentially added by loadCompleteContent().
+	 * In the style of MIME multipart boundaries, stored in the `full_content_delimiter` attribute.
 	 */
 	public function originalContent(): string {
-		return $this->attributeString('original_content') ??
-			self::removeFullContent($this->content, $this->attributeString('full_content_delimiter'));
-	}
-
-	/**
-	 * Removes the content added by `loadCompleteContent()` between its two HTML comments.
-	 * @param string|null $delimiter The unique delimiter used to mark the full content, if any (in the style of MIME multipart boundaries).
-	 */
-	private static function removeFullContent(string $html, ?string $delimiter = null): string {
+		$originalContent = $this->attributeString('original_content');
+		if ($originalContent !== null) {
+			return $originalContent;
+		}
+		$html = $this->content;
 		if (!str_contains($html, '<!-- FULLCONTENT ')) {
 			return $html;
 		}
+		$delimiter = $this->attributeString('full_content_delimiter');
 		if ($delimiter === null || $delimiter === '') {
 			// Legacy unsafe markers
 			$startMarker = '<!-- FULLCONTENT start //-->';
