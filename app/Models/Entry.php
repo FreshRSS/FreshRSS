@@ -208,51 +208,35 @@ class FreshRSS_Entry extends Minz_Model {
 	 * Provides the original content without additional content potentially added by loadCompleteContent().
 	 */
 	public function originalContent(): string {
-		return $this->attributeString('original_content') ?? self::removeFullContent($this->content);
+		return $this->attributeString('original_content') ??
+			self::removeFullContent($this->content, $this->attributeString('full_content_delimiter'));
 	}
 
 	/**
-	 * Safely remove the content added by `loadCompleteContent()` between its two HTML comments.
+	 * Removes the content added by `loadCompleteContent()` between its two HTML comments.
+	 * @param string|null $delimiter The unique delimiter used to mark the full content, if any (in the style of MIME multipart boundaries).
 	 */
-	private static function removeFullContent(string $html): string {
+	private static function removeFullContent(string $html, ?string $delimiter = null): string {
 		if (!str_contains($html, '<!-- FULLCONTENT ')) {
 			return $html;
 		}
-		// Label the markers with an unpredictable token
-		$token = bin2hex(random_bytes(16));
-		$markers = [];
-		$labelled = preg_replace_callback('#<!-- FULLCONTENT (start|end) //-->#',
-			/** @param list<array{string,int}> $matches */
-			static function (array $matches) use (&$markers, $token): string {
-				$label = $token . '-' . $matches[0][1];
-				$markers[$label] = [$matches[1][0] === 'start', $matches[0][1]];
-				return '<!--' . $label . '-->';
-			}, $html, flags: PREG_OFFSET_CAPTURE);
-		if (!is_string($labelled)) {
-			return $html;
+		if ($delimiter === null || $delimiter === '') {
+			// Legacy unsafe markers
+			$startMarker = '<!-- FULLCONTENT start //-->';
+			$endMarker = '<!-- FULLCONTENT end //-->';
+		} else {
+			$startMarker = "<!-- FULLCONTENT {$delimiter} start //-->";
+			$endMarker = "<!-- FULLCONTENT {$delimiter} end //-->";
 		}
-		$start = null;
-		$end = null;
-		foreach ((new Dom\XPath(Dom\HTMLDocument::createFromString($labelled, LIBXML_NOERROR)))->query('//comment()') as $comment) {
-			/** @var \DOMComment|\DOMNode $comment */
-			$candidate = $markers[$comment->textContent ?? ''] ?? null;
-			if ($candidate === null) {
-				continue;
-			}
-			[$isStart, $offset] = $candidate;
-			if ($start === null) {
-				if ($isStart) {
-					$start = $offset;
-				}
-			} elseif (!$isStart) {
-				$end = $offset + strlen('<!-- FULLCONTENT end //-->');
-				break;
-			}
+		$startPos = strpos($html, $startMarker);
+		if ($startPos === false) {
+			return $html;	// Could not find the start boundary, so return the HTML as-is
 		}
-		if ($start === null || $end === null) {
-			return $html;
+		$endPos = strpos($html, $endMarker, $startPos + strlen($startMarker));
+		if ($endPos === false) {
+			return $html;	// Could not find the end boundary, so return the HTML as-is
 		}
-		return substr($html, 0, $start) . substr($html, $end);
+		return substr($html, 0, $startPos) . substr($html, $endPos + strlen($endMarker));
 	}
 
 	/**
@@ -1131,8 +1115,11 @@ class FreshRSS_Entry extends Minz_Model {
 					// The article is not yet in the database, so let’s fetch it
 					$fullContent = $this->getContentByParsing();
 					if ('' !== $fullContent) {
-						$fullContent = "<!-- FULLCONTENT start //-->{$fullContent}<!-- FULLCONTENT end //-->";
 						$originalContent = $this->originalContent();
+						// Unique delimiter, inspired by MIME multipart boundaries
+						$delimiter = bin2hex(random_bytes(16));
+						$this->_attribute('full_content_delimiter', $delimiter);
+						$fullContent = "<!-- FULLCONTENT {$delimiter} start //-->{$fullContent}<!-- FULLCONTENT {$delimiter} end //-->";
 						switch ($feed->attributeString('content_action')) {
 							case 'prepend':
 								$this->_attribute('original_content');
