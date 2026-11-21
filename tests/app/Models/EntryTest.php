@@ -1,6 +1,8 @@
 <?php
 declare(strict_types=1);
 
+use PHPUnit\Framework\Attributes\DataProvider;
+
 final class EntryTest extends \PHPUnit\Framework\TestCase {
 
 	#[\Override]
@@ -116,5 +118,99 @@ final class EntryTest extends \PHPUnit\Framework\TestCase {
 		$this->expectException(\TypeError::class);
 		// @phpstan-ignore argument.type
 		$entry->_id(1700000000000001.0);
+	}
+
+	/** @return array<string,array{string,string,string|null}> Content, expected, delimiter (null for the legacy markers) */
+	public static function provideFullContent(): array {
+		$start = '<!-- FULLCONTENT start //-->';
+		$end = '<!-- FULLCONTENT end //-->';
+		// Original content with copies of the legacy markers inside attribute values, as serialised by libxml2
+		$original = '<p title="' . $start . '">Original</p> &amp; <b title=\'' . $end . '\'>content</b>';
+		$cleanOriginal = '<p>Original</p> &amp; <b>content</b>';
+		$cases = [];
+		foreach ([null, '0123456789abcdef0123456789abcdef'] as $delimiter) {
+			$label = $delimiter === null ? 'legacy' : 'delimited';
+			$separator = $delimiter === null ? '' : " {$delimiter}";
+			$full = "<!-- FULLCONTENT{$separator} start //--><p>Full</p><!-- FULLCONTENT{$separator} end //-->";
+			$unpairedStart = "<!-- FULLCONTENT{$separator} start //-->Full";
+			$cases = $cases + [
+				"none $label" => [$cleanOriginal, $cleanOriginal, $delimiter],
+				"prepend $label" => [$full . $original, $original, $delimiter],
+				"append $label" => [$cleanOriginal . $full, $cleanOriginal, $delimiter],
+				"replace $label" => [$full, '', $delimiter],
+				// A lone start marker must not trigger an unsafe cut
+				"unpaired start $label" => [$unpairedStart, $unpairedStart, $delimiter],
+			];
+			// (Delimited only) A legacy end comment cannot close a delimited start
+			if ($delimiter !== null) {
+				$cases["legacy end inside $label span"] = [
+					"<!-- FULLCONTENT {$delimiter} start //-->Full" . $end . 'x' . "<!-- FULLCONTENT {$delimiter} end //-->",
+					'',
+					$delimiter,
+				];
+			}
+		}
+		return $cases;
+	}
+
+	#[DataProvider('provideFullContent')]
+	public function test_originalContent_removesFullContent(string $content, string $expected, ?string $delimiter): void {
+		$entry = new FreshRSS_Entry(1, 'guid', 'Title', '', $content, 'https://example.net/article');
+		if ($delimiter !== null) {
+			$entry->_attribute('full_content_delimiter', $delimiter);
+		}
+		self::assertSame($expected, $entry->originalContent());
+	}
+
+	/**
+	 * Legacy full-content of legacy entries (unsafe) already in database.
+	 */
+	public function test_loadEntries_withMarkerEchoesInAttributesOfFeed(): void {
+		$rss = <<<'XML'
+			<?xml version="1.0" encoding="UTF-8"?>
+			<rss version="2.0">
+				<channel>
+					<title>Feed</title>
+					<link>https://example.net/</link>
+					<item>
+						<title>Article</title>
+						<link>https://example.net/article</link>
+						<guid isPermaLink="false">fullcontent-001</guid>
+						<description><![CDATA[<p title="<!-- FULLCONTENT start //-->">Hello</p>
+							<b title='<!-- FULLCONTENT end //-->" <!--="x"><form><button>x</button></form>-->'>bold</b>]]></description>
+					</item>
+				</channel>
+			</rss>
+			XML;
+
+		$entries = self::entriesFromRss($rss);
+		self::assertCount(1, $entries);
+
+		// The legacy markers echoed in attribute values are still detected and cut at ingest
+		self::assertStringNotContainsString('<!-- FULLCONTENT', $entries[0]->content(withEnclosures: false));
+	}
+
+	/**
+	 * Test security of full-content markers for new content updates.
+	 */
+	public function test_originalContent_withForgedMarkersInNewContentUpdate(): void {
+		$delimiter = bin2hex(random_bytes(16));
+
+		// Attacker-forged content echoing the legacy markers inside attribute values, as serialised by libxml2
+		$forged = '<p title="<!-- FULLCONTENT start //-->">Hello</p> &amp; ' .
+			'<b title=\'<!-- FULLCONTENT end //-->" <!--="x"><form><button>x</button></form>-->\'>bold</b>';
+		// Freshly fetched content wrapped by loadCompleteContent(), prepended to the original content
+			$full = "<!-- FULLCONTENT {$delimiter} start //--><p>Full</p><!-- FULLCONTENT {$delimiter} end //-->";
+		$entry = new FreshRSS_Entry(1, 'guid', 'Title', '', $full . $forged, 'https://example.net/article');
+		$entry->_attribute('full_content_delimiter', $delimiter);
+
+		// Only the span of the secret unique delimiter is cut; the forged markers are inert
+		self::assertSame($forged, $entry->originalContent());
+
+		// Re-parsing the remaining content must not enable any forged element
+		$doc = new DOMDocument();
+		self::assertTrue($doc->loadHTML('<meta charset="UTF-8">' . $forged, LIBXML_NONET | LIBXML_NOERROR | LIBXML_NOWARNING));
+		self::assertCount(0, $doc->getElementsByTagName('form'));
+		self::assertSame('p', $doc->getElementsByTagName('p')->item(0)?->nodeName);
 	}
 }
