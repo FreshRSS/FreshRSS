@@ -10,7 +10,7 @@ See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 * Features
 	* Use PHP 8.4+ `\Dom` classes and functions when available (polyfill for PHP < 8.4) [#9567](https://github.com/FreshRSS/FreshRSS/pull/9567)
 		* Polyfill `GT\CssXPath`: Add support for case insensitivity [phpgt/CssXPath#256](https://github.com/phpgt/CssXPath/pull/256)
-	* Use native HTML5 `<img loading="lazy"` instead of custom JavaScript [#5816](https://github.com/FreshRSS/FreshRSS/pull/5816)
+	* Use native HTML5 `<img loading="lazy"` instead of custom JavaScript [#5816](https://github.com/FreshRSS/FreshRSS/pull/5816), [#9601](https://github.com/FreshRSS/FreshRSS/pull/9601)
 	* User queries can define their own sorting criterion (field and direction) [#8954](https://github.com/FreshRSS/FreshRSS/pull/8954)
 	* Better catch and log user regex errors [#9559](https://github.com/FreshRSS/FreshRSS/pull/9559)
 	* Sharing by RSS emit `<enclosure>` for BitTorrent attachments [#9553](https://github.com/FreshRSS/FreshRSS/pull/9553)
@@ -39,14 +39,19 @@ See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 	* Use HTTP header `Cross-Origin-Opener-Policy: same-origin` [#9588](https://github.com/FreshRSS/FreshRSS/pull/9588)
 	* WebSub security: Implement support for `hub.secret` [#9430](https://github.com/FreshRSS/FreshRSS/pull/9430)
 	* Reduce risk of data cache leak [#9591](https://github.com/FreshRSS/FreshRSS/pull/9591)
-	* Sanitize Punycode [#9591](https://github.com/FreshRSS/FreshRSS/pull/9591)
-	* Fix search references [#9591](https://github.com/FreshRSS/FreshRSS/pull/9591)
+	* Sanitize Punycode [#9591](https://github.com/FreshRSS/FreshRSS/pull/9591), [GHSA-qv45-78vh-92w4](https://github.com/FreshRSS/FreshRSS/security/advisories/GHSA-qv45-78vh-92w4)
+	* Fix search references [#9591](https://github.com/FreshRSS/FreshRSS/pull/9591), [GHSA-qwpx-vccf-m8xf](https://github.com/FreshRSS/FreshRSS/security/advisories/GHSA-qwpx-vccf-m8xf)
 	* Prevent use of irrelevant parameter is shared user queries [#9589](https://github.com/FreshRSS/FreshRSS/pull/9589)
 	* Fix user enumeration by probing inconsistent error responses on failed logins [#9568](https://github.com/FreshRSS/FreshRSS/pull/9568)
-	* Deny formLogin access if already logged in [#9598](https://github.com/FreshRSS/FreshRSS/pull/9598)
-	* Better sanitize bookmark [#9594](https://github.com/FreshRSS/FreshRSS/pull/9594)
+	* Safer login [#9592](https://github.com/FreshRSS/FreshRSS/pull/9592), [#9598](https://github.com/FreshRSS/FreshRSS/pull/9598), [GHSA-rqqp-9h9w-h9m5](https://github.com/FreshRSS/FreshRSS/security/advisories/GHSA-rqqp-9h9w-h9m5)
+	* Better sanitize bookmark [#9594](https://github.com/FreshRSS/FreshRSS/pull/9594), [GHSA-jc2v-8853-5jqf](https://github.com/FreshRSS/FreshRSS/security/advisories/GHSA-jc2v-8853-5jqf)
 	* Fix escape labels during JSON import and render tag dropdown as text [#9504](https://github.com/FreshRSS/FreshRSS/pull/9504)
+	* More security for extension files: `X-Content-Type-Options: nosniff` [#9593](https://github.com/FreshRSS/FreshRSS/pull/9593), [GHSA-w38f-92pp-95hg](https://github.com/FreshRSS/FreshRSS/security/advisories/GHSA-w38f-92pp-95hg)
+	* Fix HTML injection in view mode error notification [#9605](https://github.com/FreshRSS/FreshRSS/pull/9605), [GHSA-wpf6-5v7v-6cvj](https://github.com/FreshRSS/FreshRSS/security/advisories/GHSA-wpf6-5v7v-6cvj)
+	* Fix full-content logic [#9602](https://github.com/FreshRSS/FreshRSS/pull/9602), [GHSA-5hcv-wqwr-j8r8](https://github.com/FreshRSS/FreshRSS/security/advisories/GHSA-5hcv-wqwr-j8r8)
+	* Sanitize DB install params [#9595](https://github.com/FreshRSS/FreshRSS/pull/9595), [GHSA-xm97-f66c-q5fx](https://github.com/FreshRSS/FreshRSS/security/advisories/GHSA-xm97-f66c-q5fx)
 	* Document threat model for security scanners [#9509](https://github.com/FreshRSS/FreshRSS/pull/9509)
+		* Enrolled in Anthropic OSS Scanner service that scans critical open-source repositories for security vulnerabilities [anthropics/oss-scanner#1434](https://github.com/anthropics/oss-scanner/pull/1434)
 	* Use a keyed hash for favicon cache keys [#9518](https://github.com/FreshRSS/FreshRSS/pull/9518)
 * Performance
 	* SQL speed improvement for batch mark as read under SQLite and PostgreSQL [#9575](https://github.com/FreshRSS/FreshRSS/pull/9575)
@@ -79,7 +84,8 @@ See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 	* Update to PHPUnit 11.x (PHP 8.2+) [#9470](https://github.com/FreshRSS/FreshRSS/pull/9470)
 	* Group auto dependency updates into one PR per ecosystem [#9496](https://github.com/FreshRSS/FreshRSS/pull/9496)
 * Misc.
-	* New `make test-all-php-versions` to run tests with all supported PHP versions [#9576](https://github.com/FreshRSS/FreshRSS/pull/9576)
+	* New `make test-all-php-versions` to run tests with all supported PHP versions in Docker [#9576](https://github.com/FreshRSS/FreshRSS/pull/9576), [#9606](https://github.com/FreshRSS/FreshRSS/pull/9606)
+	* Fix `make start` stopping on terminal resize [#9603](https://github.com/FreshRSS/FreshRSS/pull/9603)
 	* Update dev dependencies [#9494](https://github.com/FreshRSS/FreshRSS/pull/9494), [#9497](https://github.com/FreshRSS/FreshRSS/pull/9497), [#9498](https://github.com/FreshRSS/FreshRSS/pull/9498),
 		[#9499](https://github.com/FreshRSS/FreshRSS/pull/9499),[#9500](https://github.com/FreshRSS/FreshRSS/pull/9500),[#9501](https://github.com/FreshRSS/FreshRSS/pull/9501),
 		[#9522](https://github.com/FreshRSS/FreshRSS/pull/9522), [#9523](https://github.com/FreshRSS/FreshRSS/pull/9523), [#9561](https://github.com/FreshRSS/FreshRSS/pull/9561)
