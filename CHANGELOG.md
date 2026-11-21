@@ -61,6 +61,7 @@ See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 		* Treat https Atom 1.0 namespace as Atom
 * Deployment
 	* Docker: dev image `freshrss/freshrss:oldest` updated to Alpine 3.18 with PHP 8.2.16 and Apache 2.4.62 [#9470](https://github.com/FreshRSS/FreshRSS/pull/9470)
+	* Docker: dev image `freshrss/freshrss:newest` updated with PHP 8.6.0 and Apache 2.4.71
 	* Docker: dev image `freshrss/freshrss:newest` updated to use HTTPs for downloading packages [#9584](https://github.com/FreshRSS/FreshRSS/pull/9584)
 * UI
 	* Add option to open articles on their original website by default [#9554](https://github.com/FreshRSS/FreshRSS/pull/9554)
