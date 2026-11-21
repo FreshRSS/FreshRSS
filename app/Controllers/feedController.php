@@ -536,7 +536,8 @@ class FreshRSS_feed_Controller extends FreshRSS_ActionController {
 			if ($ttl === FreshRSS_Feed::TTL_DEFAULT) {
 				$ttl = FreshRSS_Context::userConf()->ttl_default;
 			}
-			if ($simplePiePush === null && $feed_id === null && (time() <= $feed->lastUpdate() + $ttl)) {
+			$lastAttempt = max($feed->lastUpdate(), $feed->lastError());	// Also respect the TTL after a failed refresh
+			if ($simplePiePush === null && $feed_id === null && (time() <= $lastAttempt + $ttl)) {
 				//Too early to refresh from source, but check whether the feed was updated by another user
 				$ε = 10;	// negligible offset errors in seconds
 				if ($mtime <= 0 ||
