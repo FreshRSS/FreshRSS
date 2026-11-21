@@ -80,12 +80,14 @@ return array(
 			'deleted' => 'Kategorija ištrinta.',
 			'emptied' => 'Kategorija ištuštinta',
 			'error' => 'Kategorijos atnaujinti nepavyko',
+			'muted' => 'Feeds of the category have been muted',	// TODO
 			'name_exists' => 'Toks kategorijos pavadinimas jau yra.',
 			'no_id' => 'Turite nurodyti kategorijos ID.',
 			'no_name' => 'Kategorijos pavadinimas negali būti tuščias.',
 			'not_delete_default' => 'Numatytosios kategorijos ištrinti negalima!',
 			'not_exist' => 'Tokios kategorijos nėra!',
 			'over_max' => 'Pasiekėte kategorijų ribą (%d)',
+			'unmuted' => 'Feeds of the category have been unmuted',	// TODO
 			'updated' => 'Kategorija atnaujinta.',
 		),
 		'feed' => array(

@@ -80,12 +80,14 @@ return array(
 			'deleted' => 'Kategória bola odstránená.',
 			'emptied' => 'Kategória bola vyprázdnená',
 			'error' => 'Nepodarilo sa aktualizovať kategóriu',
+			'muted' => 'Feeds of the category have been muted',	// TODO
 			'name_exists' => 'Názov kategórie už existuje.',
 			'no_id' => 'Musíte zadať ID kategórie.',
 			'no_name' => 'Názov kategórie nemôže byť prázdny.',
 			'not_delete_default' => 'Nemôžete odstrániť prednastavenú kategóriu!',
 			'not_exist' => 'Kategória neexistuje!',
 			'over_max' => 'Dosiahli ste limit počtu kategórií (%d)',
+			'unmuted' => 'Feeds of the category have been unmuted',	// TODO
 			'updated' => 'Kategória bola aktualizovaná.',
 		),
 		'feed' => array(

@@ -35,6 +35,7 @@ return array(
 		'menu' => array(
 			'open' => 'Open menu',	// IGNORE
 		),
+		'mute_all_feeds' => 'Mute all feeds',	// IGNORE
 		'nav_buttons' => array(
 			'next' => 'Next article',	// IGNORE
 			'prev' => 'Previous article',	// IGNORE
@@ -50,6 +51,7 @@ return array(
 		'see_website' => 'See website',	// IGNORE
 		'submit' => 'Submit',	// IGNORE
 		'truncate' => 'Delete all articles',	// IGNORE
+		'unmute_all_feeds' => 'Unmute all feeds',	// IGNORE
 		'update' => 'Update',	// IGNORE
 	),
 	'auth' => array(

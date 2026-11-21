@@ -80,12 +80,14 @@ return array(
 			'deleted' => 'La categoria es estada suprimida.',
 			'emptied' => 'La categoria es estada voidada',
 			'error' => 'Actualizacion de la categoria impossibla',
+			'muted' => 'Feeds of the category have been muted',	// TODO
 			'name_exists' => 'Una categoria se ditz ja atal.',
 			'no_id' => 'Vos cal precisar l’id de la categoria.',
 			'no_name' => 'Vos cal donar un nom a la categoria.',
 			'not_delete_default' => 'Podètz pas suprimir la categoria per defaut !',
 			'not_exist' => 'Aquesta categoria existís pas !',
 			'over_max' => 'Avètz atengut la limita de categoria (%d)',
+			'unmuted' => 'Feeds of the category have been unmuted',	// TODO
 			'updated' => 'La categoria es estada actualizada.',
 		),
 		'feed' => array(

@@ -80,12 +80,14 @@ return array(
 			'deleted' => 'Катэгорыя выдалена.',
 			'emptied' => 'Катэгорыя ачышчана',
 			'error' => 'Немагчыма абнавіць катэгорыю',
+			'muted' => 'Feeds of the category have been muted',	// TODO
 			'name_exists' => 'Назва катэгорыі ўжо існуе.',
 			'no_id' => 'Трэба ўказаць ідэнтыфікатар катэгорыі.',
 			'no_name' => 'Назва катэгорыі не можа быць пустой.',
 			'not_delete_default' => 'Нельга выдаліць прадвызначаную катэгорыю!',
 			'not_exist' => 'Катэгорыя не існуе!',
 			'over_max' => 'Вы дасягнулі ліміту катэгорый (%d)',
+			'unmuted' => 'Feeds of the category have been unmuted',	// TODO
 			'updated' => 'Катэгорыя абноўлена.',
 		),
 		'feed' => array(

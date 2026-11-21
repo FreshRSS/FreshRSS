@@ -25,6 +25,12 @@ If “Purge Policy” has “By default” selected, then the [default purge pol
 
 See [Archiving](./05_Configuration.md#archiving) for important details on when and how purging actually happens (it is not applied on every refresh, and it is based on the discovery date of articles, not their published date).
 
+### Muting feeds
+
+The “Mute all feeds” and “Unmute all feeds” buttons mute or unmute at once all the feeds currently in the category, instead of changing each feed’s settings one by one.
+Muted feeds are not refreshed automatically. Each feed keeps its own refresh interval, and can still be muted or unmuted individually in its settings.
+Feeds added to the category later are not affected.
+
 ## Feed Settings
 
 These fields will be auto-filled when adding a feed, but they can be modified later. **Visibility** will define if the feed is displayed in the main feed, only in specific categories, or not at all.

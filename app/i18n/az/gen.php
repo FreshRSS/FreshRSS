@@ -35,6 +35,7 @@ return array(
 		'menu' => array(
 			'open' => 'Menyunu aç',
 		),
+		'mute_all_feeds' => 'Mute all feeds',	// TODO
 		'nav_buttons' => array(
 			'next' => 'Növbəti məqalə',
 			'prev' => 'Əvvəlki məqalə',
@@ -50,6 +51,7 @@ return array(
 		'see_website' => 'Veb sayta bax',
 		'submit' => 'Göndər',
 		'truncate' => 'Bütün məqalələri sil',
+		'unmute_all_feeds' => 'Unmute all feeds',	// TODO
 		'update' => 'Yenilə',
 	),
 	'auth' => array(

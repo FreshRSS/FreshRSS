@@ -35,6 +35,7 @@ return array(
 		'menu' => array(
 			'open' => 'メニューを開く',
 		),
+		'mute_all_feeds' => 'Mute all feeds',	// TODO
 		'nav_buttons' => array(
 			'next' => '次の記事',
 			'prev' => '前の記事',
@@ -50,6 +51,7 @@ return array(
 		'see_website' => 'Webサイトを開く',
 		'submit' => '保存',
 		'truncate' => 'すべての記事を消去する',
+		'unmute_all_feeds' => 'Unmute all feeds',	// TODO
 		'update' => '更新',
 	),
 	'auth' => array(

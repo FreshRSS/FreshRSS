@@ -80,12 +80,14 @@ return array(
 			'deleted' => 'Kategori silindi.',
 			'emptied' => 'Kategori boşaltıldı',
 			'error' => 'Kategori güncellenemedi',
+			'muted' => 'Feeds of the category have been muted',	// TODO
 			'name_exists' => 'Kategori adı zaten mevcut.',
 			'no_id' => 'Kategorinin kimliğini belirtmelisiniz.',
 			'no_name' => 'Kategori adı boş olamaz.',
 			'not_delete_default' => 'Varsayılan kategoriyi silemezsiniz!',
 			'not_exist' => 'Kategori mevcut değil!',
 			'over_max' => 'Kategori limitinize ulaştınız (%d)',
+			'unmuted' => 'Feeds of the category have been unmuted',	// TODO
 			'updated' => 'Kategori güncellendi.',
 		),
 		'feed' => array(

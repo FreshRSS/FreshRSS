@@ -35,6 +35,7 @@ return array(
 		'menu' => array(
 			'open' => 'Menu openen',
 		),
+		'mute_all_feeds' => 'Mute all feeds',	// TODO
 		'nav_buttons' => array(
 			'next' => 'Volgend artikel',
 			'prev' => 'Vorig artikel',
@@ -50,6 +51,7 @@ return array(
 		'see_website' => 'Bekijk website',
 		'submit' => 'Opslaan',
 		'truncate' => 'Verwijder alle artikelen',
+		'unmute_all_feeds' => 'Unmute all feeds',	// TODO
 		'update' => 'Updaten',
 	),
 	'auth' => array(

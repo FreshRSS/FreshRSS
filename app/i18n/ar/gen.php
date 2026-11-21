@@ -35,6 +35,7 @@ return array(
 		'menu' => array(
 			'open' => 'فتح القائمة',
 		),
+		'mute_all_feeds' => 'Mute all feeds',	// TODO
 		'nav_buttons' => array(
 			'next' => 'المقال التالي',
 			'prev' => 'المقال السابق',
@@ -50,6 +51,7 @@ return array(
 		'see_website' => 'زيارة الموقع',
 		'submit' => 'إرسال',
 		'truncate' => 'حذف كل المقالات',
+		'unmute_all_feeds' => 'Unmute all feeds',	// TODO
 		'update' => 'تحديث',
 	),
 	'auth' => array(

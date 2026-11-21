@@ -80,12 +80,14 @@ return array(
 			'deleted' => 'Kategória törölve.',
 			'emptied' => 'Kategória kiürítve',
 			'error' => 'Kategória nem frissíthető',
+			'muted' => 'Feeds of the category have been muted',	// TODO
 			'name_exists' => 'Kategória név már létezik.',
 			'no_id' => 'Meg kell adnod a kategória id-t.',
 			'no_name' => 'Kategória név nem lehet üres.',
 			'not_delete_default' => 'Nem törölheted az alapértelmezett kategóriát!',
 			'not_exist' => 'A kategória nem létezik!',
 			'over_max' => 'Elérted a maximális kategória számot (%d)',
+			'unmuted' => 'Feeds of the category have been unmuted',	// TODO
 			'updated' => 'Kategória frissítése megtörtént.',
 		),
 		'feed' => array(

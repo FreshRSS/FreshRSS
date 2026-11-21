@@ -80,12 +80,14 @@ return array(
 			'deleted' => ' دسته حذف شده است.',
 			'emptied' => ' رده خالی شده است',
 			'error' => ' دسته را نمی توان به روز کرد',
+			'muted' => 'Feeds of the category have been muted',	// TODO
 			'name_exists' => ' نام دسته از قبل وجود دارد.',
 			'no_id' => ' شما باید شناسه دسته را مشخص کنید.',
 			'no_name' => ' نام دسته نمی تواند خالی باشد.',
 			'not_delete_default' => 'شما نمی‌توانید دسته‌بندی پیش‌فرض را حذف کنید!',
 			'not_exist' => 'دسته‌بندی وجود ندارد!',
 			'over_max' => 'شما به حد مجاز دسته‌بندی‌های خود رسیده‌اید (%d)',
+			'unmuted' => 'Feeds of the category have been unmuted',	// TODO
 			'updated' => ' رده به روز شده است.',
 		),
 		'feed' => array(

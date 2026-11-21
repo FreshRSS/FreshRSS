@@ -35,6 +35,7 @@ return array(
 		'menu' => array(
 			'open' => 'Open menu',	// TODO
 		),
+		'mute_all_feeds' => 'Mute all feeds',	// TODO
 		'nav_buttons' => array(
 			'next' => 'Nākamais raksts',
 			'prev' => 'Iepriekšējais raksts',
@@ -50,6 +51,7 @@ return array(
 		'see_website' => 'Skatīt mājaslapu',
 		'submit' => 'Iesniegt',
 		'truncate' => 'Izdzēst visus rakstus',
+		'unmute_all_feeds' => 'Unmute all feeds',	// TODO
 		'update' => 'Atjaunināt',
 	),
 	'auth' => array(

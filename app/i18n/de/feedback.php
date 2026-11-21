@@ -80,12 +80,14 @@ return array(
 			'deleted' => 'Kategorie wurde gelöscht.',
 			'emptied' => 'Kategorie wurde geleert.',
 			'error' => 'Kategorie kann nicht aktualisiert werden',
+			'muted' => 'Feeds of the category have been muted',	// TODO
 			'name_exists' => 'Der Kategoriename existiert bereits.',
 			'no_id' => 'Sie müssen die ID der Kategorie angeben.',
 			'no_name' => 'Der Kategoriename darf nicht leer sein.',
 			'not_delete_default' => 'Sie können die Standardkategorie nicht löschen!',
 			'not_exist' => 'Kategorie existiert nicht!',
 			'over_max' => 'Sie haben Ihr Kategorienlimit erreicht (%d)',
+			'unmuted' => 'Feeds of the category have been unmuted',	// TODO
 			'updated' => 'Kategorie wurde aktualisiert.',
 		),
 		'feed' => array(

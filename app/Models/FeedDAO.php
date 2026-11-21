@@ -333,6 +333,37 @@ class FreshRSS_FeedDAO extends Minz_ModelPdo {
 		}
 	}
 
+	/**
+	 * Mute or unmute all the feeds of a category, following the same storage convention as `FreshRSS_Feed::ttl(true)`.
+	 * @param bool $mute true to mute the feeds, false to unmute them
+	 * @param int $ttlDefault the user’s default refresh interval, stored (negated) for muted feeds using the default refresh interval
+	 * @return int|false the number of feeds which have been changed, or false in case of error
+	 */
+	public function muteFeedByCategory(int $id, bool $mute, int $ttlDefault): int|false {
+		if ($mute) {
+			$sql = <<<'SQL'
+				UPDATE `_feed` SET ttl = (CASE WHEN ttl = 0 THEN :muted_ttl_default ELSE -ttl END)
+				WHERE category=:category AND ttl >= 0
+				SQL;
+		} else {
+			$sql = <<<'SQL'
+				UPDATE `_feed` SET ttl = (CASE WHEN ttl = :muted_ttl_default THEN 0 ELSE -ttl END)
+				WHERE category=:category AND ttl < 0
+				SQL;
+		}
+		$stm = $this->pdo->prepare($sql);
+		if ($stm !== false &&
+			$stm->bindValue(':muted_ttl_default', -abs($ttlDefault), PDO::PARAM_INT) &&
+			$stm->bindValue(':category', $id, PDO::PARAM_INT) &&
+			$stm->execute()) {
+			return $stm->rowCount();
+		} else {
+			$info = $stm === false ? $this->pdo->errorInfo() : $stm->errorInfo();
+			Minz_Log::error('SQL error ' . __METHOD__ . json_encode($info));
+			return false;
+		}
+	}
+
 	/** @return Traversable<array{id:int,url:string,kind:int,category:int,name:string,website:string,description:string,lastUpdate:int,priority?:int,
 	 * 	pathEntries?:string,httpAuth?:string,error:int|bool,ttl?:int,attributes?:string}> */
 	public function selectAll(): Traversable {

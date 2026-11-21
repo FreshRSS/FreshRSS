@@ -80,12 +80,14 @@ return array(
 			'deleted' => 'Категория удалена.',
 			'emptied' => 'Категория очищена',
 			'error' => 'Категория не может быть изменена',
+			'muted' => 'Feeds of the category have been muted',	// TODO
 			'name_exists' => 'Категория с таким названием уже существует.',
 			'no_id' => 'Вы должны задать id категории.',
 			'no_name' => 'Название категории не может быть пустым.',
 			'not_delete_default' => 'Вы не можете удалить стандартную категорию!',
 			'not_exist' => 'Категории не существует!',
 			'over_max' => 'Вы достигли вашего лимита категорий (%d)',
+			'unmuted' => 'Feeds of the category have been unmuted',	// TODO
 			'updated' => 'Категория изменена.',
 		),
 		'feed' => array(
