@@ -104,7 +104,7 @@ class Minz_Log {
 	 * Make sure we do not waste a huge amount of disk space with old log messages.
 	 *
 	 * This method can be called multiple times for one script execution, but its result will not change unless
-	 * you call clearstatcache() in between. We won’t do do that for performance reasons.
+	 * you call clearstatcache() in between. We won’t do that for performance reasons.
 	 *
 	 * @throws Minz_PermissionDeniedException
 	 */
