@@ -378,6 +378,13 @@ final class FreshRSS_http_Util {
 		if (in_array('*', $internal_host_allowlist, true)) {
 			return [];	// Disables SSRF checks entirely (unsafe)
 		}
+		if (filter_var($host, FILTER_VALIDATE_IP) === false) {
+			// cURL percent-decodes the host, converts non-ASCII to Punycode, and reads a host ending in a number as IPv4 (e.g. 0x7f.1).
+			// Refuse such hosts, as cURL would contact another name or address than the one checked and pinned here.
+			if (preg_match('/^[a-z0-9._-]+$/D', $host) !== 1 || preg_match('/(^|\.)(\d+|0x[0-9a-f]*)\.?$/D', $host) === 1) {
+				return false;
+			}
+		}
 
 		$resolve_str = "$host:$port:";
 		$ips_ok = [];

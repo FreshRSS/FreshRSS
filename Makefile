@@ -8,7 +8,10 @@ PORT ?= 8080
 NETWORK ?= freshrss-network
 
 # PHP versions tested by test-all-php-versions
-PHP_VERSIONS ?= 8.2 8.3 8.4 8.5 8.6-rc
+PHP_VERSIONS ?= 8.2 8.3 8.4 8.5 8.6
+
+# PostgreSQL database used by test-all-php-versions
+TESTS_PGSQL_IMAGE ?= postgres:19-alpine
 
 # detect docker or podman
 DOCKER ?= $(shell which docker 2>/dev/null || which podman 2>/dev/null)
@@ -149,6 +152,20 @@ test-all: composer-test npm-test typos-test ## Run all tests
 .PHONY: test-all-php-versions
 test-all-php-versions: ## Run the test suite with every supported PHP version (Docker)
 	@set -eu; \
+	i=0; \
+	$(DOCKER) rm --force freshrss-tests-db >/dev/null 2>&1 || true; \
+	$(DOCKER) network create freshrss-tests-db-network >/dev/null 2>&1 || true; \
+	cleanup() { $(DOCKER) rm --force freshrss-tests-db >/dev/null 2>&1 || true; $(DOCKER) network rm freshrss-tests-db-network >/dev/null 2>&1 || true; }; \
+	trap cleanup EXIT INT TERM; \
+	$(DOCKER) run --detach --rm \
+		--name freshrss-tests-db \
+		--network freshrss-tests-db-network \
+		--env POSTGRES_HOST_AUTH_METHOD=trust \
+		$(TESTS_PGSQL_IMAGE) >/dev/null; \
+	until $(DOCKER) exec freshrss-tests-db pg_isready >/dev/null 2>&1; do \
+		i=$$((i + 1)); [ $$i -lt 30 ] || { echo 'PostgreSQL database did not become ready in time.' >&2; exit 1; }; \
+		sleep 1; \
+	done; \
 	for v in $(PHP_VERSIONS); do \
 		echo "===== PHP $$v ====="; \
 		$(DOCKER) build --quiet \
@@ -156,6 +173,8 @@ test-all-php-versions: ## Run the test suite with every supported PHP version (D
 			--tag docker.io/freshrss/tests:php$$v \
 			--file Docker/Dockerfile-tests . ; \
 		$(DOCKER) run --rm \
+			--network freshrss-tests-db-network \
+			--env FRESHRSS_TEST_PGSQL_DSN='pgsql:host=freshrss-tests-db;dbname=postgres;user=postgres' \
 			--volume $(shell pwd):/var/www/FreshRSS:z \
 			--workdir /var/www/FreshRSS \
 			docker.io/freshrss/tests:php$$v \

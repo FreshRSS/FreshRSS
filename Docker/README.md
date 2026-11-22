@@ -128,7 +128,7 @@ docker compose -f docker-compose.yml -f docker-compose-db.yml pull
 docker compose -f docker-compose.yml -f docker-compose-db.yml -f docker-compose-local.yml up -d --remove-orphans
 ```
 
-> ⚠️ Keep the same major version of your database image (e.g. `postgres:17`) when updating FreshRSS, even if our example Compose files use a newer one:
+> ⚠️ Keep the same major version of your database image (e.g. `postgres:19`) when updating FreshRSS, even if our example Compose files use a newer one:
 > a new major version of PostgreSQL refuses to start with the data of a previous one. To change it, see [Migrate database](#migrate-database).
 > If you replace your Compose files with newer copies of ours, also check that your `.env` file still uses the same variable names.
 

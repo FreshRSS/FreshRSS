@@ -3,7 +3,7 @@ volumes:
 
 services:
   freshrss-db:
-    image: postgres:18
+    image: postgres:19
     container_name: freshrss-db
     hostname: freshrss-db
     restart: unless-stopped
