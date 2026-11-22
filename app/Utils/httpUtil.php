@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 final class FreshRSS_http_Util {
 
+	private const PROXY_INVALID_CHARS = '~[/?#\\\\\s]~';
+
 	private const RETRY_AFTER_PATH = DATA_PATH . '/Retry-After/';
 	private const NAT64_PREFIX_RFC6052 = '64:ff9b::/96';
 	private const NAT64_PREFIX_RFC8215 = '64:ff9b:1::/48';
@@ -125,9 +127,10 @@ final class FreshRSS_http_Util {
 				$curl_params[$k] = array_filter($curl_params[$k],
 					fn($header) => is_string($header) && !preg_match('/^(Remote[-_\s]*User|X[-_\s]*WebAuth[-_\s]*User)\\s*:/i', $header));
 			}
-			// Forbid '/' in CURLOPT_PROXY [user[:pass]@]host[:port] (the scheme comes from CURLOPT_PROXYTYPE),
-			// to reject e.g. 'http://example.net/://decoy' and 'localhost:9050/path/to.sock'
-			if ($k === CURLOPT_PROXY && (!is_string($curl_params[$k]) || str_contains($curl_params[$k], '/'))) {
+			// Forbid '/', '?', '#', '\' and whitespace in CURLOPT_PROXY [user[:pass]@]host[:port] (the scheme comes from CURLOPT_PROXYTYPE),
+			// to reject e.g. 'http://example.net/://decoy', 'localhost:9050/path/to.sock' and '127.0.0.1?:6379'
+			// Credentials must be percent-encoded.
+			if ($k === CURLOPT_PROXY && (!is_string($curl_params[$k]) || preg_match(self::PROXY_INVALID_CHARS, $curl_params[$k]) === 1)) {
 				unset($curl_params[$k], $curl_params[CURLOPT_PROXYTYPE]);
 			}
 		}
@@ -167,7 +170,7 @@ final class FreshRSS_http_Util {
 			}
 			$proxy = $matches[2];
 		}
-		if (str_contains($proxy, '/')) {
+		if (preg_match(self::PROXY_INVALID_CHARS, $proxy) === 1) {	// Makes the port check below safe, so it can't be tricked with e.g. 127.0.0.1?:6379
 			return $curl_options;	// Invalid, left as is for the checks to fail
 		}
 		if (preg_match('/:\\d+$/', $proxy) !== 1) {	// Does not end with :port (an IPv6 address like [::1] ends with ']', so is not mistaken for a port)

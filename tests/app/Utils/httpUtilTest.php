@@ -38,6 +38,16 @@ final class httpUtilTest extends \PHPUnit\Framework\TestCase {
 			// port, so an allowlisted host:port could otherwise be smuggled into connecting to an
 			// arbitrary local socket.
 			'rejects a SOCKS Unix-domain-socket path' => ['localhost:9050/path/to.sock', false],
+			// Certain characters complicate normalizing of proxy URLs, so they're disallowed.
+			'rejects a query delimiter' => ['127.0.0.1?:6379', false],
+			'rejects a fragment delimiter' => ['127.0.0.1#:6379', false],
+			'rejects a query hiding a decoy host' => ['127.0.0.1?@10.0.0.1:80', false],
+			'rejects a fragment hiding a decoy host' => ['8.8.8.8#@127.0.0.1', false],
+			'rejects a backslash' => ['127.0.0.1\\@8.8.8.8:80', false],
+			'rejects a space' => ['127.0.0.1 :80', false],
+			'rejects a tab' => ["127.0.0.1\t:80", false],
+			'rejects a newline' => ["127.0.0.1\n:80", false],
+			'accepts percent-encoded credentials' => ['user:p%3Fss%23w%40rd@proxy.example.com:3128', true],
 			'accepts bare host:port' => ['127.0.0.1:8080', true],
 			'accepts hostname:port' => ['proxy.example.com:3128', true],
 			'accepts host:port with credentials' => ['user:pass@203.0.113.5:1080', true],
@@ -93,10 +103,44 @@ final class httpUtilTest extends \PHPUnit\Framework\TestCase {
 			'invalid value is left as is' => [
 				[CURLOPT_PROXY => 'http://127.0.0.1:8080/://8.8.8.8'],
 				[CURLOPT_PROXY => 'http://127.0.0.1:8080/://8.8.8.8']],
+			'query is left as is' => [
+				[CURLOPT_PROXY => '127.0.0.1?:6379'],
+				[CURLOPT_PROXY => '127.0.0.1?:6379']],
+			'fragment is left as is' => [
+				[CURLOPT_PROXY => 'http://127.0.0.1#:6379'],
+				[CURLOPT_PROXY => 'http://127.0.0.1#:6379']],
 			'proxy disabled' => [
 				[CURLOPT_PROXY => 'proxy.internal', CURLOPT_PROXYTYPE => -1],
 				[CURLOPT_PROXY => 'proxy.internal', CURLOPT_PROXYTYPE => -1]],
 			'no proxy' => [[CURLOPT_PROXYPORT => 3128], [CURLOPT_PROXYPORT => 3128]],
+		];
+	}
+
+	/**
+	 * Test sanitization against potential port mismatches after normalizing.
+	 * URLs are parsed differently in both normalizeProxyOptions and getCurlResolveInfo.
+	 */
+	#[DataProvider('provideAmbiguousFeedProxies')]
+	public function test_feedProxyIsNotAmbiguousForAllowlistCheck(string $proxy): void {
+		putenv('INTERNAL_HOST_ALLOWLIST=127.0.0.1:80');
+		try {
+			$options = FreshRSS_http_Util::normalizeProxyOptions(
+				FreshRSS_http_Util::sanitizeCurlParams([CURLOPT_PROXY => $proxy, CURLOPT_PROXYTYPE => CURLPROXY_HTTP]));
+			self::assertArrayNotHasKey(CURLOPT_PROXY, $options);
+			self::assertArrayNotHasKey(CURLOPT_PROXYTYPE, $options);
+		} finally {
+			putenv('INTERNAL_HOST_ALLOWLIST');
+		}
+	}
+
+	/** @return array<string,array{string}> */
+	public static function provideAmbiguousFeedProxies(): array {
+		return [
+			'query with port' => ['127.0.0.1?:6379'],
+			'fragment with port' => ['127.0.0.1#:6379'],
+			'query without port' => ['127.0.0.1?'],
+			'fragment without port' => ['127.0.0.1#'],
+			'query then credentials' => ['10.0.0.1?@:6379'],
 		];
 	}
 
