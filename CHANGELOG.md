@@ -48,6 +48,7 @@ See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 	* Fix escape labels during JSON import and render tag dropdown as text [#9504](https://github.com/FreshRSS/FreshRSS/pull/9504)
 	* More security for extension files: `X-Content-Type-Options: nosniff` [#9593](https://github.com/FreshRSS/FreshRSS/pull/9593), [GHSA-w38f-92pp-95hg](https://github.com/FreshRSS/FreshRSS/security/advisories/GHSA-w38f-92pp-95hg)
 	* Fix HTML injection in view mode error notification [#9605](https://github.com/FreshRSS/FreshRSS/pull/9605), [GHSA-wpf6-5v7v-6cvj](https://github.com/FreshRSS/FreshRSS/security/advisories/GHSA-wpf6-5v7v-6cvj)
+	* Fix HTML injection in extension names [#9608](https://github.com/FreshRSS/FreshRSS/pull/9608), [GHSA-crc7-3qcq-m9h3](https://github.com/FreshRSS/FreshRSS/security/advisories/GHSA-crc7-3qcq-m9h3)
 	* Fix full-content logic [#9602](https://github.com/FreshRSS/FreshRSS/pull/9602), [GHSA-5hcv-wqwr-j8r8](https://github.com/FreshRSS/FreshRSS/security/advisories/GHSA-5hcv-wqwr-j8r8)
 	* Sanitize DB install params [#9595](https://github.com/FreshRSS/FreshRSS/pull/9595), [GHSA-xm97-f66c-q5fx](https://github.com/FreshRSS/FreshRSS/security/advisories/GHSA-xm97-f66c-q5fx)
 	* Document threat model for security scanners [#9509](https://github.com/FreshRSS/FreshRSS/pull/9509)
