@@ -77,13 +77,13 @@ final class httpUtilTest extends \PHPUnit\Framework\TestCase {
 				[CURLOPT_PROXY => 'proxy.internal:3128', CURLOPT_PROXYTYPE => CURLPROXY_HTTP]],
 			'HTTPS scheme' => [
 				[CURLOPT_PROXY => 'https://proxy.internal'],
-				[CURLOPT_PROXY => 'proxy.internal:443', CURLOPT_PROXYTYPE => 2]],
+				[CURLOPT_PROXY => 'proxy.internal:443', CURLOPT_PROXYTYPE => CURLPROXY_HTTPS]],
 			'unsupported scheme is left as is' => [
 				[CURLOPT_PROXY => 'ftp://proxy.internal:3128'],
 				[CURLOPT_PROXY => 'ftp://proxy.internal:3128']],
 			'default port for HTTPS' => [
-				[CURLOPT_PROXY => 'proxy.internal', CURLOPT_PROXYTYPE => 2],
-				[CURLOPT_PROXY => 'proxy.internal:443', CURLOPT_PROXYTYPE => 2]],
+				[CURLOPT_PROXY => 'proxy.internal', CURLOPT_PROXYTYPE => CURLPROXY_HTTPS],
+				[CURLOPT_PROXY => 'proxy.internal:443', CURLOPT_PROXYTYPE => CURLPROXY_HTTPS]],
 			'IPv6 without port' => [
 				[CURLOPT_PROXY => '[::1]', CURLOPT_PROXYPORT => 3128],
 				[CURLOPT_PROXY => '[::1]:3128', CURLOPT_PROXYTYPE => CURLPROXY_HTTP]],
