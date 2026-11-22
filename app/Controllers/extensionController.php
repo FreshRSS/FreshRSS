@@ -136,7 +136,7 @@ class FreshRSS_extension_Controller extends FreshRSS_ActionController {
 			$this->view->_path('extension/index.phtml');
 		}
 
-		$ext_name = urldecode(Minz_Request::paramString('e'));
+		$ext_name = urldecode(Minz_Request::paramString('e', plaintext: true));
 		$ext = Minz_ExtensionManager::findExtension($ext_name);
 
 		if ($ext === null) {
@@ -154,7 +154,10 @@ class FreshRSS_extension_Controller extends FreshRSS_ActionController {
 			$this->view->extension->handleConfigureAction();
 		} catch (Minz_Exception $e) {	// @phpstan-ignore catch.neverThrown (Thrown by extensions)
 			Minz_Log::error('Error while configuring extension ' . $ext->getName() . ': ' . $e->getMessage());
-			Minz_Request::bad(_t('feedback.extensions.enable.ko', $ext_name, _url('index', 'logs')), ['c' => 'extension', 'a' => 'index']);
+			Minz_Request::bad(
+				_t('feedback.extensions.enable.ko', htmlspecialchars($ext_name, ENT_COMPAT, 'UTF-8'), _url('index', 'logs')),
+				['c' => 'extension', 'a' => 'index']
+			);
 		}
 	}
 
@@ -171,21 +174,21 @@ class FreshRSS_extension_Controller extends FreshRSS_ActionController {
 		$url_redirect = ['c' => 'extension', 'a' => 'index'];
 
 		if (Minz_Request::isPost()) {
-			$ext_name = urldecode(Minz_Request::paramString('e'));
+			$ext_name = urldecode(Minz_Request::paramString('e', plaintext: true));
 			$ext = Minz_ExtensionManager::findExtension($ext_name);
 
 			if (is_null($ext)) {
-				Minz_Request::bad(_t('feedback.extensions.not_found', $ext_name), $url_redirect);
+				Minz_Request::bad(_t('feedback.extensions.not_found', htmlspecialchars($ext_name, ENT_COMPAT, 'UTF-8')), $url_redirect);
 				return;
 			}
 
 			if ($ext->isEnabled()) {
-				Minz_Request::bad(_t('feedback.extensions.already_enabled', $ext_name), $url_redirect);
+				Minz_Request::bad(_t('feedback.extensions.already_enabled', htmlspecialchars($ext_name, ENT_COMPAT, 'UTF-8')), $url_redirect);
 			}
 
 			$type = $ext->getType();
 			if ($type !== 'user' && !FreshRSS_Auth::hasAccess('admin')) {
-				Minz_Request::bad(_t('feedback.extensions.no_access', $ext_name), $url_redirect);
+				Minz_Request::bad(_t('feedback.extensions.no_access', htmlspecialchars($ext_name, ENT_COMPAT, 'UTF-8')), $url_redirect);
 				return;
 			}
 
@@ -211,13 +214,13 @@ class FreshRSS_extension_Controller extends FreshRSS_ActionController {
 				$conf->save();
 
 				Minz_Request::good(
-					_t('feedback.extensions.enable.ok', $ext_name),
+					_t('feedback.extensions.enable.ok', htmlspecialchars($ext_name, ENT_COMPAT, 'UTF-8')),
 					$url_redirect,
 					showNotification: FreshRSS_Context::userConf()->good_notification_timeout > 0
 				);
 			} else {
 				Minz_Log::warning('Cannot enable extension ' . $ext_name . ': ' . $res);
-				Minz_Request::bad(_t('feedback.extensions.enable.ko', $ext_name, _url('index', 'logs')), $url_redirect);
+				Minz_Request::bad(_t('feedback.extensions.enable.ko', htmlspecialchars($ext_name, ENT_COMPAT, 'UTF-8'), _url('index', 'logs')), $url_redirect);
 			}
 		}
 
@@ -237,21 +240,21 @@ class FreshRSS_extension_Controller extends FreshRSS_ActionController {
 		$url_redirect = ['c' => 'extension', 'a' => 'index'];
 
 		if (Minz_Request::isPost()) {
-			$ext_name = urldecode(Minz_Request::paramString('e'));
+			$ext_name = urldecode(Minz_Request::paramString('e', plaintext: true));
 			$ext = Minz_ExtensionManager::findExtension($ext_name);
 
 			if (is_null($ext)) {
-				Minz_Request::bad(_t('feedback.extensions.not_found', $ext_name), $url_redirect);
+				Minz_Request::bad(_t('feedback.extensions.not_found', htmlspecialchars($ext_name, ENT_COMPAT, 'UTF-8')), $url_redirect);
 				return;
 			}
 
 			if (!$ext->isEnabled()) {
-				Minz_Request::bad(_t('feedback.extensions.not_enabled', $ext_name), $url_redirect);
+				Minz_Request::bad(_t('feedback.extensions.not_enabled', htmlspecialchars($ext_name, ENT_COMPAT, 'UTF-8')), $url_redirect);
 			}
 
 			$type = $ext->getType();
 			if ($type !== 'user' && !FreshRSS_Auth::hasAccess('admin')) {
-				Minz_Request::bad(_t('feedback.extensions.no_access', $ext_name), $url_redirect);
+				Minz_Request::bad(_t('feedback.extensions.no_access', htmlspecialchars($ext_name, ENT_COMPAT, 'UTF-8')), $url_redirect);
 				return;
 			}
 
@@ -277,13 +280,13 @@ class FreshRSS_extension_Controller extends FreshRSS_ActionController {
 				$conf->save();
 
 				Minz_Request::good(
-					_t('feedback.extensions.disable.ok', $ext_name),
+					_t('feedback.extensions.disable.ok', htmlspecialchars($ext_name, ENT_COMPAT, 'UTF-8')),
 					$url_redirect,
 					showNotification: FreshRSS_Context::userConf()->good_notification_timeout > 0
 				);
 			} else {
 				Minz_Log::warning('Cannot disable extension ' . $ext_name . ': ' . $res);
-				Minz_Request::bad(_t('feedback.extensions.disable.ko', $ext_name, _url('index', 'logs')), $url_redirect);
+				Minz_Request::bad(_t('feedback.extensions.disable.ko', htmlspecialchars($ext_name, ENT_COMPAT, 'UTF-8'), _url('index', 'logs')), $url_redirect);
 			}
 		}
 
@@ -307,23 +310,23 @@ class FreshRSS_extension_Controller extends FreshRSS_ActionController {
 		$url_redirect = ['c' => 'extension', 'a' => 'index'];
 
 		if (Minz_Request::isPost()) {
-			$ext_name = urldecode(Minz_Request::paramString('e'));
+			$ext_name = urldecode(Minz_Request::paramString('e', plaintext: true));
 			$ext = Minz_ExtensionManager::findExtension($ext_name);
 
 			if (is_null($ext)) {
-				Minz_Request::bad(_t('feedback.extensions.not_found', $ext_name), $url_redirect);
+				Minz_Request::bad(_t('feedback.extensions.not_found', htmlspecialchars($ext_name, ENT_COMPAT, 'UTF-8')), $url_redirect);
 				return;
 			}
 
 			$res = recursive_unlink($ext->getPath());
 			if ($res) {
 				Minz_Request::good(
-					_t('feedback.extensions.removed', $ext_name),
+					_t('feedback.extensions.removed', htmlspecialchars($ext_name, ENT_COMPAT, 'UTF-8')),
 					$url_redirect,
 					showNotification: FreshRSS_Context::userConf()->good_notification_timeout > 0
 				);
 			} else {
-				Minz_Request::bad(_t('feedback.extensions.cannot_remove', $ext_name), $url_redirect);
+				Minz_Request::bad(_t('feedback.extensions.cannot_remove', htmlspecialchars($ext_name, ENT_COMPAT, 'UTF-8')), $url_redirect);
 			}
 		}
 
