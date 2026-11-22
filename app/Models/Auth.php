@@ -186,7 +186,8 @@ class FreshRSS_Auth {
 		if (!Minz_Request::tokenIsOk()) {
 			$username = FreshRSS_Context::systemConf()->default_user;
 		}
-		Minz_User::change($username);
+		// Do not keep the configuration loaded by giveAccess() for the user who has just been refused
+		FreshRSS_Context::initUser($username);
 
 		switch (FreshRSS_Context::systemConf()->auth_type) {
 			case 'form':
