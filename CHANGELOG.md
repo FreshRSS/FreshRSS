@@ -2,7 +2,7 @@
 
 See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 
-## 2026-1X-XX FreshRSS 1.30.5-dev
+## 2026-11-23 FreshRSS 1.31.0
 
 * Compatibility
 	* 💥 Require PHP 8.2+ (drop PHP 8.1) [#9470](https://github.com/FreshRSS/FreshRSS/pull/9470), [GHSA-66ff-8p23-wx95](https://github.com/FreshRSS/FreshRSS/security/advisories/GHSA-66ff-8p23-wx95)
