@@ -14,7 +14,6 @@ See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 	* User queries can define their own sorting criterion (field and direction) [#8954](https://github.com/FreshRSS/FreshRSS/pull/8954)
 	* Better catch and log user regex errors [#9559](https://github.com/FreshRSS/FreshRSS/pull/9559)
 	* Sharing by RSS emit `<enclosure>` for BitTorrent attachments [#9553](https://github.com/FreshRSS/FreshRSS/pull/9553)
-	* Support choosing the sorting type when creating or editing a user query [#8954](https://github.com/FreshRSS/FreshRSS/pull/8954)
 	* Add filter preview button to label configuration [#9538](https://github.com/FreshRSS/FreshRSS/pull/9538)
 * Bug fixes
 	* Fix HTTP Retry-After cache when proxy is used [#9508](https://github.com/FreshRSS/FreshRSS/pull/9508)
