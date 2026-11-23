@@ -31,9 +31,12 @@ include_verbatim = true
 hidden = true
 
 exclude_path = [
-  # Files
+  # Files (markup/config)
   '(^|/)index\.html$',
   '(^|/)\.github/ISSUE_TEMPLATE/feed-report-form\.yml$',
+
+  # Files (PHPUnit tests)
+  '(^|/)tests/app/Utils/httpUtilTest\.php$',
 
   # Directories
   '(^|/)data/(cache|users|favicons)($|/)',
