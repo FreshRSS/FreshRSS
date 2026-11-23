@@ -15,12 +15,12 @@
 		},
 		{
 			"type": "git",
-			"url": "https://github.com/Alkarex/CssXPath.git"
+			"url": "https://github.com/phpgt/CssXPath.git"
 		}
 	],
 	"require": {
 		"marienfressinaud/lib_opml": "dev-main#f0e850b6394af90b898daf0e65fcc7363457b844",
-		"phpgt/cssxpath": "dev-case-insensitivity#4d046c033b348a908be2b049d2ba4f50ee3f9e3a",
+		"phpgt/cssxpath": "dev-master#9d416ccddb048aebd92724c4f8e92f88e3bfc412",
 		"phpmailer/phpmailer": "7.1.1",
 		"simplepie/simplepie": "dev-freshrss#d7467dd6a5e59cc6f4c73d0e8d5cadc5e7c9ecfc"
 	},
