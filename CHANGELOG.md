@@ -5,12 +5,12 @@ See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 ## 2026-1X-XX FreshRSS 1.30.5-dev
 
 * Compatibility
-	* 💥 Require PHP 8.2+ (drop PHP 8.1) [#9470](https://github.com/FreshRSS/FreshRSS/pull/9470)
+	* 💥 Require PHP 8.2+ (drop PHP 8.1) [#9470](https://github.com/FreshRSS/FreshRSS/pull/9470), [GHSA-66ff-8p23-wx95](https://github.com/FreshRSS/FreshRSS/security/advisories/GHSA-66ff-8p23-wx95)
 		* And recommend PHP 8.4+ for native HTML5 parsing (compliance, security, performance)
 * Features
 	* Use PHP 8.4+ `\Dom` classes and functions when available (polyfill for PHP < 8.4) [#9567](https://github.com/FreshRSS/FreshRSS/pull/9567)
 		* Polyfill `GT\CssXPath`: Add support for case insensitivity [phpgt/CssXPath#256](https://github.com/phpgt/CssXPath/pull/256)
-	* Use native HTML5 `<img loading="lazy"` instead of custom JavaScript [#5816](https://github.com/FreshRSS/FreshRSS/pull/5816), [#9601](https://github.com/FreshRSS/FreshRSS/pull/9601)
+	* Use native HTML5 `<img loading="lazy"` instead of custom JavaScript [#5816](https://github.com/FreshRSS/FreshRSS/pull/5816), [#9601](https://github.com/FreshRSS/FreshRSS/pull/9601), [GHSA-fc53-pf4q-9phm](https://github.com/FreshRSS/FreshRSS/security/advisories/GHSA-fc53-pf4q-9phm)
 	* User queries can define their own sorting criterion (field and direction) [#8954](https://github.com/FreshRSS/FreshRSS/pull/8954)
 	* Better catch and log user regex errors [#9559](https://github.com/FreshRSS/FreshRSS/pull/9559)
 	* Sharing by RSS emit `<enclosure>` for BitTorrent attachments [#9553](https://github.com/FreshRSS/FreshRSS/pull/9553)
@@ -32,20 +32,22 @@ See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 	* GReader API: compare `Authorization:GoogleLogin` and other headers case insensitive [#9534](https://github.com/FreshRSS/FreshRSS/pull/9534)
 	* Return false when the configuration file cannot be replaced [#9580](https://github.com/FreshRSS/FreshRSS/pull/9580)
 	* Fix technical details in documentation system [#9520](https://github.com/FreshRSS/FreshRSS/pull/9520), [#9521](https://github.com/FreshRSS/FreshRSS/pull/9521)
-	* Fix `make start` development webserver stopping on terminal resize [#9603](https://github.com/FreshRSS/FreshRSS/pull/9603)
 * Security
-	* 💥 Replace bcrypt challenge auth with direct password comparison [#9358](https://github.com/FreshRSS/FreshRSS/pull/9358), [#9550](https://github.com/FreshRSS/FreshRSS/pull/9550), [#9566](https://github.com/FreshRSS/FreshRSS/pull/9566)
+	* 💥 Replace bcrypt challenge auth with direct password comparison [#9358](https://github.com/FreshRSS/FreshRSS/pull/9358), [#9550](https://github.com/FreshRSS/FreshRSS/pull/9550), [#9566](https://github.com/FreshRSS/FreshRSS/pull/9566), [GHSA-8pvw-w7w8-vjj7](https://github.com/FreshRSS/FreshRSS/security/advisories/GHSA-8pvw-w7w8-vjj7), [GHSA-5vxm-62pg-frff](https://github.com/FreshRSS/FreshRSS/security/advisories/GHSA-5vxm-62pg-frff)
 	* Search: quote parentheses and `OR` when serialising terms [#9541](https://github.com/FreshRSS/FreshRSS/pull/9541)
-	* Use HTTP header `Cross-Origin-Opener-Policy: same-origin` [#9588](https://github.com/FreshRSS/FreshRSS/pull/9588)
-	* WebSub security: Implement support for `hub.secret` [#9430](https://github.com/FreshRSS/FreshRSS/pull/9430)
-	* Reduce risk of data cache leak [#9591](https://github.com/FreshRSS/FreshRSS/pull/9591)
+	* Use HTTP header `Cross-Origin-Opener-Policy: same-origin` [#9588](https://github.com/FreshRSS/FreshRSS/pull/9588), [GHSA-75f7-8cvm-v87v](https://github.com/FreshRSS/FreshRSS/security/advisories/GHSA-75f7-8cvm-v87v), [GHSA-gpvq-chwv-g674](https://github.com/FreshRSS/FreshRSS/security/advisories/GHSA-gpvq-chwv-g674)
+	* WebSub security: Implement support for `hub.secret` [#9430](https://github.com/FreshRSS/FreshRSS/pull/9430), [GHSA-498g-vgpq-mr66](https://github.com/FreshRSS/FreshRSS/security/advisories/GHSA-498g-vgpq-mr66)
+	* Reduce risk of data cache leak [#9591](https://github.com/FreshRSS/FreshRSS/pull/9591), [GHSA-4r8m-g5px-6pg7](https://github.com/FreshRSS/FreshRSS/security/advisories/GHSA-4r8m-g5px-6pg7), [GHSA-fhcq-gjx8-fg9g](https://github.com/FreshRSS/FreshRSS/security/advisories/GHSA-fhcq-gjx8-fg9g)
+	* Fix leak of feed credentials to anonymous readers [#9591](https://github.com/FreshRSS/FreshRSS/pull/9591), [GHSA-fr4r-3w2g-rqf5](https://github.com/FreshRSS/FreshRSS/security/advisories/GHSA-fr4r-3w2g-rqf5)
 	* Sanitize Punycode [#9591](https://github.com/FreshRSS/FreshRSS/pull/9591), [GHSA-qv45-78vh-92w4](https://github.com/FreshRSS/FreshRSS/security/advisories/GHSA-qv45-78vh-92w4)
+	* Validate domain in SSRF check [#9611](https://github.com/FreshRSS/FreshRSS/pull/9611), [GHSA-3ch8-46c3-xr9h](https://github.com/FreshRSS/FreshRSS/security/advisories/GHSA-3ch8-46c3-xr9h)
 	* Fix search references [#9591](https://github.com/FreshRSS/FreshRSS/pull/9591), [GHSA-qwpx-vccf-m8xf](https://github.com/FreshRSS/FreshRSS/security/advisories/GHSA-qwpx-vccf-m8xf)
-	* Prevent use of irrelevant parameter is shared user queries [#9589](https://github.com/FreshRSS/FreshRSS/pull/9589)
+	* Prevent use of irrelevant parameter in shared user queries [#9589](https://github.com/FreshRSS/FreshRSS/pull/9589), [GHSA-9v4j-jqr6-4cvv](https://github.com/FreshRSS/FreshRSS/security/advisories/GHSA-9v4j-jqr6-4cvv)
 	* Fix user enumeration by probing inconsistent error responses on failed logins [#9568](https://github.com/FreshRSS/FreshRSS/pull/9568)
 	* Safer login [#9592](https://github.com/FreshRSS/FreshRSS/pull/9592), [#9598](https://github.com/FreshRSS/FreshRSS/pull/9598), [GHSA-rqqp-9h9w-h9m5](https://github.com/FreshRSS/FreshRSS/security/advisories/GHSA-rqqp-9h9w-h9m5)
+	* More secure remove access [#9610](https://github.com/FreshRSS/FreshRSS/pull/9610), [GHSA-r27w-hr3c-hjr3](https://github.com/FreshRSS/FreshRSS/security/advisories/GHSA-r27w-hr3c-hjr3)
 	* Better sanitize bookmark [#9594](https://github.com/FreshRSS/FreshRSS/pull/9594), [GHSA-jc2v-8853-5jqf](https://github.com/FreshRSS/FreshRSS/security/advisories/GHSA-jc2v-8853-5jqf)
-	* Fix escape labels during JSON import and render tag dropdown as text [#9504](https://github.com/FreshRSS/FreshRSS/pull/9504)
+	* Fix escape labels during JSON import and render tag dropdown as text [#9504](https://github.com/FreshRSS/FreshRSS/pull/9504), [GHSA-4vcq-4q92-v45q](https://github.com/FreshRSS/FreshRSS/security/advisories/GHSA-4vcq-4q92-v45q)
 	* More security for extension files: `X-Content-Type-Options: nosniff` [#9593](https://github.com/FreshRSS/FreshRSS/pull/9593), [GHSA-w38f-92pp-95hg](https://github.com/FreshRSS/FreshRSS/security/advisories/GHSA-w38f-92pp-95hg)
 	* Fix HTML injection in view mode error notification [#9605](https://github.com/FreshRSS/FreshRSS/pull/9605), [GHSA-wpf6-5v7v-6cvj](https://github.com/FreshRSS/FreshRSS/security/advisories/GHSA-wpf6-5v7v-6cvj)
 	* Fix HTML injection in extension names [#9608](https://github.com/FreshRSS/FreshRSS/pull/9608), [GHSA-crc7-3qcq-m9h3](https://github.com/FreshRSS/FreshRSS/security/advisories/GHSA-crc7-3qcq-m9h3)
@@ -53,7 +55,7 @@ See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 	* Sanitize DB install params [#9595](https://github.com/FreshRSS/FreshRSS/pull/9595), [GHSA-xm97-f66c-q5fx](https://github.com/FreshRSS/FreshRSS/security/advisories/GHSA-xm97-f66c-q5fx)
 	* Document threat model for security scanners [#9509](https://github.com/FreshRSS/FreshRSS/pull/9509)
 		* Enrolled in Anthropic OSS Scanner service that scans critical open-source repositories for security vulnerabilities [anthropics/oss-scanner#1434](https://github.com/anthropics/oss-scanner/pull/1434)
-	* Use a keyed hash for favicon cache keys [#9518](https://github.com/FreshRSS/FreshRSS/pull/9518)
+	* Use a keyed hash for favicon cache keys [#9518](https://github.com/FreshRSS/FreshRSS/pull/9518), [GHSA-jqm2-jqjv-m87h](https://github.com/FreshRSS/FreshRSS/security/advisories/GHSA-jqm2-jqjv-m87h)
 * Performance
 	* SQL speed improvement for batch mark as read under SQLite and PostgreSQL [#9575](https://github.com/FreshRSS/FreshRSS/pull/9575)
 * SimplePie
@@ -81,7 +83,7 @@ See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 	* Improve traditional Chinese [#9540](https://github.com/FreshRSS/FreshRSS/pull/9540), [#9590](https://github.com/FreshRSS/FreshRSS/pull/9590)
 * CI/CD
 	* Add a link checker workflow using lychee [#9209](https://github.com/FreshRSS/FreshRSS/pull/9209), [#9495](https://github.com/FreshRSS/FreshRSS/pull/9495),
-		[#9507](https://github.com/FreshRSS/FreshRSS/pull/9507), [#9511](https://github.com/FreshRSS/FreshRSS/pull/9511)
+		[#9507](https://github.com/FreshRSS/FreshRSS/pull/9507), [#9511](https://github.com/FreshRSS/FreshRSS/pull/9511), [#9614](https://github.com/FreshRSS/FreshRSS/pull/9614)
 	* Update to PHPUnit 11.x (PHP 8.2+) [#9470](https://github.com/FreshRSS/FreshRSS/pull/9470)
 	* Group auto dependency updates into one PR per ecosystem [#9496](https://github.com/FreshRSS/FreshRSS/pull/9496)
 * Misc.
@@ -116,7 +118,7 @@ See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 ## 2026-10-19 FreshRSS 1.30.2
 
 * Security
-	* SimplePie sanitizer: block `data:` URI scheme while keeping `data:image` for images [#9417](https://github.com/FreshRSS/FreshRSS/pull/9417)
+	* SimplePie sanitizer: block `data:` URI scheme while keeping `data:image` for images [#9417](https://github.com/FreshRSS/FreshRSS/pull/9417), [GHSA-5pmx-x7q6-hv7m](https://github.com/FreshRSS/FreshRSS/security/advisories/GHSA-5pmx-x7q6-hv7m)
 	* Mitigate some 404 situations [#9435](https://github.com/FreshRSS/FreshRSS/pull/9435)
 	* Do not log the Fever API key on authentication failure [#9468](https://github.com/FreshRSS/FreshRSS/pull/9468)
 	* Fix local DNS leak when fetching feeds through a proxy [#9451](https://github.com/FreshRSS/FreshRSS/pull/9451)
@@ -208,7 +210,7 @@ See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 		* Selected local networks can be allowed under *System configuration* or using the `INTERNAL_HOST_ALLOWLIST` environment variable
 		* Passing `*` allows all networks like before (unsafe)
 	* Fix auth CSRFs (login and register actions) [#9171](https://github.com/FreshRSS/FreshRSS/pull/9171)
-	* Log invalid challenge and ignore JSON error during login [#9278](https://github.com/FreshRSS/FreshRSS/pull/9278)
+	* Log invalid challenge and ignore JSON error during login [#9278](https://github.com/FreshRSS/FreshRSS/pull/9278), [GHSA-8pvw-w7w8-vjj7](https://github.com/FreshRSS/FreshRSS/security/advisories/GHSA-8pvw-w7w8-vjj7)
 	* Disallow fetching of non remote URI [#9215](https://github.com/FreshRSS/FreshRSS/pull/9215)
 	* Only allow HTTP/HTTPS schemes for enclosure and thumbnail URLs [#9272](https://github.com/FreshRSS/FreshRSS/pull/9272)
 	* Fix access control in `rss` and `opml` actions [#8912](https://github.com/FreshRSS/FreshRSS/pull/8912)
