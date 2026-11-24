@@ -622,8 +622,9 @@ input[type="file"]::file-selector-button {
 	overflow: visible;
 }
 
+/* Inside the mark-as-read <form>, a segment is divided off by the visible control before it, not by being second in the source: FreshRSS 1.30 put the form's hidden CSRF field in front of the button, where 1.29 and 1.31 keep it inside the dropdown, and :not(:first-child) drew a divider at the group's outer edge whenever it stood there. */
 .nav_menu :is(.stick, .group) > :not(:first-child),
-.nav_menu :is(.stick, .group) > form > :not(:first-child) {
+.nav_menu :is(.stick, .group) > form > :not(input[type="hidden"]) ~ * {
 	border-inline-start: 1px solid var(--border);
 }
 
@@ -2636,7 +2637,11 @@ a.dropdown-toggle {
 	border-end-end-radius: var(--at-radius-inner);
 }
 
-.nav_menu :is(.stick, .group) > form:first-child > .btn:first-child {
+/* The hidden CSRF field that FreshRSS 1.30 places first in the form does not take the cap from the button behind it. */
+.nav_menu :is(.stick, .group) > form:first-child > :is(
+	.btn:first-child,
+	input[type="hidden"]:first-child + .btn
+) {
 	border-start-start-radius: var(--at-radius-inner);
 	border-end-start-radius: var(--at-radius-inner);
 }
