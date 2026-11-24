@@ -86,7 +86,7 @@ function classAutoloader(string $class): void {
 				include APP_PATH . '/Models/' . $components[1] . '.php';
 				return;
 			case 3:	//Controllers, Exceptions
-				include APP_PATH . '/' . $components[2] . 's/' . $components[1] . $components[2] . '.php';
+				@include APP_PATH . '/' . $components[2] . 's/' . $components[1] . $components[2] . '.php';
 				return;
 		}
 	} elseif (str_starts_with($class, 'Minz')) {
