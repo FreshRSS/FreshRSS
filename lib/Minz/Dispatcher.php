@@ -87,10 +87,7 @@ final class Minz_Dispatcher {
 			$controller_name = 'FreshRSS_' . $base_name . '_Controller';
 		}
 
-		// PHP class names are case-insensitive, whereas controller names are not, e.g. in Minz_Request::is().
-		// The name of a registered controller has already been matched exactly.
-		if (!class_exists($controller_name) ||
-				(!self::isRegistered($base_name) && (new ReflectionClass($controller_name))->getName() !== $controller_name)) {
+		if (!class_exists($controller_name)) {
 			throw new Minz_ControllerNotExistException(
 				Minz_Exception::ERROR
 			);
@@ -100,6 +97,12 @@ final class Minz_Dispatcher {
 		if (!($controller instanceof Minz_ActionController)) {
 			throw new Minz_ControllerNotActionControllerException(
 				$controller_name,
+				Minz_Exception::ERROR
+			);
+		}
+		// PHP class names are case-insensitive, whereas controller names are not
+		if (!self::isRegistered($base_name) && get_class($controller) !== $controller_name) {
+			throw new Minz_ControllerNotExistException(
 				Minz_Exception::ERROR
 			);
 		}
@@ -114,9 +117,8 @@ final class Minz_Dispatcher {
 	 */
 	private function launchAction(string $action_name): void {
 		$call = [$this->controller, $action_name];
-		// PHP method names are case-insensitive, whereas action names are not, e.g. in Minz_Request::is()
-		if (!is_callable($call) ||
-				(method_exists($this->controller, $action_name) && (new ReflectionMethod($this->controller, $action_name))->getName() !== $action_name)) {
+		// PHP method names are case-insensitive, whereas action names are not
+		if (!is_callable($call) || !in_array($action_name, get_class_methods($this->controller), true)) {
 			throw new Minz_ActionException(
 				get_class($this->controller),
 				$action_name,
