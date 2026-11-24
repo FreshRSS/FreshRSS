@@ -14,8 +14,8 @@ return array(
 	'auth' => array(
 		'allow_anonymous' => 'Sta bezoekers toe om artikelen te lezen van de standaard gebruiker (%s)',
 		'allow_anonymous_refresh' => 'Sta bezoekers toe om de artikelen te vernieuwen',
-		'api_enabled' => 'Sta <abbr>API</abbr> toegang toe <small>(nodig voor mobiele apps and sharing user queries)</small>',	// DIRTY
-		'form' => 'Web formulier (traditioneel, JavaScript vereist)',
+		'api_enabled' => 'Sta <abbr>API</abbr> toegang toe <small>(nodig voor mobiele apps en het delen van gebruikersqueries)</small>',
+		'form' => 'Web formulier (traditioneel)',
 		'http' => 'HTTP (geavanceerd: beheerd door webserver, OIDC, SSO…)',
 		'none' => 'Geen (gevaarlijk)',
 		'title' => 'Authenticatie',
@@ -83,16 +83,21 @@ return array(
 			'_' => 'Basis-url',
 			'recommendation' => 'Automatische aanbeveling: <kbd>%s</kbd>',
 		),
-		'closed_registration_message' => 'Message if registrations are closed',	// TODO
+		'closed_registration_message' => 'Bericht wanneer registraties gesloten zijn',
 		'cookie-duration' => array(
 			'help' => 'in seconden',
 			'number' => 'Tijdsduur om ingelogd te blijven',
 		),
-		'default_closed_registration_message' => 'This server does not accept new registrations at the moment.',	// TODO
+		'default_closed_registration_message' => 'Deze server accepteert momenteel geen nieuwe registraties.',
 		'force_email_validation' => 'Emailadresvalidatie forceren',
 		'instance-name' => 'Voorbeeld naam',
+		'internal-host-allowlist' => array(
+			'_' => 'Toegestane interne hosts',
+			'help' => 'Eén vermelding per regel:<ul><li>Een <code>host:port</code>, bijvoorbeeld <code>127.0.0.1:8080</code> of <code>rss-bridge:80</code></li><li>Een CIDR-notatie, bijvoorbeeld <code>0.0.0.0/0</code> om alle IPv4-adressen toe te staan, of <code>::/0</code> om alle IPv6-adressen toe te staan</li><li>Een <code>*</code> om alle hosts toe te staan (onveilig)</li></ul>',
+		),
 		'max-categories' => 'Categorielimiet per gebruiker',
 		'max-feeds' => 'Feedlimiet per gebruiker',
+		'override-by-env-var' => 'Deze instelling wordt bepaald door de omgevingsvariabele <kbd>%s</kbd>.',
 		'registration' => array(
 			'number' => 'Maximum aantal accounts',
 			'select' => array(
@@ -132,7 +137,7 @@ return array(
 		'releaseChannel' => array(
 			'_' => 'Release-kanaal',
 			'edge' => 'Rollende release (“edge”)',
-			'latest' => 'Stabiele release (“latest”)',
+			'latest' => 'Versiegebonden release (“latest”)',
 		),
 		'title' => 'Vernieuw systeem',
 		'viaGit' => 'Update via git and GitHub.com gestart',

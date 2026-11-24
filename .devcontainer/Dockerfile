@@ -1,4 +1,4 @@
-FROM alpine:3.23
+FROM alpine:3.24
 
 ENV TZ=UTC
 SHELL ["/bin/ash", "-eo", "pipefail", "-c"]
@@ -7,7 +7,7 @@ RUN apk add --no-cache \
 	tzdata \
 	apache2 php-apache2 \
 	php php-curl php-gmp php-intl php-mbstring php-xml php-zip \
-	php-ctype php-dom php-fileinfo php-iconv php-json php-opcache php-openssl php-phar php-session php-simplexml php-xmlreader php-xmlwriter php-xml php-tokenizer php-zlib \
+	php-ctype php-dom php-fileinfo php-iconv php-json php-opcache php-openssl php-phar php-session php-simplexml php-xmlwriter php-xml php-tokenizer php-zlib \
 	php-pdo_sqlite php-pdo_mysql php-pdo_pgsql \
 	bash composer curl docker-cli-buildx git gpg make nodejs npm shellcheck shfmt sudo
 
@@ -30,6 +30,7 @@ ENV COPY_LOG_TO_SYSLOG=On
 ENV COPY_SYSLOG_TO_STDERR=On
 ENV CRON_MIN=''
 ENV DATA_PATH=''
+ENV ENABLE_ACCESS_LOG=1
 ENV FRESHRSS_ENV='development'
 ENV LISTEN='0.0.0.0:8080'
 ENV TRUSTED_PROXY=0

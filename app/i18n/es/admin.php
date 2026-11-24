@@ -15,7 +15,7 @@ return array(
 		'allow_anonymous' => 'Permitir la lectura anónima de los artículos del usuario por defecto (%s)',
 		'allow_anonymous_refresh' => 'Permitir la actualización anónima de los artículos',
 		'api_enabled' => 'Concederle acceso a la <abbr>API</abbr> <small>(necesario para apps de móvil y compartir vistas de usuario)</small>',
-		'form' => 'Formulario Web (el más habitual, requiere JavaScript)',
+		'form' => 'Formulario Web (el más habitual)',
 		'http' => 'HTTP (avanzado: gestionado por el servidor, OIDC, SSO…)',
 		'none' => 'Ninguno (peligroso)',
 		'title' => 'Identificación',
@@ -91,8 +91,13 @@ return array(
 		'default_closed_registration_message' => 'Este servidor no acepta nuevos registros en este momento.',
 		'force_email_validation' => 'Forzar la validación de direcciones de correo electrónico',
 		'instance-name' => 'Nombre de la fuente',
+		'internal-host-allowlist' => array(
+			'_' => 'Lista de permitidos de hosts internos',
+			'help' => 'Una entrada por línea:<ul><li>Un <code>host:puerto</code>. Por ejemplo <code>127.0.0.1:8080</code> o <code>rss-bridge:80</code></li><li>Una notación CIDR. Por ejemplo <code>0.0.0.0/0</code> para permitir cualquier IPv4, <code>::/0</code> para permitir cualquier IPv6</li><li>Un <code>*</code> para permitir cualquier host (inseguro)</li></ul>',
+		),
 		'max-categories' => 'Límite de categorías por usuario',
 		'max-feeds' => 'Límite de fuentes por usuario',
+		'override-by-env-var' => 'Esta configuración está definida por la variable de entorno <kbd>%s</kbd>.',
 		'registration' => array(
 			'number' => 'Número máximo de cuentas',
 			'select' => array(
@@ -132,7 +137,7 @@ return array(
 		'releaseChannel' => array(
 			'_' => 'Canal de publicación',
 			'edge' => 'Versión de pruebas (“edge”)',
-			'latest' => 'Versión estable (“latest”)',
+			'latest' => 'Versión estable (“latest”)',	// DIRTY - Versioned release (“latest”)
 		),
 		'title' => 'Actualizar sistema',
 		'viaGit' => 'Actualización comenzada vía git y GitHub',

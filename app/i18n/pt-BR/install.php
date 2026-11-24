@@ -51,18 +51,22 @@ return array(
 			'ok' => 'Permissões no diretório data estão corretos.',
 		),
 		'database-connection' => array(
-			'nok' => 'Database connection error.',	// TODO
-			'ok' => 'Database connection is good.',	// TODO
+			'nok' => 'Erro de conexão com o banco de dados.',
+			'ok' => 'Conexão com o banco de dados está boa.',
 		),
 		'database-table' => array(
-			'nok' => 'Database table "%s" is incomplete.',	// TODO
-			'ok' => 'Database table "%s" is good.',	// TODO
+			'nok' => 'Tabela do banco de dados "%s" está incompleta.',
+			'ok' => 'Tabela do banco de dados "%s" está boa.',
 		),
 		'database-tables' => array(
-			'nok' => 'Some database tables are missing.',	// TODO
-			'ok' => 'All database tables exist.',	// TODO
+			'nok' => 'Algumas tabelas do banco de dados estão faltando.',
+			'ok' => 'Todas as tabelas do banco de dados existem.',
 		),
-		'database-title' => 'Database',	// TODO
+		'database-title' => 'Banco de Dados',
+		'docroot' => array(
+			'nok' => 'A raiz de documentos do seu servidor web não parece apontar para a pasta <code>./p/</code>. Outras pastas, como <code>./data/</code>, podem estar acessíveis publicamente.',
+			'ok' => 'A raiz de documentos do seu servidor web aponta corretamente para a pasta <code>./p/</code>.',
+		),
 		'dom' => array(
 			'nok' => 'Não foi possível encontrar uma biblioteca necessária para navegar pelo DOM (php-xml).',
 			'ok' => 'Você tem a biblioteca necessária para navegar pelo DOM.',
@@ -76,6 +80,10 @@ return array(
 			'ok' => 'Você tem a biblioteca fileinfo.',
 		),
 		'files' => 'Instalação de arquivos',
+		'gmp' => array(
+			'nok' => 'Não foi possível encontrar a extensão GMP necessária para o PHP de 32 bits (pacote php-gmp).',
+			'ok' => 'Você tem a extensão GMP necessária para o PHP de 32 bits.',
+		),
 		'intl' => array(
 			'nok' => 'Não foi possível encontrar a biblioteca recomendada php-intl para internacionalização.',
 			'ok' => 'Você tem a biblioteca recomendada php-intl para internacionalização.',
@@ -141,7 +149,7 @@ return array(
 	'congratulations' => 'Parabéns!',
 	'default_user' => array(
 		'_' => 'Usuário do usuário padrão',
-		'max_char' => 'máximo de 16 caracteres alfanuméricos',
+		'max_char' => 'De 1 a 39 caracteres: letras, números e <code>. _ @ -</code>',
 	),
 	'fix_errors_before' => 'Por favor solucione os erros antes de ir para o próximo passo.',
 	'javascript_is_better' => 'O FreshRSS é mais agradável com o JavaScript ativo',

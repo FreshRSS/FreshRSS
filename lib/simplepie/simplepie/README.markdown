@@ -11,7 +11,7 @@ compatibility and standards compliance][what_is].
 
 Requirements
 ------------
-* PHP 7.2+ (Required since SimplePie 1.8.0)
+* PHP 7.4+
 * libxml2 (certain 2.7.x releases are too buggy for words, and will crash)
 * One of iconv, mbstring or intl extensions
 * Optionally, intl extension, [symfony/polyfill-intl-idn](https://github.com/symfony/polyfill-intl-idn) or cURL extension built with IDN support to support IDNs
@@ -116,7 +116,7 @@ Please open your PR against the appropriate branch.
 
 | branch                                                                     | requires    |
 |----------------------------------------------------------------------------|-------------|
-| [master](https://github.com/simplepie/simplepie/tree/master)               | PHP 7.2.0+  |
+| [master](https://github.com/simplepie/simplepie/tree/master)               | PHP 7.4.0+  |
 | [one-dot-seven](https://github.com/simplepie/simplepie/tree/one-dot-seven) | PHP 5.6.0+  |
 | [one-dot-three](https://github.com/simplepie/simplepie/tree/one-dot-three) | PHP 5.2.0+  |
 

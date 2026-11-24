@@ -2,16 +2,87 @@
 declare(strict_types=1);
 
 class FreshRSS_FormAuth {
-	public static function checkCredentials(string $username, string $hash, string $nonce, string $challenge): bool {
-		if (!FreshRSS_user_Controller::checkUsername($username) ||
-				!ctype_graph($hash) ||
-				!ctype_graph($challenge) ||
-				!ctype_alnum($nonce)) {
-			Minz_Log::debug("Invalid credential parameters: user={$username}, challenge={$challenge}, nonce={$nonce}");
+	public const MIN_PASSWORD_LENGTH = 7; // Only to be enforced when setting new passwords.
+	public const MAX_PASSWORD_LENGTH = 72; // Bcrypt limits password lengths to 72 bytes.
+
+	/**
+	 * @param array{enforceMinLength?: bool} $options
+	 */
+	public static function passwordRequirementsMet(#[\SensitiveParameter] string $passwordPlain, array $options = []): bool {
+		$enforceMinLength = ($options['enforceMinLength'] ?? true) === true;
+		if (strlen($passwordPlain) > self::MAX_PASSWORD_LENGTH) {
+			return false;
+		}
+		if ($enforceMinLength && strlen($passwordPlain) < self::MIN_PASSWORD_LENGTH) {
+			return false;
+		}
+		if (trim($passwordPlain) === '') {
+			return false;
+		}
+		return true;
+	}
+
+	public static function checkCredentials(string $username, #[\SensitiveParameter] string $hash, #[\SensitiveParameter] string $passwordPlain): bool {
+		if (!FreshRSS_user_Controller::checkUsername($username) || !ctype_graph($hash)) {
+			Minz_Log::debug("Invalid credential parameters: user={$username}");
 			return false;
 		}
 
-		return password_verify($hash . $nonce, $challenge);
+		// Expecting bcrypt format, see: https://en.wikipedia.org/wiki/Bcrypt#Description
+		// FreshRSS has not historically used any other algorithm for password hash generation,
+		// so no upgrades are required.
+		if (!preg_match('/^\$2[aby]\$(0[4-9]|10)\$[.\/0-9A-Za-z]{53}$/', $hash)) {
+			Minz_Log::debug("Invalid hash format: user={$username}");
+			return false;
+		}
+
+		$byteLen = strlen($passwordPlain);
+		$utf8Prefix = mb_check_encoding($passwordPlain, 'UTF-8')
+			? mb_strcut($passwordPlain, 0, self::MAX_PASSWORD_LENGTH, 'UTF-8')
+			: '';
+
+		$cutOffUtf8Character = $byteLen > self::MAX_PASSWORD_LENGTH &&
+			strlen($utf8Prefix) < self::MAX_PASSWORD_LENGTH &&
+			mb_strlen($passwordPlain, 'UTF-8') === mb_strlen($utf8Prefix, 'UTF-8') + 1;
+
+		// Only reject logging in with a password longer than 72 bytes if the limit does not
+		// cut off a valid UTF-8 character, since this may be an existing bcrypt password.
+		if (!$cutOffUtf8Character && $byteLen > self::MAX_PASSWORD_LENGTH) {
+			Minz_Log::warning("Exceeded maximum allowed password length during authentication: user={$username}");
+			return false;
+		}
+
+		// https://www.php.net/manual/function.password-verify.php
+		if (password_verify($passwordPlain, $hash)) {
+			if (trim($passwordPlain) === '') {
+				Minz_Log::warning("Refusing authentication with empty zero-length password: user={$username}");
+				return false;
+			}
+			return true;
+		}
+
+		return false;
+	}
+
+	/**
+	 * @return array{username: string, password: string}
+	 */
+	public static function getAutofilledFields(bool $raw = false): array {
+		$username = Minz_ExtensionManager::callHook(Minz_HookType::AutofillField, 'username');
+		$password = Minz_ExtensionManager::callHook(Minz_HookType::AutofillField, 'password');
+
+		$fields = [
+			'username' => is_string($username) ? $username : '',
+			'password' => is_string($password) ? $password : '',
+		];
+
+		if (!$raw) {
+			foreach ($fields as $k => $v) {
+				$fields[$k] = htmlspecialchars($v, ENT_COMPAT, 'UTF-8');
+			}
+		}
+
+		return $fields;
 	}
 
 	/** @return list<string> */
@@ -50,7 +121,7 @@ class FreshRSS_FormAuth {
 		return false;
 	}
 
-	public static function makeCookie(string $username, string $password_hash): string|false {
+	public static function makeCookie(string $username, #[\SensitiveParameter] string $password_hash): string|false {
 		do {
 			$token = hash('sha256', FreshRSS_Context::systemConf()->salt . $username . random_bytes(32));
 			$token_file = DATA_PATH . '/tokens/' . $token . '.txt';

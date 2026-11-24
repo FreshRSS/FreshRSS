@@ -1,6 +1,10 @@
 <?php
 declare(strict_types=1);
 
+// Polyfill PHP 8.4+ `Dom\` classes, including the CSS selector API,
+// maintained together with the vendored SimplePie fork:
+require_once LIB_PATH . '/simplepie/simplepie/compat/dom.php';
+
 if (!function_exists('mb_strcut')) {
 	function mb_strcut(string $str, int $start, ?int $length = null, string $encoding = 'UTF-8'): string {
 		return substr($str, $start, $length) ?: '';
@@ -37,6 +41,39 @@ function join_path(...$path_parts): string {
 	return join(DIRECTORY_SEPARATOR, $path_parts);
 }
 
+/**
+ * Build the mutex path for an actualisation run.
+ *
+ * The data path identifies a FreshRSS instance, while the temporary path only
+ * determines where its mutex is stored.
+ */
+function actualize_mutex_file(string $tmpPath, string $dataPath): string {
+	return $tmpPath . '/actualize.' . hash('sha256', realpath($dataPath) ?: $dataPath) . '.freshrss.lock';
+}
+
+/**
+ * Disable stream wrappers that the application does not need.
+ *
+ * For temporary usage of a previously unregistered wrapper, `stream_wrapper_restore()` can be used.
+ */
+function unregister_unsafe_protocols(): void {
+	$registered_wrappers = stream_get_wrappers();
+	$allowed_wrappers = ['file', 'php'];
+	if (defined('__PHPSTAN_RUNNING__')) {
+		// Needed for PHPStan compatibility PHP < 8.4
+		$allowed_wrappers[] = 'phar';
+	}
+	foreach ($registered_wrappers as $protocol) {
+		if (!in_array($protocol, $allowed_wrappers, true)) {
+			stream_wrapper_unregister($protocol);
+		}
+	}
+}
+
+if (!defined('WITH_COMPOSER')) {
+	unregister_unsafe_protocols();
+}
+
 //<Auto-loading>
 function classAutoloader(string $class): void {
 	if (str_starts_with($class, 'FreshRSS')) {
@@ -59,8 +96,8 @@ function classAutoloader(string $class): void {
 		$base_dir = LIB_PATH . '/simplepie/simplepie/src/';
 		$relative_class_name = substr($class, strlen($prefix));
 		include $base_dir . str_replace('\\', '/', $relative_class_name) . '.php';
-	} elseif (str_starts_with($class, 'Gt\\CssXPath\\')) {
-		$prefix = 'Gt\\CssXPath\\';
+	} elseif (str_starts_with($class, 'GT\\CssXPath\\')) {
+		$prefix = 'GT\\CssXPath\\';
 		$base_dir = LIB_PATH . '/phpgt/cssxpath/src/';
 		$relative_class_name = substr($class, strlen($prefix));
 		include $base_dir . str_replace('\\', '/', $relative_class_name) . '.php';
@@ -146,7 +183,7 @@ function echoJson($json, int $optimisationDepth = -1): void {
 }
 
 function safe_ascii(?string $text): string {
-	return $text === null ? '' : (filter_var($text, FILTER_DEFAULT, FILTER_FLAG_STRIP_LOW | FILTER_FLAG_STRIP_HIGH) ?: '');
+	return $text === null ? '' : (filter_var($text, FILTER_UNSAFE_RAW, FILTER_FLAG_STRIP_LOW | FILTER_FLAG_STRIP_HIGH) ?: '');
 }
 
 if (function_exists('mb_convert_encoding')) {
@@ -215,6 +252,40 @@ function timestamptodate(int $t, bool $hour = true): string {
 	return @date($date, $t) ?: '';
 }
 
+function timestampToMachineDate(int $t): string {
+	return @date(DATE_ATOM, $t);
+}
+
+/**
+ * Human readable string how long this timestamp is ago ("5 years ago").
+ */
+function timeago(int $timestamp, ?int $baseTimestamp = null): string {
+	$baseTimestamp ??= time();
+	$delta = abs($baseTimestamp - $timestamp);
+
+	$units = [
+		[31536000, 'year'],
+		[2592000, 'month'],
+		[86400, 'day'],
+		[3600, 'hour'],
+		[60, 'minute'],
+	];
+
+	$diff = '';
+	foreach ($units as [$unitSeconds, $unit]) {
+		if ($delta >= $unitSeconds) {
+			$unitValue = intdiv($delta, $unitSeconds);
+			$diff = Minz_Translate::plural('gen.interval.' . $unit, $unitValue) ?? ($unitValue . ' ' . $unit . ' ago');
+			break;
+		}
+	}
+
+	if ($diff === '') {
+		return Minz_Translate::t('gen.interval.justnow');
+	}
+	return $diff;
+}
+
 /**
  * Decode HTML entities but preserve XML entities.
  */
@@ -272,24 +343,33 @@ function cleanCache(int $hours = 720): void {
 }
 
 /**
- * Add support of image lazy loading
- * Move content from src/poster attribute to data-original
+ * Add native lazy loading by inserting a `loading="lazy"` attribute right after
+ * the tag name of img/image/iframe elements that do not have one,
+ * and use `data-original` attribute for video/track elements and their poster/src attributes.
  * @param string $content is the text we want to parse
  */
 function lazyimg(string $content): string {
-	return preg_replace([
-			'/<((?:img|image|iframe|track)[^>]+?)src="([^"]+)"([^>]*)>/i',
-			"/<((?:img|image|iframe|track)[^>]+?)src='([^']+)'([^>]*)>/i",
-			'/<((?:video)[^>]+?)poster="([^"]+)"([^>]*)>/i',
-			"/<((?:video)[^>]+?)poster='([^']+)'([^>]*)>/i",
+	$content = preg_replace(
+		'/<((?:img|image|iframe)\b)(?![^>]{0,1000}\b(?:loading|data-original)=)([^>]{0,1000}+)>/i',
+		'<$1 loading="lazy"$2>',
+		$content
+	) ?? $content;
+
+	$placeholder = Minz_Url::display('/themes/icons/grey.gif');
+	return preg_replace(
+		[
+			'/<((?:video)(?![^>]{0,1000}\bdata-original=)[^>]{1,1000}?)(?<![\w\'"-])poster="([^"]+)"([^>]*)>/i',
+			'/<((?:video)(?![^>]{0,1000}\bdata-original=)[^>]{1,1000}?)(?<![\w\'"-])poster=\'([^\']+)\'([^>]*)>/i',
+			'/<((?:track)(?![^>]{0,1000}\bdata-original=)[^>]{1,1000}?)(?<![\w\'"-])src="([^"]+)"([^>]*)>/i',
+			'/<((?:track)(?![^>]{0,1000}\bdata-original=)[^>]{1,1000}?)(?<![\w\'"-])src=\'([^\']+)\'([^>]*)>/i',
 		], [
-			'<$1src="' . Minz_Url::display('/themes/icons/grey.gif') . '" data-original="$2"$3>',
-			"<$1src='" . Minz_Url::display('/themes/icons/grey.gif') . "' data-original='$2'$3>",
-			'<$1poster="' . Minz_Url::display('/themes/icons/grey.gif') . '" data-original="$2"$3>',
-			"<$1poster='" . Minz_Url::display('/themes/icons/grey.gif') . "' data-original='$2'$3>",
+			'<$1poster="' . $placeholder . '" data-original="$2"$3>',
+			'<$1poster=\'' . $placeholder . '\' data-original=\'$2\'$3>',
+			'<$1src="' . $placeholder . '" data-original="$2"$3>',
+			'<$1src=\'' . $placeholder . '\' data-original=\'$2\'$3>',
 		],
 		$content
-	) ?? '';
+	) ?? $content;
 }
 
 /** @return numeric-string */
@@ -319,7 +399,7 @@ function checkTrustedIP(): bool {
 
 /**
  * Remove a directory recursively.
- * From http://php.net/rmdir#110489
+ * From https://www.php.net/rmdir#110489
  */
 function recursive_unlink(string $dir): bool {
 	if (!is_dir($dir)) {

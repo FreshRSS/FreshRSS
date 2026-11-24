@@ -15,7 +15,7 @@ return array(
 		'allow_anonymous' => 'Salli kirjautumattomien käyttäjien lukea oletuskäyttäjän artikkeleita (%s)',
 		'allow_anonymous_refresh' => 'Salli kirjautumattomien käyttäjien päivittää artikkelit',
 		'api_enabled' => 'Salli <abbr>API</abbr>-käyttö <small>(pakollinen kännykkäsovelluksille ja käyttäjän kyselyjen jakamiselle)</small>',
-		'form' => 'Web-lomake (perinteinen, käyttää JavaScriptiä)',
+		'form' => 'Web-lomake (perinteinen)',
 		'http' => 'HTTP (lisäasetukset: web-palvelin, OIDC, SSO…)',
 		'none' => 'Ei mitään (vaarallinen)',
 		'title' => 'Todentaminen',
@@ -91,8 +91,13 @@ return array(
 		'default_closed_registration_message' => 'This server does not accept new registrations at the moment.',	// TODO
 		'force_email_validation' => 'Pakota sähköpostiosoitteen vahvistus',
 		'instance-name' => 'Instanssin nimi',
+		'internal-host-allowlist' => array(
+			'_' => 'Internal host allowlist',	// TODO
+			'help' => 'One entry per line:<ul><li>A <code>host:port</code>. For instance <code>127.0.0.1:8080</code> or <code>rss-bridge:80</code></li><li>A CIDR notation. For instance <code>0.0.0.0/0</code> to allow any IPv4, <code>::/0</code> to allow any IPv6</li><li>A <code>*</code> to allow any host (unsafe)</li></ul>',	// TODO
+		),
 		'max-categories' => 'Luokkien enimmäismäärä käyttäjää kohti',
 		'max-feeds' => 'Syötteiden enimmäismäärä käyttäjää kohti',
+		'override-by-env-var' => 'This setting is set by the environment variable <kbd>%s</kbd>.',	// TODO
 		'registration' => array(
 			'number' => 'Tilien enimmäismäärä',
 			'select' => array(
@@ -132,7 +137,7 @@ return array(
 		'releaseChannel' => array(
 			'_' => 'Julkaisukanava',
 			'edge' => 'Uusin versio (“edge”)',
-			'latest' => 'Vakaa versio (“latest”)',
+			'latest' => 'Vakaa versio (“latest”)',	// DIRTY - Versioned release (“latest”)
 		),
 		'title' => 'Päivitä FreshRSS',
 		'viaGit' => 'Päivitys gitin ja GitHub.comin avulla on aloitettu',

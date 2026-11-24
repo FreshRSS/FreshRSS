@@ -36,13 +36,14 @@ return array(
 			'open' => 'Open menu',	// TODO
 		),
 		'nav_buttons' => array(
-			'next' => 'Next article',	// TODO
-			'prev' => 'Previous article',	// TODO
-			'up' => 'Go up',	// TODO
+			'next' => 'Nākamais raksts',
+			'prev' => 'Iepriekšējais raksts',
+			'up' => 'Doties uz augšu',
 		),
 		'open_url' => 'Atvērt URL',
 		'promote' => 'Paaugstināt amatu',
 		'purge' => 'Iztīrīt',
+		'read_in_freshrss' => 'Read in FreshRSS',	// TODO
 		'refresh_opml' => 'Pārlādēt OPML',
 		'remove' => 'Noņemt',
 		'rename' => 'Pārdēvēt',
@@ -73,7 +74,7 @@ return array(
 		),
 		'username' => array(
 			'_' => 'Lietotājvārds',
-			'format' => '<small>Maksimums 16 burtu un ciparu zīmes</small>',
+			'format' => '<small>1-39 characters: letters, digits, and <code>. _ @ -</code></small>',	// TODO
 		),
 	),
 	'date' => array(
@@ -137,8 +138,41 @@ return array(
 	),
 	'dir' => 'ltr',	// IGNORE
 	'freshrss' => array(
-		'_' => 'FreshRSS',	// TODO
+		'_' => 'FreshRSS',	// IGNORE
 		'about' => 'Par FreshRSS',
+	),
+	'interval' => array(
+		'day' => array(
+			0 => 'pirms %d diena',
+			1 => 'pirms %d dienas',
+			2 => 'pirms %d dienu',
+		),
+		'hour' => array(
+			0 => 'pirms %d stunda',
+			1 => 'pirms %d stundas',
+			2 => 'pirms %d stundu',
+		),
+		'justnow' => 'tikko',
+		'minute' => array(
+			0 => 'pirms %d minūte',
+			1 => 'pirms %d minūtes',
+			2 => 'pirms %d minūšu',
+		),
+		'month' => array(
+			0 => 'pirms %d mēnesis',
+			1 => 'pirms %d mēneši',
+			2 => 'pirms %d mēnešu',
+		),
+		'second' => array(
+			0 => 'pirms %d sekunde',
+			1 => 'pirms %d sekundes',
+			2 => 'pirms %d sekunžu',
+		),
+		'year' => array(
+			0 => 'pirms %d gads',
+			1 => 'pirms %d gadi',
+			2 => 'pirms %d gadu',
+		),
 	),
 	'js' => array(
 		'category_empty' => 'Tukša kategorija',
@@ -146,17 +180,28 @@ return array(
 		'confirm_action_feed_cat' => 'Vai esat pārliecināts, ka vēlaties veikt šo darbību? Jūs zaudēsiet saistītos mīļākos rakstus un lietotāja pieprasījumus. To nevar atcelt!',
 		'confirm_exit_slider' => 'Are you sure you want to discard unsaved settings?',	// TODO
 		'feedback' => array(
-			'body_new_articles' => 'FreshRSS ir %%d jauni raksti lasīšanai.',
-			'body_unread_articles' => '(neizlasīti: %%d)',
+			'body_new_articles' => array(
+				0 => 'FreshRSS ir %d jauni raksti lasīšanai.',	// DIRTY - There is %d new article to read on FreshRSS.
+				1 => 'FreshRSS ir %d jauni raksti lasīšanai.',	// DIRTY - There are %d new articles to read on FreshRSS.
+				2 => 'FreshRSS ir %d jauni raksti lasīšanai.',	// DIRTY - There are %d new articles to read on FreshRSS.
+			),
+			'body_unread_articles' => array(
+				0 => '(neizlasīti: %d)',	// DIRTY - (unread: %d)
+				1 => '(neizlasīti: %d)',	// DIRTY - (unread: %d)
+				2 => '(neizlasīti: %d)',	// DIRTY - (unread: %d)
+			),
 			'request_failed' => 'Pieprasījums nav izdevies, iespējams, to izraisījušas interneta savienojuma problēmas.',
 			'title_new_articles' => 'FreshRSS: jauni raksti!',
 		),
-		'labels_empty' => 'No labels',	// TODO
+		'labels_empty' => 'Bez birku',
 		'new_article' => 'Ir pieejami jauni raksti, noklikšķiniet, lai atsvaidzinātu lapu..',
 		'should_be_activated' => 'JavaScript jābūt ieslēgtam',
 		'unsafe_csp_header' => 'The CSP header in use is unsafe and FreshRSS may be vulnerable to XSS attacks. <a target="_blank" href="https://freshrss.github.io/FreshRSS/en/admins/10_ServerConfig.html#security">See documentation</a>',	// TODO
 	),
 	'lang' => array(
+		'ar' => 'العربية',	// IGNORE
+		'az' => 'Azərbaycanca',	// IGNORE
+		'be' => 'Беларуская',	// IGNORE
 		'cs' => 'Čeština',	// IGNORE
 		'de' => 'Deutsch',	// IGNORE
 		'el' => 'Ελληνικά',	// IGNORE
@@ -172,6 +217,7 @@ return array(
 		'it' => 'Italiano',	// IGNORE
 		'ja' => '日本語',	// IGNORE
 		'ko' => '한국어',	// IGNORE
+		'lt' => 'Lietuvių',	// TODO
 		'lv' => 'Latviešu',	// IGNORE
 		'nl' => 'Nederlands',	// IGNORE
 		'oc' => 'Occitan',	// IGNORE
@@ -194,7 +240,7 @@ return array(
 		'authentication' => 'Autentifikācija',
 		'check_install' => 'Uzstādīšanas pārbaude',
 		'configuration' => 'Konfigurācija',
-		'display' => 'Display',	// TODO
+		'display' => 'Displejs',
 		'extensions' => 'Paplašinājumi',
 		'logs' => 'Žurnāls',
 		'privacy' => 'Privacy',	// TODO
@@ -265,10 +311,12 @@ return array(
 		'gnusocial' => 'GNU social',	// IGNORE
 		'jdh' => 'Journal du hacker',	// IGNORE
 		'lemmy' => 'Lemmy',	// IGNORE
+		'linkace' => 'LinkAce',	// IGNORE
 		'linkding' => 'Linkding',	// IGNORE
 		'linkedin' => 'LinkedIn',	// IGNORE
 		'mastodon' => 'Mastodon',	// IGNORE
 		'movim' => 'Movim',	// IGNORE
+		'nextcloud-bookmarks' => 'Nextcloud Grāmatzīmes',	// DIRTY - Nextcloud Bookmarks
 		'omnivore' => 'Omnivore',	// IGNORE
 		'pinboard' => 'Pinboard',	// IGNORE
 		'pinterest' => 'Pinterest',	// IGNORE

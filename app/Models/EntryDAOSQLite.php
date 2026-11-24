@@ -50,14 +50,23 @@ class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 		if (!str_contains($sql, ' REGEXP ')) {
 			return;
 		}
-		// https://php.net/pdo.sqlitecreatefunction
+		// https://www.php.net/pdo-sqlite.createfunction
 		// https://www.sqlite.org/lang_expr.html#the_like_glob_regexp_match_and_extract_operators
-		$this->pdo->sqliteCreateFunction('regexp',
-			function (string $pattern, string $text): bool {
-				return preg_match($pattern, $text) === 1;
-			},
-			2
-		);
+		if (class_exists(\Pdo\Sqlite::class) && $this->pdo instanceof \Pdo\Sqlite) {
+			$this->pdo->createFunction('regexp',
+				function (string $pattern, string $text): bool {
+					return preg_match($pattern, $text) === 1;
+				},
+				2
+			);
+		} else {	// PHP < 8.4
+			$this->pdo->sqliteCreateFunction('regexp',
+				function (string $pattern, string $text): bool {
+					return preg_match($pattern, $text) === 1;
+				},
+				2
+			);
+		}
 	}
 
 	/** @param array{0:string,1:int,2:string} $errorInfo */
@@ -109,19 +118,13 @@ class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 	 * Toggle the read marker on one or more article.
 	 * Then the cache is updated.
 	 *
-	 * @param numeric-string|array<numeric-string> $ids
+	 * @param numeric-string|list<numeric-string> $ids
 	 * @return int|false affected rows
 	 */
 	#[\Override]
 	public function markRead(array|string $ids, bool $is_read = true): int|false {
 		if (is_array($ids)) {	//Many IDs at once (used by API)
-			//if (true) {	//Speed heuristics	//TODO: Not implemented yet for SQLite (so always call IDs one by one)
-			$affected = 0;
-			foreach ($ids as $id) {
-				$affected += ($this->markRead($id, $is_read) ?: 0);
-			}
-			return $affected;
-			//}
+			return parent::markRead($ids, $is_read);
 		} else {
 			FreshRSS_UserDAO::touch();
 			$this->pdo->beginTransaction();
@@ -164,6 +167,9 @@ class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 				}
 			}
 			$this->pdo->commit();
+			if ($affected > 0) {
+				Minz_ExtensionManager::callHook(Minz_HookType::EntriesRead, [$ids], $is_read);
+			}
 			return $affected;
 		}
 	}
@@ -192,7 +198,7 @@ class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 			$values[] = $id;
 		}
 
-		[$searchValues, $search] = $this->sqlListEntriesWhere(alias: 'e.', state: $state, filters: $filters);
+		[$searchValues, $search] = $this->sqlListEntriesWhere(alias: '', state: $state, filters: $filters);
 
 		$stm = $this->pdo->prepare($sql . $search);
 		if ($stm === false || !$stm->execute(array_merge($values, $searchValues))) {

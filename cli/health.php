@@ -27,10 +27,16 @@ $content = curl_exec($ch);
 $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 
 if ($httpCode !== 200 || !is_string($content)) {
+	$curlError = curl_error($ch);
+	fwrite(STDERR, 'Error: Health check failed for ' . $address . ': ' .
+		($curlError !== '' ? $curlError : ('unexpected HTTP status ' . $httpCode)) . PHP_EOL);
 	die(1);
 }
 
 $content = rtrim($content, "\n\r");
 if (!str_starts_with($content, '<!DOCTYPE html>') || !str_ends_with($content, '</html>') || !str_contains($content, '/scripts/api.js')) {
+	fwrite(STDERR, 'Error: Health check failed for ' . $address .
+		': the response does not look like a FreshRSS page' .
+		' (check that the URL points to a working FreshRSS instance with the API enabled).' . PHP_EOL);
 	die(2);
 }

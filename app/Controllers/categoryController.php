@@ -171,6 +171,8 @@ class FreshRSS_category_Controller extends FreshRSS_ActionController {
 				$category->_attribute('defaultSort');
 			}
 
+			$category->_attribute('show_unread_count', Minz_Request::paramTernary('show_unread_count'));
+
 			$values = [
 				'kind' => $category->kind(),
 				'name' => Minz_Request::paramString('name'),

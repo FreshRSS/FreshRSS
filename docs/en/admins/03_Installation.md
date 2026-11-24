@@ -1,4 +1,4 @@
-# General Installation Instructions
+# General installation instructions
 
 These instructions are intended as general guidelines for installing FreshRSS. You may wish to consult the [Step-by-step Tutorial for installing FreshRSS on Debian 9/Ubuntu 16.04](06_LinuxInstall.md) if you don’t currently have a web server and don’t have experience setting one up.
 
@@ -6,7 +6,7 @@ Before you begin, make sure that you’ve read the [prerequisites](02_Prerequisi
 
 1. If the computer you’re running on is not currently running a web server, you’ll first need to install and configure a web server, a version of PHP, and an appropriate database, as listed in the prerequisites. Specially, if you are using NGINX, please keep in mind that FreshRSS needs some specified variables to run properly. So make sure you’ve checked our configuration file. [Example Apache and Nginx configuration files can be found here](10_ServerConfig.md).
 
-2. Download your chosen version of FreshRSS, or fetch it via git. It’s advisable that you put FreshRSS in `/usr/share/`, and symlink the `./p/` folder to the root of your web server.[^1]
+2. Download your chosen version of FreshRSS, or fetch it via git. Put FreshRSS somewhere your PHP process can write to the `./data/` folder, such as `/var/www/FreshRSS`, and symlink the `./p/` folder to the root of your web server.[^1] Avoid placing the writable `./data/` folder under system read-only paths such as `/usr/share/` unless your PHP-FPM service is explicitly configured to allow writes there.
 
 3. Give ownership of the FreshRSS folder to your web server user (often `www-data`). Give group read permissions to all files in `.`[^2], and group write permissions to `./data/`.
 

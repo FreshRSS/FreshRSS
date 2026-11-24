@@ -12,11 +12,31 @@ class I18nUsageValidator implements I18nValidatorInterface {
 	/**
 	 * @param array<string,array<string,I18nValue>> $reference
 	 * @param array<string> $code
+	 * @param array<string> $codePrefixes
 	 */
 	public function __construct(
 		private readonly array $reference,
 		private readonly array $code,
+		private readonly array $codePrefixes = [],
 	) {
+	}
+
+	private function isUsed(string $key): bool {
+		if (preg_match('/\._$/', $key) === 1 && in_array(preg_replace('/\._$/', '', $key), $this->code, true)) {
+			return true;
+		}
+
+		if (in_array($key, $this->code, true)) {
+			return true;
+		}
+
+		foreach ($this->codePrefixes as $prefix) {
+			if (str_starts_with($key, $prefix)) {
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 	#[\Override]
@@ -43,10 +63,7 @@ class I18nUsageValidator implements I18nValidatorInterface {
 		foreach ($this->reference as $file => $data) {
 			foreach ($data as $key => $value) {
 				$this->totalEntries++;
-				if (preg_match('/\._$/', $key) === 1 && in_array(preg_replace('/\._$/', '', $key), $this->code, true)) {
-					continue;
-				}
-				if (!in_array($key, $this->code, true)) {
+				if (!$this->isUsed($key)) {
 					$this->result .= sprintf('Unused key %s - %s', $key, $value) . PHP_EOL;
 					$this->failedEntries++;
 					continue;

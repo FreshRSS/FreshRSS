@@ -14,9 +14,6 @@ use PHPStan\Type\DynamicMethodReturnTypeExtension;
 use PHPStan\Type\Type;
 use PHPStan\Reflection\ReflectionProvider;
 use PhpParser\Node\Expr\MethodCall;
-use PHPStan\Type\Constant\ConstantStringType;
-use PHPStan\Type\Constant\ConstantArrayType;
-use PHPStan\Type\ArrayType;
 use PHPStan\Type\MixedType;
 
 /**
@@ -58,19 +55,21 @@ class RegistryCallMethodReturnTypeExtension implements DynamicMethodReturnTypeEx
 
         $classType = $scope->getType($classNameArg);
         $methodType = $scope->getType($methodNameArg);
+        $classStrings = $classType->getConstantStrings();
+        $methodStrings = $methodType->getConstantStrings();
 
-        if (!$classType  instanceof ConstantStringType || !$methodType instanceof ConstantStringType) {
+        if (count($classStrings) !== 1 || count($methodStrings) !== 1) {
             return new MixedType();
         }
 
-        $className = $classType->getValue();
+        $className = $classStrings[0]->getValue();
         if (!$this->reflectionProvider->hasClass($className)) {
             return new MixedType();
         }
 
         $classReflection = $this->reflectionProvider->getClass($className);
 
-        $methodName = $methodType->getValue();
+        $methodName = $methodStrings[0]->getValue();
         if (!$classReflection->hasMethod($methodName)) {
             return new MixedType();
         }
@@ -81,10 +80,17 @@ class RegistryCallMethodReturnTypeExtension implements DynamicMethodReturnTypeEx
         if ($argumentsArg !== null) {
             $argumentsType = $scope->getType($argumentsArg);
 
-            if ($argumentsType instanceof ConstantArrayType) {
-                $argumentTypes = $argumentsType->getValueTypes();
-            } elseif ($argumentsType instanceof ArrayType) {
-                $argumentTypes = [$argumentsType->getItemType()];
+            if ($argumentsType->isArray()->yes()) {
+                $constantArrays = $argumentsType->getConstantArrays();
+
+                if (count($constantArrays) === 0) {
+                    $argumentTypes = [$argumentsType->getIterableValueType()];
+                } elseif (count($constantArrays) === 1) {
+                    $constantArray = $constantArrays[0];
+                    $argumentTypes = $constantArray->getValueTypes();
+                } else {
+                    return new MixedType();
+                }
             } else {
                 return new MixedType();
             }

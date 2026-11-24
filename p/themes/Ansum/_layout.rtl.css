@@ -260,7 +260,7 @@ main.prompt {
 		line-height: 1.8rem;
 	}
 
-	.content hr {
+	hr {
 		margin: 30px 10px;
 		background: var(--grey-medium-light);
 		height: 1px;

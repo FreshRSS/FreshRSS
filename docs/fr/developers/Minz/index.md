@@ -34,7 +34,7 @@ distingue dans cette architecture trois composants principaux :
 Afin de lier une URL à un contrôleur, on doit passer par une phase dite de «
 routage ». Dans FreshRSS, cela est particulièrement simple car il suffit
 d’indiquer le nom du contrôleur à charger dans l’URL à l’aide d’un paramètre `c`.
-Par exemple, l’adresse <http://exemple.com?c=hello> va exécuter le code
+Par exemple, l’adresse <https://example.net/?c=hello> va exécuter le code
 contenu dans le contrôleur `hello`.
 
 Une notion qui n’a pas encore été évoquée est le système d'« actions ». Une
@@ -60,11 +60,11 @@ class FreshRSS_hello_Controller extends FreshRSS_ActionController {
 ?>
 ```
 
-Si l’on charge l’adresse <http://exemple.com?c=hello&a=world>, l’action
+Si l’on charge l’adresse <https://example.net/?c=hello&a=world>, l’action
 `world` va donc être exécutée sur le contrôleur `hello`.
 
 Note : si `c` ou `a` n’est pas précisée, la valeur par défaut de chacune de
-ces variables est `index`. Ainsi l’adresse <http://exemple.com?c=hello> va
+ces variables est `index`. Ainsi l’adresse <https://example.com/?c=hello> va
 exécuter l’action `index` du contrôleur `hello`.
 
 Plus loin, sera utilisée la convention `hello/world` pour évoquer un couple
@@ -136,12 +136,12 @@ suivante doit être évitée :
 
 ```html
 <p>
-	Accéder à la page <a href="http://exemple.com?c=hello&amp;a=world">Hello world</a>!
+	Accéder à la page <a href="https://example.net/?c=hello&amp;a=world">Hello world</a>!
 </p>
 ```
 
 Si un jour il est décidé d’utiliser un système d'« url rewriting » pour
-avoir des adresses au format <http://exemple.com/controller/action>, toutes
+avoir des adresses au format <https://example.net/controller/action>, toutes
 les adresses précédentes deviendraient ineffectives !
 
 Préférez donc l’utilisation de la classe `Minz_Url` et de sa méthode
@@ -246,4 +246,4 @@ Cette partie est [expliquée dans la page dédiée](../../internationalization.m
 
 Existing documentation includes:
 
-* [How to manage migrations](../../../en/developers/Minz/migrations.html)
+* [How to manage migrations](../../../en/developers/Minz/migrations.md)

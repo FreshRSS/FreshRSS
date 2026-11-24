@@ -18,7 +18,7 @@ Pour pouvoir être notifié, les abonnés doivent fournir une adresse accessible
 ## Activer WebSub dans FreshRSS
 
 FreshRSS supporte nativement WebSub, mais requiert une addresse publique (lu depuis la configuration `base_url`),
-et requiert aussi aussi que le répertoire `./FreshRSS/p/api/` soit accessible publiquement (comme pour les autres APIs de FreshRSS).
+et requiert aussi que le répertoire `./FreshRSS/p/api/` soit accessible publiquement (comme pour les autres APIs de FreshRSS).
 
 Durant l’installation Web initiale, le support de WebSub est activé si le serveur semble avoir une adresse publique.
 Dans tous les cas, vérifiez votre `./data/config.php` pour :

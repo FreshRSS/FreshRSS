@@ -62,7 +62,7 @@ return array(
 		'feeds_imported_with_errors' => '你的订阅源已导入，但发生错误。你可以点击 <i>更新订阅</i> 按钮以完成导入。',
 		'file_cannot_be_uploaded' => '文件未能上传！',
 		'no_zip_extension' => '服务器未启用 ZIP 扩展。',
-		'zip_error' => '导入 ZIP 文件时出错',	// DIRTY
+		'zip_error' => '导入 ZIP 文件时出错',	// DIRTY - An error occurred during ZIP processing.
 	),
 	'profile' => array(
 		'error' => '你的帐户无法修改',

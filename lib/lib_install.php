@@ -5,6 +5,29 @@ FreshRSS_SystemConfiguration::register('default_system', join_path(FRESHRSS_PATH
 FreshRSS_UserConfiguration::register('default_user', join_path(FRESHRSS_PATH, 'config-user.default.php'));
 
 /**
+ * GMP is needed to convert entry identifiers to the Google Reader format on 32-bit PHP.
+ *
+ * @return 'ok'|'ko'|null
+ */
+function gmpRequirementStatus(int $integerSize = PHP_INT_SIZE, ?bool $gmpLoaded = null): ?string {
+	if ($integerSize >= 8) {
+		return null;
+	}
+
+	return ($gmpLoaded ?? extension_loaded('gmp')) ? 'ok' : 'ko';
+}
+
+/**
+ * Server-side check of the database parameters received by the Web installer
+ */
+function checkDbParameters(string $host, string $user, string $base, string $prefix): bool {
+	return preg_match('/^[0-9A-Z\/a-z_.\-]{1,64}(:[0-9]{2,5})?$/D', $host) === 1 &&
+		preg_match('/^[0-9A-Za-z@_.\-]{1,64}$/D', $user) === 1 &&
+		preg_match('/^[0-9A-Za-z_\-]{1,64}$/D', $base) === 1 &&
+		preg_match('/^[0-9A-Za-z_]{0,16}$/D', $prefix) === 1;
+}
+
+/**
  * @param 'mysql'|'pgsql'|'sqlite'|'' $dbType
  * @return array<string,'ok'|'ko'|'warn'>
  */
@@ -43,12 +66,18 @@ function checkRequirements(string $dbType = '', bool $checkPhp = true, bool $che
 	$intl = extension_loaded('intl');
 	$mbstring = extension_loaded('mbstring');
 	$zip = extension_loaded('zip');
+	$gmp = gmpRequirementStatus();
 	$data = is_dir(DATA_PATH) && touch(DATA_PATH . '/index.html');	// is_writable() is not reliable for a folder on NFS
 	$cache = is_dir(CACHE_PATH) && touch(CACHE_PATH . '/index.html');
 	$tmp = is_dir(TMP_PATH) && is_writable(TMP_PATH);
 	$users = is_dir(USERS_PATH) && touch(USERS_PATH . '/index.html');
 	$favicons = is_dir(DATA_PATH) && touch(DATA_PATH . '/favicons/index.html');
 	$tokens = is_dir(DATA_PATH) && touch(DATA_PATH . '/tokens/index.html');
+	// An unknown or incorrect document root might web-expose folders such as `./data`.
+	// An empty `DOCUMENT_ROOT` outside of a Web server context (e.g. CLI, cron) is ignored because `realpath('')` resolves to the current directory.
+	$documentRoot = $_SERVER['DOCUMENT_ROOT'] ?? null;
+	$docRootPath = is_string($documentRoot) && $documentRoot !== '' ? realpath($documentRoot) : false;
+	$docRootOk = $documentRoot === '' || ($docRootPath !== false && $docRootPath === realpath(PUBLIC_PATH));
 
 	$result = [];
 	if ($checkPhp) {
@@ -68,6 +97,7 @@ function checkRequirements(string $dbType = '', bool $checkPhp = true, bool $che
 			'intl' => $intl ? 'ok' : 'warn',
 			'zip' => $zip ? 'ok' : 'warn',
 			'fileinfo' => $fileinfo ? 'ok' : 'warn',
+			'gmp' => $gmp,
 		];
 	}
 
@@ -79,11 +109,12 @@ function checkRequirements(string $dbType = '', bool $checkPhp = true, bool $che
 			'users' => $users ? 'ok' : 'ko',
 			'favicons' => $favicons ? 'ok' : 'ko',
 			'tokens' => $tokens ? 'ok' : 'ko',
+			'docroot' => $docRootOk ? 'ok' : 'warn',
 		];
 	}
 
 	if ($checkPhp && $checkFiles) {
-		$result['all'] = $php && $curl && $json && $pdo && $pcre && $ctype && $dom && $xml &&
+		$result['all'] = $php && $curl && $json && $pdo && $pcre && $ctype && $dom && $xml && $gmp !== 'ko' &&
 			$data && $cache && $tmp && $users && $favicons && $tokens ? 'ok' : 'ko';
 	}
 

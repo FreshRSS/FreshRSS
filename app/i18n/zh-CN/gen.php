@@ -43,6 +43,7 @@ return array(
 		'open_url' => '打开链接',
 		'promote' => '设为管理员',
 		'purge' => '清理',
+		'read_in_freshrss' => 'Read in FreshRSS',	// TODO
 		'refresh_opml' => '刷新订阅源动态列表',
 		'remove' => '删除',
 		'rename' => '重命名',
@@ -73,7 +74,7 @@ return array(
 		),
 		'username' => array(
 			'_' => '用户名',
-			'format' => '<small>最多 16 个数字或字母</small>',
+			'format' => '<small>1-39 characters: letters, digits, and <code>. _ @ -</code></small>',	// TODO
 		),
 	),
 	'date' => array(
@@ -140,14 +141,39 @@ return array(
 		'_' => 'FreshRSS',	// IGNORE
 		'about' => '关于 FreshRSS',
 	),
+	'interval' => array(
+		'day' => array(
+			0 => '%d天前',
+		),
+		'hour' => array(
+			0 => '%d小时前',
+		),
+		'justnow' => '刚刚',
+		'minute' => array(
+			0 => '%d分钟前',
+		),
+		'month' => array(
+			0 => '%d个月前',
+		),
+		'second' => array(
+			0 => '%d秒前',
+		),
+		'year' => array(
+			0 => '%d年前',
+		),
+	),
 	'js' => array(
 		'category_empty' => '清空分类',
 		'confirm_action' => '你确定要执行此操作吗？这将不可撤销！',
 		'confirm_action_feed_cat' => '你确定要执行此操作吗？你将丢失相关的收藏和自定义查询，这将不可撤销！',
 		'confirm_exit_slider' => '您确定要放弃未保存的设置吗？',
 		'feedback' => array(
-			'body_new_articles' => 'FreshRSS 中有 %%d 篇文章等待阅读。',
-			'body_unread_articles' => '(未读: %%d)',
+			'body_new_articles' => array(
+				0 => 'FreshRSS 中有 %d 篇文章等待阅读。',	// DIRTY - Singular: There is %d new article to read on FreshRSS. | Plural: There are %d new articles to read on FreshRSS.
+			),
+			'body_unread_articles' => array(
+				0 => '(未读: %d)',	// DIRTY - Singular: (unread: %d) | Plural: (unread: %d)
+			),
 			'request_failed' => '请求失败，这可能是因为网络连接问题。',
 			'title_new_articles' => 'FreshRSS: 新文章！',
 		),
@@ -157,6 +183,9 @@ return array(
 		'unsafe_csp_header' => '当前使用的 CSP 头部不安全，FreshRSS 可能容易受到 XSS 攻击。<a target="_blank" href="https://freshrss.github.io/FreshRSS/en/admins/10_ServerConfig.html#security">查看文档</a>',
 	),
 	'lang' => array(
+		'ar' => 'العربية',	// IGNORE
+		'az' => 'Azərbaycanca',	// IGNORE
+		'be' => 'Беларуская',	// IGNORE
 		'cs' => 'Čeština',	// IGNORE
 		'de' => 'Deutsch',	// IGNORE
 		'el' => 'Ελληνικά',	// IGNORE
@@ -172,6 +201,7 @@ return array(
 		'it' => 'Italiano',	// IGNORE
 		'ja' => '日本語',	// IGNORE
 		'ko' => '한국어',	// IGNORE
+		'lt' => 'Lietuvių',	// TODO
 		'lv' => 'Latviešu',	// IGNORE
 		'nl' => 'Nederlands',	// IGNORE
 		'oc' => 'Occitan',	// IGNORE
@@ -229,14 +259,14 @@ return array(
 		'content' => '内容',
 		'date_from' => '从',
 		'date_modified' => 'Server Modification Date',	// TODO
-		'date_past' => '过去',	// DIRTY
+		'date_past' => '过去',	// DIRTY - In the past
 		'date_published' => '发布日期',
 		'date_range' => '日期范围',
 		'date_received' => '接收日期',
 		'date_to' => '到',
 		'date_user' => '用户修改日期',
 		'feeds' => '订阅源',
-		'free_text' => '自由文本',	// DIRTY
+		'free_text' => '自由文本',	// DIRTY - Free Text
 		'free_text_help' => '在标题和内容中搜索',
 		'full_documentation' => '查看 <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">完整搜索文档</a>',
 		'labels' => '我的标签',
@@ -265,10 +295,12 @@ return array(
 		'gnusocial' => 'GNU social',	// IGNORE
 		'jdh' => 'Journal du hacker',	// IGNORE
 		'lemmy' => 'Lemmy',	// IGNORE
+		'linkace' => 'LinkAce',	// IGNORE
 		'linkding' => 'Linkding',	// IGNORE
 		'linkedin' => 'LinkedIn',	// IGNORE
 		'mastodon' => 'Mastodon',	// IGNORE
 		'movim' => 'Movim',	// IGNORE
+		'nextcloud-bookmarks' => 'Nextcloud 书签',	// DIRTY - Nextcloud Bookmarks
 		'omnivore' => 'Omnivore',	// IGNORE
 		'pinboard' => 'Pinboard',	// IGNORE
 		'pinterest' => 'Pinterest',	// IGNORE

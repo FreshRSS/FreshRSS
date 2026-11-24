@@ -15,6 +15,7 @@ class FreshRSS_BooleanSearch implements \Stringable {
 	 * @param int $level
 	 * @param 'AND'|'OR'|'AND NOT'|'OR NOT' $operator
 	 * @param bool $allowUserQueries
+	 * @throws Minz_BadRequestException if the search is too long or if the parentheses are nested too deeply
 	 */
 	public function __construct(
 		string $input,
@@ -24,12 +25,17 @@ class FreshRSS_BooleanSearch implements \Stringable {
 		bool $expandUserQueries = true
 	) {
 		$input = trim($input);
+		$input = ltrim($input, ' )');
+		$input = rtrim($input, ' (\\');
 		if ($input === '') {
 			return;
 		}
 		$this->raw_input = $input;
 
 		if ($level === 0) {
+			if (strlen($input) > FreshRSS_Context::systemConf()->limits['max_search_length']) {
+				throw new Minz_BadRequestException('Search is too long!');
+			}
 			$input = self::escapeLiterals($input);
 			if ($expandUserQueries || !$allowUserQueries) {
 				$input = $this->parseUserQueryNames($input, $allowUserQueries);
@@ -61,7 +67,7 @@ class FreshRSS_BooleanSearch implements \Stringable {
 		if (preg_match_all('/\bsearch:(?P<delim>[\'"])(?P<search>.*)(?P=delim)/U', $input, $matchesFound)) {
 			$all_matches[] = $matchesFound;
 		}
-		if (preg_match_all('/\bsearch:(?P<search>[^\s"\']*)/', $input, $matchesFound)) {
+		if (preg_match_all('/\bsearch:(?P<search>(?:[^\s"\'()]|(?<=\\\\)[()])*)/', $input, $matchesFound)) {
 			$all_matches[] = $matchesFound;
 		}
 
@@ -91,7 +97,7 @@ class FreshRSS_BooleanSearch implements \Stringable {
 				}
 			}
 
-			$input = str_replace($fromS, $toS, $input);
+			$input = strtr($input, array_combine($fromS, $toS));
 		}
 		return $input;
 	}
@@ -115,7 +121,7 @@ class FreshRSS_BooleanSearch implements \Stringable {
 			$fromS = [];
 			$toS = [];
 			foreach ($all_matches as $matches) {
-				if (empty($matches['search'])) {
+				if (empty($matches['search'])) {	// @phpstan-ignore empty.offset (for additional safety)
 					continue;
 				}
 				for ($i = count($matches['search']) - 1; $i >= 0; $i--) {
@@ -139,7 +145,7 @@ class FreshRSS_BooleanSearch implements \Stringable {
 				}
 			}
 
-			$input = str_replace($fromS, $toS, $input);
+			$input = strtr($input, array_combine($fromS, $toS));
 		}
 		return $input;
 	}
@@ -218,8 +224,13 @@ class FreshRSS_BooleanSearch implements \Stringable {
 	 * If the query contains a mix of `OR` expressions with and without parentheses,
 	 * then add parentheses to make the query consistent.
 	 * Example: '(ab (cd OR ef)) OR gh OR ij OR (kl)' becomes '(ab ((cd) OR (ef))) OR (gh) OR (ij) OR (kl)'
+	 *
+	 * @throws Minz_BadRequestException if the search is too long or if the parentheses are nested too deeply
 	 */
 	public static function consistentOrParentheses(string $input): string {
+		if (strlen($input) > FreshRSS_Context::systemConf()->limits['max_search_length']) {
+			throw new Minz_BadRequestException('Search is too long!');
+		}
 		if (!preg_match('/(?<!\\\\)\\(/', $input)) {
 			// No unescaped parentheses in the input
 			return trim($input);
@@ -244,6 +255,9 @@ class FreshRSS_BooleanSearch implements \Stringable {
 							$segment = '';
 						}
 						$c = '';
+					}
+					if ($parenthesesCount >= FreshRSS_Context::systemConf()->limits['max_search_parentheses_depth']) {
+						throw new Minz_BadRequestException('Search has too deeply nested parentheses!');
 					}
 					$parenthesesCount++;
 				} elseif ($c === ')') {
@@ -430,8 +444,28 @@ class FreshRSS_BooleanSearch implements \Stringable {
 		return $this->operator;
 	}
 
-	/** @param FreshRSS_BooleanSearch|FreshRSS_Search $search */
+	/**
+	 * Wrap the existing searches in a single BooleanSearch if needed,
+	 * so that another search can be added as an additional restriction (AND).
+	 */
+	private function wrapSearches(): void {
+		if (count($this->searches) > 1 || (count($this->searches) > 0 && $this->searches[0] instanceof FreshRSS_Search)) {
+			$wrap = new FreshRSS_BooleanSearch('');
+			foreach ($this->searches as $existingSearch) {
+				$wrap->add($existingSearch);
+			}
+			if (count($wrap->searches) > 0) {
+				$this->searches = [$wrap];
+			}
+		}
+	}
+
+	/**
+	 * Add a search at the beginning of the Boolean expression, as an additional restriction (AND).
+	 * @param FreshRSS_BooleanSearch|FreshRSS_Search $search
+	 */
 	public function prepend(FreshRSS_BooleanSearch|FreshRSS_Search $search): void {
+		$this->wrapSearches();
 		array_unshift($this->searches, $search);
 	}
 
@@ -470,16 +504,7 @@ class FreshRSS_BooleanSearch implements \Stringable {
 			}
 		}
 
-		if (count($result->searches) > 1 || (count($result->searches) > 0 && $result->searches[0] instanceof FreshRSS_Search)) {
-			// Wrap the existing searches in a new BooleanSearch if needed
-			$wrap = new FreshRSS_BooleanSearch('');
-			foreach ($result->searches as $existingSearch) {
-				$wrap->add($existingSearch);
-			}
-			if (count($wrap->searches) > 0) {
-				$result->searches = [$wrap];
-			}
-		}
+		$result->wrapSearches();
 		array_unshift($result->searches, $search);
 		return $result;
 	}
@@ -573,6 +598,7 @@ class FreshRSS_BooleanSearch implements \Stringable {
 
 	/**
 	 * @param bool $expandUserQueries Whether to expand user queries (saved searches) or not
+	 * @throws Minz_BadRequestException if the search is too long or if the parentheses are nested too deeply
 	 */
 	public function toString(bool $expandUserQueries = true): string {
 		if ($expandUserQueries) {

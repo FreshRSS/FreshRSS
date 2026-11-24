@@ -43,6 +43,7 @@ return array(
 		'open_url' => 'URL Megnyitása',
 		'promote' => 'Előléptet',
 		'purge' => 'Töröl',
+		'read_in_freshrss' => 'Read in FreshRSS',	// TODO
 		'refresh_opml' => 'OPML frissítése',
 		'remove' => 'Eltávolít',
 		'rename' => 'Átnevez',
@@ -73,7 +74,7 @@ return array(
 		),
 		'username' => array(
 			'_' => 'Felhasználó név',
-			'format' => '<small>Maximum 16 alfanumerikus karakter</small>',
+			'format' => '<small>1-39 characters: letters, digits, and <code>. _ @ -</code></small>',	// TODO
 		),
 	),
 	'date' => array(
@@ -140,14 +141,47 @@ return array(
 		'_' => 'FreshRSS',	// IGNORE
 		'about' => 'FreshRSS névjegy',
 	),
+	'interval' => array(
+		'day' => array(
+			0 => '%d nap ezelőtt',
+			1 => '%d nap ezelőtt',
+		),
+		'hour' => array(
+			0 => '%d óra ezelőtt',
+			1 => '%d óra ezelőtt',
+		),
+		'justnow' => 'épp most',
+		'minute' => array(
+			0 => '%d perc ezelőtt',
+			1 => '%d perc ezelőtt',
+		),
+		'month' => array(
+			0 => '%d hónap ezelőtt',
+			1 => '%d hónap ezelőtt',
+		),
+		'second' => array(
+			0 => '%d másodperc ezelőtt',
+			1 => '%d másodperc ezelőtt',
+		),
+		'year' => array(
+			0 => '%d év ezelőtt',
+			1 => '%d év ezelőtt',
+		),
+	),
 	'js' => array(
 		'category_empty' => 'Üres kategória',
 		'confirm_action' => 'Biztos vagy benne hogy végrehajtod ezt a műveletet? A művelet nem megszakítható!',
 		'confirm_action_feed_cat' => 'Biztos hogy végrehajtod ezt a műveletet? Minden kapcsolódó kedvenc és lekérdezés törölve lesz. Nem lehet megszakítani!',
 		'confirm_exit_slider' => 'Biztosan elveti a nem mentett beállításokat?',
 		'feedback' => array(
-			'body_new_articles' => '%%d db új cikk olvasható a FreshRSS-ben.',
-			'body_unread_articles' => '(olvasatlan: %%d)',
+			'body_new_articles' => array(
+				0 => '%d db új cikk olvasható a FreshRSS-ben.',	// DIRTY - There is %d new article to read on FreshRSS.
+				1 => '%d db új cikk olvasható a FreshRSS-ben.',	// DIRTY - There are %d new articles to read on FreshRSS.
+			),
+			'body_unread_articles' => array(
+				0 => '(olvasatlan: %d)',	// DIRTY - (unread: %d)
+				1 => '(olvasatlan: %d)',	// DIRTY - (unread: %d)
+			),
 			'request_failed' => 'Egy művelet nem sikerült, lehetséges hogy az internet kapcsolattal vannak problémák.',
 			'title_new_articles' => 'FreshRSS: új cikkek!',
 		),
@@ -157,6 +191,9 @@ return array(
 		'unsafe_csp_header' => 'A CSP fejléc használata nem biztonságos és a FreshRSS sebezhető lehet az XSS támadásokkal szemben. <a target="_blank" href="https://freshrss.github.io/FreshRSS/en/admins/10_ServerConfig.html#security">Lásd dokumentáció</a>',
 	),
 	'lang' => array(
+		'ar' => 'العربية',	// IGNORE
+		'az' => 'Azərbaycanca',	// IGNORE
+		'be' => 'Беларуская',	// IGNORE
 		'cs' => 'Čeština',	// IGNORE
 		'de' => 'Deutsch',	// IGNORE
 		'el' => 'Ελληνικά',	// IGNORE
@@ -172,6 +209,7 @@ return array(
 		'it' => 'Italiano',	// IGNORE
 		'ja' => '日本語',	// IGNORE
 		'ko' => '한국어',	// IGNORE
+		'lt' => 'Lietuvių',	// TODO
 		'lv' => 'Latviešu',	// IGNORE
 		'nl' => 'Nederlands',	// IGNORE
 		'oc' => 'Occitan',	// IGNORE
@@ -228,7 +266,7 @@ return array(
 		'categories' => 'Kategóriák',
 		'content' => 'Tartalom',
 		'date_from' => 'Dátumtól',
-		'date_modified' => 'Server Modification Date',	// TODO
+		'date_modified' => 'Szerver módosításának dátuma',
 		'date_past' => 'A múltban',
 		'date_published' => 'Közzététel dátuma',
 		'date_range' => 'Dátumtartomány',
@@ -265,10 +303,12 @@ return array(
 		'gnusocial' => 'GNU social',	// IGNORE
 		'jdh' => 'Journal du hacker',	// IGNORE
 		'lemmy' => 'Lemmy',	// IGNORE
+		'linkace' => 'LinkAce',	// IGNORE
 		'linkding' => 'Linkding',	// IGNORE
 		'linkedin' => 'LinkedIn',	// IGNORE
 		'mastodon' => 'Mastodon',	// IGNORE
 		'movim' => 'Movim',	// IGNORE
+		'nextcloud-bookmarks' => 'Nextcloud Könyvjelzők',	// DIRTY - Nextcloud Bookmarks
 		'omnivore' => 'Omnivore',	// IGNORE
 		'pinboard' => 'Pinboard',	// IGNORE
 		'pinterest' => 'Pinterest',	// IGNORE

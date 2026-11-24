@@ -7,7 +7,6 @@
 The easiest way to create a theme is by copying and modifying the base theme (or another of the pre-installed themes). The base theme can be found in [/p/themes/base-theme](https://github.com/FreshRSS/FreshRSS/tree/edge/p/themes/base-theme). Each Theme requires:
 
 - a `metadata.json` file to describe the theme
-- a `loader.gif` file to use as a loading icon
 - an (optional) `icons` folder containing .svg (for icons), .ico (for favicons), and .png (for special cases) files to override existing icons
 - a `thumbs` folder containing a file, `original.png` that will be used as the preview for the theme
 

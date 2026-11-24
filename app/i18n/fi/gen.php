@@ -43,6 +43,7 @@ return array(
 		'open_url' => 'Avaa URL-osoite',
 		'promote' => 'Nosta tärkeyttä',
 		'purge' => 'Tyhjennä',
+		'read_in_freshrss' => 'Read in FreshRSS',	// TODO
 		'refresh_opml' => 'Päivitä OPML',
 		'remove' => 'Poista',
 		'rename' => 'Nimeä uudelleen',
@@ -73,7 +74,7 @@ return array(
 		),
 		'username' => array(
 			'_' => 'Käyttäjätunnus',
-			'format' => '<small>Enintään 16 aakkosnumeerista merkkiä</small>',
+			'format' => '<small>1-39 characters: letters, digits, and <code>. _ @ -</code></small>',	// TODO
 		),
 	),
 	'date' => array(
@@ -140,14 +141,47 @@ return array(
 		'_' => 'FreshRSS',	// IGNORE
 		'about' => 'Tietoja FreshRSS-sovelluksesta',
 	),
+	'interval' => array(
+		'day' => array(
+			0 => '%d päivä sitten',
+			1 => '%d päivää sitten',
+		),
+		'hour' => array(
+			0 => '%d tunti sitten',
+			1 => '%d tuntia sitten',
+		),
+		'justnow' => 'juuri nyt',
+		'minute' => array(
+			0 => '%d minuutti sitten',
+			1 => '%d minuuttia sitten',
+		),
+		'month' => array(
+			0 => '%d kuukausi sitten',
+			1 => '%d kuukautta sitten',
+		),
+		'second' => array(
+			0 => '%d sekunti sitten',
+			1 => '%d sekuntia sitten',
+		),
+		'year' => array(
+			0 => '%d vuosi sitten',
+			1 => '%d vuotta sitten',
+		),
+	),
 	'js' => array(
 		'category_empty' => 'Tyhjennä luokka',
 		'confirm_action' => 'Haluatko varmasti toteuttaa toiminnon? Sitä ei voi peruuttaa!',
 		'confirm_action_feed_cat' => 'Haluatko varmasti toteuttaa toiminnon? Luokkaan kuuluvat suosikit ja kyselyt poistetaan. Tätä ei voi peruuttaa!',
 		'confirm_exit_slider' => 'Haluatko varmasti hylätä muutetut asetukset?',
 		'feedback' => array(
-			'body_new_articles' => 'FreshRSS-sovelluksessa on %%d uutta artikkelia luettavana.',
-			'body_unread_articles' => '(lukematta: %%d)',
+			'body_new_articles' => array(
+				0 => 'FreshRSS-sovelluksessa on %d uusi artikkeli luettavana.',	// DIRTY - There is %d new article to read on FreshRSS.
+				1 => 'FreshRSS-sovelluksessa on %d uutta artikkelia luettavana.',	// DIRTY - There are %d new articles to read on FreshRSS.
+			),
+			'body_unread_articles' => array(
+				0 => '(lukematta: %d)',	// DIRTY - (unread: %d)
+				1 => '(lukematta: %d)',	// DIRTY - (unread: %d)
+			),
 			'request_failed' => 'Pyyntö epäonnistui. Internetyhteydessä on ehkä ollut ongelmia.',
 			'title_new_articles' => 'FreshRSS: uusia artikkeleita!',
 		),
@@ -157,6 +191,9 @@ return array(
 		'unsafe_csp_header' => 'Käytössä oleva CSP-otsikko on turvaton, ja FreshRSS saattaa olla altis XSS-hyökkäyksille. <a target="_blank" href="https://freshrss.github.io/FreshRSS/en/admins/10_ServerConfig.html#security">Lisätietoja ohjeessa</a>',
 	),
 	'lang' => array(
+		'ar' => 'العربية',	// IGNORE
+		'az' => 'Azərbaycanca',	// IGNORE
+		'be' => 'Беларуская',	// IGNORE
 		'cs' => 'Čeština',	// IGNORE
 		'de' => 'Deutsch',	// IGNORE
 		'el' => 'Ελληνικά',	// IGNORE
@@ -172,6 +209,7 @@ return array(
 		'it' => 'Italiano',	// IGNORE
 		'ja' => '日本語',	// IGNORE
 		'ko' => '한국어',	// IGNORE
+		'lt' => 'Lietuvių',	// TODO
 		'lv' => 'Latviešu',	// IGNORE
 		'nl' => 'Nederlands',	// IGNORE
 		'oc' => 'Occitan',	// IGNORE
@@ -265,10 +303,12 @@ return array(
 		'gnusocial' => 'GNU social',	// IGNORE
 		'jdh' => 'Journal du hacker',	// IGNORE
 		'lemmy' => 'Lemmy',	// IGNORE
+		'linkace' => 'LinkAce',	// IGNORE
 		'linkding' => 'Linkding',	// IGNORE
 		'linkedin' => 'LinkedIn',	// IGNORE
 		'mastodon' => 'Mastodon',	// IGNORE
 		'movim' => 'Movim',	// IGNORE
+		'nextcloud-bookmarks' => 'Nextcloud Kirjanmerkit',	// DIRTY - Nextcloud Bookmarks
 		'omnivore' => 'Omnivore',	// IGNORE
 		'pinboard' => 'Pinboard',	// IGNORE
 		'pinterest' => 'Pinterest',	// IGNORE

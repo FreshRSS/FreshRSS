@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 class FreshRSS_TagDAO extends Minz_ModelPdo {
 
-	public function sqlIgnore(): string {
-		return 'IGNORE';
+	public static function sqlIgnoreConflict(string $sql): string {
+		return str_replace('INSERT INTO ', 'INSERT IGNORE INTO ', $sql);
 	}
 
 	public function sqlResetSequence(): bool {
@@ -233,7 +233,9 @@ class FreshRSS_TagDAO extends Minz_ModelPdo {
 		$res = $this->fetchAssoc($sql);
 		if ($res !== null) {
 			/** @var list<array{id:int,name:string,unreads:int}> $res */
-			return self::daoToTags($res);
+			$tags = self::daoToTags($res);
+			uasort($tags, static fn(FreshRSS_Tag $a, FreshRSS_Tag $b) => FreshRSS_Context::localeCompare($a->name(), $b->name()));
+			return $tags;
 		} else {
 			$info = $this->pdo->errorInfo();
 			Minz_Log::error('SQL error ' . __METHOD__ . json_encode($info));
@@ -301,10 +303,9 @@ class FreshRSS_TagDAO extends Minz_ModelPdo {
 
 	public function tagEntry(int $id_tag, string $id_entry, bool $checked = true): bool {
 		if ($checked) {
-			$ignore = $this->sqlIgnore();
-			$sql = <<<SQL
-				INSERT {$ignore} INTO `_entrytag`(id_tag, id_entry) VALUES(:id_tag, :id_entry)
-				SQL;
+			$sql = static::sqlIgnoreConflict(<<<'SQL'
+				INSERT INTO `_entrytag`(id_tag, id_entry) VALUES(:id_tag, :id_entry)
+				SQL);
 		} else {
 			$sql = <<<'SQL'
 				DELETE FROM `_entrytag` WHERE id_tag=:id_tag AND id_entry=:id_entry
@@ -329,9 +330,8 @@ class FreshRSS_TagDAO extends Minz_ModelPdo {
 	 */
 	public function tagEntries(iterable $addLabels): int|false {
 		$hasValues = false;
-		$ignore = $this->sqlIgnore();
-		$sql = <<<SQL
-			INSERT {$ignore} INTO `_entrytag`(id_tag, id_entry) VALUES
+		$sql = <<<'SQL'
+			INSERT INTO `_entrytag`(id_tag, id_entry) VALUES
 			SQL;
 		foreach ($addLabels as $addLabel) {
 			$id_tag = (int)($addLabel['id_tag'] ?? 0);
@@ -345,6 +345,7 @@ class FreshRSS_TagDAO extends Minz_ModelPdo {
 		if (!$hasValues) {
 			return false;
 		}
+		$sql = static::sqlIgnoreConflict($sql);
 
 		$affected = $this->pdo->exec($sql);
 		if ($affected !== false) {

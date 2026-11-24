@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 require dirname(__DIR__, 2) . '/vendor/autoload.php';
 require __DIR__ . '/CliOptionsParserTest.php';
+require __DIR__ . '/UserConfigOptionsParserTest.php';
 
 $optionsClass = getenv('CLI_PARSER_TEST_OPTIONS_CLASS');
 if (!is_string($optionsClass) || !class_exists($optionsClass)) {
@@ -16,6 +17,9 @@ switch ($optionsClass) {
 		break;
 	case CliOptionsOptionalAndRequiredTest::class:
 		$options = new CliOptionsOptionalAndRequiredTest();
+		break;
+	case UserConfigCliOptionsTest::class:
+		$options = new UserConfigCliOptionsTest();
 		break;
 	default:
 		die('Unknown test static method!');

@@ -58,11 +58,11 @@ return array(
 	),
 	'import_export' => array(
 		'export_no_zip_extension' => 'Jūsu serverī nav ZIP paplašinājuma. Lūdzu, mēģiniet eksportēt failus pa vienam.',
-		'feeds_imported' => 'Jūsu barotnes tika importētas un tagad tiks atjauninātas.	/ Your feeds have been imported. If you are done importing, you can now click the <i>Update feeds</i> button.',	// DIRTY
-		'feeds_imported_with_errors' => 'Jūsu barotnes tika importētas, bet ir radušās dažas kļūdas / Your feeds have been imported, but some errors occurred. If you are done importing, you can now click the <i>Update feeds</i> button.',	// DIRTY
+		'feeds_imported' => 'Jūsu barotnes tika importētas un tagad tiks atjauninātas.	/ Your feeds have been imported. If you are done importing, you can now click the <i>Update feeds</i> button.',	// DIRTY - Your feeds have been imported. If you are done importing, you can now click the <i>Update feeds</i> button.
+		'feeds_imported_with_errors' => 'Jūsu barotnes tika importētas, bet ir radušās dažas kļūdas / Your feeds have been imported, but some errors occurred. If you are done importing, you can now click the <i>Update feeds</i> button.',	// DIRTY - Your feeds have been imported, but some errors occurred. If you are done importing, you can now click the <i>Update feeds</i> button.
 		'file_cannot_be_uploaded' => 'Failu nevar augšupielādēt!',
 		'no_zip_extension' => 'Jūsu serverī nav ZIP paplašinājuma.',
-		'zip_error' => 'ZIP importa laikā notika kļūda.',	// DIRTY
+		'zip_error' => 'ZIP importa laikā notika kļūda.',	// DIRTY - An error occurred during ZIP processing.
 	),
 	'profile' => array(
 		'error' => 'Jūsu profilu nevar mainīt',
@@ -122,10 +122,10 @@ return array(
 	),
 	'tag' => array(
 		'created' => 'Birka “%s” tika uztaisīta.',
-		'error' => 'Label could not be updated!',	// TODO
+		'error' => 'Etiķete nevar tikt atjaunināta!',
 		'name_exists' => 'Birkas nosaukums jau pastāv.',
 		'renamed' => 'Birka “%s” tika pārdēvēts par “%s”.',
-		'updated' => 'Label has been updated.',	// TODO
+		'updated' => 'Etiķete ir atjaunināta.',
 	),
 	'update' => array(
 		'can_apply' => 'FreshRSS tagad būs atjaunots uz <strong>%s versiju</strong>.',

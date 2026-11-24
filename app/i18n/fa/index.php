@@ -21,29 +21,29 @@ return array(
 				'database' => 'پایگاه داده',
 				'server_software' => 'نرم‌افزار سرور',
 				'version_curl' => 'نسخه cURL',
-				'version_frss' => 'سخه FreshRSS',
+				'version_frss' => 'نسخه FreshRSS',
 				'version_php' => 'نسخه PHP',
 			),
 		),
 		'bugs_reports' => ' گزارش اشکال',
 		'documentation' => ' اسناد و مدارک',
-		'freshrss_description' => ' FreshRSS یک جمع کننده و خواننده RSS خود میزبان است. این به شما امکان می دهد بدون نیاز به مرور از یک وب سایت به وب سایت دیگر',
+		'freshrss_description' => 'FreshRSS یک گردآورنده و خواننده RSS خودمیزبان است. با آن می‌توانید بدون رفتن از یک وب‌سایت به وب‌سایت دیگر، محتوای تازه را دنبال کنید.',
 		'github' => ' <a href="https://github.com/FreshRSS/FreshRSS/issues">در GitHub</a>',
 		'license' => ' مجوز',
-		'project_website' => ' وب سایت پروژه',
+		'project_website' => 'وب‌سایت پروژه',
 		'title' => ' در مورد',
 		'version' => ' نسخه',
 	),
 	'feed' => array(
 		'empty' => ' هیچ مقاله ای برای نمایش وجود ندارد.',
 		'published' => array(
-			'_' => 'Published',	// TODO
-			'future' => 'Published in the future',	// TODO
-			'today' => 'Published today',	// TODO
-			'yesterday' => 'Published yesterday',	// TODO
+			'_' => 'منتشر شده',
+			'future' => 'منتشر شده در آینده',
+			'today' => 'امروز منتشر شده',
+			'yesterday' => 'دیروز منتشر شده',
 		),
 		'received' => array(
-			'_' => 'Received',	// TODO
+			'_' => 'دریافت شده',
 			'today' => 'امروز دریافت شد',
 			'yesterday' => 'دیروز دریافت شد',
 		),
@@ -52,21 +52,21 @@ return array(
 		'title_fav' => ' موارد دلخواه',
 		'title_global' => ' نمای جهانی',
 		'userModified' => array(
-			'_' => 'Modified by user',	// TODO
-			'today' => 'Modified by user today',	// TODO
-			'yesterday' => 'Modified by user yesterday',	// TODO
+			'_' => 'ویرایش شده توسط کاربر',
+			'today' => 'امروز توسط کاربر ویرایش شده',
+			'yesterday' => 'دیروز توسط کاربر ویرایش شده',
 		),
 	),
 	'log' => array(
-		'_' => ' سیاهههای مربوط',
-		'clear' => ' سیاهههای مربوط را پاک کنید',
+		'_' => 'گزارش‌ها',
+		'clear' => 'گزارش‌ها را پاک کنید',
 		'empty' => ' فایل لاگ خالی است',
-		'title' => ' سیاهههای مربوط',
+		'title' => 'گزارش‌ها',
 	),
 	'menu' => array(
 		'about' => ' درباره FreshRSS',
-		'before_one_day' => ' بزرگتر از یک روز',
-		'before_one_week' => ' بزرگتر از یک هفته',
+		'before_one_day' => 'قدیمی‌تر از یک روز',
+		'before_one_week' => 'قدیمی‌تر از یک هفته',
 		'bookmark_query' => ' درخواست فعلی را نشانک‌گذاری کنید',
 		'favorites' => ' موارد دلخواه (%s)',
 		'global_view' => ' نمای جهانی',
@@ -85,37 +85,37 @@ return array(
 		'rss_view' => ' خوراک RSS',
 		'search_short' => ' جستجو',
 		'sort' => array(
-			'asc' => 'Ascending',	// TODO
+			'asc' => 'صعودی',
 			'c' => array(
-				'name_asc' => 'دسته بندی، عناوین فید A→Z',
-				'name_desc' => 'دسته بندی، عناوین فید Z→A',
+				'name_asc' => 'دسته‌بندی، عنوان‌های فید A→Z',
+				'name_desc' => 'دسته‌بندی، عنوان‌های فید Z→A',
 			),
 			'date_asc' => 'تاریخ انتشار ۱→۹',
 			'date_desc' => 'تاریخ انتشار ۹→۱',
-			'desc' => 'Descending',	// TODO
+			'desc' => 'نزولی',
 			'f' => array(
 				'name_asc' => 'عنوان فید A→Z',
 				'name_desc' => 'عنوان فید Z→A',
 			),
-			'id_asc' => 'آخرین مورد، به تازه گی دریافت شد',
-			'id_desc' => 'نخستین مورد دریافت‌شده به تازگی',
-			'length_asc' => 'Content length 1→9',	// TODO
-			'length_desc' => 'Content length 9→1',	// TODO
+			'id_asc' => 'قدیمی‌ترین دریافت‌شده',
+			'id_desc' => 'تازه‌ترین دریافت‌شده',
+			'length_asc' => 'طول محتوا ۱→۹',
+			'length_desc' => 'طول محتوا ۹→۱',
 			'link_asc' => 'لینک A→Z',
 			'link_desc' => 'لینک Z→A',
 			'primary' => array(
-				'_' => 'Sorting criterion',	// TODO
-				'help' => 'Sorting by <em>received</em> date is recommended in most cases, for consistency and performance',	// TODO
+				'_' => 'معیار مرتب‌سازی',
+				'help' => 'در بیشتر موارد، مرتب‌سازی بر اساس تاریخ <em>دریافت</em> برای سازگاری و کارایی بهتر پیشنهاد می‌شود',
 			),
 			'rand' => 'ترتیب تصادفی',
 			'secondary' => array(
-				'_' => 'Secondary sorting criterion',	// TODO
-				'help' => 'Only relevant when the primary sorting criterion is categories or feeds titles',	// TODO
+				'_' => 'معیار مرتب‌سازی دوم',
+				'help' => 'فقط زمانی کاربرد دارد که معیار اصلی مرتب‌سازی، عنوان دسته‌ها یا فیدها باشد',
 			),
-			'title_asc' => 'عنوانA→Z',
+			'title_asc' => 'عنوان A→Z',
 			'title_desc' => 'عنوان Z→A',
-			'user_modified_asc' => 'User modified 1→9',	// TODO
-			'user_modified_desc' => 'User modified 9→1',	// TODO
+			'user_modified_asc' => 'ویرایش کاربر ۱→۹',
+			'user_modified_desc' => 'ویرایش کاربر ۹→۱',
 		),
 		'starred' => ' نمایش موارد دلخواه',
 		'stats' => ' آمار',

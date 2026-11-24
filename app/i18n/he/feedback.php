@@ -58,11 +58,11 @@ return array(
 	),
 	'import_export' => array(
 		'export_no_zip_extension' => 'הרחבת ZIP אינה מותקנת על השרת.',
-		'feeds_imported' => 'ההזנות שלך יובאו וכעת יעודכנו / Your feeds have been imported. If you are done importing, you can now click the <i>Update feeds</i> button.',	// DIRTY
-		'feeds_imported_with_errors' => 'ההזנות שלך יובאו אך אירעו מספר שגיאות / Your feeds have been imported, but some errors occurred. If you are done importing, you can now click the <i>Update feeds</i> button.',	// DIRTY
+		'feeds_imported' => 'ההזנות שלך יובאו וכעת יעודכנו / Your feeds have been imported. If you are done importing, you can now click the <i>Update feeds</i> button.',	// DIRTY - Your feeds have been imported. If you are done importing, you can now click the <i>Update feeds</i> button.
+		'feeds_imported_with_errors' => 'ההזנות שלך יובאו אך אירעו מספר שגיאות / Your feeds have been imported, but some errors occurred. If you are done importing, you can now click the <i>Update feeds</i> button.',	// DIRTY - Your feeds have been imported, but some errors occurred. If you are done importing, you can now click the <i>Update feeds</i> button.
 		'file_cannot_be_uploaded' => 'אין אפשרות להעלות את הקובץ!',
 		'no_zip_extension' => 'הרחבת ZIP אינה מותקנת על השרת.',
-		'zip_error' => 'אירעה שגיאה במהלך ייבוא קובץ הZIP.',	// DIRTY
+		'zip_error' => 'אירעה שגיאה במהלך ייבוא קובץ הZIP.',	// DIRTY - An error occurred during ZIP processing.
 	),
 	'profile' => array(
 		'error' => 'Your profile cannot be modified',	// TODO
@@ -100,7 +100,7 @@ return array(
 				'too_large' => 'Uploaded icon is too large. The maximum file size is <em>%s</em>.',	// TODO
 				'unsupported_format' => 'Unsupported image file format!',	// TODO
 			),
-			'internal_problem' => 'אין אפשרות להוסיף את ההזנה. <a href="%s">בדקו את הלוגים</a> לפרטים. You can try force adding by appending <code>#force_feed</code> to the URL.',	// DIRTY
+			'internal_problem' => 'אין אפשרות להוסיף את ההזנה. <a href="%s">בדקו את הלוגים</a> לפרטים. You can try force adding by appending <code>#force_feed</code> to the URL.',	// DIRTY - The newsfeed could not be added. <a href="%s">Check FreshRSS logs</a> for details. You can try force adding by appending <code>#force_feed</code> to the URL.
 			'invalid_url' => 'URL <em>%s</em> אינו תקין',
 			'n_actualized' => '%d הזנות עודכנו',
 			'n_entries_deleted' => '%d המאמרים נמחקו',

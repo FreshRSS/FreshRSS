@@ -40,14 +40,16 @@ foreach ($this->entries as $item) {
 					}
 				}
 
-				if ($this->publishLabelsInsteadOfTags) {
+				if ($this->includeUserLabels) {
 					$categories = $this->entryIdsTagNames['e_' . $item->id()] ?? [];
 					if (is_array($categories)) {
 						foreach ($categories as $category) {
-							echo "\t\t\t", '<category>', $category, '</category>', "\n";
+							echo "\t\t\t", '<category>', htmlspecialchars($this->userLabelPrefix, ENT_NOQUOTES, 'UTF-8'), $category, '</category>', "\n";
 						}
 					}
-				} else {
+				}
+
+				if (!$this->excludeArticleTags) {
 					$categories = $item->tags();
 					if (is_array($categories)) {
 						foreach ($categories as $category) {
@@ -83,7 +85,7 @@ foreach ($this->entries as $item) {
 					}
 					$mediaCredits = '';
 					foreach ($credits as $credit) {
-						$mediaCredits = '<media:credit>' . $credit . '</media:credit>';
+						$mediaCredits .= '<media:credit>' . $credit . '</media:credit>';
 					}
 
 					// https://www.rssboard.org/media-rss
@@ -97,6 +99,15 @@ foreach ($this->entries as $item) {
 						. (empty($enclosure['title']) ? '' : '<media:title type="html">' . $enclosure['title'] . '</media:title>')
 						. $mediaCredits
 						. '</media:content>', "\n";
+					// RSS 2.0 <enclosure> for BitTorrent clients that ignore Media RSS (e.g. qBittorrent)
+					// https://www.rssboard.org/rss-specification#ltenclosuregtSubelementOfLtitemgt
+					$enclosureUrl = (string)$enclosure['url'];
+					$enclosureType = strtolower((string)($enclosure['type'] ?? ''));
+					if ($enclosureType === 'application/x-bittorrent' || preg_match('~^magnet:|\.torrent(\?|#|$)~i', $enclosureUrl) === 1) {
+						echo "\t\t\t", '<enclosure url="' . $enclosureUrl . '" type="application/x-bittorrent"'
+							. (empty($enclosure['length']) ? '' : ' length="' . $enclosure['length'] . '"')
+							. '/>', "\n";
+					}
 				}
 			?>
 			<description><![CDATA[<?php

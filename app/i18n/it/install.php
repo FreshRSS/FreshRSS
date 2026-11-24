@@ -63,6 +63,10 @@ return array(
 			'ok' => 'Tutte le tavole del database esistono.',
 		),
 		'database-title' => 'Database',	// IGNORE
+		'docroot' => array(
+			'nok' => 'La document root del server web non sembra puntare alla cartella <code>./p/</code>. Altre cartelle come <code>./data/</code> potrebbero essere accessibili pubblicamente.',
+			'ok' => 'La document root del server web punta correttamente alla cartella <code>./p/</code>.',
+		),
 		'dom' => array(
 			'nok' => 'Manca una libreria richiesta per leggere DOM.',
 			'ok' => 'Libreria richiesta per leggere DOM presente.',
@@ -76,6 +80,10 @@ return array(
 			'ok' => 'Estensione fileinfo presente.',
 		),
 		'files' => 'Installazione files',
+		'gmp' => array(
+			'nok' => 'Impossibile trovare l’estensione GMP richiesta per PHP a 32 bit (pacchetto php-gmp).',
+			'ok' => 'Estensione GMP richiesta per PHP a 32 bit presente.',
+		),
 		'intl' => array(
 			'nok' => 'Impossibile trovare la libreria di internazionalizzazione php-intl.',
 			'ok' => 'Disponi della libreria di internazionalizzazione php-intl raccomandata.',
@@ -141,7 +149,7 @@ return array(
 	'congratulations' => 'Congratulazione!',
 	'default_user' => array(
 		'_' => 'Username utente predefinito',
-		'max_char' => 'massimo 16 caratteri alfanumerici',
+		'max_char' => '1-39 caratteri: lettere, cifre e <code>. _ @ -</code>',
 	),
 	'fix_errors_before' => 'Per favore correggi gli errori prima di passare al passaggio successivo.',
 	'javascript_is_better' => 'FreshRSS funziona meglio con JavaScript abilitato',

@@ -12,22 +12,22 @@
 
 return array(
 	'information' => array(
-		'address' => 'Your API address:',	// TODO
+		'address' => 'Η διεύθυνση του API σας:',
 		'output' => array(
-			'encoding-support' => '⚠️ WARN: no <code>%2F</code> support, some clients might not work!',	// TODO
-			'invalid-configuration' => '⚠️ WARN: Probable invalid base URL in ./data/config.php',	// TODO
-			'pass' => '✔️ PASS',	// TODO
-			'unknown-error' => '❌ ',	// TODO
+			'encoding-support' => '⚠️ ΠΡΟΕΙΔΟΠΟΙΗΣΗ: δεν υπάρχει υποστήριξη για <code>%2F</code>, ορισμένοι πελάτες μπορεί να μην λειτουργούν!',
+			'invalid-configuration' => '⚠️ ΠΡΟΕΙΔΟΠΟΙΗΣΗ: Πιθανώς μη έγκυρο βασικό URL στο ./data/config.php',
+			'pass' => '✔️ OK',
+			'unknown-error' => '❌ ',	// IGNORE
 		),
 		'test' => array(
-			'fever' => 'Fever API configuration test:',	// TODO
-			'greader' => 'Google Reader API configuration test:',	// TODO
+			'fever' => 'Δοκιμή διαμόρφωσης Fever API:',
+			'greader' => 'Δοκιμή διαμόρφωσης Google Reader API:',
 		),
 		'title' => array(
-			'_' => 'FreshRSS API endpoints',	// TODO
-			'extension' => 'API for extensions',	// TODO
-			'fever' => 'Fever compatible API',	// TODO
-			'greader' => 'Google Reader compatible API',	// TODO
+			'_' => 'Τερματικά σημεία FreshRSS API',
+			'extension' => 'API για επεκτάσεις',
+			'fever' => 'Συμβατό API με Fever',
+			'greader' => 'Συμβατό API με Google Reader',
 		),
 	),
 );

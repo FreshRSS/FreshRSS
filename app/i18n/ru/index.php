@@ -85,14 +85,14 @@ return array(
 		'rss_view' => 'RSS-лента',
 		'search_short' => 'Поиск',
 		'sort' => array(
-			'asc' => 'Ascending',	// TODO
+			'asc' => 'По возрастанию',
 			'c' => array(
 				'name_asc' => 'Категории, названия лент А→Я',
 				'name_desc' => 'Категории, названия лент Я→А',
 			),
 			'date_asc' => 'Дата публикации 1→9',
 			'date_desc' => 'Дата публикации 9→1',
-			'desc' => 'Descending',	// TODO
+			'desc' => 'По убыванию',
 			'f' => array(
 				'name_asc' => 'Названия лент А→Я',
 				'name_desc' => 'Названия лент Я→А',
@@ -104,13 +104,13 @@ return array(
 			'link_asc' => 'Ссылка А→Я',
 			'link_desc' => 'Ссылка Я→А',
 			'primary' => array(
-				'_' => 'Sorting criterion',	// TODO
-				'help' => 'Sorting by <em>received</em> date is recommended in most cases, for consistency and performance',	// TODO
+				'_' => 'Критерий сортировки',
+				'help' => 'Сортировка по дате <em>получения</em> рекомендуется в большинстве случаев для согласованности и производительности',
 			),
 			'rand' => 'Случайный порядок',
 			'secondary' => array(
-				'_' => 'Secondary sorting criterion',	// TODO
-				'help' => 'Only relevant when the primary sorting criterion is categories or feeds titles',	// TODO
+				'_' => 'Вторичный критерий сортировки',
+				'help' => 'Актуально только когда основной критерий сортировки — категории или названия лент',
 			),
 			'title_asc' => 'Заголовок А→Я',
 			'title_desc' => 'Заголовок Я→А',

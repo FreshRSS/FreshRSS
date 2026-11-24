@@ -24,6 +24,11 @@ class FreshRSS_View extends Minz_View {
 	public ?FreshRSS_Feed $feed = null;
 	/** @var array<int,FreshRSS_Feed> where the key is the feed ID */
 	public array $feeds;
+	/**
+	 * The keys are the feed IDs that have entries matching the current state and search filters (global view).
+	 * @var array<int,int>|null
+	 */
+	public ?array $feedIdsMatching = null;
 	public int $nbUnreadTags;
 	/** @var array<int,FreshRSS_Tag> where the key is the label ID */
 	public array $tags;
@@ -32,6 +37,7 @@ class FreshRSS_View extends Minz_View {
 	/** @var array<string,array<string>> */
 	public array $tagsForEntries;
 	public bool $excludeMutedFeeds;
+	public bool $includeSensitiveCurlParams = false;
 
 	// Search
 	/** @var array<int,FreshRSS_Tag> where the key is the label ID */
@@ -85,6 +91,8 @@ class FreshRSS_View extends Minz_View {
 
 	// Export / Import
 	public string $content;
+	public string $exportPath;
+	public int $feedCount;
 	/** @var array<string,array<string>> */
 	public array $entryIdsTagNames = [];
 	public string $list_title;
@@ -94,6 +102,10 @@ class FreshRSS_View extends Minz_View {
 	public ?array $sqliteArchives = null;
 	public string $sqlitePath;
 	public string $sqliteName;
+
+	// Form auth
+	/** @var array{username: string, password: string} */
+	public array $auth_autofills;
 
 	// Form login
 	public int $cookie_days;
@@ -109,7 +121,8 @@ class FreshRSS_View extends Minz_View {
 	// Logs
 	public int $currentPage;
 	public Minz_Paginator $logsPaginator;
-	public int $nbPage;
+	public int $pageCount;
+	public string $logSearch = '';
 
 	// RSS view
 	public FreshRSS_UserQuery $userQuery;
@@ -120,7 +133,9 @@ class FreshRSS_View extends Minz_View {
 	public bool $internal_rendering = false;
 	public string $description = '';
 	public string $image_url = '';
-	public bool $publishLabelsInsteadOfTags = false;
+	public bool $includeUserLabels = false;
+	public bool $excludeArticleTags = false;
+	public string $userLabelPrefix = '';
 
 	// Content preview
 	public string $fatalError;

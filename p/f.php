@@ -27,7 +27,7 @@ function show_default_favicon(int $cacheSeconds = 3600): void {
 }
 
 $id = $_GET['h'] ?? '0';
-if (!is_string($id) || !ctype_xdigit($id)) {
+if (!is_string($id) || preg_match('/\\A[A-Za-z0-9_-]{1,11}\\z/', $id) !== 1) {
 	$id = '0';
 }
 
@@ -48,6 +48,11 @@ if (($ico_mtime == false || $ico_mtime < $txt_mtime || ($ico_mtime < time() - (r
 	// no ico file or we should download a new one.
 	$url = file_get_contents($txt);
 	if ($url === false) {
+		show_default_favicon(1800);
+		exit();
+	}
+	$url = FreshRSS_http_Util::checkUrl($url) ?: '';
+	if ($url === '') {
 		show_default_favicon(1800);
 		exit();
 	}

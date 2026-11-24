@@ -7,13 +7,10 @@ class I18nFile {
 
 	/**
 	 * @param array<mixed,mixed> $array
-	 * @phpstan-assert-if-true array<string,string|array<string,mixed>> $array
+	 * @phpstan-assert-if-true array<int|string,string|array<mixed>> $array
 	 */
 	public static function is_array_recursive_string(array $array): bool {
-		foreach ($array as $key => $value) {
-			if (!is_string($key)) {
-				return false;
-			}
+		foreach ($array as $value) {
 			if (!is_string($value) && !(is_array($value) && self::is_array_recursive_string($value))) {
 				return false;
 			}
@@ -36,6 +33,9 @@ class I18nFile {
 				if (!$file->isFile()) {
 					continue;
 				}
+				if ($file->getFilename() === 'plurals.php') {
+					continue;
+				}
 
 				$i18n[$dir->getFilename()][$file->getFilename()] = $this->flatten($this->process($file->getPathname()), $file->getBasename('.php'));
 			}
@@ -55,14 +55,15 @@ class I18nFile {
 			}
 			foreach ($file as $name => $content) {
 				$filename = $dir . DIRECTORY_SEPARATOR . $name;
-				file_put_contents($filename, $this->format($content));
+				$reference = $language === 'en' ? [] : ($i18n['en'][$name] ?? []);
+				file_put_contents($filename, $this->format($content, $reference));
 			}
 		}
 	}
 
 	/**
 	 * Process the content of an i18n file
-	 * @return array<string,string|array<string,mixed>>
+	 * @return array<int|string,string|array<mixed>>
 	 */
 	private function process(string $filename): array {
 		$fileContent = file_get_contents($filename);
@@ -101,7 +102,7 @@ class I18nFile {
 	/**
 	 * Flatten an array of translation
 	 *
-	 * @param array<string,I18nValue|string|array<string,I18nValue>|mixed> $translation
+	 * @param array<int|string,I18nValue|string|array<mixed>|mixed> $translation
 	 * @return array<string,I18nValue>
 	 */
 	private function flatten(array $translation, string $prefix = ''): array {
@@ -112,7 +113,8 @@ class I18nFile {
 		}
 
 		foreach ($translation as $key => $value) {
-			if (is_array($value) && is_array_keys_string($value)) {
+			$key = (string)$key;
+			if (is_array($value) && self::is_array_recursive_string($value)) {
 				$a += $this->flatten($value, $prefix . $key);
 			} elseif (is_string($value) || $value instanceof I18nValue) {
 				$a[$prefix . $key] = new I18nValue($value);
@@ -129,7 +131,7 @@ class I18nFile {
 	 * no use of it.
 	 *
 	 * @param array<string,I18nValue> $translation
-	 * @return array<string,array<string,I18nValue>>
+	 * @return array<int|string,mixed>
 	 */
 	private function unflatten(array $translation): array {
 		$a = [];
@@ -138,7 +140,24 @@ class I18nFile {
 		foreach ($translation as $compoundKey => $value) {
 			$keys = explode('.', $compoundKey);
 			array_shift($keys);
-			eval("\$a['" . implode("']['", $keys) . "'] = '" . addcslashes($value->__toString(), "'") . "';");
+			$current =& $a;
+			$lastIndex = count($keys) - 1;
+			foreach ($keys as $index => $key) {
+				$normalisedKey = ctype_digit($key) ? (int)$key : $key;
+				if ($index === $lastIndex) {
+					$current[$normalisedKey] = $value->__toString();
+					if ($value->isDirty()) {
+						// Carry the key through var_export, including when several keys share the same translation.
+						$current[$normalisedKey] .= ':' . base64_encode($compoundKey);
+					}
+					continue;
+				}
+				if (!isset($current[$normalisedKey]) || !is_array($current[$normalisedKey])) {
+					$current[$normalisedKey] = [];
+				}
+				$current =& $current[$normalisedKey];
+			}
+			unset($current);
 		}
 
 		return $a;
@@ -152,12 +171,13 @@ class I18nFile {
 	 * formatting regexes are applied to match the original content.
 	 *
 	 * @param array<string,I18nValue> $translation
+	 * @param array<string,I18nValue> $reference
 	 */
-	private function format(array $translation): string {
+	private function format(array $translation, array $reference = []): string {
+		$translationKeys = array_fill_keys(array_keys($translation), true);
 		$translation = var_export($this->unflatten($translation), true);
 		$patterns = [
 			'/ -> todo\',/',
-			'/ -> dirty\',/',
 			'/ -> ignore\',/',
 			'/array \(/',
 			'/=>\s*array/',
@@ -166,7 +186,6 @@ class I18nFile {
 		];
 		$replacements = [
 			"',\t// TODO", // Double quoting is mandatory to have a tab instead of the \t string
-			"',\t// DIRTY", // Double quoting is mandatory to have a tab instead of the \t string
 			"',\t// IGNORE", // Double quoting is mandatory to have a tab instead of the \t string
 			'array(',
 			'=> array',
@@ -174,6 +193,26 @@ class I18nFile {
 			"\t", // Double quoting is mandatory to have a tab instead of the \t string
 		];
 		$translation = preg_replace($patterns, $replacements, $translation);
+		$translation = preg_replace_callback('/ -> dirty:([A-Za-z0-9+\/=]+)\',/', static function (array $matches) use ($reference, $translationKeys): string {
+			$key = base64_decode($matches[1], true);
+			$original = $key === false ? null : ($reference[$key] ?? null);
+			if ($original === null && $key !== false && preg_match('/^(.+)\.\d+$/', $key, $parts) === 1) {
+				$original = $reference[$parts[1] . '.1'] ?? $reference[$parts[1] . '.0'] ?? null;
+			}
+			if ($original === null) {
+				return "',\t// DIRTY";
+			}
+
+			$comment = $original->getValue();
+			if ($key !== false && preg_match('/^(.+)\.0$/', $key, $parts) === 1
+				&& !isset($translationKeys[$parts[1] . '.1']) && isset($reference[$key], $reference[$parts[1] . '.1'])) {
+				$comment = 'Singular: ' . $comment . ' | Plural: ' . $reference[$parts[1] . '.1']->getValue();
+			}
+			// Keep the reference inside its line comment, including when it contains a PHP closing tag.
+			$comment = trim(preg_replace('/\s+/', ' ', $comment) ?? '');
+			$comment = str_replace('?>', '? >', $comment);
+			return "',\t// DIRTY" . ($comment === '' ? '' : ' - ' . $comment);
+		}, $translation ?? '');
 
 		return <<<PHP
 <?php

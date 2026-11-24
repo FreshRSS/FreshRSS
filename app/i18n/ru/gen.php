@@ -43,6 +43,7 @@ return array(
 		'open_url' => 'Открыть URL',
 		'promote' => 'Продвинуть',
 		'purge' => 'Запустить очистку',
+		'read_in_freshrss' => 'Read in FreshRSS',	// TODO
 		'refresh_opml' => 'Обновить OPML',
 		'remove' => 'Удалить',
 		'rename' => 'Переименовать',
@@ -73,7 +74,7 @@ return array(
 		),
 		'username' => array(
 			'_' => 'Имя пользователя',
-			'format' => '<small>Не более 16 буквенно-цифровых символов</small>',
+			'format' => '<small>1-39 characters: letters, digits, and <code>. _ @ -</code></small>',	// TODO
 		),
 	),
 	'date' => array(
@@ -140,14 +141,55 @@ return array(
 		'_' => 'FreshRSS',	// IGNORE
 		'about' => 'О FreshRSS',
 	),
+	'interval' => array(
+		'day' => array(
+			0 => '%d день назад',
+			1 => '%d дня назад',
+			2 => '%d дней назад',
+		),
+		'hour' => array(
+			0 => '%d час назад',
+			1 => '%d часа назад',
+			2 => '%d часов назад',
+		),
+		'justnow' => 'только что',
+		'minute' => array(
+			0 => '%d минута назад',
+			1 => '%d минуты назад',
+			2 => '%d минут назад',
+		),
+		'month' => array(
+			0 => '%d месяц назад',
+			1 => '%d месяца назад',
+			2 => '%d месяцев назад',
+		),
+		'second' => array(
+			0 => '%d секунда назад',
+			1 => '%d секунды назад',
+			2 => '%d секунд назад',
+		),
+		'year' => array(
+			0 => '%d год назад',
+			1 => '%d года назад',
+			2 => '%d лет назад',
+		),
+	),
 	'js' => array(
 		'category_empty' => 'Пустая категория',
 		'confirm_action' => 'Вы уверены, что хотите выполнить это действие? Это нельзя отменить!',
 		'confirm_action_feed_cat' => 'Вы уверены, что хотите выполнить это действие? Вы потеряете связанные избранные статьи и пользовательские запросы. Это нельзя отменить!',
 		'confirm_exit_slider' => 'Вы уверены, что хотите отменить несохраненные настройки?',
 		'feedback' => array(
-			'body_new_articles' => '%%d новых статей в FreshRSS.',
-			'body_unread_articles' => '(Непрочитанные: %%d)',
+			'body_new_articles' => array(
+				0 => '%d новых статей в FreshRSS.',	// DIRTY - There is %d new article to read on FreshRSS.
+				1 => '%d новых статей в FreshRSS.',	// DIRTY - There are %d new articles to read on FreshRSS.
+				2 => '%d новых статей в FreshRSS.',	// DIRTY - There are %d new articles to read on FreshRSS.
+			),
+			'body_unread_articles' => array(
+				0 => '(Непрочитанные: %d)',	// DIRTY - (unread: %d)
+				1 => '(Непрочитанные: %d)',	// DIRTY - (unread: %d)
+				2 => '(Непрочитанные: %d)',	// DIRTY - (unread: %d)
+			),
 			'request_failed' => 'Запрос не удался. Возможно, это вызвано проблемами с подключением к Интернет.',
 			'title_new_articles' => 'FreshRSS: новые статьи!',
 		),
@@ -157,6 +199,9 @@ return array(
 		'unsafe_csp_header' => 'Используемый заголовок CSP небезопасен, и FreshRSS может быть уязвим для XSS-атак. <a target="_blank" href="https://freshrss.github.io/FreshRSS/en/admins/10_ServerConfig.html#security">См. документацию</a>',
 	),
 	'lang' => array(
+		'ar' => 'العربية',	// IGNORE
+		'az' => 'Azərbaycanca',	// IGNORE
+		'be' => 'Беларуская',	// IGNORE
 		'cs' => 'Čeština',	// IGNORE
 		'de' => 'Deutsch',	// IGNORE
 		'el' => 'Ελληνικά',	// IGNORE
@@ -172,6 +217,7 @@ return array(
 		'it' => 'Italiano',	// IGNORE
 		'ja' => '日本語',	// IGNORE
 		'ko' => '한국어',	// IGNORE
+		'lt' => 'Lietuvių',	// TODO
 		'lv' => 'Latviešu',	// IGNORE
 		'nl' => 'Nederlands',	// IGNORE
 		'oc' => 'Occitan',	// IGNORE
@@ -228,7 +274,7 @@ return array(
 		'categories' => 'Категории',
 		'content' => 'Содержимое',
 		'date_from' => 'С',
-		'date_modified' => 'Server Modification Date',	// TODO
+		'date_modified' => 'Дата изменения на сервере',
 		'date_past' => 'За прошедший период',
 		'date_published' => 'Дата публикации',
 		'date_range' => 'Диапазон дат',
@@ -265,10 +311,12 @@ return array(
 		'gnusocial' => 'GNU social',	// IGNORE
 		'jdh' => 'Journal du hacker',	// IGNORE
 		'lemmy' => 'Lemmy',	// IGNORE
+		'linkace' => 'LinkAce',	// IGNORE
 		'linkding' => 'Linkding',	// IGNORE
 		'linkedin' => 'LinkedIn',	// IGNORE
 		'mastodon' => 'Mastodon',	// IGNORE
 		'movim' => 'Movim',	// IGNORE
+		'nextcloud-bookmarks' => 'Nextcloud Закладки',	// DIRTY - Nextcloud Bookmarks
 		'omnivore' => 'Omnivore',	// IGNORE
 		'pinboard' => 'Pinboard',	// IGNORE
 		'pinterest' => 'Pinterest',	// IGNORE

@@ -7,6 +7,12 @@ endif
 PORT ?= 8080
 NETWORK ?= freshrss-network
 
+# PHP versions tested by test-all-php-versions
+PHP_VERSIONS ?= 8.2 8.3 8.4 8.5 8.6
+
+# PostgreSQL database used by test-all-php-versions
+TESTS_PGSQL_IMAGE ?= postgres:19-alpine
+
 # detect docker or podman
 DOCKER ?= $(shell which docker 2>/dev/null || which podman 2>/dev/null)
 
@@ -44,16 +50,24 @@ build: ## Build a Docker image
 start: ## Start the development environment (use Docker)
 	$(DOCKER) network create --driver bridge $(NETWORK) || true
 	$(foreach extension,$(extensions),$(eval volumes=$(volumes) --volume $(extension):/var/www/FreshRSS/extensions/$(notdir $(extension)):z))
+	@# No TTY and no --sig-proxy: a terminal resize (SIGWINCH) must not reach Apache, which treats it as a graceful stop.
+	@# Ctrl+C is relayed by stopping the container instead.
+	trap '$(DOCKER) stop freshrss-dev >/dev/null' INT TERM; \
 	$(DOCKER) run \
-		-it \
 		--rm \
+		--sig-proxy=false \
 		--volume $(shell pwd):/var/www/FreshRSS:z \
 		$(volumes) \
 		--publish $(PORT):80 \
 		--env FRESHRSS_ENV=development \
 		--name freshrss-dev \
 		--network $(NETWORK) \
-		docker.io/freshrss/freshrss:$(TAG)
+		docker.io/freshrss/freshrss:$(TAG) & \
+	pid=$$!; \
+	wait $$pid; \
+	status=$$?; \
+	if [ "$$status" -gt 128 ]; then wait $$pid; status=$$?; fi; \
+	exit $$status
 
 .PHONY: stop
 stop: ## Stop FreshRSS container if any
@@ -75,7 +89,12 @@ test: bin/phpunit ## Run the PHP test suite
 
 bin/composer:
 	mkdir -p bin/
-	wget 'https://raw.githubusercontent.com/composer/getcomposer.org/a5abae68b349213793dca4a1afcaada0ad11143b/web/installer' -O - -q | php -- --quiet --install-dir='./bin/' --filename='composer'
+	cd bin ; \
+	wget 'https://raw.githubusercontent.com/composer/getcomposer.org/acf8a43b6a379f3a5ef72ebf21979f4936a608fd/web/installer' && \
+	echo 'aad0c40a36d9938664f5a34eb2ed39dbc1021792f9706dbcb9cd6d8001227c99  installer' | sha256sum -c - && \
+	php installer -- --quiet --install-dir='./' --filename='composer' && \
+	rm installer && \
+	cd ..
 
 # building any of these builds them all
 vendor/bin/phpunit vendor/bin/phpcs vendor/bin/phpcbf vendor/bin/phpstan &: bin/composer
@@ -89,7 +108,8 @@ bin/phpunit bin/phpcs bin/phpcbf bin/phpstan : % : vendor/%
 bin/typos:
 	mkdir -p bin/
 	cd bin ; \
-	wget -q 'https://github.com/crate-ci/typos/releases/download/v1.29.9/typos-v1.29.9-x86_64-unknown-linux-musl.tar.gz' && \
+	wget 'https://github.com/crate-ci/typos/releases/download/v1.49.0/typos-v1.49.0-x86_64-unknown-linux-musl.tar.gz' && \
+	echo '48bd2d58e02ce713b8c0f1aa239e68ee4f7d8c551013135806e6aed3938d9e10  typos-v1.49.0-x86_64-unknown-linux-musl.tar.gz' | sha256sum -c - && \
 	tar -xvf *.tar.gz './typos' && \
 	chmod +x typos && \
 	rm *.tar.gz ; \
@@ -99,6 +119,9 @@ node_modules/.bin/eslint:
 	npm install
 
 node_modules/.bin/rtlcss:
+	npm install
+
+node_modules/.bin/svgo:
 	npm install
 
 # TODO: Add composer install
@@ -125,6 +148,38 @@ typos-test: bin/typos
 # TODO: Add shellcheck, shfmt, hadolint
 .PHONY: test-all
 test-all: composer-test npm-test typos-test ## Run all tests
+
+.PHONY: test-all-php-versions
+test-all-php-versions: ## Run the test suite with every supported PHP version (Docker)
+	@set -eu; \
+	i=0; \
+	$(DOCKER) rm --force freshrss-tests-db >/dev/null 2>&1 || true; \
+	$(DOCKER) network create freshrss-tests-db-network >/dev/null 2>&1 || true; \
+	cleanup() { $(DOCKER) rm --force freshrss-tests-db >/dev/null 2>&1 || true; $(DOCKER) network rm freshrss-tests-db-network >/dev/null 2>&1 || true; }; \
+	trap cleanup EXIT INT TERM; \
+	$(DOCKER) run --detach --rm \
+		--name freshrss-tests-db \
+		--network freshrss-tests-db-network \
+		--env POSTGRES_HOST_AUTH_METHOD=trust \
+		$(TESTS_PGSQL_IMAGE) >/dev/null; \
+	until $(DOCKER) exec freshrss-tests-db pg_isready >/dev/null 2>&1; do \
+		i=$$((i + 1)); [ $$i -lt 30 ] || { echo 'PostgreSQL database did not become ready in time.' >&2; exit 1; }; \
+		sleep 1; \
+	done; \
+	for v in $(PHP_VERSIONS); do \
+		echo "===== PHP $$v ====="; \
+		$(DOCKER) build --quiet \
+			--build-arg PHP_VERSION=$$v \
+			--tag docker.io/freshrss/tests:php$$v \
+			--file Docker/Dockerfile-tests . ; \
+		$(DOCKER) run --rm \
+			--network freshrss-tests-db-network \
+			--env FRESHRSS_TEST_PGSQL_DSN='pgsql:host=freshrss-tests-db;dbname=postgres;user=postgres' \
+			--volume $(shell pwd):/var/www/FreshRSS:z \
+			--workdir /var/www/FreshRSS \
+			docker.io/freshrss/tests:php$$v \
+			sh -c "php --version | head -1 ; bin/composer test" ; \
+	done
 
 .PHONY: fix-all
 fix-all: composer-fix npm-fix ## Run all fixes
@@ -168,9 +223,15 @@ endif
 	$(PHP) ./cli/manipulate.translation.php --action add --language $(lang) --origin-language $(ref)
 	@echo Language added.
 
+.PHONY: i18n-compile-plurals
+i18n-compile-plurals: ## Compile plural formulas from app/i18n/*/plurals.php
+	@$(PHP) ./cli/compile.plurals.php --all
+	@echo Plural files compiled.
+
 .PHONY: i18n-format
 i18n-format: ## Format I18N files
 	@$(PHP) ./cli/manipulate.translation.php --action format
+	@$(PHP) ./cli/compile.plurals.php --all
 	@echo Files formatted.
 
 .PHONY: i18n-ignore-key
@@ -234,6 +295,10 @@ refresh: ## Refresh feeds by fetching new messages
 .PHONY: rtl
 rtl: node_modules/.bin/rtlcss ## Generate RTL CSS files
 	npm run-script rtlcss
+
+.PHONY: svgo
+svgo: node_modules/.bin/svgo ## Optimize SVG image files
+	npm run-script svgo
 
 ##@ Help
 .PHONY: help

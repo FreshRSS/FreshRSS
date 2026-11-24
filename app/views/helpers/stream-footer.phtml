@@ -9,6 +9,7 @@
 		$url_next['params']['idMax'] = FreshRSS_Context::$id_max;
 	}
 	$url_next['params']['state'] = (string)FreshRSS_Context::$state;
+	$url_next['params']['stateForRedirect'] = FreshRSS_Context::getStateForRedirect();
 	$url_next['params']['ajax'] = '1';
 
 	$url_mark_read = [
@@ -20,6 +21,7 @@
 			'idMax' => FreshRSS_Context::$id_max,
 			'search' => FreshRSS_Context::$search->toString(),
 			'state' => FreshRSS_Context::$state,
+			'stateForRedirect' => FreshRSS_Context::getStateForRedirect(),
 			'sort' => FreshRSS_Context::$sort,
 			'order' => FreshRSS_Context::$order,
 			'from' => Minz_Request::paramStringNull('from') ?? Minz_Request::actionName(),
@@ -29,10 +31,10 @@
 	$hasAccess = FreshRSS_Auth::hasAccess();
 	if ($hasAccess) {
 ?>
-<form id="stream-footer" action="" method="post">
+<form name="stream_footer" class="stream-footer" action="" method="post">
 <input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
 <?php } else { ?>
-<div id="stream-footer">
+<div class="stream-footer">
 <?php }?>
 	<div class="stream-footer-inner">
 	<?php if (FreshRSS_Context::$continuation_id !== '0') { ?>
@@ -53,7 +55,6 @@
 			<br />
 			<button id="bigMarkAsRead"
 				class="<?= $css ?> <?= FreshRSS_Context::userConf()->reading_confirm ? 'confirm" disabled="disabled' : '' ?>"
-				form="stream-footer"
 				formaction="<?= Minz_Url::display($url_mark_read) ?>"
 				type="submit">
 				<span class="bigTick">✓</span><br />

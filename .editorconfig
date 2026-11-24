@@ -1,4 +1,4 @@
-# http://EditorConfig.org
+# https://editorconfig.org/
 
 [*]
 charset = utf-8
@@ -12,10 +12,10 @@ indent_style = tab
 [*.{html,php,phtml}]
 indent_style = tab
 
-[*.js]
+[*.{js,mjs}]
 indent_style = tab
 
-[*.json]
+[*.{json,jsonc}]
 indent_style = tab
 
 [*.md]
