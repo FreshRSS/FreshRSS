@@ -7,8 +7,6 @@ declare(strict_types=1);
 
 namespace SimplePie;
 
-use DOMDocument;
-use DOMXPath;
 use InvalidArgumentException;
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\RequestFactoryInterface;
@@ -166,7 +164,6 @@ class Sanitize implements RegistryAware
             $this->cache_location = $cache_location;
         }
 
-        // @phpstan-ignore-next-line Enforce PHPDoc type.
         if (!is_string($cache_name_function) && !$cache_name_function instanceof NameFilter) {
             throw new InvalidArgumentException(sprintf(
                 '%s(): Argument #3 ($cache_name_function) must be of type %s',
@@ -485,27 +482,30 @@ class Sanitize implements RegistryAware
             }
 
             if ($type & (\SimplePie\SimplePie::CONSTRUCT_HTML | \SimplePie\SimplePie::CONSTRUCT_XHTML)) {
-                if (!class_exists('DOMDocument')) {
-                    throw new \SimplePie\Exception('DOMDocument not found, unable to use sanitizer');
-                }
-                $document = new \DOMDocument();
-                $document->encoding = 'UTF-8';
-
                 // PHPStan seems to have trouble resolving int-mask because bitwise
                 // operators are used when operators are used when passing this parameter.
                 // https://github.com/phpstan/phpstan/issues/9384
                 /** @var int-mask-of<SimplePie::CONSTRUCT_*> $type */
                 $data = $this->preprocess($data, $type);
 
-                set_error_handler([Misc::class, 'silence_errors']);
-                $document->loadHTML($data);
-                restore_error_handler();
+                // NB: Unlike with the legacy DOM API, parsing never fails (no recovery needed).
+                // Without HTML_NO_DEFAULT_NS, elements are parsed into their proper
+                // namespaces (XHTML, SVG, MathML), which makes the HTML5 serialiser
+                // emit void elements correctly ("<img>", no "</img>" end tag), and
+                // allows the XPath queries below to use registered prefixes.
+                $document = \Dom\HTMLDocument::createFromString($data, LIBXML_NOERROR);
 
-                $xpath = new \DOMXPath($document);
+                $xpath = new \Dom\XPath($document);
+                // Register the namespaces used by the HTML parser, for the prefixed
+                // XPath queries below. Unprefixed name tests would only match
+                // elements in no namespace, i.e. none.
+                $xpath->registerNamespace('xh', 'http://www.w3.org/1999/xhtml');
+                $xpath->registerNamespace('svg', 'http://www.w3.org/2000/svg');
+                $xpath->registerNamespace('mml', 'http://www.w3.org/1998/Math/MathML');
 
                 // Strip comments
                 if ($this->strip_comments) {
-                    /** @var \DOMNodeList<\DOMComment> */
+                    /** @var \Dom\NodeList<\Dom\Comment> */
                     $comments = $xpath->query('//comment()');
 
                     foreach ($comments as $comment) {
@@ -566,7 +566,8 @@ class Sanitize implements RegistryAware
 
                     foreach ($images as $img) {
                         if ($img->hasAttribute('src')) {
-                            $image_url = $this->cache_namefilter->filter($img->getAttribute('src'));
+                            $src = $img->getAttribute('src') ?? '';
+                            $image_url = $this->cache_namefilter->filter($src);
                             $cache = $this->get_cache($image_url);
 
                             if ($cache->get_data($image_url, false)) {
@@ -575,7 +576,7 @@ class Sanitize implements RegistryAware
                                 try {
                                     $file = $this->get_http_client()->request(
                                         Client::METHOD_GET,
-                                        $img->getAttribute('src'),
+                                        $src,
                                         ['X-FORWARDED-FOR' => $_SERVER['REMOTE_ADDR']]
                                     );
                                 } catch (ClientException $th) {
@@ -600,18 +601,16 @@ class Sanitize implements RegistryAware
                     $div = $item->firstChild;
                 }
                 // Finally, convert to a HTML string
-                $data = trim((string) $document->saveHTML($div));
+                $data = trim($document->saveHtml($div) ?: '');
 
                 if ($this->remove_div) {
-                    $data = preg_replace('/^<div' . \SimplePie\SimplePie::PCRE_XML_ATTRIBUTE . '>/', '', $data);
-                    // Cast for PHPStan, it is unable to validate a non-literal regex above.
-                    $data = preg_replace('/<\/div>$/', '', (string) $data);
+                    // Casts for PHPStan, it is unable to validate a non-literal regex above.
+                    $data = (string) preg_replace('/^<div' . \SimplePie\SimplePie::PCRE_XML_ATTRIBUTE . '>/', '', $data);
+                    $data = (string) preg_replace('/<\/div>$/', '', $data);
                 } else {
-                    $data = preg_replace('/^<div' . \SimplePie\SimplePie::PCRE_XML_ATTRIBUTE . '>/', '<div>', $data);
+                    // Cast for PHPStan, it is unable to validate a non-literal regex above.
+                    $data = (string) preg_replace('/^<div' . \SimplePie\SimplePie::PCRE_XML_ATTRIBUTE . '>/', '<div>', $data);
                 }
-
-                // Cast for PHPStan, it is unable to validate a non-literal regex above.
-                $data = str_replace('</source>', '', (string) $data);
             }
 
             if ($type & \SimplePie\SimplePie::CONSTRUCT_IRI) {
@@ -660,10 +659,11 @@ class Sanitize implements RegistryAware
     }
 
     /**
+     * @param \Dom\Document|\DOMDocument $document
      * @param array<string>|string $attributes
      * @return void
      */
-    public function replace_urls(DOMDocument $document, string $tag, $attributes)
+    public function replace_urls($document, string $tag, $attributes)
     {
         if (!is_array($attributes)) {
             $attributes = [$attributes];
@@ -674,7 +674,7 @@ class Sanitize implements RegistryAware
             foreach ($elements as $element) {
                 foreach ($attributes as $attribute) {
                     if ($element->hasAttribute($attribute)) {
-                        $value = $this->registry->call(Misc::class, 'absolutize_url', [$element->getAttribute($attribute), $this->base]);
+                        $value = $this->registry->call(Misc::class, 'absolutize_url', [$element->getAttribute($attribute) ?? '', $this->base]);
                         if ($value !== false) {
                             // Block disallowed URI protocols (e.g. javascript:), otherwise force HTTPS where applicable
                             $value = ($this->disallowed_uri_schemes !== [] && !$this->is_allowed_uri($tag, $attribute, $value))
@@ -711,11 +711,16 @@ class Sanitize implements RegistryAware
 
     /**
      * Keep only allowed HTML elements (tags) and their allowed attributes.
+     *
+     * @param \Dom\Node|\DOMNode|\DOMElement|\Dom\Element $element
      */
-    protected function enforce_allowed_html_nodes(\DOMNode $element, bool $allow_data_attr = true, bool $allow_aria_attr = true): void
+    protected function enforce_allowed_html_nodes($element, bool $allow_data_attr = true, bool $allow_aria_attr = true): void
     {
-        if ($element instanceof \DOMElement) {
-            $tag = $element->tagName;
+        if ($element instanceof \DOMElement || $element instanceof \Dom\Element) {
+            // NB: `tagName` of namespaced HTML elements is uppercased by libxml.
+            // Use `localName` instead, which is ASCII-lowercased as per HTML,
+            // except for case-adjusted SVG/MathML tag names (e.g. `foreignObject`).
+            $tag = $element->localName;
             $parent = $element->parentNode;
             if (!in_array($tag, ['html', 'head', 'body', 'div'], true)
                 && !isset($this->allowed_html_elements_with_attributes[$tag])) {
@@ -724,7 +729,7 @@ class Sanitize implements RegistryAware
                     $nextSibling = $element->nextSibling;
                     while ($element->firstChild !== null) {
                         $child = $element->firstChild;
-                        if ($child instanceof \DOMText) {
+                        if ($child instanceof \DOMText || $child instanceof \Dom\Text) {
                             $child->nodeValue = htmlspecialchars($child->nodeValue ?? '', ENT_QUOTES, 'UTF-8');
                         }
                         if ($parent !== null) {
@@ -738,25 +743,31 @@ class Sanitize implements RegistryAware
                     }
                 }
                 if ($parent !== null) {
-                    $parent->removeChild($element);
+                    if ($element instanceof \DOMElement) {
+                        $parent->removeChild($element);
+                    } elseif ($parent instanceof \Dom\Element || $parent instanceof \Dom\Document) {
+                        $parent->removeChild($element);
+                    }
                     return;
                 }
             }
             $allowed_attrs = array_merge($this->allowed_html_elements_with_attributes[$tag] ?? [], $this->allowed_html_attributes);
-            for ($i = $element->attributes->length - 1; $i >= 0; $i--) {
-                $attr = $element->attributes[$i]->nodeName;
+            $attributes = $element->attributes ?? [];
+            for ($i = $attributes->length - 1; $i >= 0; $i--) {
+                $attrNode = $attributes[$i];
+                $attr = $attrNode->nodeName;
                 // Skip data-*, aria-* if allowed
-                if (($allow_data_attr && str_starts_with($attr, 'data-'))
-                    || ($allow_aria_attr && str_starts_with($attr, 'aria-'))) {
+                if (($allow_data_attr && substr($attr, 0, 5) === 'data-')
+                    || ($allow_aria_attr && substr($attr, 0, 5) === 'aria-')) {
                     continue;
                 }
 
                 if (!in_array($attr, $allowed_attrs, true)) {
-                    $element->removeAttributeNode($element->attributes[$i]);
+                    $element->removeAttributeNode($attrNode);
                 }
             }
         }
-        if ($element instanceof \DOMElement || $element instanceof \DOMDocument) {
+        if ($element instanceof \DOMElement || $element instanceof \Dom\Element || $element instanceof \DOMDocument || $element instanceof \Dom\Document) {
             for ($i = $element->childNodes->length - 1; $i >= 0; $i--) {
                 $child = $element->childNodes->item($i);
                 if ($child !== null) {
@@ -815,41 +826,44 @@ class Sanitize implements RegistryAware
      * This handles MathML and SVG elements which permit href on arbitrary descendant elements
      * For SVG, also checks xlink:href attribute.
      */
-    private function block_disallowed_schemes_in_descendants(\DOMXPath $xpath): void
+    private function block_disallowed_schemes_in_descendants(\Dom\XPath $xpath): void
     {
-        // Note: content is parsed via loadHTML(), which does not namespace-process attributes
-        $elements = $xpath->query('.//*[self::math or self::svg]/descendant-or-self::*[@href or @*[name()="xlink:href"]]');
-        if ($elements === false) {
-            return;
-        }
+        // NB: SVG and MathML elements are parsed into their own namespaces
+        // (cf. the `registerNamespace()` calls above).
+        // Note: content is parsed via the HTML5 parser, which does not namespace-process attributes
+        $elements = $xpath->query('.//*[self::mml:math or self::svg:svg]/descendant-or-self::*[@href or @*[name()="xlink:href"]]');
         foreach ($elements as $element) {
-            if (!($element instanceof \DOMElement)) {
-                continue;
-            }
-            if ($element->hasAttribute('href')) {
-                $href = $element->getAttribute('href');
-                if (!$this->is_allowed_scheme($href)) {
-                    $element->setAttribute('href', 'unsafe:' . $href);
+            if ($element instanceof \DOMElement || $element instanceof \Dom\Element) {
+                if ($element->hasAttribute('href')) {
+                    $href = $element->getAttribute('href') ?? '';
+                    if (!$this->is_allowed_scheme($href)) {
+                        $element->setAttribute('href', 'unsafe:' . $href);
+                    }
                 }
-            }
-            if ($element->hasAttribute('xlink:href')) {
-                $href = $element->getAttribute('xlink:href');
-                if (!$this->is_allowed_scheme($href)) {
-                    $element->setAttribute('xlink:href', 'unsafe:' . $href);
+                if ($element->hasAttribute('xlink:href')) {
+                    $href = $element->getAttribute('xlink:href') ?? '';
+                    if (!$this->is_allowed_scheme($href)) {
+                        $element->setAttribute('xlink:href', 'unsafe:' . $href);
+                    }
                 }
             }
         }
     }
 
     /**
+     * @param \Dom\Document|\DOMDocument $document
      * @param int-mask-of<SimplePie::CONSTRUCT_*> $type
      * @return void
      */
-    protected function strip_tag(string $tag, DOMDocument $document, DOMXPath $xpath, int $type)
+    protected function strip_tag(string $tag, $document, \Dom\XPath $xpath, int $type)
     {
-        $elements = $xpath->query('body//' . $tag);
-
-        if ($elements === false) {
+        try {
+            // Match the requested tag in any of the namespaces the HTML parser
+            // puts elements in (cf. the three `registerNamespace()` calls above):
+            // mostly the XHTML namespace, but e.g. `image` exists in both
+            // XHTML and SVG.
+            $elements = $xpath->query('xh:body//*[self::xh:' . $tag . ' or self::svg:' . $tag . ' or self::mml:' . $tag . ']');
+        } catch (\Throwable $ex) {
             throw new \SimplePie\Exception(sprintf(
                 '%s(): Possibly malformed expression, check argument #1 ($tag)',
                 __METHOD__
@@ -858,7 +872,7 @@ class Sanitize implements RegistryAware
 
         if ($this->encode_instead_of_strip) {
             foreach ($elements as $element) {
-                if (!($element instanceof \DOMNode)) {
+                if (!$element instanceof \DOMElement && !$element instanceof \Dom\Element) {
                     continue;
                 }
                 $fragment = $document->createDocumentFragment();
@@ -866,28 +880,26 @@ class Sanitize implements RegistryAware
                 // For elements which aren't script or style, include the tag itself
                 if (!in_array($tag, ['script', 'style'])) {
                     $text = '<' . $tag;
-                    if ($element->attributes !== null) {
-                        $attrs = [];
-                        foreach ($element->attributes as $name => $attr) {
-                            $value = $attr->value;
+                    $attrs = [];
+                    foreach ($element->attributes as $name => $attr) {
+                        $value = $attr->value;
 
-                            // In XHTML, empty values should never exist, so we repeat the value
-                            if (empty($value) && ($type & \SimplePie\SimplePie::CONSTRUCT_XHTML)) {
-                                $value = $name;
-                            }
-                            // For HTML, empty is fine
-                            elseif (empty($value) && ($type & \SimplePie\SimplePie::CONSTRUCT_HTML)) {
-                                $attrs[] = $name;
-                                continue;
-                            }
-
-                            // Standard attribute text
-                            $attrs[] = $name . '="' . $attr->value . '"';
+                        // In XHTML, empty values should never exist, so we repeat the value
+                        if (empty($value) && ($type & \SimplePie\SimplePie::CONSTRUCT_XHTML)) {
+                            $value = $name;
                         }
-                        $text .= ' ' . implode(' ', $attrs);
+                        // For HTML, empty is fine
+                        elseif (empty($value) && ($type & \SimplePie\SimplePie::CONSTRUCT_HTML)) {
+                            $attrs[] = $name;
+                            continue;
+                        }
+
+                        // Standard attribute text
+                        $attrs[] = $name . '="' . $attr->value . '"';
                     }
+                    $text .= ' ' . implode(' ', $attrs);
                     $text .= '>';
-                    $fragment->appendChild(new \DOMText($text));
+                    $fragment->appendChild($document->createTextNode($text));
                 }
 
                 $number = $element->childNodes->length;
@@ -898,10 +910,15 @@ class Sanitize implements RegistryAware
                 }
 
                 if (!in_array($tag, ['script', 'style'])) {
-                    $fragment->appendChild(new \DOMText('</' . $tag . '>'));
+                    $fragment->appendChild($document->createTextNode('</' . $tag . '>'));
                 }
 
-                if (($parentNode = $element->parentNode) !== null) {
+                $parentNode = $element->parentNode;
+                if ($element instanceof \DOMElement) {
+                    if ($parentNode !== null) {
+                        $parentNode->replaceChild($fragment, $element);
+                    }
+                } elseif ($parentNode instanceof \Dom\Element || $parentNode instanceof \Dom\Document) {
                     $parentNode->replaceChild($fragment, $element);
                 }
             }
@@ -917,9 +934,6 @@ class Sanitize implements RegistryAware
             return;
         } else {
             foreach ($elements as $element) {
-                if (!($element instanceof \DOMNode)) {
-                    continue;
-                }
                 $fragment = $document->createDocumentFragment();
                 $number = $element->childNodes->length;
                 for ($i = $number; $i > 0; $i--) {
@@ -938,18 +952,18 @@ class Sanitize implements RegistryAware
     /**
      * @return void
      */
-    protected function strip_attr(string $attrib, DOMXPath $xpath)
+    protected function strip_attr(string $attrib, \Dom\XPath $xpath)
     {
-        $elements = $xpath->query('//*[@' . $attrib . ']');
-
-        if ($elements === false) {
+        try {
+            $elements = $xpath->query('//*[@' . $attrib . ']');
+        } catch (\Throwable $ex) {
             throw new \SimplePie\Exception(sprintf(
                 '%s(): Possibly malformed expression, check argument #1 ($attrib)',
                 __METHOD__
             ), 1);
         }
 
-        /** @var \DOMElement $element */
+        /** @var \Dom\Element $element */
         foreach ($elements as $element) {
             $element->removeAttribute($attrib);
         }
@@ -958,32 +972,33 @@ class Sanitize implements RegistryAware
     /**
      * @return void
      */
-    protected function rename_attr(string $attrib, DOMXPath $xpath)
+    protected function rename_attr(string $attrib, \Dom\XPath $xpath)
     {
-        $elements = $xpath->query('//*[@' . $attrib . ']');
-
-        if ($elements === false) {
+        try {
+            $elements = $xpath->query('//*[@' . $attrib . ']');
+        } catch (\Throwable $ex) {
             throw new \SimplePie\Exception(sprintf(
                 '%s(): Possibly malformed expression, check argument #1 ($attrib)',
                 __METHOD__
             ), 1);
         }
 
-        /** @var \DOMElement $element */
+        /** @var \Dom\Element $element */
         foreach ($elements as $element) {
-            $element->setAttribute('data-sanitized-' . $attrib, $element->getAttribute($attrib));
+            $element->setAttribute('data-sanitized-' . $attrib, $element->getAttribute($attrib) ?? '');
             $element->removeAttribute($attrib);
         }
     }
 
     /**
      * @param array<string, string> $valuePairs
+     * @param \Dom\Document|\DOMDocument $document
      * @return void
      */
-    protected function add_attr(string $tag, array $valuePairs, DOMDocument $document)
+    protected function add_attr(string $tag, array $valuePairs, $document)
     {
         $elements = $document->getElementsByTagName($tag);
-        /** @var \DOMElement $element */
+        /** @var \Dom\Element $element */
         foreach ($elements as $element) {
             foreach ($valuePairs as $attrib => $value) {
                 $element->setAttribute($attrib, $value);

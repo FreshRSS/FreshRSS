@@ -44,7 +44,7 @@ jobs:
           BASE_SHA: ${{ github.event.pull_request.base.sha }}
           HEAD_SHA: ${{ github.event.pull_request.head.sha }}
         run: |
-          git diff --name-only --diff-filter=ACMR \
+          git -c core.quotePath=false diff --name-only --diff-filter=ACMR \
             "$BASE_SHA" \
             "$HEAD_SHA" \
             > changed-files.txt
@@ -80,6 +80,84 @@ jobs:
           pathlib.Path("changed-files.txt").write_text(
               "\n".join(files) + ("\n" if files else "")
           )
+          PY
+
+          echo "Changed files:"
+          cat changed-files.txt
+
+      # Lychee doesn't have an option for checking only the changed links, so neutralize all the other URLs of the changed files (`http` -> `hxxp`).
+      # Nothing else is modified, so that lychee parses the files as usual and reports the correct filenames and line numbers.
+      # Local links are left alone, as they are already checked by the offline run.
+      - name: Keep only changed links
+        if: github.event_name == 'pull_request'
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+        run: |
+          git diff --unified=0 --diff-filter=ACMR "$BASE_SHA" HEAD > changes.diff
+          git diff --name-only -z --diff-filter=ACMR "$BASE_SHA" HEAD > changes.names
+
+          python3 <<'PY'
+          import itertools
+          import pathlib
+          import re
+
+          url = re.compile(r"""(?ix)
+              https?://
+              (?:
+                  (?![)\]}|][^ \t\r\n\f\v"'`<>]*?https?://)    # Stop before a closing bracket or `|` followed by another URL
+                  [^ \t\r\n\f\v"'`<>]                          # Stop at ASCII whitespace (like lychee, so not `\s`), quote, backtick or angle bracket
+                  | '(?=\w)                                    # But an apostrophe followed by a letter is part of the URL
+              )+
+          """)
+
+          # File names in the same order as the `diff --git` headers, which are not reliable (quoting, tabs)
+          names = iter(pathlib.Path("changes.names").read_text().split("\0"))
+
+          # Hunks as (file, first added line number, removed lines, added lines).
+          # Hunk headers look like `@@ -12,3 +14,2 @@`, meaning 2 lines from line 14 (the count is omitted if 1).
+          hunks = []
+          in_hunk = False
+          for line in pathlib.Path("changes.diff").read_text(errors="replace").split("\n"):
+              if line.startswith("diff --git"):
+                  in_hunk = False
+                  file = next(names)
+              elif line.startswith("@@"):
+                  in_hunk = True
+                  first = int(line.split()[2].removeprefix("+").partition(",")[0])
+                  hunks.append((file, first, [], []))
+              elif in_hunk and line.startswith("-"):
+                  hunks[-1][2].append(line[1:])
+              elif in_hunk and line.startswith("+"):
+                  hunks[-1][3].append(line[1:])
+
+          # Changed URLs of each file as (line number, URL): those on added lines that are not on a removed line of the same hunk
+          changed_urls = {}
+          shown = lambda urls: [(number, u.rstrip(").,>")) for number, u in urls]
+          print("Changed URLs (old -> new):")
+          for file, first, removed, added in hunks:
+              old_urls = url.findall("\n".join(removed))
+              new_urls = [(number, u) for number, line in enumerate(added, start=first) for u in url.findall(line)]
+              added_urls = [(number, u) for number, u in new_urls if u not in old_urls]
+              removed_urls = [(first, u) for u in old_urls if u not in [u for _, u in new_urls]]
+              changed_urls.setdefault(file, set()).update(added_urls)
+
+              # Pair them in order, with the line of the new URL (or the first line of the hunk when there is none)
+              for (_, old), (number, new) in itertools.zip_longest(shown(removed_urls), shown(added_urls), fillvalue=(first, "(none)")):
+                  print(f"{file}:{number}: {old} -> {new}")
+
+              for number, changed_url in added_urls:
+                  if url.search(re.split("[?#]", changed_url, maxsplit=1)[0][1:]):  # Another URL, but not in a query or fragment
+                      print(f"Warning: {file}:{number}: several URLs may be glued together, so unchanged ones may be checked too: {changed_url}")
+
+          # Neutralize the other URLs (`http` -> `hxxp`, also inside the URL in case several are glued together)
+          for file in pathlib.Path("changed-files.txt").read_text().splitlines():
+              path = pathlib.Path(file)
+              kept_urls = changed_urls.get(file, set())
+              lines = path.read_text(errors="surrogateescape").split("\n")
+              path.write_text("\n".join(
+                  url.sub(lambda match: match[0] if (number, match[0]) in kept_urls else re.sub("(?i)http", "hxxp", match[0]), line)
+                  for number, line in enumerate(lines, start=1)
+              ), errors="surrogateescape")
           PY
 
       - name: Restore lychee cache

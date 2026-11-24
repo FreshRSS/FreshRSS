@@ -311,6 +311,7 @@ return array(
 		'sticky_sort' => 'الاحتفاظ بترتيب الفرز المخصص أثناء التنقل',
 		'sticky_sort_help' => 'يحدد ما إذا كان آخر ترتيب فرز مخصص يبقى فعالا أم أن كل تصنيف أو خلاصة يستخدم دائما إعداده الافتراضي أو العام.',
 		'title' => 'القراءة',
+		'title_opens_website' => 'Clicking on the article title opens it on its original website',	// TODO
 		'view' => array(
 			'default' => 'العرض الافتراضي',
 			'global' => 'العرض الشامل',

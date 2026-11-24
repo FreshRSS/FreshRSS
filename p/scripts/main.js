@@ -1430,8 +1430,8 @@ function init_stream(stream) {
 		}
 
 		el = ev.target.closest('.item a.title');
-		if (el) {	// Allow default control/command-click behaviour such as open in background-tab
-			return ev.ctrlKey || ev.metaKey;
+		if (el) {	// Allow default control/command-click behaviour such as open in background-tab, or opening the original website
+			return context.title_opens_website || ev.ctrlKey || ev.metaKey;
 		}
 
 		el = ev.target.closest('.flux .content .text a');
@@ -1588,7 +1588,7 @@ function init_stream(stream) {
 
 		el = ev.target.closest('.flux_header, .flux_content');
 		if (el) {	// flux_toggle
-			if (ev.target.closest('.reader, .content, .item.website, .item.link, .dropdown')) {
+			if (ev.target.closest('.reader, .content, .item.website, .item.link > a, .dropdown')) {
 				return true;
 			}
 			if ((!context.sides_close_article && ev.target.matches('.flux_content')) || ev.target.closest('footer')) {
@@ -1615,7 +1615,7 @@ function init_stream(stream) {
 
 		let el = ev.target.closest('.item a.title');
 		if (el) {
-			if (ev.ctrlKey) {	// Control+click
+			if (ev.ctrlKey || context.title_opens_website) {	// Control+click, or normal click opening the original website
 				if (context.auto_mark_site) {
 					mark_read(el.closest('.flux'), true, false);
 				}
@@ -2437,16 +2437,14 @@ function enforce_referrer_allowlist(stream) {
 	for (const iframe of stream.querySelectorAll('div.content iframe[src], div.content iframe[data-original]')) {
 		let hostname;
 		try {
-			hostname = new URL(context.does_lazyload ? iframe.getAttribute('data-original') : iframe.src).hostname;
+			hostname = new URL(iframe.src).hostname;
 		} catch (_) {
 			continue;
 		}
 		if (context.send_referrer_allowlist.includes(hostname) && !iframe.hasAttribute('referrerpolicy')) {
 			iframe.setAttribute('referrerpolicy', 'strict-origin-when-cross-origin');
-			if (!context.does_lazyload) {
-				// iframe must be reloaded to apply the `referrerpolicy` change
-				iframe.src = iframe.src; // eslint-disable-line no-self-assign
-			}
+			// iframe must be reloaded to apply the `referrerpolicy` change
+			iframe.src = iframe.src; // eslint-disable-line no-self-assign
 		}
 	}
 }

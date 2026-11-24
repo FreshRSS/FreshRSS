@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a98d34205a998ade47ad94d4e7c2ed09",
+    "content-hash": "98e7aca4fad3cf4ebfe82427ff8cc73f",
     "packages": [],
     "packages-dev": [
         {
@@ -2102,9 +2102,7 @@
         "ext-pdo": "*",
         "ext-pdo_sqlite": "*",
         "ext-session": "*",
-        "ext-simplexml": "*",
         "ext-xml": "*",
-        "ext-xmlreader": "*",
         "ext-zend-opcache": "*",
         "ext-zip": "*",
         "ext-zlib": "*"
@@ -2112,11 +2110,12 @@
     "platform-dev": {
         "php": ">=8.2",
         "ext-phar": "*",
+        "ext-simplexml": "*",
         "ext-tokenizer": "*",
         "ext-xmlwriter": "*"
     },
     "platform-overrides": {
         "php": "8.2"
     },
-    "plugin-api-version": "2.9.0"
+    "plugin-api-version": "2.11.0"
 }

@@ -206,10 +206,35 @@ class FreshRSS_Entry extends Minz_Model {
 
 	/**
 	 * Provides the original content without additional content potentially added by loadCompleteContent().
+	 * In the style of MIME multipart boundaries, stored in the `full_content_delimiter` attribute.
 	 */
 	public function originalContent(): string {
-		return $this->attributeString('original_content') ??
-			preg_replace('#<!-- FULLCONTENT start //-->.*<!-- FULLCONTENT end //-->#s', '', $this->content) ?? '';
+		$originalContent = $this->attributeString('original_content');
+		if ($originalContent !== null) {
+			return $originalContent;
+		}
+		$html = $this->content;
+		if (!str_contains($html, '<!-- FULLCONTENT ')) {
+			return $html;
+		}
+		$delimiter = $this->attributeString('full_content_delimiter');
+		if ($delimiter === null || $delimiter === '') {
+			// Legacy unsafe markers
+			$startMarker = '<!-- FULLCONTENT start //-->';
+			$endMarker = '<!-- FULLCONTENT end //-->';
+		} else {
+			$startMarker = "<!-- FULLCONTENT {$delimiter} start //-->";
+			$endMarker = "<!-- FULLCONTENT {$delimiter} end //-->";
+		}
+		$startPos = strpos($html, $startMarker);
+		if ($startPos === false) {
+			return $html;	// Could not find the start boundary, so return the HTML as-is
+		}
+		$endPos = strpos($html, $endMarker, $startPos + strlen($startMarker));
+		if ($endPos === false) {
+			return $html;	// Could not find the end boundary, so return the HTML as-is
+		}
+		return substr($html, 0, $startPos) . substr($html, $endPos + strlen($endMarker));
 	}
 
 	/**
@@ -271,7 +296,8 @@ class FreshRSS_Entry extends Minz_Model {
 
 			foreach ($thumbnails as $thumbnail) {
 				if (is_string($thumbnail) && \SimplePie\Misc::is_remote_uri($thumbnail)) {
-					$content .= '<p><img class="enclosure-thumbnail" src="' . $thumbnail . '" alt="" title="' . $etitle . '" /></p>';
+					// No title here: it is output once with the enclosure itself below, not once more for each thumbnail
+					$content .= '<p><img class="enclosure-thumbnail" src="' . $thumbnail . '" alt="" /></p>';
 				}
 			}
 
@@ -324,25 +350,23 @@ class FreshRSS_Entry extends Minz_Model {
 		try {
 			$searchEnclosures = !is_iterable($attributeEnclosures) && (str_contains($this->content, '<p class="enclosure-content'));
 			$searchBodyImages &= (stripos($this->content, '<img') !== false);
-			$xpath = null;
+			$doc = null;
 			if ($searchEnclosures || $searchBodyImages) {
-				$dom = new DOMDocument();
-				$dom->loadHTML('<?xml version="1.0" encoding="UTF-8" ?>' . $this->content, LIBXML_NONET | LIBXML_NOERROR | LIBXML_NOWARNING);
-				$xpath = new DOMXPath($dom);
+				$doc = Dom\HTMLDocument::createFromString($this->content, LIBXML_NOERROR | Dom\HTML_NO_DEFAULT_NS);
 			}
-			if ($searchEnclosures && $xpath !== null) {
+			if ($searchEnclosures && $doc !== null) {
 				// Legacy code for database entries < FreshRSS 1.20.1
-				$enclosures = $xpath->query('//div[@class="enclosure"]/p[@class="enclosure-content"]/*[@src]');
-				if (!empty($enclosures)) {
+				$enclosures = $doc->querySelectorAll('div.enclosure > p.enclosure-content > [src]');
+				if ($enclosures->length > 0) {
 					foreach ($enclosures as $enclosure) {
-						if (!($enclosure instanceof DOMElement)) {
+						if (!($enclosure instanceof Dom\Element)) {
 							continue;
 						}
 						$result = [
-							'url' => $enclosure->getAttribute('src'),
-							'type' => $enclosure->getAttribute('data-type'),
-							'medium' => $enclosure->getAttribute('data-medium'),
-							'length' => (int)($enclosure->getAttribute('data-length')),
+							'url' => $enclosure->getAttribute('src') ?? '',
+							'type' => $enclosure->getAttribute('data-type') ?? '',
+							'medium' => $enclosure->getAttribute('data-medium') ?? '',
+							'length' => (int)($enclosure->getAttribute('data-length') ?? ''),
 						];
 						if (empty($result['medium'])) {
 							switch (strtolower($enclosure->nodeName)) {
@@ -355,18 +379,18 @@ class FreshRSS_Entry extends Minz_Model {
 					}
 				}
 			}
-			if ($searchBodyImages && $xpath !== null) {
-				$images = $xpath->query('//img');
-				if (!empty($images)) {
+			if ($searchBodyImages && $doc !== null) {
+				$images = $doc->querySelectorAll('img');
+				if ($images->length > 0) {
 					foreach ($images as $img) {
-						if (!($img instanceof DOMElement)) {
+						if (!($img instanceof Dom\Element)) {
 							continue;
 						}
-						$src = $img->getAttribute('src');
-						if ($src == null) {
-							$src = $img->getAttribute('data-src');
+						$src = $img->getAttribute('src') ?? '';
+						if ($src === '') {
+							$src = $img->getAttribute('data-src') ?? '';
 						}
-						if ($src != null) {
+						if ($src !== '') {
 							$result = [
 								'url' => $src,
 								'medium' => 'image',
@@ -735,7 +759,7 @@ class FreshRSS_Entry extends Minz_Model {
 				}
 				if ($ok && $filter->getAuthorRegex() !== null) {
 					foreach ($filter->getAuthorRegex() as $author) {
-						$ok &= preg_match($author, implode("\n", $this->authors)) === 1;
+						$ok &= $this->regexMatch($author, implode("\n", $this->authors), $booleanSearch) === 1;
 					}
 				}
 				if ($ok && $filter->getNotAuthor() !== null) {
@@ -745,7 +769,7 @@ class FreshRSS_Entry extends Minz_Model {
 				}
 				if ($ok && $filter->getNotAuthorRegex() !== null) {
 					foreach ($filter->getNotAuthorRegex() as $author) {
-						$ok &= preg_match($author, implode("\n", $this->authors)) === 0;
+						$ok &= $this->regexMatch($author, implode("\n", $this->authors), $booleanSearch) === 0;
 					}
 				}
 				if ($ok && $filter->getIntitle() !== null) {
@@ -755,7 +779,7 @@ class FreshRSS_Entry extends Minz_Model {
 				}
 				if ($ok && $filter->getIntitleRegex() !== null) {
 					foreach ($filter->getIntitleRegex() as $title) {
-						$ok &= preg_match($title, $this->title) === 1;
+						$ok &= $this->regexMatch($title, $this->title, $booleanSearch) === 1;
 					}
 				}
 				if ($ok && $filter->getNotIntitle() !== null) {
@@ -765,7 +789,7 @@ class FreshRSS_Entry extends Minz_Model {
 				}
 				if ($ok && $filter->getNotIntitleRegex() !== null) {
 					foreach ($filter->getNotIntitleRegex() as $title) {
-						$ok &= preg_match($title, $this->title) === 0;
+						$ok &= $this->regexMatch($title, $this->title, $booleanSearch) === 0;
 					}
 				}
 				if ($ok && $filter->getIntext() !== null) {
@@ -775,7 +799,7 @@ class FreshRSS_Entry extends Minz_Model {
 				}
 				if ($ok && $filter->getIntextRegex() !== null) {
 					foreach ($filter->getIntextRegex() as $content) {
-						$ok &= preg_match($content, $this->content) === 1;
+						$ok &= $this->regexMatch($content, $this->content, $booleanSearch) === 1;
 					}
 				}
 				if ($ok && $filter->getNotIntext() !== null) {
@@ -785,7 +809,7 @@ class FreshRSS_Entry extends Minz_Model {
 				}
 				if ($ok && $filter->getNotIntextRegex() !== null) {
 					foreach ($filter->getNotIntextRegex() as $content) {
-						$ok &= preg_match($content, $this->content) === 0;
+						$ok &= $this->regexMatch($content, $this->content, $booleanSearch) === 0;
 					}
 				}
 				if ($ok && $filter->getTags() !== null) {
@@ -806,7 +830,7 @@ class FreshRSS_Entry extends Minz_Model {
 						$found = false;
 						foreach ($this->tags as $tag1) {
 							$tag1 = ltrim($tag1, '#');
-							if (preg_match($tag2, $tag1) === 1) {
+							if ($this->regexMatch($tag2, $tag1, $booleanSearch) === 1) {
 								$found = true;
 								break;
 							}
@@ -832,7 +856,7 @@ class FreshRSS_Entry extends Minz_Model {
 						$found = false;
 						foreach ($this->tags as $tag1) {
 							$tag1 = ltrim($tag1, '#');
-							if (preg_match($tag2, $tag1) === 1) {
+							if ($this->regexMatch($tag2, $tag1, $booleanSearch) === 1) {
 								$found = true;
 								break;
 							}
@@ -847,7 +871,7 @@ class FreshRSS_Entry extends Minz_Model {
 				}
 				if ($ok && $filter->getInurlRegex() !== null) {
 					foreach ($filter->getInurlRegex() as $url) {
-						$ok &= preg_match($url, $this->link) === 1;
+						$ok &= $this->regexMatch($url, $this->link, $booleanSearch) === 1;
 					}
 				}
 				if ($ok && $filter->getNotInurl() !== null) {
@@ -857,7 +881,7 @@ class FreshRSS_Entry extends Minz_Model {
 				}
 				if ($ok && $filter->getNotInurlRegex() !== null) {
 					foreach ($filter->getNotInurlRegex() as $url) {
-						$ok &= preg_match($url, $this->link) === 0;
+						$ok &= $this->regexMatch($url, $this->link, $booleanSearch) === 0;
 					}
 				}
 				if ($ok && $filter->getSearch() !== null) {
@@ -872,12 +896,12 @@ class FreshRSS_Entry extends Minz_Model {
 				}
 				if ($ok && $filter->getSearchRegex() !== null) {
 					foreach ($filter->getSearchRegex() as $needle) {
-						$ok &= (preg_match($needle, $this->title) === 1 || preg_match($needle, $this->content) === 1);
+						$ok &= ($this->regexMatch($needle, $this->title, $booleanSearch) === 1 || $this->regexMatch($needle, $this->content, $booleanSearch) === 1);
 					}
 				}
 				if ($ok && $filter->getNotSearchRegex() !== null) {
 					foreach ($filter->getNotSearchRegex() as $needle) {
-						$ok &= (preg_match($needle, $this->title) === 0 && preg_match($needle, $this->content) === 0);
+						$ok &= ($this->regexMatch($needle, $this->title, $booleanSearch) === 0 && $this->regexMatch($needle, $this->content, $booleanSearch) === 0);
 					}
 				}
 				if ($ok) {
@@ -886,6 +910,27 @@ class FreshRSS_Entry extends Minz_Model {
 			}
 		}
 		return (bool)$ok;
+	}
+
+	/**
+	 * Handle `preg_match()` errors with better logging
+	 * @return int|false Same return values as preg_match()
+	 */
+	private function regexMatch(string $pattern, string $subject, FreshRSS_BooleanSearch $booleanSearch): int|false {
+		/** @var array<string,bool> */
+		static $loggedRegexes = [];
+
+		$result = @preg_match($pattern, $subject);
+		if ($result === false && preg_last_error() === PREG_INTERNAL_ERROR) {
+			if (!isset($loggedRegexes[$pattern])) {
+				$loggedRegexes[$pattern] = true;	// Log only once per run
+				Minz_Log::warning(__METHOD__ . ' Invalid PCRE regex `' . $pattern . '`; ' .
+					(error_get_last()['message'] ?? preg_last_error_msg()) .
+					'; in search: `' . $booleanSearch . '`' .
+					'; first triggered by entry ' . $this->id() . ' of feed ' . $this->feedId());
+			}
+		}
+		return $result;
 	}
 
 	/**
@@ -952,19 +997,20 @@ class FreshRSS_Entry extends Minz_Model {
 		$response = FreshRSS_http_Util::httpGet($url, $cachePath, 'html', $feed->attributes(), $feed->curlOptions());
 		$html = $response['body'];
 		if ($html !== '') {
-			$doc = new DOMDocument();
-			$doc->loadHTML($html, LIBXML_NONET | LIBXML_NOERROR | LIBXML_NOWARNING);
-			$xpath = new DOMXPath($doc);
+			$doc = Dom\HTMLDocument::createFromString($html, LIBXML_NOERROR);
 
 			// Account for HTTP redirections
 			$url = $response['effective_url'] ?: $url;
 			$maxRedirs -= $response['redirect_count'];
 			if ($maxRedirs > 0) {
 				//Follow any HTML redirection
-				$metas = $xpath->query('//meta[@content]') ?: [];
+				$metas = $doc->querySelectorAll('meta[content]');
 				foreach ($metas as $meta) {
-					if ($meta instanceof DOMElement && strtolower(trim($meta->getAttribute('http-equiv'))) === 'refresh') {
-						$refresh = preg_replace('/^[0-9.; ]*\s*(url\s*=)?\s*/i', '', trim($meta->getAttribute('content')));
+					if (!$meta instanceof Dom\Element) {
+						continue;
+					}
+					if (strtolower(trim($meta->getAttribute('http-equiv') ?? '')) === 'refresh') {
+						$refresh = preg_replace('/^[0-9.; ]*\s*(url\s*=)?\s*/i', '', trim($meta->getAttribute('content') ?? ''));
 						$refresh = is_string($refresh) ? \SimplePie\Misc::absolutize_url($refresh, $url) : false;
 						if ($refresh != false && $refresh !== $url) {
 							return $this->getContentByParsing($refresh, $maxRedirs - 1);
@@ -973,8 +1019,12 @@ class FreshRSS_Entry extends Minz_Model {
 				}
 			}
 
-			$base = $xpath->evaluate('normalize-space(//base/@href)');
-			if ($base == false || !is_string($base)) {
+			$base = '';
+			$baseNode = $doc->querySelector('base[href]');
+			if ($baseNode instanceof Dom\Element) {
+				$base = trim($baseNode->getAttribute('href') ?? '');
+			}
+			if ($base === '') {
 				$base = $url;
 			} elseif (str_starts_with($base, '//')) {
 				//Protocol-relative URLs "//www.example.net"
@@ -985,75 +1035,55 @@ class FreshRSS_Entry extends Minz_Model {
 			$cssSelector = htmlspecialchars_decode($feed->pathEntries(), ENT_QUOTES);
 			$cssSelector = trim($cssSelector, ', ');
 			$path_entries_filter = trim($feed->attributeString('path_entries_filter') ?? '', ', ');
-			$nodes = $xpath->query((new GT\CssXPath\Translator($cssSelector, '//'))->asXPath());
-			if ($nodes === false || $nodes->length === 0) {
+			$nodeList = $doc->querySelectorAll($cssSelector);
+			if ($nodeList->length === 0) {
 				Minz_Log::warning('CSS content retrieval matched no elements for feed “' . $feed->name() . '” and article URL ' . $url . ': ' . $cssSelector);
 			} else {
-				$filter_xpath = $path_entries_filter === '' ? '' : (new GT\CssXPath\Translator($path_entries_filter, 'descendant-or-self::'))->asXPath();
-				foreach ($nodes as $node) {
-					try {
-						if (!($node instanceof DOMElement)) {
-							continue;
-						}
-						if ($filter_xpath !== '' && ($filterednodes = $xpath->query($filter_xpath, $node)) !== false) {
-							// Remove unwanted elements once before sanitizing, for CSS selectors to also match original content
-							foreach ($filterednodes as $filterednode) {
-								try {
-									if ($filterednode === $node) {
-										continue 2;
-									}
-									if (!($filterednode instanceof DOMElement) || $filterednode->ownerDocument !== $doc || $filterednode->parentNode === null) {
-										continue;
-									}
-									$filterednode->remove();
-								} catch (Error $e) {	// @phpstan-ignore catch.neverThrown
-									if (!str_contains($e->getMessage(), 'Node no longer exists')) {
-										throw $e;
-									}
-								}
+				foreach ($nodeList as $node) {
+					if (!($node instanceof Dom\Element)) {
+						continue;
+					}
+					if ($path_entries_filter !== '' && $node->matches($path_entries_filter)) {
+						// Remove unwanted elements once before sanitizing, for CSS selectors to also match original content
+						continue;
+					}
+					if ($path_entries_filter !== '') {
+						$filterednodeList = $node->querySelectorAll($path_entries_filter);
+						foreach ($filterednodeList as $filterednode) {
+							if (!($filterednode instanceof Dom\Element) || $filterednode->ownerDocument !== $doc || $filterednode->parentNode === null) {
+								continue;
 							}
-						}
-						if ($node->ownerDocument !== $doc || $node->parentNode === null) {
-							continue;
-						}
-						$html .= $doc->saveHTML($node) . "\n";
-					} catch (Error $e) {
-						if (!str_contains($e->getMessage(), 'Node no longer exists')) {
-							throw $e;
+							$filterednode->remove();
 						}
 					}
+					if ($node->ownerDocument !== $doc || $node->parentNode === null) {
+						continue;
+					}
+					$html .= $doc->saveHTML($node) . "\n";
 				}
 			}
 
-			unset($xpath, $doc);
+			unset($doc);
 			$html = FreshRSS_SimplePieCustom::sanitizeHTML($html, $base);
-			if ($nodes !== false && $nodes->length > 0 && trim($html) === '') {
+			if ($nodeList->length > 0 && trim($html) === '') {
 				Minz_Log::warning('CSS content retrieval returned no content for feed “' . $feed->name() . '” and article URL ' . $url . ': ' . $cssSelector);
 			}
 
 			if ($path_entries_filter !== '') {
 				// Remove unwanted elements again after sanitizing, for CSS selectors to also match sanitized content
 				$modified = false;
-				$doc = new DOMDocument();
-				$utf8BOM = "\xEF\xBB\xBF";
-				$doc->loadHTML($utf8BOM . $html, LIBXML_NONET | LIBXML_NOERROR | LIBXML_NOWARNING);
-				$xpath = new DOMXPath($doc);
-				$filterednodes = $xpath->query((new GT\CssXPath\Translator($path_entries_filter, '//'))->asXPath()) ?: [];
-				foreach ($filterednodes as $filterednode) {
-					try {
-						if (!($filterednode instanceof DOMElement) || $filterednode->ownerDocument !== $doc || $filterednode->parentNode === null) {
-							continue;
-						}
-						$filterednode->remove();
-						$modified = true;
-					} catch (Error $e) {	// @phpstan-ignore catch.neverThrown
-						if (!str_contains($e->getMessage(), 'Node no longer exists')) {
-							throw $e;
-						}
+				$doc = Dom\HTMLDocument::createFromString($html, LIBXML_NOERROR);
+				$filterednodeList = $doc->querySelectorAll($path_entries_filter);
+				foreach ($filterednodeList as $filterednode) {
+					if (!($filterednode instanceof Dom\Element) || $filterednode->ownerDocument !== $doc || $filterednode->parentNode === null) {
+						continue;
 					}
+					$filterednode->remove();
+					$modified = true;
 				}
 				if ($modified) {
-					$html = $doc->saveHTML($doc->getElementsByTagName('body')->item(0) ?? $doc->firstElementChild) ?: $html;
+					$bodyNode = $doc->querySelector('body');
+					$html = $doc->saveHTML($bodyNode ?? $doc->firstElementChild) ?: $html;
 				}
 			}
 
@@ -1084,8 +1114,11 @@ class FreshRSS_Entry extends Minz_Model {
 					// The article is not yet in the database, so let’s fetch it
 					$fullContent = $this->getContentByParsing();
 					if ('' !== $fullContent) {
-						$fullContent = "<!-- FULLCONTENT start //-->{$fullContent}<!-- FULLCONTENT end //-->";
 						$originalContent = $this->originalContent();
+						// Unique delimiter, inspired by MIME multipart boundaries
+						$delimiter = bin2hex(random_bytes(16));
+						$this->_attribute('full_content_delimiter', $delimiter);
+						$fullContent = "<!-- FULLCONTENT {$delimiter} start //-->{$fullContent}<!-- FULLCONTENT {$delimiter} end //-->";
 						switch ($feed->attributeString('content_action')) {
 							case 'prepend':
 								$this->_attribute('original_content');
@@ -1110,30 +1143,18 @@ class FreshRSS_Entry extends Minz_Model {
 			}
 		} elseif (trim($feed->attributeString('path_entries_filter') ?? '') !== '') {
 			$originalContent = $this->attributeString('original_content') ?? $this->content;
-			$doc = new DOMDocument();
-			$utf8BOM = "\xEF\xBB\xBF";
-			if (!$doc->loadHTML($utf8BOM . $originalContent, LIBXML_NONET | LIBXML_NOERROR | LIBXML_NOWARNING)) {
-				return false;
-			}
-			$xpath = new DOMXPath($doc);
-			$filterednodes = $xpath->query((new GT\CssXPath\Translator($feed->attributeString('path_entries_filter'), '//'))->asXPath()) ?: [];
-			foreach ($filterednodes as $filterednode) {
-				try {
-					if (!($filterednode instanceof DOMElement) || $filterednode->ownerDocument !== $doc || $filterednode->parentNode === null) {
-						continue;
-					}
-					$filterednode->remove();
-				} catch (Error $e) {	// @phpstan-ignore catch.neverThrown
-					if (!str_contains($e->getMessage(), 'Node no longer exists')) {
-						throw $e;
-					}
+			$doc = Dom\HTMLDocument::createFromString($originalContent, LIBXML_NOERROR | Dom\HTML_NO_DEFAULT_NS);
+			$pathEntriesFilter = $feed->attributeString('path_entries_filter');
+			$filterednodeList = $doc->querySelectorAll($pathEntriesFilter);
+			foreach ($filterednodeList as $filterednode) {
+				if (!($filterednode instanceof Dom\Element) || $filterednode->ownerDocument !== $doc || $filterednode->parentNode === null) {
+					continue;
 				}
+				$filterednode->remove();
 			}
-			$html = $doc->saveHTML($doc->getElementsByTagName('body')->item(0) ?? $doc->firstElementChild);
-			if (!is_string($html)) {
-				return false;
-			}
-			$html = preg_replace('%^\s*<body>\s*|\s*</body>\s*$%i', '', $html);
+			$bodyNode = $doc->querySelector('body');
+			$html = $doc->saveHTML($bodyNode ?? $doc->firstElementChild) ?: '';
+			$html = preg_replace('%^\s*<body>\s*|\s*</body>\s*$%i', '', $html) ?? '';
 			$this->_attribute('original_content');
 			if (is_string($html) && $this->content !== $html) {
 				$this->_attribute('original_content', $originalContent);

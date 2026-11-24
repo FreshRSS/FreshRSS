@@ -28,7 +28,8 @@ final class exportArticlesTest extends \PHPUnit\Framework\TestCase {
 		for ($i = 1; $i <= $count; $i++) {
 			$entry = new FreshRSS_Entry(1, 'guid-' . $i, 'Title ' . $i, '', str_repeat('<p>Contenu exporté ' . $i . '</p>', 200),
 				'https://example.net/' . $i, 1700000000 + $i);
-			$entry->_id(1700000000000000 + $i);
+			// A string, because this value exceeds PHP_INT_MAX on 32-bit platforms and would be a float there
+			$entry->_id('17000000000000' . sprintf('%02d', $i));	// @phpstan-ignore argument.type (numeric-string)
 			$entries[] = $entry;
 		}
 		return $entries;

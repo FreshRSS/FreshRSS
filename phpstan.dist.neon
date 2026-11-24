@@ -58,6 +58,15 @@ parameters:
 	ignoreErrors:
 		- '#Only booleans are allowed in (a negated boolean|a ternary operator condition|an elseif condition|an if condition|&&|\|\|), (bool|false|int(<[0-9, max]+>)?|true|null|\|)+ given.*#'
 		-
+			# For PHP < 8.4, the `Dom\` classes are approximated by `lib/simplepie/simplepie/compat/`
+			identifier: class.notFound
+			messages:
+				- '#Dom\\\S+#'
+		-
+			identifier: argument.type
+			messages:
+				- '#Dom\\\S+#'
+		-
 			message: '#Access to deprecated#'
 			path: app/Models/Context.php
 		-

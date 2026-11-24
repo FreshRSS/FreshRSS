@@ -203,7 +203,7 @@ return array(
 			'feeds' => 'Mostrar por feed',
 			'include_article_tags_label' => 'Incluir tags de artigos dos feeds',
 			'include_user_labels_label' => 'Incluir rótulos de utilizador, com o prefixo:',
-			'order' => 'Sort by',	// TODO
+			'order' => 'Ordenar por',
 			'search' => 'Expressão',
 			'shareOpml' => 'Ativar a partilha por OPML de categorias e feeds correspondentes',
 			'shareRss' => 'Ativar a partilha por HTML e RSS',
@@ -311,6 +311,7 @@ return array(
 		'sticky_sort' => 'Manter a ordenação manual durante a navegação',
 		'sticky_sort_help' => 'Determina se a última ordenação manual é mantida ativa ou se cada categoria ou fonte utiliza sempre a sua própria configuração predefinida ou global.',
 		'title' => 'Leitura',
+		'title_opens_website' => 'Clicar no título do artigo abre-o no site original',
 		'view' => array(
 			'default' => 'Visualização predefinida',
 			'global' => 'Visualização global',

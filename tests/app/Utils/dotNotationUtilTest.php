@@ -70,7 +70,12 @@ final class dotNotationUtilTest extends \PHPUnit\Framework\TestCase {
 		self::assertStringContainsString('<category>News &amp; Politics</category>', $rss);
 		self::assertStringContainsString('<category>Arts &amp; Culture</category>', $rss);
 		self::assertStringContainsString('<category>Science &amp; Tech</category>', $rss);
-		self::assertNotFalse(simplexml_load_string($rss), 'Output must be valid XML');
+		try {
+			$dom = Dom\XMLDocument::createFromString($rss);
+		} catch (Throwable $ex) { // @phpstan-ignore catch.neverThrown (Dom\XMLDocument::createFromString() does throw)
+			self::fail('Output must be valid XML: ' . $ex->getMessage());
+		}
+		self::assertInstanceOf(Dom\XMLDocument::class, $dom);
 	}
 
 	public static function testConvertJsonToRssKeepsAttachments(): void {
@@ -103,6 +108,11 @@ final class dotNotationUtilTest extends \PHPUnit\Framework\TestCase {
 		self::assertIsString($rss);
 		self::assertStringContainsString(
 			'<media:content url="https://example.net/1.mp3?a=1&amp;b=2" type="audio/mpeg" length="1234">', $rss);
-		self::assertNotFalse(simplexml_load_string($rss), 'Output must be valid XML');
+		try {
+			$dom = Dom\XMLDocument::createFromString($rss);
+		} catch (Throwable $ex) { // @phpstan-ignore catch.neverThrown (the XML parser throws on malformed documents, not disclosed in the PHP stubs)
+			self::fail('Output must be valid XML: ' . $ex->getMessage());
+		}
+		self::assertInstanceOf(Dom\XMLDocument::class, $dom);
 	}
 }

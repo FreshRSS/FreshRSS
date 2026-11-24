@@ -45,6 +45,26 @@ final class httpUtilTest extends \PHPUnit\Framework\TestCase {
 		];
 	}
 
+	#[DataProvider('provideUrlsForCheckUrl')]
+	public function test_checkUrl(string $url, string|false $expected): void {
+		self::assertSame($expected, FreshRSS_http_Util::checkUrl($url));
+	}
+
+	/** @return Traversable<string,array{string,string|false}> */
+	public static function provideUrlsForCheckUrl(): Traversable {
+		yield 'plain' => ['https://example.net/feed?a=1&amp;b=2', 'https://example.net/feed?a=1&amp;b=2'];
+		yield 'underscore' => ['https://ex_ample.net/', 'https://ex_ample.net/'];
+		yield 'IPv6' => ['https://[2001:db8::1]/feed', 'https://[2001:db8::1]/feed'];
+		if (function_exists('idn_to_ascii')) {
+			yield 'IDN' => ['https://bücher.example/feed', 'https://xn--bcher-kva.example/feed'];
+			yield 'IDN with ideographic full stop' => ['https://日本語。example/', 'https://xn--wgv71a119e.example/'];
+		}
+		// IDNA (UTS #46) maps fullwidth punctuation to ASCII: must not produce characters absent from the (possibly HTML-encoded) input
+		yield 'fullwidth markup in host' => ['https://example.net／＂＞＜b＞', false];
+		yield 'fullwidth path and query in host' => ['https://example.net／path？a＝1＆b＝2', false];
+		yield 'fullwidth userinfo in host' => ['https://example.net＠example.org/', false];
+	}
+
 	#[\Override]
 	protected function tearDown(): void {
 		FreshRSS_Context::initSystem(reload: true);	// Restore the default internal host allowlist
@@ -196,6 +216,39 @@ final class httpUtilTest extends \PHPUnit\Framework\TestCase {
 			'64:ff9b:1::/48' => ['64:ff9b:1::c000:4260'],	// RFC8215 (Local-Use IPv4/IPv6 Translation Prefix)
 			'::/128' => ['::'],	// Unspecified address
 		];
+	}
+
+	/** cURL would rewrite these hosts, and contact another name or address than the one checked and pinned */
+	#[DataProvider('provideHostsRewrittenByCurl')]
+	public function test_getCurlResolveInfoRejectsHostsRewrittenByCurl(string $host): void {
+		FreshRSS_Context::initSystem();
+		$resolveOk = new ReflectionProperty(FreshRSS_http_Util::class, 'resolve_ok');
+		$resolveOk->setValue(null, [strtolower($host) => ['192.0.66.96']]);
+		self::assertFalse(FreshRSS_http_Util::getCurlResolveInfo("http://$host/feed"));
+		self::assertFalse(FreshRSS_http_Util::getCurlResolveInfo("socks5h://$host:1080"));
+	}
+
+	/** @return array<string,array{string}> */
+	public static function provideHostsRewrittenByCurl(): array {
+		return [
+			'percent-encoded underscore' => ['a%5F.example.test'],	// cURL resolves a_.example.test
+			'percent-encoded UTF-8' => ['%C3%A9.example.test'],	// cURL resolves xn--9ca.example.test
+			'non-ASCII' => ['é.example.test'],	// cURL resolves xn--9ca.example.test
+			'IPv4 as one number' => ['2130706433'],	// cURL connects to 127.0.0.1
+			'IPv4 as hexadecimal' => ['0x7f.1'],	// cURL connects to 127.0.0.1
+			'IPv4 as octal' => ['0177.0.0.1'],	// cURL connects to 127.0.0.1
+			'IPv4 with fewer parts' => ['127.1'],	// cURL connects to 127.0.0.1
+		];
+	}
+
+	/** Ordinary host names are still resolved and pinned as written */
+	public function test_getCurlResolveInfoAcceptsHostsUsedAsWrittenByCurl(): void {
+		FreshRSS_Context::initSystem();
+		$resolveOk = new ReflectionProperty(FreshRSS_http_Util::class, 'resolve_ok');
+		foreach (['a_b-c.example.test', 'xn--9ca.example.test', '1.example.test', 'example.7z', 'example.test.'] as $host) {
+			$resolveOk->setValue(null, [$host => ['192.0.66.96']]);
+			self::assertSame(["$host:80:192.0.66.96"], FreshRSS_http_Util::getCurlResolveInfo("http://$host/feed"));
+		}
 	}
 
 	/** Socks schemes default to port 1080, and an IP address proxy produces no resolve entry */

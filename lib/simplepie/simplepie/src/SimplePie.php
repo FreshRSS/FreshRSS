@@ -24,6 +24,7 @@ use SimplePie\HTTP\Client;
 use SimplePie\HTTP\ClientException;
 use SimplePie\HTTP\FileClient;
 use SimplePie\HTTP\Psr18Client;
+use SimplePie\HTTP\RawTextResponse;
 use SimplePie\HTTP\Response;
 
 /**
@@ -729,8 +730,8 @@ class SimplePie
      */
     public function __construct()
     {
-        if (version_compare(PHP_VERSION, '7.2', '<')) {
-            exit('Please upgrade to PHP 7.2 or newer.');
+        if (version_compare(PHP_VERSION, '7.4', '<')) {
+            exit('Please upgrade to PHP 7.4 or newer.');
         }
 
         $this->set_useragent();
@@ -1777,7 +1778,9 @@ class SimplePie
                         [
                             '#<(lastBuildDate|pubDate|updated|feedDate|dc:date|slash:comments)>[^<]+</\\1>#',
                             '#<(media:starRating|media:statistics) [^/<>]+/>#',
-                            '#<!--.{,8192}?(-->|(?=]]>))#s', // XML comments up to a max length and stops at apparent end of CDATA section
+                            // XML comments up to a max length and stops at apparent end of CDATA section,
+                            // or at the start of another comment (unless part of an end such as `<!-->`)
+                            '#<!--.{0,8192}?(-->|(?=]]>|<!--(?!-*>)))#s',
                         ],
                         '',
                         $stream_data
@@ -1805,21 +1808,6 @@ class SimplePie
         if (!extension_loaded('xml') || !extension_loaded('pcre')) {
             $this->error = 'XML or PCRE extensions not loaded!';
             return false;
-        }
-        // Then check the xml extension is sane (i.e., libxml 2.7.x issue on PHP < 5.2.9 and libxml 2.7.0 to 2.7.2 on any version) if we don't have xmlreader.
-        elseif (!extension_loaded('xmlreader')) {
-            static $xml_is_sane = null;
-            if ($xml_is_sane === null) {
-                $parser_check = xml_parser_create();
-                xml_parse_into_struct($parser_check, '<foo>&amp;</foo>', $values);
-                if (\PHP_VERSION_ID < 80000) {
-                    xml_parser_free($parser_check);
-                }
-                $xml_is_sane = isset($values[0]['value']);
-            }
-            if (!$xml_is_sane) {
-                return false;
-            }
         }
 
         // The default sanitize class gets set in the constructor, check if it has
@@ -1883,8 +1871,15 @@ class SimplePie
         if ($this->feed_url !== null) {
             $parsed_feed_url = $this->registry->call(Misc::class, 'parse_url', [$this->feed_url]);
 
+            $scheme = $parsed_feed_url['scheme'];
+            if (!Misc::is_remote_uri($this->feed_url)) {
+                $source = $scheme === '' ? 'local feeds' : "feeds from $scheme";
+                $this->error = "Fetching $source not supported";
+                return false;
+            }
+
             // Decide whether to enable caching
-            if ($this->enable_cache && $parsed_feed_url['scheme'] !== '') {
+            if ($this->enable_cache && $scheme !== '') {
                 $cache = $this->get_cache($this->feed_url);
             }
 
@@ -2011,7 +2006,7 @@ class SimplePie
      *
      * If the data is already cached, attempt to fetch it from there instead
      *
-     * @param Base|DataCache|false $cache Cache handler, or false to not load from the cache
+     * @param Base|DataCache|false $cache Cache handler (when handling a non-local file), or false to not load from the cache
      * @return array{array<string, string>, string}|bool Returns true if the data was loaded from the cache, or an array of HTTP headers and sniffed type
      */
     protected function fetch_data(&$cache)
@@ -2021,7 +2016,6 @@ class SimplePie
             $cache = new BaseDataCache($cache);
         }
 
-        // @phpstan-ignore-next-line Enforce PHPDoc type.
         if ($cache !== false && !$cache instanceof DataCache) {
             throw new InvalidArgumentException(sprintf(
                 '%s(): Argument #1 ($cache) must be of type %s|false',
@@ -2104,7 +2098,7 @@ class SimplePie
                             // Set raw_data to false here too, to signify that the cache
                             // is still valid.
                             $this->raw_data = false;
-                            if (isset($file)) { // FreshRSS
+                            if (isset($file)) { // FreshRSS // @phpstan-ignore isset.variable
                                 $old_cache_control = $this->data['headers']['cache-control'] ?? '';
                                 $old_max_age = \SimplePie\HTTP\Utils::get_http_max_age($this->data['headers']);
 
@@ -2219,16 +2213,17 @@ class SimplePie
                 $copyContentType = $file->get_header_line('content-type');
                 try {
                     $microformats = false;
-                    if (class_exists('DOMXpath') && function_exists('Mf2\parse')) {
-                        $doc = new \DOMDocument();
-                        @$doc->loadHTML($file->get_body_content());
-                        $xpath = new \DOMXpath($doc);
+                    if (class_exists(\Dom\XPath::class) && function_exists('Mf2\parse')) {
+                        // NB: Unlike with the legacy DOM API, parsing never fails (no recovery needed),
+                        // and errors are swallowed by `LIBXML_NOERROR`.
+                        $doc = \Dom\HTMLDocument::createFromString($file->get_body_content(), LIBXML_NOERROR);
+                        $xpath = new \Dom\XPath($doc);
                         // Check for both h-feed and h-entry, as both a feed with no entries
                         // and a list of entries without an h-feed wrapper are both valid.
                         $query = '//*[contains(concat(" ", @class, " "), " h-feed ") or '.
                             'contains(concat(" ", @class, " "), " h-entry ")]';
 
-                        /** @var \DOMNodeList<\DOMElement> $result */
+                        /** @var \Dom\NodeList<\Dom\Element> $result */
                         $result = $xpath->query($query);
                         $microformats = $result->length !== 0;
                     }
@@ -2264,7 +2259,7 @@ class SimplePie
                 } catch (SimplePieException $e) {
                     // We need to unset this so that if SimplePie::set_file() has been called that object is untouched
                     unset($file);
-                    // This is usually because DOMDocument doesn't exist
+                    // This is usually because `\Dom\Document` doesn't exist
                     $this->error = $e->getMessage();
                     $this->registry->call(Misc::class, 'error', [$this->error, E_USER_NOTICE, $e->getFile(), $e->getLine()]);
                     return false;
@@ -3614,8 +3609,6 @@ class SimplePie
             foreach ($urls as $arg) {
                 if ($arg instanceof SimplePie) {
                     $items = array_merge($items, $arg->get_items(0, $limit));
-
-                    // @phpstan-ignore-next-line Enforce PHPDoc type.
                 } else {
                     trigger_error('Arguments must be SimplePie objects', E_USER_WARNING);
                 }

@@ -100,6 +100,7 @@ foreach (FreshRSS_Context::userConf()->queries as $raw_query) {
 			Minz_Request::_param('sort', $query->getSort());
 		}
 		Minz_Request::_param('state', (string)$query->getState());
+		Minz_Request::_param('cid');	// Ensure no internal continuation ID
 
 		// Note: we disallow references to user queries in public user search to avoid sniffing internal user queries
 		try {

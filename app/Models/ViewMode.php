@@ -5,6 +5,8 @@ declare(strict_types=1);
  * Represents a view mode option for the reading configuration
  */
 final readonly class FreshRSS_ViewMode {
+	public const DEFAULT_VIEW_MODE = 'normal';
+
 	private string $id;
 	private string $name;
 	private string $controller;
@@ -61,5 +63,9 @@ final readonly class FreshRSS_ViewMode {
 		}
 
 		return $modes;
+	}
+
+	public static function exists(string $mode): bool {
+		return isset(self::getAllModes()[$mode]);
 	}
 }

@@ -709,7 +709,7 @@ class FreshRSS_user_Controller extends FreshRSS_ActionController {
 	 */
 	public function deleteAction(): void {
 		$username = Minz_Request::paramString('username');
-		$self_deletion = Minz_User::name() === $username;
+		$self_deletion = FreshRSS_Auth::hasAccess() && Minz_User::name() === $username;
 
 		if (!FreshRSS_Auth::hasAccess('admin') && !$self_deletion) {
 			Minz_Error::error(403);

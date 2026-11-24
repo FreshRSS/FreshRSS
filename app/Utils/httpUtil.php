@@ -140,7 +140,7 @@ final class FreshRSS_http_Util {
 			if (is_string($idn) && $idn != '') {
 				$puny = idn_to_ascii($idn);
 				$pos = strpos($url, $idn);
-				if ($puny != false && $pos !== false) {
+				if ($pos !== false && is_string($puny) && preg_match('/^[a-z0-9._-]+$/iD', $puny) === 1) {
 					$url = substr_replace($url, $puny, $pos, strlen($idn));
 				}
 			}
@@ -180,7 +180,7 @@ final class FreshRSS_http_Util {
 	 * Set an XML preamble to enforce the HTML content type charset received by HTTP.
 	 * @param string $html the raw downloaded HTML content
 	 * @param string $contentType an HTTP Content-Type such as 'text/html; charset=utf-8'
-	 * @return string an HTML string with XML encoding information for DOMDocument::loadHTML()
+	 * @return string an HTML string with Unicode BOM encoding information
 	 */
 	private static function enforceHttpEncoding(string $html, string $contentType = ''): string {
 		$httpCharset = preg_match('/\bcharset=([0-9a-z_-]{2,12})$/i', $contentType, $matches) === 1 ? $matches[1] : '';
@@ -234,56 +234,28 @@ final class FreshRSS_http_Util {
 	 * @return string an HTML string
 	 */
 	private static function enforceHtmlBase(string $html, string $href): string {
-		$doc = new DOMDocument();
-		$doc->loadHTML($html, LIBXML_NONET | LIBXML_NOERROR | LIBXML_NOWARNING);
-		if ($doc->documentElement === null) {
+		$doc = Dom\HTMLDocument::createFromString($html, LIBXML_NOERROR);
+		$documentElement = $doc->documentElement;
+		if ($documentElement === null) {
 			return '';
 		}
-		$xpath = new DOMXPath($doc);
-		$bases = $xpath->evaluate('//base');
-		if (!($bases instanceof DOMNodeList) || $bases->length === 0) {
+		if ($doc->querySelector('base') === null) {
 			$base = $doc->createElement('base');
-			if ($base === false) {
-				return $html;
-			}
 			$base->setAttribute('href', $href);
-			$head = null;
-			$heads = $xpath->evaluate('//head');
-			if ($heads instanceof DOMNodeList && $heads->length > 0) {
-				$head = $heads->item(0);
-			}
-			if ($head instanceof DOMElement) {
+			$head = $doc->querySelector('head');
+			if ($head instanceof Dom\Element) {
 				$head->insertBefore($base, $head->firstChild);
 			} else {
-				$doc->documentElement->insertBefore($base, $doc->documentElement->firstChild);
+				$documentElement->insertBefore($base, $documentElement->firstChild);
 			}
 		}
 
-		// Save the start of HTML because libxml2 saveHTML() risks scrambling it
-		$htmlPos = stripos($html, '<html');
-		$htmlStart = $htmlPos === false || $htmlPos > 512 ? '' : substr($html, 0, $htmlPos);
-
-		$encoding = strtolower($doc->encoding ?? '');
-		$bom = str_starts_with($html, "\xEF\xBB\xBF") ? "\xEF\xBB\xBF" : '';
-		if ($encoding === 'utf-8' || ($encoding === '' && $bom !== '')) {
-			// For a whole document, libxml2 saveHTML() only knows the charset from <meta http-equiv="Content-Type">.
-			// With <meta charset="UTF-8"> or a byte order mark, it writes non-ASCII characters as HTML entities,
-			// also inside <script>, where they are not decoded, which corrupts e.g. JSON data. Node by node, it writes UTF-8.
-			$utf8 = '';
-			foreach ($doc->childNodes as $node) {
-				$utf8 .= $doc->saveHTML($node) ?: '';
-			}
-			$html = $utf8 !== '' ? $bom . $utf8 : $html;
-		} else {
-			$html = $doc->saveHTML() ?: $html;
+		$saved = $doc->saveHTML();
+		if ($saved === '') {
+			return $html;
 		}
-		if ($htmlStart !== '' && !str_starts_with($html, $htmlStart)) {
-			// libxml2 saveHTML() risks removing Unicode BOM and XML declaration,
-			// which affects future detection of charset encoding, so manually restore it
-			$htmlPos = stripos($html, '<html');
-			$html = $htmlPos === false || $htmlPos > 512 ? $html : $htmlStart . substr($html, $htmlPos);
-		}
-		return $html;
+		// Re-add the Unicode byte order mark, for downstream charset detection
+		return (str_starts_with($html, "\xEF\xBB\xBF") ? "\xEF\xBB\xBF" : '') . $saved;
 	}
 
 	public static function compareURLOrigins(string $url1, string $url2): bool {
@@ -354,6 +326,13 @@ final class FreshRSS_http_Util {
 		};
 		if (in_array('*', $internal_host_allowlist, true)) {
 			return [];	// Disables SSRF checks entirely (unsafe)
+		}
+		if (filter_var($host, FILTER_VALIDATE_IP) === false) {
+			// cURL percent-decodes the host, converts non-ASCII to Punycode, and reads a host ending in a number as IPv4 (e.g. 0x7f.1).
+			// Refuse such hosts, as cURL would contact another name or address than the one checked and pinned here.
+			if (preg_match('/^[a-z0-9._-]+$/D', $host) !== 1 || preg_match('/(^|\.)(\d+|0x[0-9a-f]*)\.?$/D', $host) === 1) {
+				return false;
+			}
 		}
 
 		$resolve_str = "$host:$port:";

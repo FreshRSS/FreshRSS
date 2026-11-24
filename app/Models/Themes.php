@@ -167,6 +167,11 @@ class FreshRSS_Themes extends Minz_Model {
 			return '';
 		}
 
+		// Not yet loaded when rendering without layout, e.g. AJAX views
+		if (!isset(self::$themeIcons) && FreshRSS_Context::hasUserConf()) {
+			self::load(FreshRSS_Context::userConf()->theme);
+		}
+
 		$url = $name . '.svg';
 		$url = isset(self::$themeIcons[$url]) ? (self::$themeIconsUrl . $url) : (self::$defaultIconsUrl . $url);
 

@@ -214,8 +214,8 @@ class File implements Response
                 } else {
                     // For PHPStan: `curl_exec` returns `false` only on error so the `is_string` check will always pass.
                     \assert(is_string($responseBody));
-                    if (curl_getinfo($fp, CURLINFO_HTTP_CONNECTCODE) !== 0) {
-                        // TODO: Replace with `CURLOPT_SUPPRESS_CONNECT_HEADERS` once PHP 7.2 support is dropped.
+                    if (!\defined('CURLOPT_SUPPRESS_CONNECT_HEADERS') && curl_getinfo($fp, CURLINFO_HTTP_CONNECTCODE) !== 0) {
+                        // libcurl older than 7.54 has no CURLOPT_SUPPRESS_CONNECT_HEADERS.
                         $responseHeaders = \SimplePie\HTTP\Parser::prepareHeaders($responseHeaders);
                     }
                     $this->on_http_response($responseHeaders . $responseBody, $curl_options);
@@ -466,16 +466,10 @@ class File implements Response
             }
         } else {
             $this->method = \SimplePie\SimplePie::FILE_SOURCE_LOCAL | \SimplePie\SimplePie::FILE_SOURCE_FILE_GET_CONTENTS;
-            $filebody = false;
-            if (empty($url) || !is_readable($url) || false === ($filebody = file_get_contents($url))) {
-                $this->body = '';
-                $this->error = sprintf('file "%s" is not readable', $url);
-                $this->success = false;
-            } else {
-                $this->body = $filebody;
-                $this->status_code = 200;
-            }
-            $this->on_http_response($filebody);
+            $this->body = '';
+            $this->error = sprintf('Fetching non-http(s) URI scheme not allowed, "%s" given.', $url);
+            $this->success = false;
+            $this->on_http_response('');
         }
         if ($this->success) {
             assert($this->body !== null); // For PHPStan
@@ -651,7 +645,7 @@ class File implements Response
     /**
      * @param array<string, string> $headers
      * @param array<int, mixed> $curl_options
-     * @return \CurlHandle
+     * @return resource
      */
     private static function curlInit(
         string $url,
@@ -662,6 +656,9 @@ class File implements Response
         bool $setAcceptEncoding = true
     ) {
         $fp = curl_init();
+        if ($fp === false) {
+            throw new \SimplePie\Exception('Could not initialize cURL');
+        }
 
         $headers2 = [];
         foreach ($headers as $key => $value) {
@@ -682,12 +679,20 @@ class File implements Response
         }
         /** @var non-empty-string $url */
         curl_setopt($fp, CURLOPT_URL, $url);
+        if (\defined('CURLOPT_SUPPRESS_CONNECT_HEADERS')) {
+            curl_setopt($fp, CURLOPT_SUPPRESS_CONNECT_HEADERS, true);
+        }
         curl_setopt($fp, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($fp, CURLOPT_FAILONERROR, true);
         curl_setopt($fp, CURLOPT_TIMEOUT, $timeout);
         curl_setopt($fp, CURLOPT_CONNECTTIMEOUT, $timeout);
-        // curl_setopt($fp, CURLOPT_REFERER, \SimplePie\Misc::url_remove_credentials($url)); // FreshRSS removed
-        curl_setopt($fp, CURLOPT_USERAGENT, $useragent);
+        // $referer = \SimplePie\Misc::url_remove_credentials($url);
+        // if ($referer !== '') {
+        //     curl_setopt($fp, CURLOPT_REFERER, $referer); // FreshRSS removed
+        // }
+        if ($useragent !== '') {
+            curl_setopt($fp, CURLOPT_USERAGENT, $useragent);
+        }
         curl_setopt($fp, CURLOPT_HTTPHEADER, $headers2);
         foreach ($curl_options as $curl_param => $curl_value) {
             curl_setopt($fp, $curl_param, $curl_value);

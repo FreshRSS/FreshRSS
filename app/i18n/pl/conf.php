@@ -311,6 +311,7 @@ return array(
 		'sticky_sort' => 'Zachowaj niestandardową kolejność sortowania podczas nawigacji',
 		'sticky_sort_help' => 'Określa, czy ostatnia niestandardowa kolejność sortowania ma pozostać aktywna, czy każda kategoria lub kanał ma zawsze używać własnego ustawienia domyślnego albo globalnego.',
 		'title' => 'Czytanie',
+		'title_opens_website' => 'Clicking on the article title opens it on its original website',	// TODO
 		'view' => array(
 			'default' => 'Domyślny widok',
 			'global' => 'Widok globalny',

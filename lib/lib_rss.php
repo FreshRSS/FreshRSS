@@ -1,6 +1,10 @@
 <?php
 declare(strict_types=1);
 
+// Polyfill PHP 8.4+ `Dom\` classes, including the CSS selector API,
+// maintained together with the vendored SimplePie fork:
+require_once LIB_PATH . '/simplepie/simplepie/compat/dom.php';
+
 if (!function_exists('mb_strcut')) {
 	function mb_strcut(string $str, int $start, ?int $length = null, string $encoding = 'UTF-8'): string {
 		return substr($str, $start, $length) ?: '';
@@ -55,6 +59,10 @@ function actualize_mutex_file(string $tmpPath, string $dataPath): string {
 function unregister_unsafe_protocols(): void {
 	$registered_wrappers = stream_get_wrappers();
 	$allowed_wrappers = ['file', 'php'];
+	if (defined('__PHPSTAN_RUNNING__')) {
+		// Needed for PHPStan compatibility PHP < 8.4
+		$allowed_wrappers[] = 'phar';
+	}
 	foreach ($registered_wrappers as $protocol) {
 		if (!in_array($protocol, $allowed_wrappers, true)) {
 			stream_wrapper_unregister($protocol);
@@ -335,24 +343,33 @@ function cleanCache(int $hours = 720): void {
 }
 
 /**
- * Add support of image lazy loading
- * Move content from src/poster attribute to data-original
+ * Add native lazy loading by inserting a `loading="lazy"` attribute right after
+ * the tag name of img/image/iframe elements that do not have one,
+ * and use `data-original` attribute for video/track elements and their poster/src attributes.
  * @param string $content is the text we want to parse
  */
 function lazyimg(string $content): string {
-	return preg_replace([
-			'/<((?:img|image|iframe|track)[^>]+?)src="([^"]+)"([^>]*)>/i',
-			"/<((?:img|image|iframe|track)[^>]+?)src='([^']+)'([^>]*)>/i",
-			'/<((?:video)[^>]+?)poster="([^"]+)"([^>]*)>/i',
-			"/<((?:video)[^>]+?)poster='([^']+)'([^>]*)>/i",
+	$content = preg_replace(
+		'/<((?:img|image|iframe)\b)(?![^>]{0,1000}\b(?:loading|data-original)=)([^>]{0,1000}+)>/i',
+		'<$1 loading="lazy"$2>',
+		$content
+	) ?? $content;
+
+	$placeholder = Minz_Url::display('/themes/icons/grey.gif');
+	return preg_replace(
+		[
+			'/<((?:video)(?![^>]{0,1000}\bdata-original=)[^>]{1,1000}?)(?<![\w\'"-])poster="([^"]+)"([^>]*)>/i',
+			'/<((?:video)(?![^>]{0,1000}\bdata-original=)[^>]{1,1000}?)(?<![\w\'"-])poster=\'([^\']+)\'([^>]*)>/i',
+			'/<((?:track)(?![^>]{0,1000}\bdata-original=)[^>]{1,1000}?)(?<![\w\'"-])src="([^"]+)"([^>]*)>/i',
+			'/<((?:track)(?![^>]{0,1000}\bdata-original=)[^>]{1,1000}?)(?<![\w\'"-])src=\'([^\']+)\'([^>]*)>/i',
 		], [
-			'<$1src="' . Minz_Url::display('/themes/icons/grey.gif') . '" data-original="$2"$3>',
-			"<$1src='" . Minz_Url::display('/themes/icons/grey.gif') . "' data-original='$2'$3>",
-			'<$1poster="' . Minz_Url::display('/themes/icons/grey.gif') . '" data-original="$2"$3>',
-			"<$1poster='" . Minz_Url::display('/themes/icons/grey.gif') . "' data-original='$2'$3>",
+			'<$1poster="' . $placeholder . '" data-original="$2"$3>',
+			'<$1poster=\'' . $placeholder . '\' data-original=\'$2\'$3>',
+			'<$1src="' . $placeholder . '" data-original="$2"$3>',
+			'<$1src=\'' . $placeholder . '\' data-original=\'$2\'$3>',
 		],
 		$content
-	) ?? '';
+	) ?? $content;
 }
 
 /** @return numeric-string */

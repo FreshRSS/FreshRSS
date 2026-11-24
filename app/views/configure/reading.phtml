@@ -214,6 +214,17 @@
 					</label>
 				</div>
 			</div>
+
+			<div class="form-group">
+				<div class="group-controls">
+					<label class="checkbox" for="title_opens_website">
+						<input type="checkbox" name="title_opens_website" id="title_opens_website" value="1"<?=
+							FreshRSS_Context::userConf()->title_opens_website ? ' checked="checked"' : '' ?> />
+						<?= _t('conf.reading.title_opens_website') ?>
+						<noscript> — <strong><?= _t('gen.js.should_be_activated') ?></strong></noscript>
+					</label>
+				</div>
+			</div>
 		</fieldset>
 
 		<fieldset>
