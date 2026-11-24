@@ -5,11 +5,9 @@ final class FreshRSS_http_Util {
 
 	private const RETRY_AFTER_PATH = DATA_PATH . '/Retry-After/';
 	private const NAT64_PREFIX_RFC6052 = '64:ff9b::/96';
-	private const NAT64_PREFIX_RFC8215 = '64:ff9b:1::/48';
 
 	/**
-	 * Special-use ranges `FILTER_FLAG_GLOBAL_RANGE` does not reject on every supported PHP version.
-	 *
+	 * Special-use ranges `FILTER_FLAG_GLOBAL_RANGE` does not reject on every supported PHP version
 	 * @var list<string>
 	 */
 	private const ADDITIONAL_NON_GLOBAL_RANGES = [
@@ -22,6 +20,7 @@ final class FreshRSS_http_Util {
 		'5f00::/16',	// RFC 9602 (SRv6 SIDs)
 		'fec0::/10',	// RFC 3879 (deprecated site-local)
 		'ff00::/8',	// RFC 4291 (IPv6 multicast)
+		'64:ff9b:1::/48',	// RFC 8215 (Local-Use IPv4/IPv6 Translation Prefix)
 	];
 	/** @var array<string, string[]> $resolve_ok */
 	private static array $resolve_ok = [];
@@ -417,10 +416,8 @@ final class FreshRSS_http_Util {
 				continue;
 			}
 
-			// `FILTER_FLAG_GLOBAL_RANGE` does not reject the local-use NAT64 prefix,
-			// nor every special-use range. Reject those explicitly.
+			// `FILTER_FLAG_GLOBAL_RANGE` does not reject all special-use ranges
 			if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_GLOBAL_RANGE) === false ||
-				self::checkCIDR($ip, self::NAT64_PREFIX_RFC8215) ||
 				self::isAdditionalNonGlobal($ip)) {
 				continue;
 			}
