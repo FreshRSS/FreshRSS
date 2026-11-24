@@ -1,25 +1,32 @@
 <?php
 	declare(strict_types=1);
-	/** @var FreshRSS_View $this */
-	if ($this->entry === null) {
+	/** @var View $this */
+
+use FreshRss\Controllers\TagController;
+use FreshRss\Minz\Url;
+use FreshRss\Models\Auth;
+use FreshRss\Models\Context;
+use FreshRss\Models\View;
+
+if ($this->entry === null) {
 		return;
 	}
-	$bottomline_read = FreshRSS_Context::userConf()->bottomline_read;
-	$bottomline_favorite = FreshRSS_Context::userConf()->bottomline_favorite;
-	$bottomline_sharing = FreshRSS_Context::userConf()->bottomline_sharing && (count(FreshRSS_Context::userConf()->sharing) > 0);
-	$bottomline_myLabels = FreshRSS_Context::userConf()->bottomline_myLabels;
-	$bottomline_tags = FreshRSS_Context::userConf()->bottomline_tags;
-	$bottomline_date = FreshRSS_Context::userConf()->bottomline_date;
-	$bottomline_link = FreshRSS_Context::userConf()->bottomline_link;
+	$bottomline_read = Context::userConf()->bottomline_read;
+	$bottomline_favorite = Context::userConf()->bottomline_favorite;
+	$bottomline_sharing = Context::userConf()->bottomline_sharing && (count(Context::userConf()->sharing) > 0);
+	$bottomline_myLabels = Context::userConf()->bottomline_myLabels;
+	$bottomline_tags = Context::userConf()->bottomline_tags;
+	$bottomline_date = Context::userConf()->bottomline_date;
+	$bottomline_link = Context::userConf()->bottomline_link;
 ?><ul class="horizontal-list bottom"><?php
-	if (FreshRSS_Auth::hasAccess()) {
+	if (Auth::hasAccess()) {
 		if ($bottomline_read) {
 			?><li class="item manage"><?php
 				$arUrl = ['c' => 'entry', 'a' => 'read', 'params' => ['id' => $this->entry->id()]];
 				if ($this->entry->isRead()) {
 					$arUrl['params']['is_read'] = '0';
 				}
-				?><a class="item-element read" href="<?= Minz_Url::display($arUrl) ?>" title="<?= _t('conf.shortcut.mark_read') ?>"><?=
+				?><a class="item-element read" href="<?= Url::display($arUrl) ?>" title="<?= _t('conf.shortcut.mark_read') ?>"><?=
 					_i($this->entry->isRead() ? 'read' : 'unread') ?></a><?php
 			?></li><?php
 		}
@@ -29,7 +36,7 @@
 				if ($this->entry->isFavorite()) {
 					$arUrl['params']['is_favorite'] = '0';
 				}
-				?><a class="item-element bookmark" href="<?= Minz_Url::display($arUrl) ?>" title="<?= _t('conf.shortcut.mark_favorite') ?>"><?=
+				?><a class="item-element bookmark" href="<?= Url::display($arUrl) ?>" title="<?= _t('conf.shortcut.mark_favorite') ?>"><?=
 					_i($this->entry->isFavorite() ? 'starred' : 'non-starred') ?></a><?php
 			?></li><?php
 		}
@@ -57,7 +64,7 @@
 				<?php
 				foreach ($tags as $tag) {
 					?><li class="item"><a href="<?= _url('index', 'index', 'search', '#' .
-						FreshRSS_tag_Controller::escapeForSearch($tag)) ?>"><?= $tag ?></a></li><?php
+						TagController::escapeForSearch($tag)) ?>"><?= $tag ?></a></li><?php
 				} ?>
 			</ul>
 			<a class="dropdown-close" href="#close">❌</a>

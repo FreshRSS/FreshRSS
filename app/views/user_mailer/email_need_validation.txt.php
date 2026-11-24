@@ -1,6 +1,9 @@
 <?php
 	declare(strict_types=1);
-	/** @var FreshRSS_View $this */
+	/** @var View $this */
+
+use FreshRss\Models\View;
+
 ?>
 <?= _t('user.mailer.email_need_validation.welcome', $this->username) ?>
 

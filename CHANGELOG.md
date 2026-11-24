@@ -77,6 +77,7 @@ See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 	* Add option to open articles on their original website by default [#9554](https://github.com/FreshRSS/FreshRSS/pull/9554)
 	* <kbd>Esc</kbd> leaves the search box [#9462](https://github.com/FreshRSS/FreshRSS/pull/9462)
 * Extensions
+	* Core codebase (`app/`, `lib/Minz/`) now uses Composer PSR-4 autoloading under the `FreshRss` namespace instead of the historical `FreshRSS_`/`Minz_`-prefixed global classes; existing extensions are unaffected, since the old names remain available via `lib/legacy-aliases.php` — see the [extensions documentation](docs/en/developers/03_Backend/05_Extensions.md#legacy-class-names)
 	* Add `feeds_after_actualize` hook [#9438](https://github.com/FreshRSS/FreshRSS/pull/9438)
 * I18n
 	* Add current English text to `DIRTY` translation comments [#9525](https://github.com/FreshRSS/FreshRSS/pull/9525)

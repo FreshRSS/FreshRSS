@@ -1,9 +1,15 @@
 #!/usr/bin/env php
 <?php
 declare(strict_types=1);
+
+use FreshRss\Controllers\UserController;
+use FreshRss\Models\Context;
+use FreshRss\Models\DatabaseDAO;
+use FreshRss\Models\Factory;
+
 require __DIR__ . '/_cli.php';
 
-performRequirementCheck(FreshRSS_Context::systemConf()->db['type'] ?? '');
+performRequirementCheck(Context::systemConf()->db['type'] ?? '');
 
 $cliOptions = new class extends CliOptionsParser {
 	public bool $quiet;
@@ -18,7 +24,7 @@ if (!empty($cliOptions->errors)) {
 	fail('FreshRSS error: ' . array_shift($cliOptions->errors) . "\n" . $cliOptions->usage);
 }
 
-$config = FreshRSS_Context::systemConf()->auto_sqlite_export;
+$config = Context::systemConf()->auto_sqlite_export;
 $enabled = !empty($config['enabled']);
 $retention = max(1, (int)($config['retention'] ?? 7));
 $verbose = !$cliOptions->quiet;
@@ -33,7 +39,7 @@ if (!$enabled) {
 $ok = true;
 $timestamp = gmdate('Ymd\THis\Z');
 
-foreach (FreshRSS_user_Controller::listUsers() as $username) {
+foreach (UserController::listUsers() as $username) {
 	$username = cliInitUser($username);
 	$exportDir = DATA_PATH . '/users/' . $username . '/sqlite-backups';
 	if (!is_dir($exportDir) && !@mkdir($exportDir, 0755, true)) {
@@ -48,8 +54,8 @@ foreach (FreshRSS_user_Controller::listUsers() as $username) {
 		echo 'FreshRSS automatic SQLite export for user “', $username, '” -> ', $filename, "\n";
 	}
 
-	$databaseDAO = FreshRSS_Factory::createDatabaseDAO($username);
-	$exported = $databaseDAO->dbCopy($filename, FreshRSS_DatabaseDAO::SQLITE_EXPORT, false, $verbose);
+	$databaseDAO = Factory::createDatabaseDAO($username);
+	$exported = $databaseDAO->dbCopy($filename, DatabaseDAO::SQLITE_EXPORT, false, $verbose);
 	$ok = $ok && $exported;
 
 	if (!$exported) {

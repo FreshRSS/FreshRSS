@@ -1,6 +1,13 @@
 <?php
 declare(strict_types=1);
 
+use FreshRss\Minz\Request;
+use FreshRss\Minz\Translate;
+use FreshRss\Minz\User;
+use FreshRss\Models\BooleanSearch;
+use FreshRss\Models\Context;
+use FreshRss\Models\UserConfiguration;
+use FreshRss\Models\View;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\PreserveGlobalState;
 use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
@@ -21,20 +28,20 @@ final class headerTest extends \PHPUnit\Framework\TestCase {
 
 	#[DataProvider('provideSearchSorts')]
 	public function testSearchPreservesSort(?string $requestedSort, ?string $expectedSort): void {
-		FreshRSS_Context::initSystem();
-		FreshRSS_Context::systemConf()->allow_anonymous = true;
-		Minz_User::change(FreshRSS_Context::systemConf()->default_user);
-		FreshRSS_Context::setUserConf(clone FreshRSS_UserConfiguration::default());
-		Minz_Translate::init('en');
-		Minz_Request::_params($requestedSort === null ? [] : ['sort' => $requestedSort]);
+		Context::initSystem();
+		Context::systemConf()->allow_anonymous = true;
+		User::change(Context::systemConf()->default_user);
+		Context::setUserConf(clone UserConfiguration::default());
+		Translate::init('en');
+		Request::_params($requestedSort === null ? [] : ['sort' => $requestedSort]);
 		// The context has already validated the requested sort before rendering the header.
-		FreshRSS_Context::$sort = match ($expectedSort) {
+		Context::$sort = match ($expectedSort) {
 			'c.name', 'date', 'f.name', 'lastUserModified', 'length', 'link', 'title', 'rand' => $expectedSort,
 			default => 'id',
 		};
-		FreshRSS_Context::$search = new FreshRSS_BooleanSearch('needle');
+		Context::$search = new BooleanSearch('needle');
 
-		$view = new FreshRSS_View();
+		$view = new View();
 		$view->_path('../layout/header.phtml');
 		$view->html_url = 'https://example.net/';
 		// Fragment of a page, so prefix with `<!DOCTYPE html>`

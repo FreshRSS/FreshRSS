@@ -1,15 +1,22 @@
 <?php
 	declare(strict_types=1);
-	/** @var FreshRSS_View $this */
+	/** @var View $this */
+
+use FreshRss\Minz\Request;
+use FreshRss\Minz\User;
+use FreshRss\Models\Auth;
+use FreshRss\Models\Context;
+use FreshRss\Models\View;
+
 ?>
 
 <main class="prompt">
 	<h1><?= _t('gen.auth.reauth.header') ?></h1>
 
 	<form method="post">
-		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
-		<input type="hidden" name="original_request" value="<?= Minz_Request::paramString('r') ?>" />
-		<input type="hidden" id="username" value="<?= Minz_User::name() ?>" />
+		<input type="hidden" name="_csrf" value="<?= Auth::csrfToken() ?>" />
+		<input type="hidden" name="original_request" value="<?= Request::paramString('r') ?>" />
+		<input type="hidden" id="username" value="<?= User::name() ?>" />
 		<div class="form-group">
 			<label for="passwordPlain"><?= _t('gen.auth.password') ?></label>
 			<div class="stick">
@@ -19,9 +26,9 @@
 			</div>
 		</div>
 		<?php
-			$reauth_time = FreshRSS_Context::systemConf()->reauth_time;
+			$reauth_time = Context::systemConf()->reauth_time;
 		?>
-		<p class="help"><?= _i('help') ?> <?= _t('gen.auth.reauth.tip', intval($reauth_time / 60)) ?></p>
+		<p class="help"><?= _i('help') ?> <?= _t('gen.auth.reauth.tip', (int)($reauth_time / 60)) ?></p>
 		<div class="form-group form-group-actions">
 			<button type="submit" class="btn btn-important">
 				<?= _t('gen.auth.login') ?>

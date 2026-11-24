@@ -1,7 +1,9 @@
 <?php
 declare(strict_types=1);
 
-readonly class Minz_Hook {
+namespace FreshRss\Minz;
+
+readonly class Hook {
 	public const DEFAULT_PRIORITY = 0;
 
 	public function __construct(

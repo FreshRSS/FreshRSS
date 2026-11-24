@@ -1,10 +1,14 @@
 <?php
 declare(strict_types=1);
 
+namespace FreshRss\Models;
+
+use FreshRss\Minz\Log;
+
 /**
  * This class is used to test database is well-constructed (SQLite).
  */
-class FreshRSS_DatabaseDAOSQLite extends FreshRSS_DatabaseDAO {
+class DatabaseDAOSQLite extends DatabaseDAO {
 
 	#[\Override]
 	public function tablesAreCorrect(): bool {
@@ -82,7 +86,7 @@ class FreshRSS_DatabaseDAOSQLite extends FreshRSS_DatabaseDAO {
 		$ok = $this->pdo->exec('VACUUM') !== false;
 		if (!$ok) {
 			$info = $this->pdo->errorInfo();
-			Minz_Log::warning(__METHOD__ . ' error : ' . json_encode($info));
+			Log::warning(__METHOD__ . ' error : ' . json_encode($info));
 		}
 		return $ok;
 	}

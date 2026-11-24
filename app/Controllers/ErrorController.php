@@ -1,24 +1,32 @@
 <?php
 declare(strict_types=1);
 
+namespace FreshRss\Controllers;
+
+use FreshRss\Minz\Error;
+use FreshRss\Minz\Request;
+use FreshRss\Minz\Session;
+use FreshRss\Models\ActionController;
+use FreshRss\Models\View;
+
 /**
  * Controller to handle error page.
  */
-class FreshRSS_error_Controller extends FreshRSS_ActionController {
+class ErrorController extends ActionController {
 	/**
 	 * This action is the default one for the controller.
 	 *
-	 * It is called by Minz_Error::error() method.
+	 * It is called by Error::error() method.
 	 *
 	 * Parameters:
 	 *   - code: error code passed in the URL or Session (default: 404)
 	 *   - error_logs: passed by Session (default: [])
 	 */
 	public function indexAction(): void {
-		$code_int = Minz_Request::paramInt('code') ?: Minz_Session::paramInt('error_code') ?: 404;
+		$code_int = Request::paramInt('code') ?: Session::paramInt('error_code') ?: 404;
 		/** @var array<string> */
-		$error_logs = Minz_Session::paramArray('error_logs');
-		Minz_Session::_params([
+		$error_logs = Session::paramArray('error_logs');
+		Session::_params([
 			'error_code' => false,
 			'error_logs' => false,
 		]);
@@ -65,6 +73,6 @@ class FreshRSS_error_Controller extends FreshRSS_ActionController {
 			$this->view->errorMessage = $error_message;
 		}
 
-		FreshRSS_View::prependTitle($this->view->code . ' · ');
+		View::prependTitle($this->view->code . ' · ');
 	}
 }

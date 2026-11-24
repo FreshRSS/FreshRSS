@@ -1,6 +1,7 @@
 <?php
 declare(strict_types=1);
 
+use FreshRss\Models\UserDAO;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
@@ -8,17 +9,17 @@ class UserDAOTest extends TestCase {
 
 	#[DataProvider('pathTraversalPayloadsProvider')]
 	public function testExistsRejectsPathTraversal(string $payload): void {
-		self::assertFalse(FreshRSS_UserDAO::exists($payload));
+		self::assertFalse(UserDAO::exists($payload));
 	}
 
 	#[DataProvider('pathTraversalPayloadsProvider')]
 	public function testMtimeRejectsPathTraversal(string $payload): void {
-		self::assertSame(0, FreshRSS_UserDAO::mtime($payload));
+		self::assertSame(0, UserDAO::mtime($payload));
 	}
 
 	#[DataProvider('pathTraversalPayloadsProvider')]
 	public function testCtimeRejectsPathTraversal(string $payload): void {
-		self::assertSame(0, FreshRSS_UserDAO::ctime($payload));
+		self::assertSame(0, UserDAO::ctime($payload));
 	}
 
 	/**
@@ -44,19 +45,19 @@ class UserDAOTest extends TestCase {
 
 	#[DataProvider('validUsernamesProvider')]
 	public function testExistsAcceptsValidUsernames(string $username): void {
-		$result = FreshRSS_UserDAO::exists($username);
+		$result = UserDAO::exists($username);
 		self::assertIsBool($result);
 	}
 
 	#[DataProvider('validUsernamesProvider')]
 	public function testMtimeAcceptsValidUsernames(string $username): void {
-		$result = FreshRSS_UserDAO::mtime($username);
+		$result = UserDAO::mtime($username);
 		self::assertIsInt($result);
 	}
 
 	#[DataProvider('validUsernamesProvider')]
 	public function testCtimeAcceptsValidUsernames(string $username): void {
-		$result = FreshRSS_UserDAO::ctime($username);
+		$result = UserDAO::ctime($username);
 		self::assertIsInt($result);
 	}
 

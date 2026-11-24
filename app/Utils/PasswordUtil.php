@@ -1,7 +1,9 @@
 <?php
 declare(strict_types=1);
 
-class FreshRSS_password_Util {
+namespace FreshRss\Utils;
+
+class PasswordUtil {
 	public const BCRYPT_COST = 9;
 
 	/**

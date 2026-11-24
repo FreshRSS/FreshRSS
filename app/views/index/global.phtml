@@ -1,14 +1,22 @@
 <?php
 	declare(strict_types=1);
-	/** @var FreshRSS_View $this */
-	$this->partial('nav_menu');
+	/** @var View $this */
+
+use FreshRss\Minz\Url;
+use FreshRss\Models\Auth;
+use FreshRss\Models\Context;
+use FreshRss\Models\Entry;
+use FreshRss\Models\Feed;
+use FreshRss\Models\View;
+
+$this->partial('nav_menu');
 
 	$class = '';
 	$state_unread = false;
 
-	if (FreshRSS_Context::userConf()->hide_read_feeds &&
-			FreshRSS_Context::isStateEnabled(FreshRSS_Entry::STATE_NOT_READ) &&
-			!FreshRSS_Context::isStateEnabled(FreshRSS_Entry::STATE_READ)) {
+	if (Context::userConf()->hide_read_feeds &&
+			Context::isStateEnabled(Entry::STATE_NOT_READ) &&
+			!Context::isStateEnabled(Entry::STATE_READ)) {
 		$class = ' state_unread';
 		$state_unread = true;
 	}
@@ -26,7 +34,7 @@
 		<ul class="dropdown-menu-scrollable scrollbar-thin">
 			<li class="dropdown-header">
 				<?= _t('index.menu.mylabels') ?>
-				<?php if (FreshRSS_Auth::hasAccess()) { ?>
+				<?php if (Auth::hasAccess()) { ?>
 					<a href="<?= _url('tag', 'index') ?>"><?= _i('configure') ?></a>
 				<?php } ?>
 			</li>
@@ -51,13 +59,13 @@
 
 	$unreadArticles = 0;
 	// When STATE_ALL is active (both read and unread), show total articles instead of only unread
-	$showTotalArticles = $this->feedIdsMatching === null && (FreshRSS_Context::$state === 0 || (
-		FreshRSS_Context::isStateEnabled(FreshRSS_Entry::STATE_READ) &&
-		FreshRSS_Context::isStateEnabled(FreshRSS_Entry::STATE_NOT_READ)));
+	$showTotalArticles = $this->feedIdsMatching === null && (Context::$state === 0 || (
+		Context::isStateEnabled(Entry::STATE_READ) &&
+		Context::isStateEnabled(Entry::STATE_NOT_READ)));
 
 	foreach ($this->categories as $cat) {
-		$feeds = array_filter($cat->feeds(), fn(FreshRSS_Feed $feed): bool =>
-			$feed->priority() >= FreshRSS_Feed::PRIORITY_FEED &&
+		$feeds = array_filter($cat->feeds(), fn(Feed $feed): bool =>
+			$feed->priority() >= Feed::PRIORITY_FEED &&
 			($this->feedIdsMatching === null || !empty($this->feedIdsMatching[$feed->id()])));
 		$url_base['params']['get'] = 'c_' . $cat->id();
 
@@ -78,7 +86,7 @@
 ?>
 	<div class="box category" data-unread="<?= $catMatchingCount ?>">
 		<div class="box-title"><a class="title open-panel" data-unread="<?= format_number($catMatchingCount) ?>"
-			href="<?= Minz_Url::display($url_base) ?>"><h2><?= $cat->name() ?></h2></a></div>
+			href="<?= Url::display($url_base) ?>"><h2><?= $cat->name() ?></h2></a></div>
 
 		<ul class="box-content scrollbar-thin">
 			<?php
@@ -106,8 +114,8 @@
 			?>
 			<li id="f_<?= $feed->id() ?>" class="item feed<?= $error_class, $empty_class, $mute_class ?>" title="<?= $error_title, $empty_title ?>"
 				data-unread="<?= $feedMatchingCount ?>" data-priority="<?= $feed->priority() ?>">
-				<?php if (FreshRSS_Context::userConf()->show_favicons): ?><img class="favicon" src="<?= $feed->favicon() ?>" alt="✇" loading="lazy" /><?php endif; ?>
-				<a class="item-title open-panel" data-unread="<?= format_number($feedMatchingCount) ?>" href="<?= Minz_Url::display($url_base) ?>"><?= $feed->name() ?></a>
+				<?php if (Context::userConf()->show_favicons): ?><img class="favicon" src="<?= $feed->favicon() ?>" alt="✇" loading="lazy" /><?php endif; ?>
+				<a class="item-title open-panel" data-unread="<?= format_number($feedMatchingCount) ?>" href="<?= Url::display($url_base) ?>"><?= $feed->name() ?></a>
 			</li>
 			<?php } ?>
 		</ul>
@@ -126,6 +134,6 @@
 
 <div id="overlay">
 	<a class="close" href="#"><?= _i('close') ?></a>
-	<div id="panel"<?= FreshRSS_Context::userConf()->display_posts ? '' : ' class="hide_posts"' ?>>
+	<div id="panel"<?= Context::userConf()->display_posts ? '' : ' class="hide_posts"' ?>>
 </div>
 </div>

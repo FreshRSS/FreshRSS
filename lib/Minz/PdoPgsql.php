@@ -1,15 +1,17 @@
 <?php
 declare(strict_types=1);
 
+namespace FreshRss\Minz;
+
 /**
  * MINZ - Copyright 2011 Marien Fressinaud
  * Licensed under AGPL3 <https://www.gnu.org/licenses/>
  */
 
-class Minz_PdoPgsql extends Minz_Pdo {
+class PdoPgsql extends Pdo {
 	/**
 	 * @param array<int,int|string|bool>|null $options
-	 * @throws PDOException
+	 * @throws \PDOException
 	 */
 	public function __construct(string $dsn, ?string $username = null, #[\SensitiveParameter] ?string $passwd = null, ?array $options = null) {
 		parent::__construct($dsn, $username, $passwd, $options);

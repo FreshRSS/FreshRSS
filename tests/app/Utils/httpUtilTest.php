@@ -1,21 +1,23 @@
 <?php
 declare(strict_types=1);
 
+use FreshRss\Models\Context;
+use FreshRss\Utils\HttpUtil;
 use PHPUnit\Framework\Attributes\DataProvider;
 
 /**
- * Tests for FreshRSS_http_Util
+ * Tests for HttpUtil
  */
 final class httpUtilTest extends \PHPUnit\Framework\TestCase {
 
 	#[DataProvider('provideUrlsIgnoringHttps')]
 	public function test_compareUrlIgnoringHttps(string $url1, string $url2, bool $expected): void {
-		self::assertEquals($expected, FreshRSS_http_Util::compareUrlIgnoringHttps($url1, $url2) === 0);
+		self::assertEquals($expected, HttpUtil::compareUrlIgnoringHttps($url1, $url2) === 0);
 	}
 
 	#[DataProvider('provideCurlProxyValues')]
 	public function test_sanitizeCurlParamsRejectsMalformedProxy(string $proxy, bool $shouldSurvive): void {
-		$sanitized = FreshRSS_http_Util::sanitizeCurlParams([CURLOPT_PROXY => $proxy, CURLOPT_PROXYTYPE => CURLPROXY_HTTP]);
+		$sanitized = HttpUtil::sanitizeCurlParams([CURLOPT_PROXY => $proxy, CURLOPT_PROXYTYPE => CURLPROXY_HTTP]);
 		if ($shouldSurvive) {
 			self::assertSame($proxy, $sanitized[CURLOPT_PROXY] ?? null);
 		} else {
@@ -47,7 +49,7 @@ final class httpUtilTest extends \PHPUnit\Framework\TestCase {
 
 	#[DataProvider('provideUrlsForCheckUrl')]
 	public function test_checkUrl(string $url, string|false $expected): void {
-		self::assertSame($expected, FreshRSS_http_Util::checkUrl($url));
+		self::assertSame($expected, HttpUtil::checkUrl($url));
 	}
 
 	/** @return Traversable<string,array{string,string|false}> */
@@ -67,14 +69,14 @@ final class httpUtilTest extends \PHPUnit\Framework\TestCase {
 
 	#[\Override]
 	protected function tearDown(): void {
-		FreshRSS_Context::initSystem(reload: true);	// Restore the default internal host allowlist
-		$resolveOk = new ReflectionProperty(FreshRSS_http_Util::class, 'resolve_ok');
+		Context::initSystem(reload: true);	// Restore the default internal host allowlist
+		$resolveOk = new ReflectionProperty(HttpUtil::class, 'resolve_ok');
 		$resolveOk->setValue(null, []);	// Restore the default empty cache
 	}
 
 	#[DataProvider('provideUrlsForRetryAfter')]
 	public function test_getRetryAfterFile(string $url1, string $url2, bool $sameFile): void {
-		$getRetryAfterFile = new ReflectionMethod(FreshRSS_http_Util::class, 'getRetryAfterFile');
+		$getRetryAfterFile = new ReflectionMethod(HttpUtil::class, 'getRetryAfterFile');
 		self::assertSame($sameFile, $getRetryAfterFile->invoke(null, $url1, '') === $getRetryAfterFile->invoke(null, $url2, ''));
 	}
 
@@ -93,7 +95,7 @@ final class httpUtilTest extends \PHPUnit\Framework\TestCase {
 
 	#[DataProvider('provideUtf8Html')]
 	public function test_enforceHtmlBase_keepsUtf8InScripts(string $html): void {
-		$enforceHtmlBase = new ReflectionMethod(FreshRSS_http_Util::class, 'enforceHtmlBase');
+		$enforceHtmlBase = new ReflectionMethod(HttpUtil::class, 'enforceHtmlBase');
 		$result = $enforceHtmlBase->invoke(null, $html, 'https://example.net/page');
 		self::assertIsString($result);
 		self::assertStringContainsString('<base href="https://example.net/page">', $result);
@@ -115,7 +117,7 @@ final class httpUtilTest extends \PHPUnit\Framework\TestCase {
 
 	#[DataProvider('provideCidrRanges')]
 	public function test_checkCIDR(string $ip, string $range, bool $expected): void {
-		$checkCIDR = new ReflectionMethod(FreshRSS_http_Util::class, 'checkCIDR');
+		$checkCIDR = new ReflectionMethod(HttpUtil::class, 'checkCIDR');
 		self::assertEquals($expected, $checkCIDR->invoke(null, $ip, $range));
 	}
 
@@ -173,8 +175,8 @@ final class httpUtilTest extends \PHPUnit\Framework\TestCase {
 	}
 
 	public function test_getCurlResolveInfoAcceptsPublicNat64Address(): void {
-		FreshRSS_Context::initSystem();
-		$resolveOk = new ReflectionProperty(FreshRSS_http_Util::class, 'resolve_ok');
+		Context::initSystem();
+		$resolveOk = new ReflectionProperty(HttpUtil::class, 'resolve_ok');
 		$resolveOk->setValue(null, [
 			'example.test' => [
 				'192.0.66.96',
@@ -184,16 +186,16 @@ final class httpUtilTest extends \PHPUnit\Framework\TestCase {
 
 		self::assertSame(
 			['example.test:443:192.0.66.96,[64:ff9b::c000:4260]'],
-			FreshRSS_http_Util::getCurlResolveInfo('https://example.test/feed')
+			HttpUtil::getCurlResolveInfo('https://example.test/feed')
 		);
 	}
 
 	#[DataProvider('providePrivateSubnets')]
 	public function test_getCurlResolveInfoRejectsPrivateSubnets(string $ip): void {
-		FreshRSS_Context::initSystem();
-		$resolveOk = new ReflectionProperty(FreshRSS_http_Util::class, 'resolve_ok');
+		Context::initSystem();
+		$resolveOk = new ReflectionProperty(HttpUtil::class, 'resolve_ok');
 		$resolveOk->setValue(null, ['example.test' => [$ip]]);
-		self::assertNull(FreshRSS_http_Util::getCurlResolveInfo('https://example.test/feed'));
+		self::assertNull(HttpUtil::getCurlResolveInfo('https://example.test/feed'));
 	}
 
 	/** @return array<string,array{string}> */
@@ -221,11 +223,11 @@ final class httpUtilTest extends \PHPUnit\Framework\TestCase {
 	/** cURL would rewrite these hosts, and contact another name or address than the one checked and pinned */
 	#[DataProvider('provideHostsRewrittenByCurl')]
 	public function test_getCurlResolveInfoRejectsHostsRewrittenByCurl(string $host): void {
-		FreshRSS_Context::initSystem();
-		$resolveOk = new ReflectionProperty(FreshRSS_http_Util::class, 'resolve_ok');
+		Context::initSystem();
+		$resolveOk = new ReflectionProperty(HttpUtil::class, 'resolve_ok');
 		$resolveOk->setValue(null, [strtolower($host) => ['192.0.66.96']]);
-		self::assertFalse(FreshRSS_http_Util::getCurlResolveInfo("http://$host/feed"));
-		self::assertFalse(FreshRSS_http_Util::getCurlResolveInfo("socks5h://$host:1080"));
+		self::assertFalse(HttpUtil::getCurlResolveInfo("http://$host/feed"));
+		self::assertFalse(HttpUtil::getCurlResolveInfo("socks5h://$host:1080"));
 	}
 
 	/** @return array<string,array{string}> */
@@ -243,61 +245,61 @@ final class httpUtilTest extends \PHPUnit\Framework\TestCase {
 
 	/** Ordinary host names are still resolved and pinned as written */
 	public function test_getCurlResolveInfoAcceptsHostsUsedAsWrittenByCurl(): void {
-		FreshRSS_Context::initSystem();
-		$resolveOk = new ReflectionProperty(FreshRSS_http_Util::class, 'resolve_ok');
+		Context::initSystem();
+		$resolveOk = new ReflectionProperty(HttpUtil::class, 'resolve_ok');
 		foreach (['a_b-c.example.test', 'xn--9ca.example.test', '1.example.test', 'example.7z', 'example.test.'] as $host) {
 			$resolveOk->setValue(null, [$host => ['192.0.66.96']]);
-			self::assertSame(["$host:80:192.0.66.96"], FreshRSS_http_Util::getCurlResolveInfo("http://$host/feed"));
+			self::assertSame(["$host:80:192.0.66.96"], HttpUtil::getCurlResolveInfo("http://$host/feed"));
 		}
 	}
 
 	/** Socks schemes default to port 1080, and an IP address proxy produces no resolve entry */
 	public function test_getCurlResolveInfoForProxyAddress(): void {
-		FreshRSS_Context::initSystem();
+		Context::initSystem();
 		// A proxy on a private address is rejected by default
-		self::assertNull(FreshRSS_http_Util::getCurlResolveInfo('socks5h://127.0.0.1:1080'));
+		self::assertNull(HttpUtil::getCurlResolveInfo('socks5h://127.0.0.1:1080'));
 
 		// Once the proxy is allowlisted, no resolve override is needed for an IP address
-		FreshRSS_Context::systemConf()->internal_host_allowlist = ['127.0.0.1:1080'];
-		self::assertSame([], FreshRSS_http_Util::getCurlResolveInfo('socks5h://127.0.0.1:1080'));
+		Context::systemConf()->internal_host_allowlist = ['127.0.0.1:1080'];
+		self::assertSame([], HttpUtil::getCurlResolveInfo('socks5h://127.0.0.1:1080'));
 
 		// Other proxy ports need their own entry
-		FreshRSS_Context::systemConf()->internal_host_allowlist = ['127.0.0.1:8080'];
-		self::assertNull(FreshRSS_http_Util::getCurlResolveInfo('socks5h://127.0.0.1:1080'));
-		self::assertSame([], FreshRSS_http_Util::getCurlResolveInfo('https://127.0.0.1:8080'));
+		Context::systemConf()->internal_host_allowlist = ['127.0.0.1:8080'];
+		self::assertNull(HttpUtil::getCurlResolveInfo('socks5h://127.0.0.1:1080'));
+		self::assertSame([], HttpUtil::getCurlResolveInfo('https://127.0.0.1:8080'));
 	}
 
 	/** For a hostname proxy, the resolved IP of the proxy is pinned with a resolve entry, to prevent DNS rebinding */
 	public function test_getCurlResolveInfoForProxyHostname(): void {
-		FreshRSS_Context::initSystem();
-		$resolveOk = new ReflectionProperty(FreshRSS_http_Util::class, 'resolve_ok');
+		Context::initSystem();
+		$resolveOk = new ReflectionProperty(HttpUtil::class, 'resolve_ok');
 		$resolveOk->setValue(null, ['proxy.example.test' => ['198.51.100.7']]);
-		FreshRSS_Context::systemConf()->internal_host_allowlist = ['198.51.100.7:1080'];
+		Context::systemConf()->internal_host_allowlist = ['198.51.100.7:1080'];
 
 		self::assertSame(
 			['proxy.example.test:1080:198.51.100.7'],
-			FreshRSS_http_Util::getCurlResolveInfo('socks5h://proxy.example.test:1080')
+			HttpUtil::getCurlResolveInfo('socks5h://proxy.example.test:1080')
 		);
 
 		// Applications must not emit resolve entries for an address that is not guaranteed public.
 		// TEST-NET-2 is a reserved range, so without an allowlist entry, no entry is produced.
-		FreshRSS_Context::systemConf()->internal_host_allowlist = [];
-		self::assertNull(FreshRSS_http_Util::getCurlResolveInfo('socks5h://proxy.example.test:1080'));
+		Context::systemConf()->internal_host_allowlist = [];
+		self::assertNull(HttpUtil::getCurlResolveInfo('socks5h://proxy.example.test:1080'));
 
 		// A genuinely public address produces an entry without allowlisting
 		$resolveOk->setValue(null, ['public-proxy.example.test' => ['8.8.8.8']]);
 		self::assertSame(
 			['public-proxy.example.test:1080:8.8.8.8'],
-			FreshRSS_http_Util::getCurlResolveInfo('socks5h://public-proxy.example.test:1080')
+			HttpUtil::getCurlResolveInfo('socks5h://public-proxy.example.test:1080')
 		);
 
 		// A proxy resolving to a private address is rejected unless allowlisted
 		$resolveOk->setValue(null, ['proxy.example.test' => ['192.168.1.1']]);
-		self::assertNull(FreshRSS_http_Util::getCurlResolveInfo('socks5h://proxy.example.test:1080'));
-		FreshRSS_Context::systemConf()->internal_host_allowlist = ['192.168.1.1:1080'];
+		self::assertNull(HttpUtil::getCurlResolveInfo('socks5h://proxy.example.test:1080'));
+		Context::systemConf()->internal_host_allowlist = ['192.168.1.1:1080'];
 		self::assertSame(
 			['proxy.example.test:1080:192.168.1.1'],
-			FreshRSS_http_Util::getCurlResolveInfo('socks5h://proxy.example.test:1080')
+			HttpUtil::getCurlResolveInfo('socks5h://proxy.example.test:1080')
 		);
 	}
 }

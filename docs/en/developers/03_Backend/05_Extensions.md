@@ -26,6 +26,16 @@ Note: it is quite conceivable that the functionalities of an extension can later
 
 see [Minz documentation](../Minz/index.md)
 
+## Legacy class names
+
+As of the next release after FreshRSS 1.29.1, the core codebase (`app/`, `lib/Minz/`) uses Composer PSR-4 autoloading under the `FreshRss` namespace (e.g. `FreshRss\Minz\Extension`, `FreshRss\Models\Entry`), replacing the historical convention of prefixing every global class with `FreshRSS_` or `Minz_` (e.g. `FreshRSS_Entry`, `Minz_Extension`).
+
+**Existing extensions keep working unmodified.** The classes that make up the extension API — `Minz_Extension`, `Minz_ExtensionManager`, `Minz_ActionController`, `Minz_Dispatcher`, `Minz_Request`, `Minz_View`, `Minz_HookType`, `Minz_HookSignature`, `Minz_Session`, `Minz_Translate`, `Minz_Exception`, `Minz_ExtensionException`, `FreshRSS_Context`, `FreshRSS_Entry`, `FreshRSS_Feed`, `FreshRSS_SimplePieCustom`, `FreshRSS_UserConfiguration`, `FreshRSS_ViewMode` — remain available under their old global names via [`lib/legacy-aliases.php`](../../../../lib/legacy-aliases.php), so all the examples on this page (which still use the old names) are correct and fully supported.
+
+The old global names are **deprecated** and may be removed in a future major version, with ample advance notice. New extensions, and updates to existing ones, should prefer the namespaced form, e.g. `class HelloWorldExtension extends \FreshRss\Minz\Extension` instead of `extends Minz_Extension`, and `\FreshRss\Minz\HookType::EntryBeforeDisplay` instead of `Minz_HookType::EntryBeforeDisplay`. Both forms refer to the exact same class, so the two styles can be mixed freely and migrating is a purely mechanical, non-breaking change.
+
+The extension entry-point convention itself (a class named `<entrypoint>Extension` in the global namespace, and, if you register your own controller, `FreshExtension_<name>_Controller`) is unaffected by this change and is not planned for deprecation.
+
 ## Write an extension for FreshRSS
 
 Here we are! We’ve talked about the most useful features of Minz and how to run FreshRSS correctly and it’s about time to address the extensions themselves.

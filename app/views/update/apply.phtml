@@ -1,7 +1,10 @@
 <?php
 	declare(strict_types=1);
-	/** @var FreshRSS_View $this */
-	$this->partial('aside_configure');
+	/** @var View $this */
+
+use FreshRss\Models\View;
+
+$this->partial('aside_configure');
 ?>
 <main class="post">
 	<h1><?= _t('admin.update') ?></h1>

@@ -1,6 +1,9 @@
 <?php
 declare(strict_types=1);
 
+use FreshRss\Minz\Request;
+use FreshRss\Minz\Url;
+use FreshRss\Models\Context;
 use PHPUnit\Framework\Attributes\DataProvider;
 
 final class ContextTest extends \PHPUnit\Framework\TestCase {
@@ -24,18 +27,18 @@ final class ContextTest extends \PHPUnit\Framework\TestCase {
 	/** @param array<string,mixed> $params */
 	#[DataProvider('provideRedirectStates')]
 	public static function testStateForRedirect(array $params, int $expected): void {
-		$original = Minz_Request::params();
+		$original = Request::params();
 		try {
-			Minz_Request::_params($params);
-			self::assertSame($expected, FreshRSS_Context::getStateForRedirect());
-			self::assertSame($params, Minz_Request::params());
+			Request::_params($params);
+			self::assertSame($expected, Context::getStateForRedirect());
+			self::assertSame($params, Request::params());
 		} finally {
-			Minz_Request::_params($original);
+			Request::_params($original);
 		}
 	}
 
 	public static function testAutomaticStateSurvivesUrlEncoding(): void {
-		$url = Minz_Url::display(['params' => ['state' => 2, 'stateForRedirect' => 0]], 'ascii');
+		$url = Url::display(['params' => ['state' => 2, 'stateForRedirect' => 0]], 'ascii');
 		self::assertStringContainsString('state=2&stateForRedirect=0', $url);
 	}
 }

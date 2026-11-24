@@ -1,6 +1,7 @@
 <?php
 declare(strict_types=1);
 
+use FreshRss\Minz\Url;
 use PHPUnit\Framework\Attributes\DataProvider;
 
 final class LibRssTest extends \PHPUnit\Framework\TestCase {
@@ -32,7 +33,7 @@ final class LibRssTest extends \PHPUnit\Framework\TestCase {
 
 		// Under the limit, the work is still bounded and lazy loading is applied
 		$atLimit = str_repeat('a', 980);	// 6 + 980 + 13 = 999 characters of attributes
-		$placeholder = Minz_Url::display('/themes/icons/grey.gif');
+		$placeholder = Url::display('/themes/icons/grey.gif');
 		self::assertSame('<img loading="lazy" alt="' . $atLimit . '" src="a.png">',
 			lazyimg('<img alt="' . $atLimit . '" src="a.png">'));
 		self::assertSame('<video data-x="' . $atLimit . '" poster="' . $placeholder . '" data-original="p.jpg"></video>',
@@ -41,7 +42,7 @@ final class LibRssTest extends \PHPUnit\Framework\TestCase {
 
 	/** @return array<string,array{string,string}> */
 	public static function provideLazyimg(): array {
-		$placeholder = Minz_Url::display('/themes/icons/grey.gif');
+		$placeholder = Url::display('/themes/icons/grey.gif');
 		return [
 			'ordinary image' => ['<img src="a.png">', '<img loading="lazy" src="a.png">'],
 			'multiple tags' => ['<img src="1.png"><iframe src="2.html" width="9"></iframe>',

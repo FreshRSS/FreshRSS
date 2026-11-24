@@ -1,13 +1,19 @@
 <?php
 declare(strict_types=1);
 
+namespace FreshRss\Models;
+
+use FreshRss\Minz\BadRequestException;
+use FreshRss\Minz\Url;
+use FreshRss\Minz\User;
+
 /**
  * Contains the description of a user query
  *
  * It allows to extract the meaningful bits of the query to be manipulated in an
  * easy way.
  */
-class FreshRSS_UserQuery {
+class UserQuery {
 	private bool $deprecated = false;
 	private string $get = '';
 	private string $get_name = '';
@@ -16,7 +22,7 @@ class FreshRSS_UserQuery {
 	private string $name = '';
 	private string $order = '';
 	private string $sort = '';
-	private readonly FreshRSS_BooleanSearch $search;
+	private readonly BooleanSearch $search;
 	private int $state = 0;
 	private string $url = '';
 	private string $token = '';
@@ -25,19 +31,19 @@ class FreshRSS_UserQuery {
 	private bool $includeUserLabels = false;
 	private bool $excludeArticleTags = false;
 	private string $userLabelPrefix = '';
-	/** @var array<int,FreshRSS_Category> $categories where the key is the category ID */
+	/** @var array<int,Category> $categories where the key is the category ID */
 	private array $categories;
-	/** @var array<int,FreshRSS_Tag> $labels where the key is the label ID */
+	/** @var array<int,Tag> $labels where the key is the label ID */
 	private array $labels;
 	/** XML-encoded description */
 	private string $description = '';
 	private string $imageUrl = '';
 
 	public static function generateToken(string $salt): string {
-		if (!FreshRSS_Context::hasSystemConf()) {
+		if (!Context::hasSystemConf()) {
 			return '';
 		}
-		$hash = md5(FreshRSS_Context::systemConf()->salt . $salt . random_bytes(16));
+		$hash = md5(Context::systemConf()->salt . $salt . random_bytes(16));
 		if (function_exists('gmp_init')) {
 			// Shorten the hash if possible by converting from base 16 to base 62
 			$hash = gmp_strval(gmp_init($hash, 16), 62);
@@ -49,9 +55,9 @@ class FreshRSS_UserQuery {
 	 * @param array{get?:string,name?:string,order?:string,sort?:string,search?:string,state?:int,url?:string,token?:string,
 	 * 	shareRss?:bool,shareOpml?:bool,includeUserLabels?:bool,excludeArticleTags?:bool,userLabelPrefix?:string,
 	 * 	publishLabelsInsteadOfTags?:bool,description?:string,imageUrl?:string} $query
-	 * @param array<FreshRSS_Category> $categories
-	 * @param array<FreshRSS_Tag> $labels
-	 * @throws Minz_BadRequestException if the search is too long or if the parentheses are nested too deeply
+	 * @param array<Category> $categories
+	 * @param array<Tag> $labels
+	 * @throws BadRequestException if the search is too long or if the parentheses are nested too deeply
 	 */
 	public function __construct(array $query, array $categories, array $labels) {
 		$this->categories = [];
@@ -88,7 +94,7 @@ class FreshRSS_UserQuery {
 				unset($link['excludeArticleTags']);
 				unset($link['userLabelPrefix']);
 				unset($link['publishLabelsInsteadOfTags']);
-				$this->url = Minz_Url::display(['params' => $link]);
+				$this->url = Url::display(['params' => $link]);
 			}
 		} else {
 			$this->url = $query['url'];
@@ -131,7 +137,7 @@ class FreshRSS_UserQuery {
 		}
 
 		// linked too deeply with the search object, need to use dependency injection
-		$this->search = new FreshRSS_BooleanSearch($query['search'], 0, 'AND', allowUserQueries: true);
+		$this->search = new BooleanSearch($query['search'], 0, 'AND', allowUserQueries: true);
 		if (!empty($query['state'])) {
 			$this->state = intval($query['state']);
 		}
@@ -190,7 +196,7 @@ class FreshRSS_UserQuery {
 					break;
 				case 'f':	// Feed
 					$this->get_type = 'feed';
-					$f = FreshRSS_Category::findFeed($this->categories, $id);
+					$f = Category::findFeed($this->categories, $id);
 					$this->get_name = $f === null ? '' : $f->name();
 					break;
 				case 'i':	// Priority important feeds
@@ -235,15 +241,15 @@ class FreshRSS_UserQuery {
 		}
 		if (!in_array($this->state, [
 				0,
-				FreshRSS_Entry::STATE_READ | FreshRSS_Entry::STATE_NOT_READ,
-				FreshRSS_Entry::STATE_READ | FreshRSS_Entry::STATE_NOT_READ | FreshRSS_Entry::STATE_FAVORITE | FreshRSS_Entry::STATE_NOT_FAVORITE
+				Entry::STATE_READ | Entry::STATE_NOT_READ,
+				Entry::STATE_READ | Entry::STATE_NOT_READ | Entry::STATE_FAVORITE | Entry::STATE_NOT_FAVORITE
 			], true)) {
 			return true;
 		}
-		if ($this->order !== '' && $this->order !== FreshRSS_Context::userConf()->sort_order) {
+		if ($this->order !== '' && $this->order !== Context::userConf()->sort_order) {
 			return true;
 		}
-		if ($this->sort !== '' && $this->sort !== FreshRSS_Context::userConf()->sort) {
+		if ($this->sort !== '' && $this->sort !== Context::userConf()->sort) {
 			return true;
 		}
 		return false;
@@ -273,24 +279,24 @@ class FreshRSS_UserQuery {
 	}
 
 	public function getOrder(): string {
-		return $this->order ?: FreshRSS_Context::userConf()->sort_order;
+		return $this->order ?: Context::userConf()->sort_order;
 	}
 
 	public function getSort(): string {
-		return $this->sort ?: FreshRSS_Context::userConf()->sort;
+		return $this->sort ?: Context::userConf()->sort;
 	}
 
-	public function getSearch(): FreshRSS_BooleanSearch {
+	public function getSearch(): BooleanSearch {
 		return $this->search;
 	}
 
 	public function getState(): int {
 		$state = $this->state;
-		if (!($state & FreshRSS_Entry::STATE_READ) && !($state & FreshRSS_Entry::STATE_NOT_READ)) {
-			$state |= FreshRSS_Entry::STATE_READ | FreshRSS_Entry::STATE_NOT_READ;
+		if (!($state & Entry::STATE_READ) && !($state & Entry::STATE_NOT_READ)) {
+			$state |= Entry::STATE_READ | Entry::STATE_NOT_READ;
 		}
-		if (!($state & FreshRSS_Entry::STATE_FAVORITE) && !($state & FreshRSS_Entry::STATE_NOT_FAVORITE)) {
-			$state |= FreshRSS_Entry::STATE_FAVORITE | FreshRSS_Entry::STATE_NOT_FAVORITE;
+		if (!($state & Entry::STATE_FAVORITE) && !($state & Entry::STATE_NOT_FAVORITE)) {
+			$state |= Entry::STATE_FAVORITE | Entry::STATE_NOT_FAVORITE;
 		}
 		return $state;
 	}
@@ -348,8 +354,8 @@ class FreshRSS_UserQuery {
 	}
 
 	protected function sharedUrl(bool $xmlEscaped = true): string {
-		$currentUser = Minz_User::name() ?? '';
-		return Minz_Url::display("/api/query.php?user={$currentUser}&t={$this->token}", $xmlEscaped ? 'html' : '', true);
+		$currentUser = User::name() ?? '';
+		return Url::display("/api/query.php?user={$currentUser}&t={$this->token}", $xmlEscaped ? 'html' : '', true);
 	}
 
 	public function sharedUrlRss(bool $xmlEscaped = true): string {

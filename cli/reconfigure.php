@@ -1,6 +1,10 @@
 #!/usr/bin/env php
 <?php
 declare(strict_types=1);
+
+use FreshRss\Controllers\UserController;
+use FreshRss\Models\Context;
+
 require __DIR__ . '/_cli.php';
 
 $cliOptions = new class extends CliOptionsParser {
@@ -88,12 +92,12 @@ $dbValues = [
 	'prefix' => $cliOptions->dbPrefix ?? null,
 ];
 
-$systemConf = FreshRSS_Context::systemConf();
+$systemConf = Context::systemConf();
 foreach ($values as $name => $value) {
 	if ($value !== null) {
 		switch ($name) {
 			case 'default_user':
-				if (!FreshRSS_user_Controller::checkUsername($value)) {
+				if (!UserController::checkUsername($value)) {
 					fail('FreshRSS invalid default username! default_user must be ASCII alphanumeric');
 				}
 				break;
@@ -113,14 +117,14 @@ foreach ($values as $name => $value) {
 	}
 }
 
-$db = array_merge(FreshRSS_Context::systemConf()->db,
+$db = array_merge(Context::systemConf()->db,
 	array_filter($dbValues, fn(?string $v): bool => $v !== null && trim($v) !== ''));
 
 performRequirementCheck($db['type']);
 
 assert(in_array($db['type'], ['mysql', 'pgsql', 'sqlite'], true));
-FreshRSS_Context::systemConf()->db = $db;
+Context::systemConf()->db = $db;
 
-FreshRSS_Context::systemConf()->save();
+Context::systemConf()->save();
 
 done();

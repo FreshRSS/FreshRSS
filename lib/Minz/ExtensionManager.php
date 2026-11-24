@@ -1,26 +1,28 @@
 <?php
 declare(strict_types=1);
 
+namespace FreshRss\Minz;
+
 /**
  * An extension manager to load extensions present in CORE_EXTENSIONS_PATH and THIRDPARTY_EXTENSIONS_PATH.
  *
  * @todo see coding style for methods!!
- * @phpstan-import-type ExtensionMetadata from Minz_Extension
+ * @phpstan-import-type ExtensionMetadata from Extension
  */
-final class Minz_ExtensionManager {
+final class ExtensionManager {
 
 	private static string $ext_metaname = 'metadata.json';
 	private static string $ext_entry_point = 'extension.php';
-	/** @var array<string,Minz_Extension> */
+	/** @var array<string,Extension> */
 	private static array $ext_list = [];
-	/** @var array<string,Minz_Extension> */
+	/** @var array<string,Extension> */
 	private static array $ext_list_enabled = [];
 	/** @var array<string,bool> */
 	private static array $ext_auto_enabled = [];
 
 	/**
 	 * List of available hooks. Please keep this list sorted.
-	 * @var array<value-of<Minz_HookType>,array{'list':list<Minz_Hook>,'signature':Minz_HookSignature}>
+	 * @var array<value-of<HookType>,array{'list':list<Hook>,'signature':HookSignature}>
 	 */
 	private static array $hook_list = [];
 
@@ -30,7 +32,7 @@ final class Minz_ExtensionManager {
 		self::$ext_list = [];
 		self::$ext_list_enabled = [];
 		self::$ext_auto_enabled = [];
-		foreach (Minz_HookType::cases() as $hook_type) {
+		foreach (HookType::cases() as $hook_type) {
 			$hadAny |= !empty(self::$hook_list[$hook_type->value]['list']);
 			self::$hook_list[$hook_type->value] = [
 				'list' => [],
@@ -51,8 +53,8 @@ final class Minz_ExtensionManager {
 	 * `name` and `entry_point`.
 	 * extension.php should contain at least a class named <name>Extension where
 	 * <name> must match with the entry point in metadata.json. This class must
-	 * inherit from Minz_Extension class.
-	 * @throws Minz_ConfigurationNamespaceException
+	 * inherit from Extension class.
+	 * @throws ConfigurationNamespaceException
 	 */
 	public static function init(): void {
 		self::reset();
@@ -64,7 +66,7 @@ final class Minz_ExtensionManager {
 
 		$list_potential_extensions = array_merge($list_core_extensions, $list_thirdparty_extensions);
 
-		$system_conf = Minz_Configuration::get('system');
+		$system_conf = Configuration::get('system');
 		self::$ext_auto_enabled = array_filter(
 			$system_conf->attributeArray('extensions_enabled') ?? [],
 			fn($value, $key): bool => is_string($key) && is_bool($value),
@@ -87,7 +89,7 @@ final class Minz_ExtensionManager {
 			if (!is_array($meta_json) || !self::isValidMetadata($meta_json)) {
 				// metadata.json is not a json file? Invalid!
 				// or metadata.json is invalid (no required information), invalid!
-				Minz_Log::warning('`' . $metadata_filename . '` is not a valid metadata file');
+				Log::warning('`' . $metadata_filename . '` is not a valid metadata file');
 				continue;
 			}
 
@@ -122,9 +124,9 @@ final class Minz_ExtensionManager {
 	 * Load the extension source code based on info metadata.
 	 *
 	 * @param ExtensionMetadata $info an array containing information about extension.
-	 * @return Minz_Extension|null an extension inheriting from Minz_Extension.
+	 * @return Extension|null an extension inheriting from Extension.
 	 */
-	private static function load(array $info): ?Minz_Extension {
+	private static function load(array $info): ?Extension {
 		$entry_point_filename = $info['path'] . '/' . self::$ext_entry_point;
 		$ext_class_name = $info['entrypoint'] . 'Extension';
 
@@ -132,7 +134,7 @@ final class Minz_ExtensionManager {
 
 		// Test if the given extension class exists.
 		if (!class_exists($ext_class_name)) {
-			Minz_Log::warning("`{$ext_class_name}` cannot be found in `{$entry_point_filename}`");
+			Log::warning("`{$ext_class_name}` cannot be found in `{$entry_point_filename}`");
 			return null;
 		}
 
@@ -140,15 +142,15 @@ final class Minz_ExtensionManager {
 		$extension = null;
 		try {
 			$extension = new $ext_class_name($info);
-		} catch (Exception $e) {
+		} catch (\Exception $e) {
 			// We cannot load the extension? Invalid!
-			Minz_Log::warning("Invalid extension `{$ext_class_name}`: " . $e->getMessage());
+			Log::warning("Invalid extension `{$ext_class_name}`: " . $e->getMessage());
 			return null;
 		}
 
 		// Test if class is correct.
-		if (!($extension instanceof Minz_Extension)) {
-			Minz_Log::warning("`{$ext_class_name}` is not an instance of `Minz_Extension`");
+		if (!($extension instanceof Extension)) {
+			Log::warning("`{$ext_class_name}` is not an instance of `Extension`");
 			return null;
 		}
 
@@ -161,9 +163,9 @@ final class Minz_ExtensionManager {
 	 * If the extension is present in $ext_auto_enabled and if its type is "system",
 	 * it will be enabled at the same time.
 	 *
-	 * @param Minz_Extension $ext a valid extension.
+	 * @param Extension $ext a valid extension.
 	 */
-	private static function register(Minz_Extension $ext): void {
+	private static function register(Extension $ext): void {
 		$name = $ext->getName();
 		self::$ext_list[$name] = $ext;
 
@@ -197,8 +199,8 @@ final class Minz_ExtensionManager {
 			$ext->enable();
 			try {
 				$ext->init();
-			} catch (Minz_Exception $e) {	// @phpstan-ignore catch.neverThrown (Thrown by extensions)
-				Minz_Log::warning('Error while enabling extension ' . $ext->getName() . ': ' . $e->getMessage());
+			} catch (\Exception $e) {	// @phpstan-ignore catch.neverThrown (Thrown by extensions)
+				Log::warning('Error while enabling extension ' . $ext->getName() . ': ' . $e->getMessage());
 				$ext->disable();
 				unset(self::$ext_list_enabled[$ext_name]);
 			}
@@ -226,7 +228,7 @@ final class Minz_ExtensionManager {
 	 * Return a list of extensions.
 	 *
 	 * @param bool $only_enabled if true returns only the enabled extensions (false by default).
-	 * @return Minz_Extension[] an array of extensions.
+	 * @return Extension[] an array of extensions.
 	 */
 	public static function listExtensions(bool $only_enabled = false): array {
 		if ($only_enabled) {
@@ -240,9 +242,9 @@ final class Minz_ExtensionManager {
 	 * Return an extension by its name.
 	 *
 	 * @param string $ext_name the name of the extension.
-	 * @return Minz_Extension|null the corresponding extension or null if it doesn't exist.
+	 * @return Extension|null the corresponding extension or null if it doesn't exist.
 	 */
-	public static function findExtension(string $ext_name): ?Minz_Extension {
+	public static function findExtension(string $ext_name): ?Extension {
 		if (!isset(self::$ext_list[$ext_name])) {
 			return null;
 		}
@@ -253,42 +255,42 @@ final class Minz_ExtensionManager {
 	/**
 	 * Add a hook function to a given hook.
 	 *
-	 * The hook name must be a valid one. For the valid list, see Minz_HookType enum.
+	 * The hook name must be a valid one. For the valid list, see HookType enum.
 	 *
-	 * @param string|Minz_HookType $hook_type the hook name (must exist).
+	 * @param string|HookType $hook_type the hook name (must exist).
 	 * @param callable $hook_function the function name to call (must be callable).
 	 * @param int $priority the priority of the hook, default priority is 0, the higher the value the lower the priority
 	 */
-	public static function addHook(string|Minz_HookType $hook_type, $hook_function, int $priority = Minz_Hook::DEFAULT_PRIORITY): void {
+	public static function addHook(string|HookType $hook_type, $hook_function, int $priority = Hook::DEFAULT_PRIORITY): void {
 		if (null === $hook_type = self::extractHookType($hook_type)) {
 			return;
 		}
 		$hook_type_name = $hook_type->value;
 
 		if (is_callable($hook_function)) {
-			self::$hook_list[$hook_type_name]['list'][] = new Minz_Hook(\Closure::fromCallable($hook_function), $priority);
+			self::$hook_list[$hook_type_name]['list'][] = new Hook(\Closure::fromCallable($hook_function), $priority);
 		}
 	}
 
 	/**
-	 * @param string|Minz_HookType $hook_type the hook type or its name
-	 * @return Minz_HookType|null
+	 * @param string|HookType $hook_type the hook type or its name
+	 * @return HookType|null
 	 */
-	private static function extractHookType(string|Minz_HookType $hook_type) {
-		if ($hook_type instanceof Minz_HookType) {
+	private static function extractHookType(string|HookType $hook_type) {
+		if ($hook_type instanceof HookType) {
 			return $hook_type;
 		}
 
-		return Minz_HookType::tryFrom($hook_type);
+		return HookType::tryFrom($hook_type);
 	}
 
 	/**
-	 * @param Minz_HookType $hook_type the hook type or its name
-	 * @return list<Minz_Hook>
+	 * @param HookType $hook_type the hook type or its name
+	 * @return list<Hook>
 	 */
-	private static function retrieveHookList(Minz_HookType $hook_type): array {
+	private static function retrieveHookList(HookType $hook_type): array {
 		$list = self::$hook_list[$hook_type->value]['list'] ?? [];
-		usort($list, static fn (Minz_Hook $a, Minz_Hook $b): int => $a->getPriority() <=> $b->getPriority());
+		usort($list, static fn (Hook $a, Hook $b): int => $a->getPriority() <=> $b->getPriority());
 
 		return $list;
 	}
@@ -296,30 +298,30 @@ final class Minz_ExtensionManager {
 	/**
 	 * Call functions related to a given hook.
 	 *
-	 * The hook name must be a valid one. For the valid list, see Minz_HookType enum.
+	 * The hook name must be a valid one. For the valid list, see HookType enum.
 	 *
-	 * @param string|Minz_HookType $hook_type the hook to call.
-	 * @param mixed ...$args additional parameters (for signature, please see Minz_HookType enum).
+	 * @param string|HookType $hook_type the hook to call.
+	 * @param mixed ...$args additional parameters (for signature, please see HookType enum).
 	 * @return mixed|void|null final result of the called hook.
 	 */
-	public static function callHook(string|Minz_HookType $hook_type, ...$args) {
+	public static function callHook(string|HookType $hook_type, ...$args) {
 		if (null === $hook_type = self::extractHookType($hook_type)) {
 			return;
 		}
 
 		$signature = $hook_type->signature();
-		if ($signature === Minz_HookSignature::OneToOne) {
+		if ($signature === HookSignature::OneToOne) {
 			return self::callOneToOne($hook_type, $args[0] ?? null);
-		} elseif ($signature === Minz_HookSignature::PassArguments) {
+		} elseif ($signature === HookSignature::PassArguments) {
 			foreach (self::retrieveHookList($hook_type) as $hook) {
 				$result = call_user_func($hook->getFunction(), ...$args);
 				if ($result !== null) {
 					return $result;
 				}
 			}
-		} elseif ($signature === Minz_HookSignature::NoneToString) {
+		} elseif ($signature === HookSignature::NoneToString) {
 			return self::callHookString($hook_type);
-		} elseif ($signature === Minz_HookSignature::NoneToNone) {
+		} elseif ($signature === HookSignature::NoneToNone) {
 			self::callHookVoid($hook_type);
 		}
 		return;
@@ -334,12 +336,12 @@ final class Minz_ExtensionManager {
 	 *
 	 * If a hook return a null or false value, the method is stopped and that value is returned.
 	 *
-	 * @param Minz_HookType $hook_type is the hook type to call.
+	 * @param HookType $hook_type is the hook type to call.
 	 * @param mixed $arg is the argument to pass to the first extension hook.
 	 * @return mixed|null final chained result of the hooks. If nothing is changed,
 	 *         the initial argument is returned.
 	 */
-	private static function callOneToOne(Minz_HookType $hook_type, mixed $arg): mixed {
+	private static function callOneToOne(HookType $hook_type, mixed $arg): mixed {
 		$result = $arg;
 		foreach (self::retrieveHookList($hook_type) as $hook) {
 			$result = call_user_func($hook->getFunction(), $arg);
@@ -359,10 +361,10 @@ final class Minz_ExtensionManager {
 	 * The result is concatenated between each hook and the final string is
 	 * returned.
 	 *
-	 * @param string|Minz_HookType $hook_type is the hook to call.
+	 * @param string|HookType $hook_type is the hook to call.
 	 * @return string concatenated result of the call to all the hooks.
 	 */
-	public static function callHookString(string|Minz_HookType $hook_type): string {
+	public static function callHookString(string|HookType $hook_type): string {
 		if (null === $hook_type = self::extractHookType($hook_type)) {
 			return '';
 		}
@@ -383,9 +385,9 @@ final class Minz_ExtensionManager {
 	 * This case is simpler than callOneToOne because hooks are called one by
 	 * one, without any consideration of argument nor result.
 	 *
-	 * @param string|Minz_HookType $hook_type is the hook to call.
+	 * @param string|HookType $hook_type is the hook to call.
 	 */
-	public static function callHookVoid(string|Minz_HookType $hook_type): void {
+	public static function callHookVoid(string|HookType $hook_type): void {
 		if (null === $hook_type = self::extractHookType($hook_type)) {
 			return;
 		}
@@ -399,9 +401,9 @@ final class Minz_ExtensionManager {
 	 * Call a hook which takes no argument and returns nothing.
 	 * Same as callHookVoid but only calls the first extension.
 	 *
-	 * @param string|Minz_HookType $hook_type is the hook to call.
+	 * @param string|HookType $hook_type is the hook to call.
 	 */
-	public static function callHookUnique(string|Minz_HookType $hook_type): bool {
+	public static function callHookUnique(string|HookType $hook_type): bool {
 		if (null === $hook_type = self::extractHookType($hook_type)) {
 			throw new \RuntimeException("The “{$hook_type}” does not exist!");
 		}

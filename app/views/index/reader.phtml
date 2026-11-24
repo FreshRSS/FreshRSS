@@ -1,7 +1,18 @@
 <?php
 declare(strict_types=1);
-/** @var FreshRSS_View $this */
-if (!Minz_Request::paramBoolean('ajax')) {
+/** @var View $this */
+
+use FreshRss\Minz\ExtensionManager;
+use FreshRss\Minz\HookType;
+use FreshRss\Minz\Request;
+use FreshRss\Minz\Url;
+use FreshRss\Models\Category;
+use FreshRss\Models\Context;
+use FreshRss\Models\Entry;
+use FreshRss\Models\Feed;
+use FreshRss\Models\View;
+
+if (!Request::paramBoolean('ajax')) {
 	$this->partial('aside_feed');
 	$this->partial('nav_menu');
 }
@@ -10,19 +21,19 @@ $slider_feed = $this->feed;
 
 call_user_func($this->callbackBeforeEntries, $this);
 
-$lazyload = FreshRSS_Context::userConf()->lazyload;
-$useKeepUnreadImportant = !FreshRSS_Context::isImportant() && !FreshRSS_Context::isFeed();
+$lazyload = Context::userConf()->lazyload;
+$useKeepUnreadImportant = !Context::isImportant() && !Context::isFeed();
 ?>
 <main id="stream" class="reader">
 	<h1 class="title_hidden"><?= _t('conf.reading.view.reader') ?></h1>
 	<div id="new-article" hidden="hidden">
-		<a href="<?= Minz_Url::display(Minz_Request::currentRequest()) ?>"><?= _t('gen.js.new_article'); /* TODO: move string in JS*/ ?></a>
+		<a href="<?= Url::display(Request::currentRequest()) ?>"><?= _t('gen.js.new_article'); /* TODO: move string in JS*/ ?></a>
 	</div><?php
 	$lastEntry = null;
 	$nbEntries = 0;
 	foreach ($this->entries as $entry):
-		/** @var FreshRSS_Entry|null $entry */
-		$entry = Minz_ExtensionManager::callHook(Minz_HookType::EntryBeforeDisplay, $entry);
+		/** @var Entry|null $entry */
+		$entry = ExtensionManager::callHook(HookType::EntryBeforeDisplay, $entry);
 		if ($entry === null) {
 			continue;
 		}
@@ -32,11 +43,11 @@ $useKeepUnreadImportant = !FreshRSS_Context::isImportant() && !FreshRSS_Context:
 		$nbEntries++;
 
 		//We most likely already have the feed object in cache, otherwise make a request
-		$this->feed = FreshRSS_Category::findFeed($this->categories, $this->entry->feedId()) ?? $this->entry->feed() ?? FreshRSS_Feed::default();
+		$this->feed = Category::findFeed($this->categories, $this->entry->feedId()) ?? $this->entry->feed() ?? Feed::default();
 		$this->entry->_feed($this->feed);
 	?><div class="flux<?= !$this->entry->isRead() ? ' not_read' : ''
 		?><?= $this->entry->isFavorite() ? ' favorite' : ''
-		?><?= $useKeepUnreadImportant && ($this->feed->priority() >= FreshRSS_Feed::PRIORITY_IMPORTANT) ? ' keep_unread ' : ''
+		?><?= $useKeepUnreadImportant && ($this->feed->priority() >= Feed::PRIORITY_IMPORTANT) ? ' keep_unread ' : ''
 		?>" id="flux_<?= $this->entry->id()
 		?>" data-entry="<?= $this->entry->id()
 		?>" data-category="<?= $this->feed->categoryId()
@@ -56,7 +67,7 @@ $useKeepUnreadImportant = !FreshRSS_Context::isImportant() && !FreshRSS_Context:
 ?>
 <main id="stream" class="reader">
 	<div id="new-article" hidden="hidden">
-		<a href="<?= Minz_Url::display(Minz_Request::currentRequest()) ?>"><?= _t('gen.js.new_article'); /* TODO: move string in JS*/ ?></a>
+		<a href="<?= Url::display(Request::currentRequest()) ?>"><?= _t('gen.js.new_article'); /* TODO: move string in JS*/ ?></a>
 	</div>
 	<div class="prompt alert alert-warn">
 		<h2 class="alert-head"><?= _t('index.feed.empty') ?></h2>

@@ -1,7 +1,11 @@
 <?php
 declare(strict_types=1);
 
-class FreshRSS_FeedDAOPGSQL extends FreshRSS_FeedDAO {
+namespace FreshRss\Models;
+
+use FreshRss\Minz\Log;
+
+class FeedDAOPGSQL extends FeedDAO {
 
 	#[\Override]
 	public function sqlResetSequence(): bool {
@@ -49,7 +53,7 @@ class FreshRSS_FeedDAOPGSQL extends FreshRSS_FeedDAO {
 			return $stm->rowCount();
 		} else {
 			$info = $stm === false ? $this->pdo->errorInfo() : $stm->errorInfo();
-			Minz_Log::error('SQL error ' . __METHOD__ . json_encode($info));
+			Log::error('SQL error ' . __METHOD__ . json_encode($info));
 			return false;
 		}
 	}

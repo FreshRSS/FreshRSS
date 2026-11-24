@@ -1,7 +1,12 @@
 <?php
 	declare(strict_types=1);
-	/** @var FreshRSS_View $this */
-	if ($this->feed !== null) {
+	/** @var View $this */
+
+use FreshRss\Minz\Request;
+use FreshRss\Models\Auth;
+use FreshRss\Models\View;
+
+if ($this->feed !== null) {
 ?>
 <main class="post bookmarklet">
 	<h1><?= _t('sub.feed.add') ?></h1>
@@ -11,7 +16,7 @@
 	<?php } ?>
 
 	<form method="post" action="<?= _url('feed', 'add') ?>" autocomplete="off">
-		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
+		<input type="hidden" name="_csrf" value="<?= Auth::csrfToken() ?>" />
 		<fieldset>
 			<legend><?= _t('sub.feed.information') ?></legend>
 			<?php if ($this->load_ok) { ?>
@@ -58,7 +63,7 @@
 				<div class="group-controls">
 					<select name="category" id="category">
 						<?php foreach ($this->categories as $cat) { ?>
-						<option value="<?= $cat->id() ?>"<?= $cat->id() === (Minz_Request::paramInt('cat_id') ?: 1) ? ' selected="selected"' : '' ?>>
+						<option value="<?= $cat->id() ?>"<?= $cat->id() === (Request::paramInt('cat_id') ?: 1) ? ' selected="selected"' : '' ?>>
 							<?= $cat->name() ?>
 						</option>
 						<?php } ?>

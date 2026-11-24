@@ -1,6 +1,10 @@
 <?php
 declare(strict_types=1);
 
+namespace FreshRss\Models;
+
+use FreshRss\Minz\Helper;
+
 require_once LIB_PATH . '/lib_date.php';
 
 /**
@@ -9,7 +13,7 @@ require_once LIB_PATH . '/lib_date.php';
  * It allows to extract meaningful bits of the search and store them in a
  * convenient object
  */
-class FreshRSS_Search implements \Stringable {
+class Search implements \Stringable {
 
 	/**
 	 * This contains the user input string
@@ -122,7 +126,7 @@ class FreshRSS_Search implements \Stringable {
 	public function __construct(string $input) {
 		$input = self::cleanSearch($input);
 		$input = self::unescape($input);
-		$input = FreshRSS_BooleanSearch::unescapeLiterals($input);
+		$input = BooleanSearch::unescapeLiterals($input);
 		$this->raw_input = $input;
 
 		$input = $this->parseNotEntryIds($input);
@@ -204,7 +208,7 @@ class FreshRSS_Search implements \Stringable {
 	/**
 	 * Return true if both searches have the same constraint parameters (even if the values differ), false otherwise.
 	 */
-	public function hasSameOperators(FreshRSS_Search $search): bool {
+	public function hasSameOperators(Search $search): bool {
 		$properties = array_keys(get_object_vars($this));
 		$properties = array_diff($properties, ['raw_input']);	// raw_input is not a constraint parameter
 		foreach ($properties as $property) {
@@ -234,9 +238,9 @@ class FreshRSS_Search implements \Stringable {
 
 	/**
 	 * Modifies this search by enforcing the constraint parameters of another search.
-	 * @return FreshRSS_Search a new instance, modified.
+	 * @return Search a new instance, modified.
 	 */
-	public function enforce(FreshRSS_Search $search): self {
+	public function enforce(Search $search): self {
 		$result = clone $this;
 		$properties = array_keys(get_object_vars($result));
 		$properties = array_diff($properties, ['raw_input']);	// raw_input is not a constraint parameter
@@ -259,9 +263,9 @@ class FreshRSS_Search implements \Stringable {
 
 	/**
 	 * Modifies this search by removing the constraints given by another search.
-	 * @return FreshRSS_Search a new instance, modified.
+	 * @return Search a new instance, modified.
 	 */
-	public function remove(FreshRSS_Search $search): self {
+	public function remove(Search $search): self {
 		$result = clone $this;
 		$properties = array_keys(get_object_vars($result));
 		$properties = array_diff($properties, ['raw_input']);	// raw_input is not a constraint parameter
@@ -497,7 +501,7 @@ class FreshRSS_Search implements \Stringable {
 		return trim($result);
 	}
 
-	#[Deprecated('Use __toString() instead')]
+	#[\Deprecated('Use __toString() instead')]
 	public function getRawInput(): string {
 		return $this->raw_input;
 	}
@@ -537,9 +541,9 @@ class FreshRSS_Search implements \Stringable {
 	 */
 	public function needVisibility(): ?int {
 		if ($this->feed_ids !== null && count($this->feed_ids) > 0) {
-			return FreshRSS_Feed::PRIORITY_HIDDEN;
+			return Feed::PRIORITY_HIDDEN;
 		} elseif ($this->category_ids !== null && count($this->category_ids) > 0) {
-			return FreshRSS_Feed::PRIORITY_CATEGORY;
+			return Feed::PRIORITY_CATEGORY;
 		}
 		return null;
 	}
@@ -554,16 +558,16 @@ class FreshRSS_Search implements \Stringable {
 	}
 	/** @return list<list<string>>|null */
 	public function getLabelNames(bool $plaintext = false): ?array {
-		return $plaintext ? $this->label_names : Minz_Helper::htmlspecialchars_utf8($this->label_names, ENT_NOQUOTES);
+		return $plaintext ? $this->label_names : Helper::htmlspecialchars_utf8($this->label_names, ENT_NOQUOTES);
 	}
 	/** @return list<list<string>>|null */
 	public function getNotLabelNames(bool $plaintext = false): ?array {
-		return $plaintext ? $this->not_label_names : Minz_Helper::htmlspecialchars_utf8($this->not_label_names, ENT_NOQUOTES);
+		return $plaintext ? $this->not_label_names : Helper::htmlspecialchars_utf8($this->not_label_names, ENT_NOQUOTES);
 	}
 
 	/** @return list<string>|null */
 	public function getIntitle(bool $plaintext = false): ?array {
-		return $plaintext ? $this->intitle : Minz_Helper::htmlspecialchars_utf8($this->intitle, ENT_NOQUOTES);
+		return $plaintext ? $this->intitle : Helper::htmlspecialchars_utf8($this->intitle, ENT_NOQUOTES);
 	}
 	/** @return list<string>|null */
 	public function getIntitleRegex(): ?array {
@@ -571,7 +575,7 @@ class FreshRSS_Search implements \Stringable {
 	}
 	/** @return list<string>|null */
 	public function getNotIntitle(bool $plaintext = false): ?array {
-		return $plaintext ? $this->not_intitle : Minz_Helper::htmlspecialchars_utf8($this->not_intitle, ENT_NOQUOTES);
+		return $plaintext ? $this->not_intitle : Helper::htmlspecialchars_utf8($this->not_intitle, ENT_NOQUOTES);
 	}
 	/** @return list<string>|null */
 	public function getNotIntitleRegex(): ?array {
@@ -580,7 +584,7 @@ class FreshRSS_Search implements \Stringable {
 
 	/** @return list<string>|null */
 	public function getIntext(bool $plaintext = false): ?array {
-		return $plaintext ? $this->intext : Minz_Helper::htmlspecialchars_utf8($this->intext, ENT_NOQUOTES);
+		return $plaintext ? $this->intext : Helper::htmlspecialchars_utf8($this->intext, ENT_NOQUOTES);
 	}
 	/** @return list<string>|null */
 	public function getIntextRegex(): ?array {
@@ -588,7 +592,7 @@ class FreshRSS_Search implements \Stringable {
 	}
 	/** @return list<string>|null */
 	public function getNotIntext(bool $plaintext = false): ?array {
-		return $plaintext ? $this->not_intext : Minz_Helper::htmlspecialchars_utf8($this->not_intext, ENT_NOQUOTES);
+		return $plaintext ? $this->not_intext : Helper::htmlspecialchars_utf8($this->not_intext, ENT_NOQUOTES);
 	}
 	/** @return list<string>|null */
 	public function getNotIntextRegex(): ?array {
@@ -672,7 +676,7 @@ class FreshRSS_Search implements \Stringable {
 
 	/** @return list<string>|null */
 	public function getInurl(bool $plaintext = false): ?array {
-		return $plaintext ? $this->inurl : Minz_Helper::htmlspecialchars_utf8($this->inurl, ENT_NOQUOTES);
+		return $plaintext ? $this->inurl : Helper::htmlspecialchars_utf8($this->inurl, ENT_NOQUOTES);
 	}
 	/** @return list<string>|null */
 	public function getInurlRegex(): ?array {
@@ -680,7 +684,7 @@ class FreshRSS_Search implements \Stringable {
 	}
 	/** @return list<string>|null */
 	public function getNotInurl(bool $plaintext = false): ?array {
-		return $plaintext ? $this->not_inurl : Minz_Helper::htmlspecialchars_utf8($this->not_inurl, ENT_NOQUOTES);
+		return $plaintext ? $this->not_inurl : Helper::htmlspecialchars_utf8($this->not_inurl, ENT_NOQUOTES);
 	}
 	/** @return list<string>|null */
 	public function getNotInurlRegex(): ?array {
@@ -689,7 +693,7 @@ class FreshRSS_Search implements \Stringable {
 
 	/** @return list<string>|null */
 	public function getAuthor(bool $plaintext = false): ?array {
-		return $plaintext ? $this->author : Minz_Helper::htmlspecialchars_utf8($this->author, ENT_NOQUOTES);
+		return $plaintext ? $this->author : Helper::htmlspecialchars_utf8($this->author, ENT_NOQUOTES);
 	}
 	/** @return list<string>|null */
 	public function getAuthorRegex(): ?array {
@@ -697,7 +701,7 @@ class FreshRSS_Search implements \Stringable {
 	}
 	/** @return list<string>|null */
 	public function getNotAuthor(bool $plaintext = false): ?array {
-		return $plaintext ? $this->not_author : Minz_Helper::htmlspecialchars_utf8($this->not_author, ENT_NOQUOTES);
+		return $plaintext ? $this->not_author : Helper::htmlspecialchars_utf8($this->not_author, ENT_NOQUOTES);
 	}
 	/** @return list<string>|null */
 	public function getNotAuthorRegex(): ?array {
@@ -706,7 +710,7 @@ class FreshRSS_Search implements \Stringable {
 
 	/** @return list<string>|null */
 	public function getTags(bool $plaintext = false): ?array {
-		return $plaintext ? $this->tags : Minz_Helper::htmlspecialchars_utf8($this->tags, ENT_NOQUOTES);
+		return $plaintext ? $this->tags : Helper::htmlspecialchars_utf8($this->tags, ENT_NOQUOTES);
 	}
 	/** @return list<string>|null */
 	public function getTagsRegex(): ?array {
@@ -714,7 +718,7 @@ class FreshRSS_Search implements \Stringable {
 	}
 	/** @return list<string>|null */
 	public function getNotTags(bool $plaintext = false): ?array {
-		return $plaintext ? $this->not_tags : Minz_Helper::htmlspecialchars_utf8($this->not_tags, ENT_NOQUOTES);
+		return $plaintext ? $this->not_tags : Helper::htmlspecialchars_utf8($this->not_tags, ENT_NOQUOTES);
 	}
 	/** @return list<string>|null */
 	public function getNotTagsRegex(): ?array {
@@ -723,7 +727,7 @@ class FreshRSS_Search implements \Stringable {
 
 	/** @return list<string>|null */
 	public function getSearch(bool $plaintext = false): ?array {
-		return $plaintext ? $this->search : Minz_Helper::htmlspecialchars_utf8($this->search, ENT_NOQUOTES);
+		return $plaintext ? $this->search : Helper::htmlspecialchars_utf8($this->search, ENT_NOQUOTES);
 	}
 	/** @return list<string>|null */
 	public function getSearchRegex(): ?array {
@@ -731,7 +735,7 @@ class FreshRSS_Search implements \Stringable {
 	}
 	/** @return list<string>|null */
 	public function getNotSearch(bool $plaintext = false): ?array {
-		return $plaintext ? $this->not_search : Minz_Helper::htmlspecialchars_utf8($this->not_search, ENT_NOQUOTES);
+		return $plaintext ? $this->not_search : Helper::htmlspecialchars_utf8($this->not_search, ENT_NOQUOTES);
 	}
 	/** @return list<string>|null */
 	public function getNotSearchRegex(): ?array {

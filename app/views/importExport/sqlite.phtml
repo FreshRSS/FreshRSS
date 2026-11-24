@@ -1,6 +1,9 @@
 <?php
 declare(strict_types=1);
-/** @var FreshRSS_View $this */
+/** @var View $this */
+
+use FreshRss\Models\View;
+
 @ob_end_clean();	// Ensure no buffer
 header('Content-Type: application/vnd.sqlite3');
 header('Content-Disposition: attachment; filename="' . $this->sqliteName . '"');

@@ -1,6 +1,12 @@
 <?php
 	declare(strict_types=1);
-	/** @var FreshRSS_View $this */
+	/** @var View $this */
+
+use FreshRss\Minz\ExtensionManager;
+use FreshRss\Minz\HookType;
+use FreshRss\Models\Entry;
+use FreshRss\Models\View;
+
 ?>
 <?= '<?xml version="1.0" encoding="UTF-8" ?>'; ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:media="http://search.yahoo.com/mrss/" <?=
@@ -22,8 +28,8 @@
 <?php
 foreach ($this->entries as $item) {
 	if (!$this->internal_rendering) {
-		/** @var FreshRSS_Entry|null $item */
-		$item = Minz_ExtensionManager::callHook(Minz_HookType::EntryBeforeDisplay, $item);
+		/** @var Entry|null $item */
+		$item = ExtensionManager::callHook(HookType::EntryBeforeDisplay, $item);
 		if ($item === null) {
 			continue;
 		}

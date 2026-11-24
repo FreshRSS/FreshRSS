@@ -1,11 +1,17 @@
 <?php
 	declare(strict_types=1);
-	/** @var FreshRSS_View $this */
-	if (FreshRSS_Auth::hasAccess()) {
+	/** @var View $this */
+
+use FreshRss\Models\Auth;
+use FreshRss\Models\Context;
+use FreshRss\Models\Factory;
+use FreshRss\Models\View;
+
+if (Auth::hasAccess()) {
 		$this->partial('aside_configure');
 	}
 ?>
-<main class="post content<?= !FreshRSS_Auth::hasAccess() ? ' centered' : ''?>">
+<main class="post content<?= !Auth::hasAccess() ? ' centered' : ''?>">
 	<h1><?= _t('index.about') ?></h1>
 	<p><?= _t('index.about.freshrss_description') ?></p>
 
@@ -18,7 +24,7 @@
 	<h2><?= _t('index.about.bugs_reports') ?></h2>
 	<?= _t('index.about.github') ?>
 
-	<?php if (FreshRSS_Auth::hasAccess('admin')) { ?>
+	<?php if (Auth::hasAccess('admin')) { ?>
 		<details class="envInfo">
 			<summary><?= _t('index.about.bug_reports.environment_information') ?></summary>
 			<dl>
@@ -35,8 +41,8 @@
 				<dd><?= htmlspecialchars($curlVersionVersion, ENT_NOQUOTES, 'UTF-8') ?></dd>
 				<dd><?= htmlspecialchars($sslversion, ENT_NOQUOTES, 'UTF-8') ?></dd>
 				<dt><?= _t('index.about.bug_reports.environment_information.database') ?></dt>
-				<dd><?= htmlspecialchars(FreshRSS_Context::systemConf()->db['type'], ENT_NOQUOTES, 'UTF-8') ?></dd>
-				<?php $databaseDAO = FreshRSS_Factory::createDatabaseDAO(); ?>
+				<dd><?= htmlspecialchars(Context::systemConf()->db['type'], ENT_NOQUOTES, 'UTF-8') ?></dd>
+				<?php $databaseDAO = Factory::createDatabaseDAO(); ?>
 				<dd><?= htmlspecialchars($databaseDAO->version(), ENT_NOQUOTES, 'UTF-8') ?></dd>
 				<?php if ($databaseDAO->pdoClientVersion() !== $databaseDAO->version()): ?>
 					<dd><?= htmlspecialchars($databaseDAO->pdoClientVersion(), ENT_NOQUOTES, 'UTF-8') ?></dd>
@@ -56,13 +62,13 @@
 	<?= _t('index.about.agpl3') ?>
 
 	<?php
-	if (FreshRSS_Auth::hasAccess()) { ?>
+	if (Auth::hasAccess()) { ?>
 		<h2><?= _t('index.about.version') ?></h2>
 		<?= FRESHRSS_VERSION ?>
 
 		<?php
-		$env = FreshRSS_Context::systemConf()->environment;
-		if ($env !== 'production' && FreshRSS_Context::userConf()->is_admin) { ?>
+		$env = Context::systemConf()->environment;
+		if ($env !== 'production' && Context::userConf()->is_admin) { ?>
 			<h2>data/config.php</h2>
 			<code>'environment' => '<?= $env; ?>'</code><br />
 			<?php
@@ -71,7 +77,7 @@
 	?>
 </main>
 
-<?php if (!FreshRSS_Auth::hasAccess()) { ?>
+<?php if (!Auth::hasAccess()) { ?>
 <footer class="main-footer">
 	<?php if (file_exists(TOS_FILENAME)) { ?>
 		<a href="<?= _url('index', 'tos') ?>"><?= _t('index.tos.title')?></a>

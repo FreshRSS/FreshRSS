@@ -5,6 +5,12 @@ declare(strict_types=1);
  * `/api/misc.php/Extension%20name/` or `/api/misc.php?ext=Extension%20name`
  */
 
+use FreshRss\Minz\ExtensionManager;
+use FreshRss\Minz\HookType;
+use FreshRss\Minz\Session;
+use FreshRss\Minz\Translate;
+use FreshRss\Models\Context;
+
 require dirname(__DIR__, 2) . '/constants.php';
 require LIB_PATH . '/lib_rss.php';	//Includes class autoloader
 
@@ -36,34 +42,34 @@ if ($extensionName === '') {
 	die('Bad Request!');
 }
 
-Minz_Session::init('FreshRSS', volatile: true);
+Session::init('FreshRSS', volatile: true);
 
-FreshRSS_Context::initSystem();
-if (!FreshRSS_Context::hasSystemConf()) {
+Context::initSystem();
+if (!Context::hasSystemConf()) {
 	header('HTTP/1.1 500 Internal Server Error');
 	header('Content-Type: text/plain; charset=UTF-8');
 	die('Internal Server Error!');
 }
 
-if (!FreshRSS_Context::systemConf()->api_enabled) {
+if (!Context::systemConf()->api_enabled) {
 	header('HTTP/1.1 503 Service Unavailable');
 	header('Content-Type: text/plain; charset=UTF-8');
 	die('Service Unavailable!');
 }
 
-if (empty(FreshRSS_Context::systemConf()->extensions_enabled[$extensionName])) {
+if (empty(Context::systemConf()->extensions_enabled[$extensionName])) {
 	header('HTTP/1.1 404 Not Found');
 	header('Content-Type: text/plain; charset=UTF-8');
 	die('Not Found!');
 }
 
 // Only enable the extension that is being called
-FreshRSS_Context::systemConf()->extensions_enabled = [$extensionName => true];
-Minz_ExtensionManager::init();
+Context::systemConf()->extensions_enabled = [$extensionName => true];
+ExtensionManager::init();
 
-Minz_Translate::init();
+Translate::init();
 
-if (!Minz_ExtensionManager::callHookUnique(Minz_HookType::ApiMisc)) {
+if (!ExtensionManager::callHookUnique(HookType::ApiMisc)) {
 	header('HTTP/1.1 501 Not Implemented');
 	header('Content-Type: text/plain; charset=UTF-8');
 	die('Not Implemented!');

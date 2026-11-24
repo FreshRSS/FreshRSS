@@ -1,6 +1,11 @@
 <?php
 declare(strict_types=1);
 
+use FreshRss\Minz\Session;
+use FreshRss\Minz\Translate;
+use FreshRss\Models\Context;
+use FreshRss\Models\UserConfiguration;
+use FreshRss\Models\View;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\PreserveGlobalState;
 use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
@@ -19,13 +24,13 @@ final class javascriptVarsTest extends \PHPUnit\Framework\TestCase {
 
 	#[DataProvider('provideTitleOpensWebsite')]
 	public function testContextTellsWhetherTitleOpensWebsite(bool $titleOpensWebsite): void {
-		FreshRSS_Context::initSystem();
-		Minz_Session::init('FreshRSS', volatile: true);
-		FreshRSS_Context::setUserConf(clone FreshRSS_UserConfiguration::default());
-		FreshRSS_Context::userConf()->title_opens_website = $titleOpensWebsite;
-		Minz_Translate::init('en');
+		Context::initSystem();
+		Session::init('FreshRSS', volatile: true);
+		Context::setUserConf(clone UserConfiguration::default());
+		Context::userConf()->title_opens_website = $titleOpensWebsite;
+		Translate::init('en');
 
-		$view = new FreshRSS_View();
+		$view = new View();
 		$view->_path('helpers/javascript_vars.phtml');
 		$vars = json_decode($view->renderToString(), true);
 		self::assertIsArray($vars);

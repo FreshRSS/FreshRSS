@@ -1,10 +1,18 @@
 <?php
 	declare(strict_types=1);
-	/** @var FreshRSS_View $this */
-	FreshRSS::preLayout();
+	/** @var View $this */
+
+use FreshRss\Minz\Request;
+use FreshRss\Minz\Url;
+use FreshRss\Minz\User;
+use FreshRss\Models\Auth;
+use FreshRss\Models\Context;
+use FreshRss\Models\View;
+
+FreshRSS::preLayout();
 	$class = [];
-	if (Minz_Request::controllerName() !== '') {
-		$class[] = 'controller_' . Minz_Request::controllerName();
+	if (Request::controllerName() !== '') {
+		$class[] = 'controller_' . Request::controllerName();
 	} else {
 		$class[] = 'file_' . pathinfo(is_string($_SERVER['SCRIPT_NAME'] ?? null) ? $_SERVER['SCRIPT_NAME'] : '', PATHINFO_FILENAME);
 	}
@@ -13,11 +21,11 @@
 		$dir = ' dir="rtl"';
 		$class[] = 'rtl';
 	}
-	$class[] = 'theme_' . FreshRSS_Context::userConf()->theme;
-	if (FreshRSS_Context::userConf()->darkMode !== 'no') {
-		$class[] = 'darkMode_' . FreshRSS_Context::userConf()->darkMode;
+	$class[] = 'theme_' . Context::userConf()->theme;
+	if (Context::userConf()->darkMode !== 'no') {
+		$class[] = 'darkMode_' . Context::userConf()->darkMode;
 	}
-	if (FreshRSS_Auth::hasAccess()) {
+	if (Auth::hasAccess()) {
 		$class[] = 'logged_in';
 	}
 	$class = array_map(
@@ -25,63 +33,63 @@
 	);
 ?>
 <!DOCTYPE html>
-<html lang="<?= FreshRSS_Context::userConf()->language ?>"<?= $dir ?> xml:lang="<?= FreshRSS_Context::userConf()->language ?>" class="<?= implode(' ', $class) ?>">
+<html lang="<?= Context::userConf()->language ?>"<?= $dir ?> xml:lang="<?= Context::userConf()->language ?>" class="<?= implode(' ', $class) ?>">
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-		<?= FreshRSS_View::metaThemeColor() ?>
-		<?= FreshRSS_View::headStyle() ?>
+		<?= View::metaThemeColor() ?>
+		<?= View::headStyle() ?>
 		<script id="jsonVars" type="application/json">
 <?php $this->renderHelper('javascript_vars'); ?>
 		</script>
-		<?= FreshRSS_View::headScript() ?>
-		<link rel="manifest" href="<?= Minz_Url::display('/themes/manifest.json') ?>" />
-		<link rel="icon" id="favicon" type="image/svg+xml" href="<?= Minz_Url::display('/themes/icons/favicon.svg') ?>" />
-		<link rel="icon msapplication-TileImage apple-touch-icon" type="image/png" sizes="256x256" href="<?= Minz_Url::display('/themes/icons/favicon-256.png') ?>" />
-		<link rel="apple-touch-icon" href="<?= Minz_Url::display('/themes/icons/apple-touch-icon.png') ?>" />
+		<?= View::headScript() ?>
+		<link rel="manifest" href="<?= Url::display('/themes/manifest.json') ?>" />
+		<link rel="icon" id="favicon" type="image/svg+xml" href="<?= Url::display('/themes/icons/favicon.svg') ?>" />
+		<link rel="icon msapplication-TileImage apple-touch-icon" type="image/png" sizes="256x256" href="<?= Url::display('/themes/icons/favicon-256.png') ?>" />
+		<link rel="apple-touch-icon" href="<?= Url::display('/themes/icons/apple-touch-icon.png') ?>" />
 		<meta name="apple-mobile-web-app-capable" content="yes" />
 		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
-		<meta name="apple-mobile-web-app-title" content="<?= FreshRSS_Context::systemConf()->title ?>">
+		<meta name="apple-mobile-web-app-title" content="<?= Context::systemConf()->title ?>">
 		<meta name="msapplication-TileColor" content="#FFF" />
 		<meta name="theme-color" content="#FFF" />
-<?php if (!FreshRSS_Context::systemConf()->allow_referrer) { ?>
+<?php if (!Context::systemConf()->allow_referrer) { ?>
 		<meta name="referrer" content="no-referrer" />
 <?php } ?>
-		<?= FreshRSS_View::headTitle() ?>
+		<?= View::headTitle() ?>
 <?php
-	$url_base = Minz_Request::currentRequest();
+	$url_base = Request::currentRequest();
 	if ($this->rss_title != '') {
 		$url_rss = $url_base;
 		$url_rss['a'] = 'rss';
-		if (FreshRSS_Auth::hasAccess()) {
-			$url_rss['params']['user'] = Minz_User::name() ?? '';
-			$url_rss['params']['token'] = FreshRSS_Context::userConf()->token;
+		if (Auth::hasAccess()) {
+			$url_rss['params']['user'] = User::name() ?? '';
+			$url_rss['params']['token'] = Context::userConf()->token;
 		}
 		unset($url_rss['params']['rid']);
-		if (FreshRSS_Context::userConf()->since_hours_posts_per_rss) {
-			$url_rss['params']['hours'] = FreshRSS_Context::userConf()->since_hours_posts_per_rss;
+		if (Context::userConf()->since_hours_posts_per_rss) {
+			$url_rss['params']['hours'] = Context::userConf()->since_hours_posts_per_rss;
 		}
 ?>
-		<link rel="alternate" type="application/rss+xml" title="<?= $this->rss_title ?>" href="<?= Minz_Url::display($url_rss) ?>" />
-<?php } if (FreshRSS_Context::isAll() || FreshRSS_Context::isAllAndCategories() || FreshRSS_Context::isAllAndArchived() || FreshRSS_Context::isCategory() || FreshRSS_Context::isFeed()) {
+		<link rel="alternate" type="application/rss+xml" title="<?= $this->rss_title ?>" href="<?= Url::display($url_rss) ?>" />
+<?php } if (Context::isAll() || Context::isAllAndCategories() || Context::isAllAndArchived() || Context::isCategory() || Context::isFeed()) {
 		$opml_rss = $url_base;
 		$opml_rss['a'] = 'opml';
-		if (FreshRSS_Auth::hasAccess()) {
-			$opml_rss['params']['user'] = Minz_User::name() ?? '';
-			$opml_rss['params']['token'] = FreshRSS_Context::userConf()->token;
+		if (Auth::hasAccess()) {
+			$opml_rss['params']['user'] = User::name() ?? '';
+			$opml_rss['params']['token'] = Context::userConf()->token;
 		}
 		unset($opml_rss['params']['rid']);
 ?>
-		<link rel="outline" type="text/x-opml" title="OPML" href="<?= Minz_Url::display($opml_rss) ?>" />
-<?php } if (FreshRSS_Context::systemConf()->allow_robots) { ?>
-		<meta name="description" content="<?= htmlspecialchars(FreshRSS_Context::$name . ' | ' . FreshRSS_Context::$description, ENT_COMPAT, 'UTF-8') ?>" />
+		<link rel="outline" type="text/x-opml" title="OPML" href="<?= Url::display($opml_rss) ?>" />
+<?php } if (Context::systemConf()->allow_robots) { ?>
+		<meta name="description" content="<?= htmlspecialchars(Context::$name . ' | ' . Context::$description, ENT_COMPAT, 'UTF-8') ?>" />
 <?php } else { ?>
 		<meta name="robots" content="noindex,nofollow" />
 <?php } ?>
 	</head>
-	<body class="<?= Minz_Request::actionName() ?>">
+	<body class="<?= Request::actionName() ?>">
 <?php
-	if (!Minz_Request::paramBoolean('ajax')) {
+	if (!Request::paramBoolean('ajax')) {
 		flush();
 		$this->partial('header');
 	}
@@ -101,7 +109,7 @@
 	$msg = '';
 	$status = 'closed';
 	$notificationName = '';
-	$notif = Minz_Request::getNotification();
+	$notif = Request::getNotification();
 	if (!empty($notif)) {
 		$msg = $notif['content'];
 		$status = $notif['type'];

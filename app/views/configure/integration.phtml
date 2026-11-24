@@ -1,13 +1,19 @@
 <?php
 	declare(strict_types=1);
-	/** @var FreshRSS_View $this */
-	$this->partial('aside_configure');
+	/** @var View $this */
+
+use FreshRss\Models\Auth;
+use FreshRss\Models\Context;
+use FreshRss\Models\Share;
+use FreshRss\Models\View;
+
+$this->partial('aside_configure');
 ?>
 <main class="post">
 	<h1><?= _t('conf.sharing') ?></h1>
 
 	<form method="post" action="<?= _url('configure', 'integration') ?>" class="draggableList">
-		<input type="hidden" name="_csrf" value="<?= FreshRSS_Auth::csrfToken() ?>" />
+		<input type="hidden" name="_csrf" value="<?= Auth::csrfToken() ?>" />
 		<template id="simple-share">
 			<fieldset class="group-share dragbox">
 				<legend draggable="true">##label##</legend>
@@ -53,8 +59,8 @@
 		</template>
 
 		<?php
-			foreach (FreshRSS_Context::userConf()->sharing as $key => $share_options) {
-				$share = FreshRSS_Share::get($share_options['type']);
+			foreach (Context::userConf()->sharing as $key => $share_options) {
+				$share = Share::get($share_options['type']);
 				if ($share === null) {
 					continue;
 				}
@@ -113,7 +119,7 @@
 				<div class="group-controls">
 					<div class="stick">
 						<select>
-							<?php foreach (FreshRSS_Share::enum() as $share) { ?>
+							<?php foreach (Share::enum() as $share) { ?>
 							<option value='<?= $share->type() ?>' data-form='<?= $share->formType() ?>' data-help='<?= $share->help() ?>'
 								data-method='<?= $share->method() ?>' data-field='<?= $share->field() ?>'>
 								<?= $share->name(true) ?>

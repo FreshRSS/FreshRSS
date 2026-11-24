@@ -1,28 +1,32 @@
 <?php
 declare(strict_types=1);
 
+use FreshRss\Minz\PdoSqlite;
+use FreshRss\Minz\Translate;
+use FreshRss\Models\CategoryDAO;
+use FreshRss\Models\CategoryDAOSQLite;
 use PHPUnit\Framework\Attributes\DataProvider;
 
 final class CategoryDAOTest extends \PHPUnit\Framework\TestCase {
 
 	#[DataProvider('provideLanguages')]
 	public function test_searchByName_resolvesLocalisedDefaultCategory(string $language): void {
-		$previousLanguage = Minz_Translate::language();
-		Minz_Translate::init($language);
+		$previousLanguage = Translate::language();
+		Translate::init($language);
 		try {
-			$pdo = new Minz_PdoSqlite('sqlite::memory:');
+			$pdo = new PdoSqlite('sqlite::memory:');
 			$pdo->exec('CREATE TABLE category (id INTEGER PRIMARY KEY, name TEXT, kind INTEGER DEFAULT 0)');
 			$pdo->exec("INSERT INTO category (id, name) VALUES (1, 'Uncategorized'), (2, 'Архив с пробелами')");
-			$dao = new FreshRSS_CategoryDAOSQLite(currentPdo: $pdo);
+			$dao = new CategoryDAOSQLite(currentPdo: $pdo);
 
-			$defaultCategory = $dao->searchById(FreshRSS_CategoryDAO::DEFAULTCATEGORYID);
+			$defaultCategory = $dao->searchById(CategoryDAO::DEFAULTCATEGORYID);
 			self::assertNotNull($defaultCategory);
-			self::assertSame(FreshRSS_CategoryDAO::DEFAULTCATEGORYID, $dao->searchByName($defaultCategory->name())?->id());
-			self::assertSame(FreshRSS_CategoryDAO::DEFAULTCATEGORYID, $dao->searchByName(FreshRSS_CategoryDAO::DEFAULT_CATEGORY_NAME)?->id());
+			self::assertSame(CategoryDAO::DEFAULTCATEGORYID, $dao->searchByName($defaultCategory->name())?->id());
+			self::assertSame(CategoryDAO::DEFAULTCATEGORYID, $dao->searchByName(CategoryDAO::DEFAULT_CATEGORY_NAME)?->id());
 			self::assertSame(2, $dao->searchByName('Архив с пробелами')?->id());
 			self::assertNull($dao->searchByName('Missing category'));
 		} finally {
-			Minz_Translate::init($previousLanguage);
+			Translate::init($previousLanguage);
 		}
 	}
 
