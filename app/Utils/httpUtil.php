@@ -11,16 +11,16 @@ final class FreshRSS_http_Util {
 	 * @var list<string>
 	 */
 	private const ADDITIONAL_NON_GLOBAL_RANGES = [
+		'3fff::/20',	// RFC 9637 (Documentation)
+		'5f00::/16',	// RFC 9602 (SRv6 SIDs)
+		'64:ff9b:1::/48',	// RFC 8215 (Local-Use IPv4/IPv6 Translation Prefix)
+		'100:0:0:1::/64',	// RFC 9780 (Dummy IPv6 Prefix)
 		'168.63.129.16/32',	// Azure wire server
 		'192.88.99.0/24',	// RFC 7526 (deprecated 6to4 anycast)
 		'224.0.0.0/4',	// RFC 1112 (IPv4 multicast)
-		'100:0:0:1::/64',	// RFC 9780 (Dummy IPv6 Prefix)
 		'2002::/16',	// RFC 3056 (6to4)
-		'3fff::/20',	// RFC 9637 (Documentation)
-		'5f00::/16',	// RFC 9602 (SRv6 SIDs)
 		'fec0::/10',	// RFC 3879 (deprecated site-local)
 		'ff00::/8',	// RFC 4291 (IPv6 multicast)
-		'64:ff9b:1::/48',	// RFC 8215 (Local-Use IPv4/IPv6 Translation Prefix)
 	];
 	/** @var array<string, string[]> $resolve_ok */
 	private static array $resolve_ok = [];
