@@ -7,7 +7,7 @@ final class FreshRSS_http_Util {
 	private const NAT64_PREFIX_RFC6052 = '64:ff9b::/96';
 
 	/**
-	 * Special-use ranges `FILTER_FLAG_GLOBAL_RANGE` does not reject on every supported PHP version
+	 * `FILTER_FLAG_GLOBAL_RANGE` does not reject everything
 	 * @var list<string>
 	 */
 	private const ADDITIONAL_NON_GLOBAL_RANGES = [
@@ -407,8 +407,7 @@ final class FreshRSS_http_Util {
 					continue;
 				}
 
-				if (filter_var($embedded_ipv4, FILTER_VALIDATE_IP, FILTER_FLAG_GLOBAL_RANGE) === false ||
-					self::isAdditionalNonGlobal($embedded_ipv4)) {
+				if (self::isNonGlobalIp($embedded_ipv4)) {
 					continue;
 				}
 
@@ -416,9 +415,7 @@ final class FreshRSS_http_Util {
 				continue;
 			}
 
-			// `FILTER_FLAG_GLOBAL_RANGE` does not reject all special-use ranges
-			if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_GLOBAL_RANGE) === false ||
-				self::isAdditionalNonGlobal($ip)) {
+			if (self::isNonGlobalIp($ip)) {
 				continue;
 			}
 
@@ -762,18 +759,6 @@ final class FreshRSS_http_Util {
 	}
 
 	/**
-	 * Whether $ip is in a special-use range that FILTER_FLAG_GLOBAL_RANGE still accepts.
-	 */
-	private static function isAdditionalNonGlobal(string $ip): bool {
-		foreach (self::ADDITIONAL_NON_GLOBAL_RANGES as $range) {
-			if (self::checkCIDR($ip, $range)) {
-				return true;
-			}
-		}
-		return false;
-	}
-
-	/**
 	 * Converts an IP (v4 or v6) to a binary representation using inet_pton
 	 *
 	 * @param string $ip the IP to convert
@@ -830,6 +815,22 @@ final class FreshRSS_http_Util {
 		$ip_net_bits = substr($binary_ip, 0, $mask_bits);
 		$subnet_bits = substr($binary_subnet, 0, $mask_bits);
 		return $ip_net_bits === $subnet_bits;
+	}
+
+	/**
+	 * Whether $ip is outside the global answer ranges
+	 */
+	private static function isNonGlobalIp(string $ip): bool {
+		if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_GLOBAL_RANGE) === false) {
+			return true;
+		}
+		// `FILTER_FLAG_GLOBAL_RANGE` does not reject all special-use ranges
+		foreach (self::ADDITIONAL_NON_GLOBAL_RANGES as $range) {
+			if (self::checkCIDR($ip, $range)) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	/**
