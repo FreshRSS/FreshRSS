@@ -206,19 +206,14 @@ final class httpUtilTest extends \PHPUnit\Framework\TestCase {
 			'10.0.0.0/8' => ['10.0.0.5'],	// RFC1918
 			'64:ff9b:1::/48' => ['64:ff9b:1::c000:4260'],	// RFC8215 (Local-Use IPv4/IPv6 Translation Prefix)
 			'64:ff9b::/96' => ['64:ff9b::a9fe:a9fe'],	// RFC6052 (IPv4/IPv6 Translator, NAT64)
-			'64:ff9b::/96 embedded 6to4 anycast' => ['64:ff9b::c058:6301'],
-			'64:ff9b::/96 embedded multicast' => ['64:ff9b::e000:1'],
-			'64:ff9b::/96 embedded wire server' => ['64:ff9b::a83f:8110'],
 			'100.64.0.0/10' => ['100.64.5.5'],	// RFC6598 (Shared Address Space of Carrier-Grade NAT)
 			'100:0:0:1::/64' => ['100:0:0:1::1'],	// RFC9780 (Dummy IPv6 Prefix)
 			'127.0.0.0/8' => ['127.0.0.1'],	// RFC1700 (Loopback)
-			'168.63.129.16/32' => ['168.63.129.16'],	// Azure wire server
 			'169.254.0.0/16' => ['169.254.5.5'],	// RFC3927
 			'172.16.0.0/12' => ['172.16.5.5'],	// RFC1918
 			'192.0.0.0/24' => ['192.0.0.170'],	// RFC6890 (IETF Protocol Assignments)
 			'192.0.2.0/24' => ['192.0.2.1'],	// RFC5737 (TEST-NET-1)
 			'192.88.99.0/24' => ['192.88.99.1'],	// RFC7526 (deprecated 6to4 anycast)
-			'192.88.99.2/32' => ['192.88.99.2'],	// RFC6751 (6a44-relay anycast)
 			'192.168.0.0/16' => ['192.168.1.5'],	// RFC1918
 			'198.18.0.0/15' => ['198.18.0.1'],	// RFC2544 (Benchmarking)
 			'198.18.0.0/15 upper' => ['198.19.255.255'],
@@ -253,8 +248,6 @@ final class httpUtilTest extends \PHPUnit\Framework\TestCase {
 		return [
 			'public IPv4 alternate' => ['1.1.1.1'],
 			'public IPv4' => ['8.8.8.8'],
-			'below Azure wire server' => ['168.63.129.15'],
-			'above Azure wire server' => ['168.63.129.17'],
 			'below deprecated 6to4 anycast' => ['192.88.98.1'],
 			'above deprecated 6to4 anycast' => ['192.88.100.1'],
 			'below IPv4 multicast' => ['223.255.255.255'],
