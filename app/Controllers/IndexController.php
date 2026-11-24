@@ -53,7 +53,7 @@ class IndexController extends ActionController {
 	}
 
 	/**
-	 * @return '.future'|'.today'|'.yesterday'|''
+	 * @return string '.future'|'.today'|'.yesterday'|''
 	 */
 	private static function dayRelative(int $timestamp, bool $mayBeFuture): string {
 		static $today = null;

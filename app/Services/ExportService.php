@@ -59,7 +59,7 @@ class ExportService {
 	public function generateOpml(): array {
 		$view = new View();
 		$day = date('Y-m-d');
-		$view->categories = $this->category_dao->listSortedCategories(prePopulateFeeds: true, details: true);
+		$view->categories = $this->category_dao->listSortedCategories(details: true);
 		$view->excludeMutedFeeds = false;
 		$view->includeSensitiveCurlParams = true;
 
@@ -85,16 +85,16 @@ class ExportService {
 	 */
 	public function generateStarredEntries(string $type): array {
 		$view = new View();
-		$view->categories = $this->category_dao->listCategories(prePopulateFeeds: true);
+		$view->categories = $this->category_dao->listCategories();
 		$day = date('Y-m-d');
 
 		$view->list_title = _t('sub.import_export.starred_list');
 		$view->type = 'starred';
-		$entriesId = $this->entry_dao->listIdsWhere($type, 0, Entry::STATE_ALL, order: 'ASC', limit: -1) ?? [];
+		$entriesId = $this->entry_dao->listIdsWhere($type, order: 'ASC', limit: -1) ?? [];
 		$view->entryIdsTagNames = $this->tag_dao->getEntryIdsTagNames($entriesId);
 		// The following is a streamable query, i.e. must be last
 		$view->entries = $this->entry_dao->listWhere(
-			$type, 0, Entry::STATE_ALL, order: 'ASC', limit: -1
+			$type, order: 'ASC', limit: -1
 		);
 
 		return [

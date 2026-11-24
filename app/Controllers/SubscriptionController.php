@@ -78,15 +78,12 @@ class SubscriptionController extends ActionController {
 		if ($id !== 0) {
 			$type = Request::paramString('type');
 			$this->view->displaySlider = true;
-			switch ($type) {
-				case 'category':
-					$categoryDAO = Factory::createCategoryDao();
-					$this->view->category = $categoryDAO->searchById($id);
-					break;
-				default:
-					$feedDAO = Factory::createFeedDao();
-					$this->view->feed = $feedDAO->searchById($id) ?? Feed::default();
-					break;
+			if ($type === 'category') {
+				$categoryDAO = Factory::createCategoryDao();
+				$this->view->category = $categoryDAO->searchById($id);
+			} else {
+				$feedDAO = Factory::createFeedDao();
+				$this->view->feed = $feedDAO->searchById($id) ?? Feed::default();
 			}
 		}
 	}

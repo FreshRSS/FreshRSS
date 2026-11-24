@@ -1348,22 +1348,17 @@ class Feed extends Model {
 		}
 		$url = htmlspecialchars_decode($this->url);
 		$filename = $simplePie->get_cache_filename($url);
-		switch ($this->kind) {
-			case Feed::KIND_HTML_XPATH:
-			case Feed::KIND_HTML_XPATH_JSON_DOTNOTATION:
-				return CACHE_PATH . '/' . $filename . '.html';
-			case Feed::KIND_XML_XPATH:
-				return CACHE_PATH . '/' . $filename . '.xml';
-			case Feed::KIND_JSON_DOTNOTATION:
-			case Feed::KIND_JSON_XPATH:
-			case Feed::KIND_JSONFEED:
-				return CACHE_PATH . '/' . $filename . '.json';
-			case Feed::KIND_RSS:
-			case Feed::KIND_RSS_FORCED:
-				return CACHE_PATH . '/' . $filename . '.spc';
-			default:
-				return CACHE_PATH . '/' . $filename . '.raw';
-		}
+		return match ($this->kind) {
+			self::KIND_HTML_XPATH,
+			self::KIND_HTML_XPATH_JSON_DOTNOTATION => CACHE_PATH . '/' . $filename . '.html',
+			self::KIND_XML_XPATH => CACHE_PATH . '/' . $filename . '.xml',
+			self::KIND_JSON_DOTNOTATION,
+			self::KIND_JSON_XPATH,
+			self::KIND_JSONFEED => CACHE_PATH . '/' . $filename . '.json',
+			self::KIND_RSS,
+			self::KIND_RSS_FORCED => CACHE_PATH . '/' . $filename . '.spc',
+			default => CACHE_PATH . '/' . $filename . '.raw',
+		};
 	}
 
 	private function faviconRebuild(): void {
