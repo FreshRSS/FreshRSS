@@ -296,7 +296,8 @@ class FreshRSS_Entry extends Minz_Model {
 
 			foreach ($thumbnails as $thumbnail) {
 				if (is_string($thumbnail) && \SimplePie\Misc::is_remote_uri($thumbnail)) {
-					$content .= '<p><img class="enclosure-thumbnail" src="' . $thumbnail . '" alt="" title="' . $etitle . '" /></p>';
+					// No title here: it is output once with the enclosure itself below, not once more for each thumbnail
+					$content .= '<p><img class="enclosure-thumbnail" src="' . $thumbnail . '" alt="" /></p>';
 				}
 			}
 
