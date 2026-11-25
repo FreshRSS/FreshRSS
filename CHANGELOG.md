@@ -4,6 +4,8 @@ See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 
 ## 2026-1X-XX FreshRSS 1.31.1-dev
 
+* Security
+	* Minz: Launch actions case-sensitively [#9620](https://github.com/FreshRSS/FreshRSS/pull/9620)
 
 ## 2026-11-23 FreshRSS 1.31.0
 
