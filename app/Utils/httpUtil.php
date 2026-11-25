@@ -7,7 +7,8 @@ final class FreshRSS_http_Util {
 	private const NAT64_PREFIX_RFC6052 = '64:ff9b::/96';
 
 	/**
-	 * `FILTER_FLAG_GLOBAL_RANGE` does not reject everything
+	 * `FILTER_FLAG_GLOBAL_RANGE` does not reject everything yet:
+	 * https://github.com/php/php-src/pull/25426
 	 * @var list<string>
 	 */
 	private const ADDITIONAL_NON_GLOBAL_RANGES = [
