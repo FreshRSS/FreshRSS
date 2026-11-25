@@ -38,6 +38,7 @@ People are sorted by name so please keep this order.
 * [Annika Backstrom](https://github.com/abackstrom): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:abackstrom), [Web](https://sixohthree.com/)
 * [Anton Smirnov](https://github.com/arokettu): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:arokettu), [Web](https://sandfox.me/)
 * [Antonio Santos](https://github.com/Otolock): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Otolock), [Web](https://otolock.net/)
+* [aplaton216](https://github.com/aplaton216): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:aplaton216)
 * [Arslan-TR](https://github.com/Arslan-TR): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:Arslan-TR)
 * [ArthurHoaro](https://github.com/ArthurHoaro): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:ArthurHoaro)
 * [Artem Netsvetaev](https://github.com/netsvetoch): [contributions](https://github.com/FreshRSS/FreshRSS/pulls?q=is:pr+author:netsvetoch)
