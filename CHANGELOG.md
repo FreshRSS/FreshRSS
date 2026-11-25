@@ -5,7 +5,12 @@ See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 ## 2026-1X-XX FreshRSS 1.31.1-dev
 
 * Security
-	* Minz: Launch actions case-sensitively [#9620](https://github.com/FreshRSS/FreshRSS/pull/9620)
+	* SimplePie: Fix regex in clean hash (security + bug for PHP < 8.4) [#9616](https://github.com/FreshRSS/FreshRSS/pull/9616), [GHSA-8pj8-6xgr-8r8f](https://github.com/FreshRSS/FreshRSS/security/advisories/GHSA-8pj8-6xgr-8r8f)
+	* Harden SSRF guard: reject remaining reserved/special-use IP ranges [#9621](https://github.com/FreshRSS/FreshRSS/pull/9621),
+		[GHSA-2983-h3r5-qv6j](https://github.com/FreshRSS/FreshRSS/security/advisories/GHSA-2983-h3r5-qv6j), [GHSA-8f2g-vq96-ffxw](https://github.com/FreshRSS/FreshRSS/security/advisories/GHSA-8f2g-vq96-ffxw)
+	* Minz: Launch actions case-sensitively [#9620](https://github.com/FreshRSS/FreshRSS/pull/9620) [GHSA-gqgh-h7rm-f87f](https://github.com/FreshRSS/FreshRSS/security/advisories/GHSA-gqgh-h7rm-f87f)
+	* Avoid duplicated enclosure titles [#9615](https://github.com/FreshRSS/FreshRSS/pull/9615) [GHSA-pwpq-78jm-px4m](https://github.com/FreshRSS/FreshRSS/security/advisories/GHSA-pwpq-78jm-px4m)
+
 
 ## 2026-11-23 FreshRSS 1.31.0
 
@@ -210,7 +215,7 @@ See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 
 * Security
 	* 💥 SSRF mitigation: disallow access to local networks such as `127.0.0.1` by default, for security reasons (breaking change) [#8400](https://github.com/FreshRSS/FreshRSS/pull/8400),
-		[#8950](https://github.com/FreshRSS/FreshRSS/pull/8950), [#9195](https://github.com/FreshRSS/FreshRSS/pull/9195)
+		[#8950](https://github.com/FreshRSS/FreshRSS/pull/8950), [#9195](https://github.com/FreshRSS/FreshRSS/pull/9195), [GHSA-hcv2-vrhw-mjq8](https://github.com/FreshRSS/FreshRSS/security/advisories/GHSA-hcv2-vrhw-mjq8)
 		* Selected local networks can be allowed under *System configuration* or using the `INTERNAL_HOST_ALLOWLIST` environment variable
 		* Passing `*` allows all networks like before (unsafe)
 	* Fix auth CSRFs (login and register actions) [#9171](https://github.com/FreshRSS/FreshRSS/pull/9171)
