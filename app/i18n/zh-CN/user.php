@@ -41,7 +41,7 @@ return array(
 	),
 	'password' => array(
 		'invalid' => '无效密码',
-		'provided_password_too_long' => 'The provided password is too long.',	// TODO
+		'provided_password_too_long' => '提供的密码太长。',
 	),
 	'tos' => array(
 		'feedback' => array(
