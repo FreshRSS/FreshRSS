@@ -62,6 +62,9 @@ return array(
 		'feeds_imported_with_errors' => 'Syötteet on tuotu palveluun, mutta tuonnissa ilmeni virheitä. Jos kaikki haluamasi syötteet on tuotu, voit nyt napsauttaa <i>Päivitä syötteet</i> -painiketta.',
 		'file_cannot_be_uploaded' => 'Tiedoston siirto palvelimeen ei onnistu!',
 		'no_zip_extension' => 'ZIP-laajennusta ei löydy palvelimesta.',
+		'sqlite_export_error' => 'An error occurred while exporting your database to SQLite.',	// TODO
+		'sqlite_export_success' => 'Your database has been exported to SQLite.',	// TODO
+		'sqlite_export_too_large' => 'Your database is too large to be exported from the Web interface.',	// TODO
 		'zip_error' => 'ZIP-käsittelyssä on ilmennyt virhe.',
 	),
 	'profile' => array(

@@ -272,6 +272,9 @@ return array(
 		'export' => array(
 			'_' => 'İxrac',
 			'sqlite' => 'İstifadəçi verilənlər bazasını SQLite kimi endir',
+			'sqlite_force' => 'Force export even if it exceeds the size limit',	// TODO
+			'sqlite_now' => 'Export current database now',	// TODO
+			'sqlite_too_large' => 'Database too large for a Web export (limit: %s). Use the command-line tool instead.',	// TODO
 		),
 		'export_labelled' => 'Etiketlənmiş məqalələrinizi ixrac edin',
 		'export_opml' => 'Lentlərin siyahısını ixrac edin (OPML)',

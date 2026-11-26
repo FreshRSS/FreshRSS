@@ -62,6 +62,9 @@ return array(
 		'feeds_imported_with_errors' => 'Kanały zostały zaimportowane, jednakże wystąpiło kilka błędów. Jeżeli skończyłeś, kliknij guzik <i>Aktualizuj kanały</i>.',
 		'file_cannot_be_uploaded' => 'Plik nie może zostać wgrany!',
 		'no_zip_extension' => 'Rozszerzenie ZIP nie jest dostępne na serwerze.',
+		'sqlite_export_error' => 'An error occurred while exporting your database to SQLite.',	// TODO
+		'sqlite_export_success' => 'Your database has been exported to SQLite.',	// TODO
+		'sqlite_export_too_large' => 'Your database is too large to be exported from the Web interface.',	// TODO
 		'zip_error' => 'Wystąpił błąd podczas przetwarzania pliku ZIP.',
 	),
 	'profile' => array(

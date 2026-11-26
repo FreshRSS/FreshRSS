@@ -62,6 +62,9 @@ return array(
 		'feeds_imported_with_errors' => 'Jūsų kanalai importuoti, tačiau įvyko kelios klaidos. Kai baigsite importuoti, galite spustelėti mygtuką <i>Atnaujinti kanalus</i>.',
 		'file_cannot_be_uploaded' => 'Failo įkelti nepavyko!',
 		'no_zip_extension' => 'Jūsų serveryje nėra ZIP plėtinio.',
+		'sqlite_export_error' => 'An error occurred while exporting your database to SQLite.',	// TODO
+		'sqlite_export_success' => 'Your database has been exported to SQLite.',	// TODO
+		'sqlite_export_too_large' => 'Your database is too large to be exported from the Web interface.',	// TODO
 		'zip_error' => 'Apdorojant ZIP įvyko klaida.',
 	),
 	'profile' => array(

@@ -62,6 +62,9 @@ return array(
 		'feeds_imported_with_errors' => 'Lentləriniz idxal edildi, lakin bəzi xətalar baş verdi. İdxalı bitirmisinizsə, indi <i>Lentləri yenilə</i> düyməsini basa bilərsiniz.',
 		'file_cannot_be_uploaded' => 'Fayl yüklənə bilmədi!',
 		'no_zip_extension' => 'ZIP genişlənməsi serverinizdə mövcud deyil.',
+		'sqlite_export_error' => 'An error occurred while exporting your database to SQLite.',	// TODO
+		'sqlite_export_success' => 'Your database has been exported to SQLite.',	// TODO
+		'sqlite_export_too_large' => 'Your database is too large to be exported from the Web interface.',	// TODO
 		'zip_error' => 'ZIP emalı zamanı xəta baş verdi.',
 	),
 	'profile' => array(

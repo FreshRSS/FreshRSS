@@ -62,6 +62,9 @@ return array(
 		'feeds_imported_with_errors' => 'Стужкі імпартаваны, але ўзніклі некаторыя памылкі. Калі імпарт завершаны, можна націснуць кнопку <i>Абнавіць стужкі</i>.',
 		'file_cannot_be_uploaded' => 'Не ўдалося запампаваць файл!',
 		'no_zip_extension' => 'На серверы адсутнічае пашырэнне ZIP.',
+		'sqlite_export_error' => 'An error occurred while exporting your database to SQLite.',	// TODO
+		'sqlite_export_success' => 'Your database has been exported to SQLite.',	// TODO
+		'sqlite_export_too_large' => 'Your database is too large to be exported from the Web interface.',	// TODO
 		'zip_error' => 'Падчас апрацоўкі ZIP узнікла памылка.',
 	),
 	'profile' => array(

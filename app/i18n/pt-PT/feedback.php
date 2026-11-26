@@ -62,6 +62,9 @@ return array(
 		'feeds_imported_with_errors' => 'Os seus feeds foram importados, mas ocorreram alguns erros. Clique no botão <i>atualizar feeds</i>.',
 		'file_cannot_be_uploaded' => 'O ficheiro não pôde ser enviado',
 		'no_zip_extension' => 'a extensão ZIP não está presente no seu servidor.',
+		'sqlite_export_error' => 'An error occurred while exporting your database to SQLite.',	// TODO
+		'sqlite_export_success' => 'Your database has been exported to SQLite.',	// TODO
+		'sqlite_export_too_large' => 'Your database is too large to be exported from the Web interface.',	// TODO
 		'zip_error' => 'Ocorreu um erro durante a importação do ficheiro ZIP.',
 	),
 	'profile' => array(

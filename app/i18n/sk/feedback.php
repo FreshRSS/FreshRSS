@@ -62,6 +62,9 @@ return array(
 		'feeds_imported_with_errors' => 'Vaše kanály boli importované, ale vyskytli sa chyby. Ak ste s importovaním skončili, kliknite na tlačidlo <i>Aktualizovať kanále</i>.',
 		'file_cannot_be_uploaded' => 'Súbor sa nepodarilo nahrať!',
 		'no_zip_extension' => 'ZIP rozšírenie sa na vašom serveri nenachádza.',
+		'sqlite_export_error' => 'An error occurred while exporting your database to SQLite.',	// TODO
+		'sqlite_export_success' => 'Your database has been exported to SQLite.',	// TODO
+		'sqlite_export_too_large' => 'Your database is too large to be exported from the Web interface.',	// TODO
 		'zip_error' => 'Počas importovania ZIP súboru sa vyskytla chyba.',
 	),
 	'profile' => array(

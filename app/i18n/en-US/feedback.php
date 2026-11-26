@@ -62,6 +62,9 @@ return array(
 		'feeds_imported_with_errors' => 'Your feeds have been imported, but some errors occurred. If you are done importing, you can now click the <i>Update feeds</i> button.',	// IGNORE
 		'file_cannot_be_uploaded' => 'File cannot be uploaded!',	// IGNORE
 		'no_zip_extension' => 'The ZIP extension is not present on your server.',	// IGNORE
+		'sqlite_export_error' => 'An error occurred while exporting your database to SQLite.',	// IGNORE
+		'sqlite_export_success' => 'Your database has been exported to SQLite.',	// IGNORE
+		'sqlite_export_too_large' => 'Your database is too large to be exported from the Web interface.',	// IGNORE
 		'zip_error' => 'An error occurred during ZIP processing.',	// IGNORE
 	),
 	'profile' => array(

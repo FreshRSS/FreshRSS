@@ -76,6 +76,21 @@ Then schedule it (for example via cron):
 
 Each run writes `./data/users/<username>/sqlite-backups/<YYYYMMDDTHHMMSSZ>.sqlite` (UTC) for every user and prunes older files to the configured `retention` count.
 
+## On-demand SQLite export from the Web UI
+
+Users can also trigger a one-off SQLite export of their own database from *Import / export* in the Web UI, without needing shell access.
+
+To avoid overloading the server on large databases, this Web UI action is only available while the user's database is under the configured limit in `./data/config.php`:
+
+```php
+'limits' => [
+    // …
+    'sqlite_export_max_db_size' => 104857600, // 100 MiB; 0 disables the Web UI button
+],
+```
+
+For larger databases, use `./cli/export-sqlite-for-user.php` instead (see below).
+
 ## Migrating the database
 
 First, back up all user databases to SQLite files:

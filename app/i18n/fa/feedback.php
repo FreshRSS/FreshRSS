@@ -62,6 +62,9 @@ return array(
 		'feeds_imported_with_errors' => 'فیدهای شما وارد شده‌اند، اما چند خطا رخ داده است. اگر کار وارد کردن تمام شده است، اکنون می‌توانید روی دکمه <i>به‌روزرسانی فیدها</i> کلیک کنید.',
 		'file_cannot_be_uploaded' => ' فایل قابل آپلود نیست!',
 		'no_zip_extension' => ' پسوند ZIP در سرور شما وجود ندارد.',
+		'sqlite_export_error' => 'An error occurred while exporting your database to SQLite.',	// TODO
+		'sqlite_export_success' => 'Your database has been exported to SQLite.',	// TODO
+		'sqlite_export_too_large' => 'Your database is too large to be exported from the Web interface.',	// TODO
 		'zip_error' => ' در حین پردازش ZIP خطایی روی داد.',
 	),
 	'profile' => array(

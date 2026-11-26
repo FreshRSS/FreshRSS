@@ -62,6 +62,9 @@ return array(
 		'feeds_imported_with_errors' => 'Vos flux ont été importés mais des erreurs sont survenues.	Si vous avez fini vos importations, vous pouvez cliquer le bouton <i>Actualiser flux</i>.',
 		'file_cannot_be_uploaded' => 'Le fichier ne peut pas être téléchargé !',
 		'no_zip_extension' => 'L’extension ZIP n’est pas présente sur votre serveur.',
+		'sqlite_export_error' => 'An error occurred while exporting your database to SQLite.',	// TODO
+		'sqlite_export_success' => 'Your database has been exported to SQLite.',	// TODO
+		'sqlite_export_too_large' => 'Your database is too large to be exported from the Web interface.',	// TODO
 		'zip_error' => 'Une erreur est survenue durant le traitement du fichier ZIP.',
 	),
 	'profile' => array(
