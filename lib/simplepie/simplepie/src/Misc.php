@@ -2212,10 +2212,8 @@ JS;
      */
     public static function url_remove_credentials(string $url)
     {
-        // Cast for PHPStan: I do not think this can fail.
-        // The regex is valid and there should be no backtracking.
-        // https://github.com/phpstan/phpstan/issues/11547
-        return (string) preg_replace('#^(https?://)[^/:@]+:[^/:@]+@#i', '$1', $url);
+        // String cast for PHPStan while waiting to update to PHPStan 2+
+        return (string) preg_replace('#^([a-z][a-z0-9+.-]*://)(?:[^/?\#@]*+@)++#i', '$1', $url);
     }
 }
 

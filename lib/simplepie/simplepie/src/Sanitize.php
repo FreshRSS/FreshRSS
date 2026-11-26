@@ -515,6 +515,8 @@ class Sanitize implements RegistryAware
                     }
                 }
 
+                $this->flatten_raw_text_elements($xpath);
+
                 if (!empty($this->rename_attributes)) {
                     foreach ($this->rename_attributes as $attrib) {
                         $this->rename_attr($attrib, $xpath);
@@ -631,6 +633,60 @@ class Sanitize implements RegistryAware
             }
         }
         return $data;
+    }
+
+    /**
+     * Elements whose content is read by Web browsers as text up to their first matching end tag,
+     * whereas HTML parsers may build child elements in them: all of them in the legacy libxml2
+     * parser (under PHP 8.4), and `<noscript>` in `Dom\HTMLDocument`, because server-side
+     * parsing of the HTML5 parser has scripting disabled.
+     * Serializing such child elements would let e.g. `<xmp><a title="<!--</xmp><img>-->">`
+     * end the element early in a browser and turn the rest of the attribute value into live markup.
+     * `<script>` and `<style>` are not listed because libxml2 already parses their content as text.
+     * @var list<string>
+     */
+    private const RAW_TEXT_ELEMENTS = [
+        'iframe',
+        'noembed',
+        'noframes',
+        'noscript',
+        'plaintext',
+        'textarea',
+        'title',
+        'xmp',
+    ];
+
+    /**
+     * Replace the content of raw text elements by its text only.
+     *
+     * Serializing child elements there would let e.g. `<xmp><a title="<!--</xmp><img>-->">`
+     * end the element early in a browser and turn the rest of the attribute value into live markup.
+     *
+     * Runs on every engine: the legacy libxml2 parser (under PHP 8.4) builds child elements in all
+     * of the listed elements, and with the native HTML5 parser (PHP 8.4+) it is a no-op for the
+     * other elements but still required for `<noscript>`, whose text children `saveHtml()`
+     * serializes literally, without escaping markup characters in attribute values.
+     */
+    private function flatten_raw_text_elements(\Dom\XPath $xpath): void
+    {
+        // Only HTML elements get raw text semantics in Web browsers. The HTML5 parser
+        // puts them in the XHTML namespace, matching the `registerNamespace()` calls above,
+        // whereas unprefixed name tests such as `self::iframe` would not match anything.
+        /** @var \Dom\NodeList<\Dom\Element> */
+        $elements = $xpath->query('//*[self::xh:' . implode(' or self::xh:', self::RAW_TEXT_ELEMENTS) . '][node()]');
+        foreach ($elements as $element) {
+            $text = $element->textContent;
+            while (($child = $element->firstChild) !== null) {
+                // This also removes comments and processing instructions, which `textContent` omits
+                $element->removeChild($child);
+            }
+            if ($text !== '') {
+                $ownerDocument = $element->ownerDocument;
+                assert($ownerDocument !== null, 'For PHPStan, element must have an owner document');
+                // Not `new \Dom\Text($text)`, which the `Dom\` polyfill (PHP < 8.4) does not implement
+                $element->appendChild($ownerDocument->createTextNode($text));
+            }
+        }
     }
 
     /**
