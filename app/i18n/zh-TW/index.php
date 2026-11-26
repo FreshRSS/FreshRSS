@@ -37,15 +37,15 @@ return array(
 	'feed' => array(
 		'empty' => '無文章可顯示。',
 		'published' => array(
-			'_' => 'Published',	// TODO
-			'future' => 'Published in the future',	// TODO
-			'today' => 'Published today',	// TODO
-			'yesterday' => 'Published yesterday',	// TODO
+			'_' => '已發布',
+			'future' => '未來發布',
+			'today' => '今日發布',
+			'yesterday' => '昨日發布',
 		),
 		'received' => array(
-			'_' => 'Received',	// TODO
-			'today' => 'Received today',	// TODO
-			'yesterday' => 'Received yesterday',	// TODO
+			'_' => '已接收',
+			'today' => '今日接收',
+			'yesterday' => '昨日接收',
 		),
 		'rss_of' => '%s 的 RSS 訂閱源',
 		'title' => '主資訊流',
@@ -97,15 +97,15 @@ return array(
 				'name_asc' => '訂閱源標題 A→Z',
 				'name_desc' => '訂閱源標題 Z→A',
 			),
-			'id_asc' => 'Freshly received last',	// TODO
-			'id_desc' => 'Freshly received first',	// TODO
+			'id_asc' => '最新接收在後',
+			'id_desc' => '最新接收在前',
 			'length_asc' => '內容長度 1→9',
 			'length_desc' => '內容長度 9→1',
 			'link_asc' => '連結 A→Z',
 			'link_desc' => '連結 Z→A',
 			'primary' => array(
 				'_' => '主要排序標準',
-				'help' => 'Sorting by <em>received</em> date is recommended in most cases, for consistency and performance',	// TODO
+				'help' => '在大多數情況下，建議依<em>接收</em>日期排序，以確保一致性與效能',
 			),
 			'rand' => '隨機順序',
 			'secondary' => array(
