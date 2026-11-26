@@ -83,21 +83,21 @@ return array(
 			'_' => '基础 URL',
 			'recommendation' => '推荐: <kbd>%s</kbd>',
 		),
-		'closed_registration_message' => 'Message if registrations are closed',	// TODO
+		'closed_registration_message' => '注册关闭时显示的消息',
 		'cookie-duration' => array(
 			'help' => '单位：秒',
 			'number' => '保持登录的时长',
 		),
-		'default_closed_registration_message' => 'This server does not accept new registrations at the moment.',	// TODO
+		'default_closed_registration_message' => '此服务器目前不接受新注册。',
 		'force_email_validation' => '强制验证邮箱地址',
 		'instance-name' => '实例名称',
 		'internal-host-allowlist' => array(
-			'_' => 'Internal host allowlist',	// TODO
-			'help' => 'One entry per line:<ul><li>A <code>host:port</code>. For instance <code>127.0.0.1:8080</code> or <code>rss-bridge:80</code></li><li>A CIDR notation. For instance <code>0.0.0.0/0</code> to allow any IPv4, <code>::/0</code> to allow any IPv6</li><li>A <code>*</code> to allow any host (unsafe)</li></ul>',	// TODO
+			'_' => '内部主机白名单',
+			'help' => '每行一条：<ul><li><code>主机:端口</code>，例如 <code>127.0.0.1:8080</code> 或 <code>rss-bridge:80</code></li><li>CIDR 表示法，例如 <code>0.0.0.0/0</code> 表示允许所有 IPv4，<code>::/0</code> 表示允许所有 IPv6</li><li><code>*</code> 表示允许任何主机（不安全）</li></ul>',
 		),
 		'max-categories' => '各用户分类数限制',
 		'max-feeds' => '各用户订阅源数限制',
-		'override-by-env-var' => 'This setting is set by the environment variable <kbd>%s</kbd>.',	// TODO
+		'override-by-env-var' => '此设置由环境变量 <kbd>%s</kbd> 设定。',
 		'registration' => array(
 			'number' => '最大用户数',
 			'select' => array(
