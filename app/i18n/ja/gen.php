@@ -43,6 +43,7 @@ return array(
 		'open_url' => 'URLを開く',
 		'promote' => '昇格',
 		'purge' => '不要なデータの削除',
+		'read_in_freshrss' => 'Read in FreshRSS',	// TODO
 		'refresh_opml' => 'OPMLを更新する',
 		'remove' => '消去',
 		'rename' => '名前を変更する',
@@ -73,7 +74,7 @@ return array(
 		),
 		'username' => array(
 			'_' => 'ユーザー名',
-			'format' => '<small>1-39 characters: letters, digits, and <code>. _ @ -</code></small>',	// TODO
+			'format' => '<small>1〜39文字：英字、数字、<code>. _ @ -</code></small>',
 		),
 	),
 	'date' => array(
@@ -182,6 +183,9 @@ return array(
 		'unsafe_csp_header' => '使用中のCSPヘッダーは安全ではないため、FreshRSSがXSS攻撃に対して脆弱になる可能性があります。<a target="_blank" href="https://freshrss.github.io/FreshRSS/en/admins/10_ServerConfig.html#security">ドキュメント</a>を参照してください。',
 	),
 	'lang' => array(
+		'ar' => 'العربية',	// IGNORE
+		'az' => 'Azərbaycanca',	// IGNORE
+		'be' => 'Беларуская',	// IGNORE
 		'cs' => 'Čeština',	// IGNORE
 		'de' => 'Deutsch',	// IGNORE
 		'el' => 'Ελληνικά',	// IGNORE
@@ -197,6 +201,7 @@ return array(
 		'it' => 'Italiano',	// IGNORE
 		'ja' => '日本語',	// IGNORE
 		'ko' => '한국어',	// IGNORE
+		'lt' => 'Lietuvių',	// IGNORE
 		'lv' => 'Latviešu',	// IGNORE
 		'nl' => 'Nederlands',	// IGNORE
 		'oc' => 'Occitan',	// IGNORE
@@ -295,7 +300,7 @@ return array(
 		'linkedin' => 'LinkedIn',	// IGNORE
 		'mastodon' => 'Mastodon',	// IGNORE
 		'movim' => 'Movim',	// IGNORE
-		'nextcloud-bookmarks' => 'Nextcloud ブックマーク',	// DIRTY
+		'nextcloud-bookmarks' => 'Nextcloud ブックマーク',	// DIRTY - Nextcloud Bookmarks
 		'omnivore' => 'Omnivore',	// IGNORE
 		'pinboard' => 'Pinboard',	// IGNORE
 		'pinterest' => 'Pinterest',	// IGNORE

@@ -1,8 +1,11 @@
 <?php
 
-namespace Gt\CssXPath;
+namespace GT\CssXPath;
 
 class AttributeSelectorConverter {
+	private const UPPER_CASE = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+	private const LOWER_CASE = "abcdefghijklmnopqrstuvwxyz";
+
 	/** @param array<string, mixed> $token */
 	public function apply(
 		array $token,
@@ -11,25 +14,8 @@ class AttributeSelectorConverter {
 	):void {
 		$expression->ensureElement();
 
-		$attribute = (string)$token["content"];
-		if($htmlMode) {
-			$attribute = strtolower($attribute);
-		}
-
-		$detail = $token["detail"] ?? null;
-		$detailType = $detail[0] ?? null;
-		$detailValue = $detail[1] ?? null;
-
-		if(!$this->hasEqualsType($detailType)) {
-			$expression->appendFragment("[@{$attribute}]");
-			return;
-		}
-
-		$valueString = trim((string)$detailValue["content"], " '\"");
-		$equalsType = $detailType["content"];
-		$expression->appendFragment(
-			$this->buildExpression($attribute, $valueString, $equalsType)
-		);
+		$condition = $this->buildConditionFromToken($token, $htmlMode);
+		$expression->appendFragment("[{$condition}]");
 	}
 
 	/** @param array<string, mixed> $token */
@@ -55,9 +41,13 @@ class AttributeSelectorConverter {
 			return "@{$attribute}";
 		}
 
-		$valueString = trim((string)$detailValue["content"], " '\"");
+		[$value, $flag] = $this->extractValueAndFlag(
+			(string)$detailValue["content"]
+		);
 		$equalsType = $detailType["content"];
-		return $this->buildCondition($attribute, $valueString, $equalsType);
+		$attributeAccessor = $this->getAttributeAccessor($attribute, $flag);
+		$condition = $this->buildCondition($attributeAccessor, $value, $equalsType);
+		return $this->withExistenceCheck($attribute, $condition, $flag);
 	}
 
 	/**
@@ -94,34 +84,82 @@ class AttributeSelectorConverter {
 		string $equalsType
 	):string {
 		return match($equalsType) {
-			Translator::EQUALS_EXACT => "@{$attribute}=\"{$value}\"",
-			Translator::EQUALS_CONTAINS => "contains(@{$attribute},\"{$value}\")",
+			Translator::EQUALS_EXACT => "{$attribute}=\"{$value}\"",
+			Translator::EQUALS_CONTAINS => "contains({$attribute},\"{$value}\")",
 			Translator::EQUALS_CONTAINS_WORD => ""
-				. "contains(concat(\" \",@{$attribute},\" \"),"
+				. "contains(concat(\" \",{$attribute},\" \"),"
 				. "concat(\" \",\"{$value}\",\" \"))"
 				. "",
 			Translator::EQUALS_OR_STARTS_WITH_HYPHENATED => ""
-				. "@{$attribute}=\"{$value}\" or "
-				. "starts-with(@{$attribute}, \"{$value}-\")"
+				. "{$attribute}=\"{$value}\" or "
+				. "starts-with({$attribute}, \"{$value}-\")"
 				. "",
 			Translator::EQUALS_STARTS_WITH => ""
-				. "starts-with(@{$attribute}, \"{$value}\")"
+				. "starts-with({$attribute}, \"{$value}\")"
 				. "",
-				Translator::EQUALS_ENDS_WITH => ""
-				. "substring(@{$attribute},"
-				. "string-length(@{$attribute}) - "
+			Translator::EQUALS_ENDS_WITH => ""
+				. "substring({$attribute},"
+				. "string-length({$attribute}) - "
 				. "string-length(\"{$value}\") + 1)"
 				. "=\"{$value}\""
 				. "",
-			default => "@{$attribute}",
+			default => $attribute,
 		};
 	}
 
-	private function buildExpression(
+	private function withExistenceCheck(
 		string $attribute,
-		string $value,
-		string $equalsType
+		string $condition,
+		?string $flag
 	):string {
-		return "[" . $this->buildCondition($attribute, $value, $equalsType) . "]";
+		if($flag !== "i") {
+			return $condition;
+		}
+
+		return "@{$attribute} and ({$condition})";
+	}
+
+	/**
+	 * Splits an attribute selector's value from its trailing case flag, if any.
+	 * E.g. `rel~="icon" i` represents the value "icon" with case-insensitivity.
+	 * @param string $rawValue
+	 * @return array{string, string|null} The attribute value and case flag.
+	 */
+	private function extractValueAndFlag(string $rawValue):array {
+		// A case flag appears either after the closing quote of a quoted value,
+		// or separated by whitespace after an unquoted value.
+		$patternQuoted = "/^(?<quote>['\"])(?<value>.*)(?P=quote)\s*"
+			. "(?<flag>[is])\s*$/i";
+		$patternUnquoted = '/^(?<value>.*\S)\s+(?<flag>[is])\s*$/i';
+
+		if(preg_match($patternQuoted, $rawValue, $matches) === 1
+			|| preg_match($patternUnquoted, $rawValue, $matches) === 1) {
+			$flag = strtolower($matches["flag"]);
+			$value = trim($matches["value"], " '\"");
+			if($flag === "i") {
+				$value = strtolower($value);
+			}
+
+			return [$value, $flag];
+		}
+
+		return [trim($rawValue, " '\""), null];
+	}
+
+	/**
+	 * Rewrites the condition's attribute-name comparison to ignore case,
+	 * using the XPath translate() function.
+	 */
+	private function getAttributeAccessor(
+		string $attribute,
+		?string $flag
+	):string {
+		if($flag === null || $flag === "s") {
+			return "@" . $attribute;
+		}
+
+		return "translate(@" . $attribute
+			. ",\"" . self::UPPER_CASE . "\","
+			. "\"" . self::LOWER_CASE . "\")";
 	}
 }

@@ -15,7 +15,7 @@ return array(
 		'address' => '你的 API 地址：',
 		'output' => array(
 			'encoding-support' => '⚠️ 警告：<code>%2F</code> 支持缺失，部分客户端可能无法正常工作!',
-			'invalid-configuration' => '⚠️ 警告：./data/config.php 中可能存在无效的 base URL',	// DIRTY
+			'invalid-configuration' => '⚠️ 警告：./data/config.php 中可能存在无效的 base URL',	// DIRTY - ⚠️ WARN: Probable invalid base URL in ./data/config.php
 			'pass' => '✔️ 通过',
 			'unknown-error' => '❌ ',	// IGNORE
 		),
@@ -24,7 +24,7 @@ return array(
 			'greader' => 'Google Reader API 配置测试',
 		),
 		'title' => array(
-			'_' => 'FreshRSS API 端点',	// DIRTY
+			'_' => 'FreshRSS API 端点',	// DIRTY - FreshRSS API endpoints
 			'extension' => '供拓展使用的 API',
 			'fever' => 'Fever 兼容的 API',
 			'greader' => 'Google Reader 兼容的 API',

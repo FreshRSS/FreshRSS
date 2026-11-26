@@ -1,7 +1,7 @@
 {
 	"name": "Ansum",
 	"author": "Thomas Guesnon",
-	"description": "Thème sablonneux",
+	"description": "Sandy theme",
 	"version": 0.2,
 	"files": ["_frss.css", "ansum.css"],
 	"theme-color": "#fbf9f6"

@@ -43,6 +43,7 @@ return array(
 		'open_url' => 'Відкрити URL-адресу',
 		'promote' => 'Підвищити',
 		'purge' => 'Застосувати політику видалення',
+		'read_in_freshrss' => 'Read in FreshRSS',	// TODO
 		'refresh_opml' => 'Оновити OPML',
 		'remove' => 'Вилучити',
 		'rename' => 'Перейменувати',
@@ -180,14 +181,14 @@ return array(
 		'confirm_exit_slider' => 'Точно відкинути незбережені параметри?',
 		'feedback' => array(
 			'body_new_articles' => array(
-				0 => 'Наявні нові статті (%d) у FreshRSS.',	// DIRTY
-				1 => 'Наявні нові статті (%d) у FreshRSS.',	// DIRTY
-				2 => 'Наявні нові статті (%d) у FreshRSS.',	// DIRTY
+				0 => 'Наявні нові статті (%d) у FreshRSS.',	// DIRTY - There is %d new article to read on FreshRSS.
+				1 => 'Наявні нові статті (%d) у FreshRSS.',	// DIRTY - There are %d new articles to read on FreshRSS.
+				2 => 'Наявні нові статті (%d) у FreshRSS.',	// DIRTY - There are %d new articles to read on FreshRSS.
 			),
 			'body_unread_articles' => array(
-				0 => '(непрочитано: %d)',	// DIRTY
-				1 => '(непрочитано: %d)',	// DIRTY
-				2 => '(непрочитано: %d)',	// DIRTY
+				0 => '(непрочитано: %d)',	// DIRTY - (unread: %d)
+				1 => '(непрочитано: %d)',	// DIRTY - (unread: %d)
+				2 => '(непрочитано: %d)',	// DIRTY - (unread: %d)
 			),
 			'request_failed' => 'Не вдалося виконати запит. Можливо, інтернет-зʼєднання нестабільне.',
 			'title_new_articles' => 'FreshRSS: нові статті!',
@@ -198,6 +199,9 @@ return array(
 		'unsafe_csp_header' => 'Через використовуваний CSP-заголовок FreshRSS під загрозою XSS-атак. <a target="_blank" href="https://freshrss.github.io/FreshRSS/en/admins/10_ServerConfig.html#security">Переглянути документацію</a>',
 	),
 	'lang' => array(
+		'ar' => 'العربية',	// IGNORE
+		'az' => 'Azərbaycanca',	// IGNORE
+		'be' => 'Беларуская',	// IGNORE
 		'cs' => 'Čeština',	// IGNORE
 		'de' => 'Deutsch',	// IGNORE
 		'el' => 'Ελληνικά',	// IGNORE
@@ -213,6 +217,7 @@ return array(
 		'it' => 'Italiano',	// IGNORE
 		'ja' => '日本語',	// IGNORE
 		'ko' => '한국어',	// IGNORE
+		'lt' => 'Lietuvių',	// TODO
 		'lv' => 'Latviešu',	// IGNORE
 		'nl' => 'Nederlands',	// IGNORE
 		'oc' => 'Occitan',	// IGNORE
@@ -311,7 +316,7 @@ return array(
 		'linkedin' => 'LinkedIn',	// IGNORE
 		'mastodon' => 'Mastodon',	// IGNORE
 		'movim' => 'Movim',	// IGNORE
-		'nextcloud-bookmarks' => 'Nextcloud Закладки',	// DIRTY
+		'nextcloud-bookmarks' => 'Nextcloud Закладки',	// DIRTY - Nextcloud Bookmarks
 		'omnivore' => 'Omnivore',	// IGNORE
 		'pinboard' => 'Pinboard',	// IGNORE
 		'pinterest' => 'Pinterest',	// IGNORE

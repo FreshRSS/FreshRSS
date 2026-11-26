@@ -18,6 +18,16 @@ function gmpRequirementStatus(int $integerSize = PHP_INT_SIZE, ?bool $gmpLoaded 
 }
 
 /**
+ * Server-side check of the database parameters received by the Web installer
+ */
+function checkDbParameters(string $host, string $user, string $base, string $prefix): bool {
+	return preg_match('/^[0-9A-Z\/a-z_.\-]{1,64}(:[0-9]{2,5})?$/D', $host) === 1 &&
+		preg_match('/^[0-9A-Za-z@_.\-]{1,64}$/D', $user) === 1 &&
+		preg_match('/^[0-9A-Za-z_\-]{1,64}$/D', $base) === 1 &&
+		preg_match('/^[0-9A-Za-z_]{0,16}$/D', $prefix) === 1;
+}
+
+/**
  * @param 'mysql'|'pgsql'|'sqlite'|'' $dbType
  * @return array<string,'ok'|'ko'|'warn'>
  */

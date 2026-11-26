@@ -65,7 +65,7 @@ return array(
 		'sqlite_export_error' => 'An error occurred while exporting your database to SQLite.',	// TODO
 		'sqlite_export_success' => 'Your database has been exported to SQLite.',	// TODO
 		'sqlite_export_too_large' => 'Your database is too large to be exported from the Web interface.',	// TODO
-		'zip_error' => '导入 ZIP 文件时出错',	// DIRTY
+		'zip_error' => '导入 ZIP 文件时出错',	// DIRTY - An error occurred during ZIP processing.
 	),
 	'profile' => array(
 		'error' => '你的帐户无法修改',

@@ -73,7 +73,11 @@ class FreshRSS_Category extends Minz_Model {
 		return $this->error;
 	}
 
-	public function _error(bool|int $value): void {
+	/**
+	 * @param bool|int|numeric-string $value
+	 * 32-bit systems provide a string and will fail in year 2038
+	 */
+	public function _error(bool|int|string $value): void {
 		$this->error = (bool)$value;
 	}
 	public function isDefault(): bool {
@@ -224,7 +228,7 @@ class FreshRSS_Category extends Minz_Model {
 		} else {
 			$dryRunCategory = new FreshRSS_Category();
 			$importService = new FreshRSS_Import_Service();
-			$importService->importOpml($opml, $dryRunCategory, true);
+			$importService->importOpml($opml, $dryRunCategory, dry_run: true, trusted_source: false);
 			if ($importService->lastStatus()) {
 				$feedDAO = FreshRSS_Factory::createFeedDao();
 				$limits = FreshRSS_Context::systemConf()->limits;

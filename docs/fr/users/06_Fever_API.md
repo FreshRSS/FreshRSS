@@ -27,7 +27,7 @@ Connectez ensuite votre application mobile en utilisant l’adresse de l’API
 |:----------------------------------------------------------------------------------:|:-------------------:|:--------------------------------------------------------:|
 |[Fluent Reader](https://hyliu.me/fluent-reader/)                                    |Windows, Linux, macOS|[BSD-3-Clause](https://github.com/yang991178/fluent-reader/blob/master/LICENSE)|
 |[Fluent Reader lite](https://hyliu.me/fluent-reader-lite/)                          |Android, iOS         |[BSD-3-Clause](https://github.com/yang991178/fluent-reader-lite)|
-|[Read You](https://github.com/Ashinch/ReadYou/)                                     |Android              |[GPLv3](https://github.com/Ashinch/ReadYou/blob/main/LICENSE)|
+|[Read You](https://github.com/ReadYouApp/ReadYou)                                     |Android              |[GPLv3](https://github.com/ReadYouApp/ReadYou/blob/main/LICENSE)|
 |[Fiery Feeds](https://voidstern.net/fiery-feeds)       |iOS                  |Source fermée                                             |
 |[Unread](https://www.goldenhillsoftware.com/unread/)                 |iOS                  |Source fermée                                             |
 |[Reeder Classic](https://www.reederapp.com/classic/)                                |iOS                  |Source fermée                                              |
@@ -58,7 +58,7 @@ Les fonctionnalités suivantes ne sont pas implémentées :
 
 Si l’API ne fonctionne pas comme attendu dans votre lecteur, il est possible
 de la tester manuellement avec un outil tel que
-[Postman](https://www.getpostman.com/).
+[Postman](https://www.postman.com/).
 
 Envoyer une requête POST à l’adresse
 <https://freshrss.example.net/api/fever.php?api> devrait vous renvoyer le
@@ -85,7 +85,7 @@ Ajoutez un contenu sous forme de `form-data`à votre requête POST ainsi que
 le paramètre `api_key` contenant la valeur calculée à l’étape précédente :
 
 ```sh
-curl -s -F "api_key=$api_key" 'https://freshrss.exemple.net/api/fever.php?api'
+curl -s -F "api_key=$api_key" 'https://freshrss.example.net/api/fever.php?api'
 ```
 
 Vous devriez obtenir le résultat suivant :

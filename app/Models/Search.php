@@ -173,7 +173,7 @@ class FreshRSS_Search implements \Stringable {
 			// Discard user queries
 			return $s;
 		}
-		if (strpbrk($s, ' "\'\\/:') !== false || $s === '') {
+		if (strpbrk($s, ' "\'\\/:()') !== false || $s === '' || preg_match('/\bOR\b/i', $s) === 1) {
 			return '"' . addcslashes($s, '"') . '"';
 		}
 		return $s;
@@ -766,7 +766,7 @@ class FreshRSS_Search implements \Stringable {
 	 */
 	private function parseEntryIds(string $input): string {
 		if (preg_match_all('/\\be:(?P<search>[0-9,]*)/', $input, $matches)) {
-			$input = str_replace($matches[0], '', $input);
+			$input = strtr($input, array_fill_keys($matches[0], ''));
 			$ids_lists = $matches['search'];
 			$this->entry_ids = [];
 			foreach ($ids_lists as $ids_list) {
@@ -782,7 +782,7 @@ class FreshRSS_Search implements \Stringable {
 
 	private function parseNotEntryIds(string $input): string {
 		if (preg_match_all('/(?<=[\\s(]|^)[!-]e:(?P<search>[0-9,]*)/', $input, $matches)) {
-			$input = str_replace($matches[0], '', $input);
+			$input = strtr($input, array_fill_keys($matches[0], ''));
 			$ids_lists = $matches['search'];
 			$this->not_entry_ids = [];
 			foreach ($ids_lists as $ids_list) {
@@ -798,7 +798,7 @@ class FreshRSS_Search implements \Stringable {
 
 	private function parseFeedIds(string $input): string {
 		if (preg_match_all('/\\bf:(?P<search>[0-9,]*)/', $input, $matches)) {
-			$input = str_replace($matches[0], '', $input);
+			$input = strtr($input, array_fill_keys($matches[0], ''));
 			$ids_lists = $matches['search'];
 			$this->feed_ids = [];
 			foreach ($ids_lists as $ids_list) {
@@ -816,7 +816,7 @@ class FreshRSS_Search implements \Stringable {
 
 	private function parseNotFeedIds(string $input): string {
 		if (preg_match_all('/(?<=[\\s(]|^)[!-]f:(?P<search>[0-9,]*)/', $input, $matches)) {
-			$input = str_replace($matches[0], '', $input);
+			$input = strtr($input, array_fill_keys($matches[0], ''));
 			$ids_lists = $matches['search'];
 			$this->not_feed_ids = [];
 			foreach ($ids_lists as $ids_list) {
@@ -834,7 +834,7 @@ class FreshRSS_Search implements \Stringable {
 
 	private function parseCategoryIds(string $input): string {
 		if (preg_match_all('/\\bc:(?P<search>[0-9,]*)/', $input, $matches)) {
-			$input = str_replace($matches[0], '', $input);
+			$input = strtr($input, array_fill_keys($matches[0], ''));
 			$ids_lists = $matches['search'];
 			$this->category_ids = [];
 			foreach ($ids_lists as $ids_list) {
@@ -852,7 +852,7 @@ class FreshRSS_Search implements \Stringable {
 
 	private function parseNotCategoryIds(string $input): string {
 		if (preg_match_all('/(?<=[\\s(]|^)[!-]c:(?P<search>[0-9,]*)/', $input, $matches)) {
-			$input = str_replace($matches[0], '', $input);
+			$input = strtr($input, array_fill_keys($matches[0], ''));
 			$ids_lists = $matches['search'];
 			$this->not_category_ids = [];
 			foreach ($ids_lists as $ids_list) {
@@ -873,7 +873,7 @@ class FreshRSS_Search implements \Stringable {
 	 */
 	private function parseUserQueryIds(string $input): string {
 		if (preg_match_all('/\\b[S]:(?P<search>[0-9,]+|[*])/', $input, $matches)) {
-			$input = str_replace($matches[0], '', $input);
+			$input = strtr($input, array_fill_keys($matches[0], ''));
 			$ids_lists = $matches['search'];
 			$this->user_query_ids = [];
 			foreach ($ids_lists as $ids_list) {
@@ -895,7 +895,7 @@ class FreshRSS_Search implements \Stringable {
 
 	private function parseNotUserQueryIds(string $input): string {
 		if (preg_match_all('/(?<=[\\s(]|^)[!-][S]:(?P<search>[0-9,]+|[*])/', $input, $matches)) {
-			$input = str_replace($matches[0], '', $input);
+			$input = strtr($input, array_fill_keys($matches[0], ''));
 			$ids_lists = $matches['search'];
 			$this->not_user_query_ids = [];
 			foreach ($ids_lists as $ids_list) {
@@ -922,11 +922,11 @@ class FreshRSS_Search implements \Stringable {
 		$names_lists = [];
 		if (preg_match_all('/\\bsearch?:(?P<delim>[\'"])(?P<search>.*)(?P=delim)/U', $input, $matches)) {
 			$names_lists = $matches['search'];
-			$input = str_replace($matches[0], '', $input);
+			$input = strtr($input, array_fill_keys($matches[0], ''));
 		}
 		if (preg_match_all('/\\bsearch?:(?P<search>[^\s"]*)/', $input, $matches)) {
 			$names_lists = array_merge($names_lists, $matches['search']);
-			$input = str_replace($matches[0], '', $input);
+			$input = strtr($input, array_fill_keys($matches[0], ''));
 		}
 		if (!empty($names_lists)) {
 			$this->user_query_names = [];
@@ -948,11 +948,11 @@ class FreshRSS_Search implements \Stringable {
 		$names_lists = [];
 		if (preg_match_all('/(?<=[\\s(]|^)[!-]search?:(?P<delim>[\'"])(?P<search>.*)(?P=delim)/U', $input, $matches)) {
 			$names_lists = $matches['search'];
-			$input = str_replace($matches[0], '', $input);
+			$input = strtr($input, array_fill_keys($matches[0], ''));
 		}
 		if (preg_match_all('/(?<=[\\s(]|^)[!-]search?:(?P<search>[^\\s"]*)/', $input, $matches)) {
 			$names_lists = array_merge($names_lists, $matches['search']);
-			$input = str_replace($matches[0], '', $input);
+			$input = strtr($input, array_fill_keys($matches[0], ''));
 		}
 		if (!empty($names_lists)) {
 			$this->not_user_query_names = [];
@@ -972,7 +972,7 @@ class FreshRSS_Search implements \Stringable {
 	 */
 	private function parseLabelIds(string $input): string {
 		if (preg_match_all('/\\b[lL]:(?P<search>[0-9,]+|[*])/', $input, $matches)) {
-			$input = str_replace($matches[0], '', $input);
+			$input = strtr($input, array_fill_keys($matches[0], ''));
 			$ids_lists = $matches['search'];
 			$this->label_ids = [];
 			foreach ($ids_lists as $ids_list) {
@@ -994,7 +994,7 @@ class FreshRSS_Search implements \Stringable {
 
 	private function parseNotLabelIds(string $input): string {
 		if (preg_match_all('/(?<=[\\s(]|^)[!-][lL]:(?P<search>[0-9,]+|[*])/', $input, $matches)) {
-			$input = str_replace($matches[0], '', $input);
+			$input = strtr($input, array_fill_keys($matches[0], ''));
 			$ids_lists = $matches['search'];
 			$this->not_label_ids = [];
 			foreach ($ids_lists as $ids_list) {
@@ -1021,11 +1021,11 @@ class FreshRSS_Search implements \Stringable {
 		$names_lists = [];
 		if (preg_match_all('/\\blabels?:(?P<delim>[\'"])(?P<search>.*)(?P=delim)/U', $input, $matches)) {
 			$names_lists = $matches['search'];
-			$input = str_replace($matches[0], '', $input);
+			$input = strtr($input, array_fill_keys($matches[0], ''));
 		}
 		if (preg_match_all('/\\blabels?:(?P<search>[^\s"]*)/', $input, $matches)) {
 			$names_lists = array_merge($names_lists, $matches['search']);
-			$input = str_replace($matches[0], '', $input);
+			$input = strtr($input, array_fill_keys($matches[0], ''));
 		}
 		if (!empty($names_lists)) {
 			$this->label_names = [];
@@ -1047,11 +1047,11 @@ class FreshRSS_Search implements \Stringable {
 		$names_lists = [];
 		if (preg_match_all('/(?<=[\\s(]|^)[!-]labels?:(?P<delim>[\'"])(?P<search>.*)(?P=delim)/U', $input, $matches)) {
 			$names_lists = $matches['search'];
-			$input = str_replace($matches[0], '', $input);
+			$input = strtr($input, array_fill_keys($matches[0], ''));
 		}
 		if (preg_match_all('/(?<=[\\s(]|^)[!-]labels?:(?P<search>[^\\s"]*)/', $input, $matches)) {
 			$names_lists = array_merge($names_lists, $matches['search']);
-			$input = str_replace($matches[0], '', $input);
+			$input = strtr($input, array_fill_keys($matches[0], ''));
 		}
 		if (!empty($names_lists)) {
 			$this->not_label_names = [];
@@ -1072,15 +1072,15 @@ class FreshRSS_Search implements \Stringable {
 	private function parseIntitleSearch(string $input): string {
 		if (preg_match_all('#\\bintitle:(?P<search>/.*?(?<!\\\\)/[im]*)#', $input, $matches)) {
 			$this->intitle_regex = $matches['search'];
-			$input = str_replace($matches[0], '', $input);
+			$input = strtr($input, array_fill_keys($matches[0], ''));
 		}
 		if (preg_match_all('/\\bintitle:(?P<delim>[\'"])(?P<search>.*)(?P=delim)/U', $input, $matches)) {
 			$this->intitle = $matches['search'];
-			$input = str_replace($matches[0], '', $input);
+			$input = strtr($input, array_fill_keys($matches[0], ''));
 		}
 		if (preg_match_all('/\\bintitle:(?P<search>[^\s"]*)/', $input, $matches)) {
 			$this->intitle = array_merge($this->intitle ?? [], $matches['search']);
-			$input = str_replace($matches[0], '', $input);
+			$input = strtr($input, array_fill_keys($matches[0], ''));
 		}
 		$this->intitle = self::removeEmptyValues($this->intitle);
 		if (empty($this->intitle)) {
@@ -1092,15 +1092,15 @@ class FreshRSS_Search implements \Stringable {
 	private function parseNotIntitleSearch(string $input): string {
 		if (preg_match_all('#(?<=[\\s(]|^)[!-]intitle:(?P<search>/.*?(?<!\\\\)/[im]*)#', $input, $matches)) {
 			$this->not_intitle_regex = $matches['search'];
-			$input = str_replace($matches[0], '', $input);
+			$input = strtr($input, array_fill_keys($matches[0], ''));
 		}
 		if (preg_match_all('/(?<=[\\s(]|^)[!-]intitle:(?P<delim>[\'"])(?P<search>.*)(?P=delim)/U', $input, $matches)) {
 			$this->not_intitle = $matches['search'];
-			$input = str_replace($matches[0], '', $input);
+			$input = strtr($input, array_fill_keys($matches[0], ''));
 		}
 		if (preg_match_all('/(?<=[\\s(]|^)[!-]intitle:(?P<search>[^\s"]*)/', $input, $matches)) {
 			$this->not_intitle = array_merge($this->not_intitle ?? [], $matches['search']);
-			$input = str_replace($matches[0], '', $input);
+			$input = strtr($input, array_fill_keys($matches[0], ''));
 		}
 		$this->not_intitle = self::removeEmptyValues($this->not_intitle);
 		if (empty($this->not_intitle)) {
@@ -1115,15 +1115,15 @@ class FreshRSS_Search implements \Stringable {
 	private function parseIntextSearch(string $input): string {
 		if (preg_match_all('#\\bintext:(?P<search>/.*?(?<!\\\\)/[im]*)#', $input, $matches)) {
 			$this->intext_regex = $matches['search'];
-			$input = str_replace($matches[0], '', $input);
+			$input = strtr($input, array_fill_keys($matches[0], ''));
 		}
 		if (preg_match_all('/\\bintext:(?P<delim>[\'"])(?P<search>.*)(?P=delim)/U', $input, $matches)) {
 			$this->intext = $matches['search'];
-			$input = str_replace($matches[0], '', $input);
+			$input = strtr($input, array_fill_keys($matches[0], ''));
 		}
 		if (preg_match_all('/\\bintext:(?P<search>[^\s"]*)/', $input, $matches)) {
 			$this->intext = array_merge($this->intext ?? [], $matches['search']);
-			$input = str_replace($matches[0], '', $input);
+			$input = strtr($input, array_fill_keys($matches[0], ''));
 		}
 		$this->intext = self::removeEmptyValues($this->intext);
 		if (empty($this->intext)) {
@@ -1135,15 +1135,15 @@ class FreshRSS_Search implements \Stringable {
 	private function parseNotIntextSearch(string $input): string {
 		if (preg_match_all('#(?<=[\\s(]|^)[!-]intext:(?P<search>/.*?(?<!\\\\)/[im]*)#', $input, $matches)) {
 			$this->not_intext_regex = $matches['search'];
-			$input = str_replace($matches[0], '', $input);
+			$input = strtr($input, array_fill_keys($matches[0], ''));
 		}
 		if (preg_match_all('/(?<=[\\s(]|^)[!-]intext:(?P<delim>[\'"])(?P<search>.*)(?P=delim)/U', $input, $matches)) {
 			$this->not_intext = $matches['search'];
-			$input = str_replace($matches[0], '', $input);
+			$input = strtr($input, array_fill_keys($matches[0], ''));
 		}
 		if (preg_match_all('/(?<=[\\s(]|^)[!-]intext:(?P<search>[^\s"]*)/', $input, $matches)) {
 			$this->not_intext = array_merge($this->not_intext ?? [], $matches['search']);
-			$input = str_replace($matches[0], '', $input);
+			$input = strtr($input, array_fill_keys($matches[0], ''));
 		}
 		$this->not_intext = self::removeEmptyValues($this->not_intext);
 		if (empty($this->not_intext)) {
@@ -1160,15 +1160,15 @@ class FreshRSS_Search implements \Stringable {
 	private function parseAuthorSearch(string $input): string {
 		if (preg_match_all('#\\bauthor:(?P<search>/.*?(?<!\\\\)/[im]*)#', $input, $matches)) {
 			$this->author_regex = $matches['search'];
-			$input = str_replace($matches[0], '', $input);
+			$input = strtr($input, array_fill_keys($matches[0], ''));
 		}
 		if (preg_match_all('/\\bauthor:(?P<delim>[\'"])(?P<search>.*)(?P=delim)/U', $input, $matches)) {
 			$this->author = $matches['search'];
-			$input = str_replace($matches[0], '', $input);
+			$input = strtr($input, array_fill_keys($matches[0], ''));
 		}
 		if (preg_match_all('/\\bauthor:(?P<search>[^\s"]*)/', $input, $matches)) {
 			$this->author = array_merge($this->author ?? [], $matches['search']);
-			$input = str_replace($matches[0], '', $input);
+			$input = strtr($input, array_fill_keys($matches[0], ''));
 		}
 		$this->author = self::removeEmptyValues($this->author);
 		if (empty($this->author)) {
@@ -1180,15 +1180,15 @@ class FreshRSS_Search implements \Stringable {
 	private function parseNotAuthorSearch(string $input): string {
 		if (preg_match_all('#(?<=[\\s(]|^)[!-]author:(?P<search>/.*?(?<!\\\\)/[im]*)#', $input, $matches)) {
 			$this->not_author_regex = $matches['search'];
-			$input = str_replace($matches[0], '', $input);
+			$input = strtr($input, array_fill_keys($matches[0], ''));
 		}
 		if (preg_match_all('/(?<=[\\s(]|^)[!-]author:(?P<delim>[\'"])(?P<search>.*)(?P=delim)/U', $input, $matches)) {
 			$this->not_author = $matches['search'];
-			$input = str_replace($matches[0], '', $input);
+			$input = strtr($input, array_fill_keys($matches[0], ''));
 		}
 		if (preg_match_all('/(?<=[\\s(]|^)[!-]author:(?P<search>[^\s"]*)/', $input, $matches)) {
 			$this->not_author = array_merge($this->not_author ?? [], $matches['search']);
-			$input = str_replace($matches[0], '', $input);
+			$input = strtr($input, array_fill_keys($matches[0], ''));
 		}
 		$this->not_author = self::removeEmptyValues($this->not_author);
 		if (empty($this->not_author)) {
@@ -1204,15 +1204,15 @@ class FreshRSS_Search implements \Stringable {
 	private function parseInurlSearch(string $input): string {
 		if (preg_match_all('#\\binurl:(?P<search>/.*?(?<!\\\\)/[im]*)#', $input, $matches)) {
 			$this->inurl_regex = $matches['search'];
-			$input = str_replace($matches[0], '', $input);
+			$input = strtr($input, array_fill_keys($matches[0], ''));
 		}
 		if (preg_match_all('/\\binurl:(?P<delim>[\'"])(?P<search>.*)(?P=delim)/U', $input, $matches)) {
 			$this->inurl = $matches['search'];
-			$input = str_replace($matches[0], '', $input);
+			$input = strtr($input, array_fill_keys($matches[0], ''));
 		}
 		if (preg_match_all('/\\binurl:(?P<search>[^\\s"]*)/', $input, $matches)) {
 			$this->inurl = array_merge($this->inurl ?? [], $matches['search']);
-			$input = str_replace($matches[0], '', $input);
+			$input = strtr($input, array_fill_keys($matches[0], ''));
 		}
 		$this->inurl = self::removeEmptyValues($this->inurl);
 		if (empty($this->inurl)) {
@@ -1224,15 +1224,15 @@ class FreshRSS_Search implements \Stringable {
 	private function parseNotInurlSearch(string $input): string {
 		if (preg_match_all('#(?<=[\\s(]|^)[!-]inurl:(?P<search>/.*?(?<!\\\\)/[im]*)#', $input, $matches)) {
 			$this->not_inurl_regex = $matches['search'];
-			$input = str_replace($matches[0], '', $input);
+			$input = strtr($input, array_fill_keys($matches[0], ''));
 		}
 		if (preg_match_all('/(?<=[\\s(]|^)[!-]inurl:(?P<delim>[\'"])(?P<search>.*)(?P=delim)/U', $input, $matches)) {
 			$this->not_inurl = $matches['search'];
-			$input = str_replace($matches[0], '', $input);
+			$input = strtr($input, array_fill_keys($matches[0], ''));
 		}
 		if (preg_match_all('/(?<=[\\s(]|^)[!-]inurl:(?P<search>[^\\s"]*)/', $input, $matches)) {
 			$this->not_inurl = array_merge($this->not_inurl ?? [], $matches['search']);
-			$input = str_replace($matches[0], '', $input);
+			$input = strtr($input, array_fill_keys($matches[0], ''));
 		}
 		$this->not_inurl = self::removeEmptyValues($this->not_inurl);
 		if (empty($this->not_inurl)) {
@@ -1247,7 +1247,7 @@ class FreshRSS_Search implements \Stringable {
 	 */
 	private function parseDateSearch(string $input): string {
 		if (preg_match_all('/\\bdate:(?P<search>[^\\s]*)/', $input, $matches)) {
-			$input = str_replace($matches[0], '', $input);
+			$input = strtr($input, array_fill_keys($matches[0], ''));
 			$dates = self::removeEmptyValues($matches['search']);
 			if (!empty($dates[0])) {
 				[$this->min_date, $this->max_date] = parseDateInterval($dates[0]);
@@ -1261,7 +1261,7 @@ class FreshRSS_Search implements \Stringable {
 
 	private function parseNotDateSearch(string $input): string {
 		if (preg_match_all('/(?<=[\\s(]|^)[!-]date:(?P<search>[^\\s]*)/', $input, $matches)) {
-			$input = str_replace($matches[0], '', $input);
+			$input = strtr($input, array_fill_keys($matches[0], ''));
 			$dates = self::removeEmptyValues($matches['search']);
 			if (!empty($dates[0])) {
 				[$this->not_min_date, $this->not_max_date] = parseDateInterval($dates[0]);
@@ -1280,7 +1280,7 @@ class FreshRSS_Search implements \Stringable {
 	 */
 	private function parsePubdateSearch(string $input): string {
 		if (preg_match_all('/\\bpubdate:(?P<search>[^\\s]*)/', $input, $matches)) {
-			$input = str_replace($matches[0], '', $input);
+			$input = strtr($input, array_fill_keys($matches[0], ''));
 			$dates = self::removeEmptyValues($matches['search']);
 			if (!empty($dates[0])) {
 				[$this->min_pubdate, $this->max_pubdate] = parseDateInterval($dates[0]);
@@ -1294,7 +1294,7 @@ class FreshRSS_Search implements \Stringable {
 
 	private function parseNotPubdateSearch(string $input): string {
 		if (preg_match_all('/(?<=[\\s(]|^)[!-]pubdate:(?P<search>[^\\s]*)/', $input, $matches)) {
-			$input = str_replace($matches[0], '', $input);
+			$input = strtr($input, array_fill_keys($matches[0], ''));
 			$dates = self::removeEmptyValues($matches['search']);
 			if (!empty($dates[0])) {
 				[$this->not_min_pubdate, $this->not_max_pubdate] = parseDateInterval($dates[0]);
@@ -1308,7 +1308,7 @@ class FreshRSS_Search implements \Stringable {
 
 	private function parseModifiedDateSearch(string $input): string {
 		if (preg_match_all('/\bmdate:(?P<search>[^\s]*)/', $input, $matches)) {
-			$input = str_replace($matches[0], '', $input);
+			$input = strtr($input, array_fill_keys($matches[0], ''));
 			$dates = self::removeEmptyValues($matches['search']);
 			if (!empty($dates[0])) {
 				[$this->min_modified_date, $this->max_modified_date] = parseDateInterval($dates[0]);
@@ -1322,7 +1322,7 @@ class FreshRSS_Search implements \Stringable {
 
 	private function parseNotModifiedDateSearch(string $input): string {
 		if (preg_match_all('/(?<=[\s(]|^)[!-]mdate:(?P<search>[^\s]*)/', $input, $matches)) {
-			$input = str_replace($matches[0], '', $input);
+			$input = strtr($input, array_fill_keys($matches[0], ''));
 			$dates = self::removeEmptyValues($matches['search']);
 			if (!empty($dates[0])) {
 				[$this->not_min_modified_date, $this->not_max_modified_date] = parseDateInterval($dates[0]);
@@ -1340,7 +1340,7 @@ class FreshRSS_Search implements \Stringable {
 	 */
 	private function parseUserdateSearch(string $input): string {
 		if (preg_match_all('/\\buserdate:(?P<search>[^\\s]*)/', $input, $matches)) {
-			$input = str_replace($matches[0], '', $input);
+			$input = strtr($input, array_fill_keys($matches[0], ''));
 			$dates = self::removeEmptyValues($matches['search']);
 			if (!empty($dates[0])) {
 				[$this->min_userdate, $this->max_userdate] = parseDateInterval($dates[0]);
@@ -1354,7 +1354,7 @@ class FreshRSS_Search implements \Stringable {
 
 	private function parseNotUserdateSearch(string $input): string {
 		if (preg_match_all('/(?<=[\\s(]|^)[!-]userdate:(?P<search>[^\\s]*)/', $input, $matches)) {
-			$input = str_replace($matches[0], '', $input);
+			$input = strtr($input, array_fill_keys($matches[0], ''));
 			$dates = self::removeEmptyValues($matches['search']);
 			if (!empty($dates[0])) {
 				[$this->not_min_userdate, $this->not_max_userdate] = parseDateInterval($dates[0]);
@@ -1374,15 +1374,15 @@ class FreshRSS_Search implements \Stringable {
 	private function parseTagsSearch(string $input): string {
 		if (preg_match_all('%#(?P<search>/.*?(?<!\\\\)/[im]*)%', $input, $matches)) {
 			$this->tags_regex = $matches['search'];
-			$input = str_replace($matches[0], '', $input);
+			$input = strtr($input, array_fill_keys($matches[0], ''));
 		}
 		if (preg_match_all('/#(?P<delim>[\'"])(?P<search>.*)(?P=delim)/U', $input, $matches)) {
 			$this->tags = $matches['search'];
-			$input = str_replace($matches[0], '', $input);
+			$input = strtr($input, array_fill_keys($matches[0], ''));
 		}
 		if (preg_match_all('/#(?P<search>[^\\s"]+)/', $input, $matches)) {
 			$this->tags = array_merge($this->tags ?? [], $matches['search']);
-			$input = str_replace($matches[0], '', $input);
+			$input = strtr($input, array_fill_keys($matches[0], ''));
 		}
 		$this->tags = self::removeEmptyValues($this->tags);
 		if (empty($this->tags)) {
@@ -1396,15 +1396,15 @@ class FreshRSS_Search implements \Stringable {
 	private function parseNotTagsSearch(string $input): string {
 		if (preg_match_all('%(?<=[\\s(]|^)[!-]#(?P<search>/.*?(?<!\\\\)/[im]*)%', $input, $matches)) {
 			$this->not_tags_regex = $matches['search'];
-			$input = str_replace($matches[0], '', $input);
+			$input = strtr($input, array_fill_keys($matches[0], ''));
 		}
 		if (preg_match_all('/(?<=[\\s(]|^)[!-]#(?P<delim>[\'"])(?P<search>.*)(?P=delim)/U', $input, $matches)) {
 			$this->not_tags = $matches['search'];
-			$input = str_replace($matches[0], '', $input);
+			$input = strtr($input, array_fill_keys($matches[0], ''));
 		}
 		if (preg_match_all('/(?<=[\\s(]|^)[!-]#(?P<search>[^\\s"]+)/', $input, $matches)) {
 			$this->not_tags = array_merge($this->not_tags ?? [], $matches['search']);
-			$input = str_replace($matches[0], '', $input);
+			$input = strtr($input, array_fill_keys($matches[0], ''));
 		}
 		$this->not_tags = self::removeEmptyValues($this->not_tags);
 		if (empty($this->not_tags)) {
@@ -1427,13 +1427,11 @@ class FreshRSS_Search implements \Stringable {
 		}
 		if (preg_match_all('#(?<=[\\s(]|^)(?<![!-\\\\])(?P<search>/.*?(?<!\\\\)/[im]*)#', $input, $matches)) {
 			$this->search_regex = $matches['search'];
-			//TODO: Replace all those str_replace with PREG_OFFSET_CAPTURE
-			$input = str_replace($matches[0], '', $input);
+			$input = strtr($input, array_fill_keys($matches[0], ''));
 		}
 		if (preg_match_all('/(?<=[\\s(]|^)(?<![!-\\\\])(?P<delim>[\'"])(?P<search>.*)(?P=delim)/U', $input, $matches)) {
 			$this->search = $matches['search'];
-			//TODO: Replace all those str_replace with PREG_OFFSET_CAPTURE
-			$input = str_replace($matches[0], '', $input);
+			$input = strtr($input, array_fill_keys($matches[0], ''));
 		}
 		return $input;
 	}
@@ -1462,11 +1460,11 @@ class FreshRSS_Search implements \Stringable {
 		}
 		if (preg_match_all('#(?<=[\\s(]|^)[!-](?P<search>(?<!\\\\)/.*?(?<!\\\\)/[im]*)#', $input, $matches)) {
 			$this->not_search_regex = $matches['search'];
-			$input = str_replace($matches[0], '', $input);
+			$input = strtr($input, array_fill_keys($matches[0], ''));
 		}
 		if (preg_match_all('/(?<=[\\s(]|^)[!-](?P<delim>[\'"])(?P<search>.*)(?P=delim)/U', $input, $matches)) {
 			$this->not_search = $matches['search'];
-			$input = str_replace($matches[0], '', $input);
+			$input = strtr($input, array_fill_keys($matches[0], ''));
 		}
 		$input = self::cleanSearch($input);
 		if ($input === '') {
@@ -1474,7 +1472,7 @@ class FreshRSS_Search implements \Stringable {
 		}
 		if (preg_match_all('/(?<=[\\s(]|^)[!-](?P<search>[^\\s]+)/', $input, $matches)) {
 			$this->not_search = array_merge(is_array($this->not_search) ? $this->not_search : [], $matches['search']);
-			$input = str_replace($matches[0], '', $input);
+			$input = strtr($input, array_fill_keys($matches[0], ''));
 		}
 		$this->not_search = self::removeEmptyValues($this->not_search);
 		return $input;

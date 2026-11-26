@@ -8,6 +8,13 @@ use PHPUnit\Framework\TestCase;
  */
 class UserQueryTest extends TestCase {
 
+	#[\Override]
+	protected function setUp(): void {
+		if (!FreshRSS_Context::hasSystemConf()) {
+			FreshRSS_Context::initSystem();
+		}
+	}
+
 	public static function test__construct_whenAllQuery_storesAllParameters(): void {
 		$query = ['get' => 'a'];
 		$user_query = new FreshRSS_UserQuery($query, [], []);
@@ -81,6 +88,13 @@ class UserQueryTest extends TestCase {
 		self::assertSame($order, $user_query->getOrder());
 	}
 
+	public static function test__construct_whenSort_storesSort(): void {
+		$sort = 'title';
+		$query = ['sort' => $sort];
+		$user_query = new FreshRSS_UserQuery($query, [], []);
+		self::assertSame($sort, $user_query->getSort());
+	}
+
 	public static function test__construct_whenState_storesState(): void {
 		$state = FreshRSS_Entry::STATE_NOT_READ | FreshRSS_Entry::STATE_FAVORITE;
 		$query = ['state' => $state];
@@ -97,6 +111,7 @@ class UserQueryTest extends TestCase {
 
 	public static function testToArray_whenNoData_returnsEmptyArray(): void {
 		$user_query = new FreshRSS_UserQuery([], [], []);
+		// All values are defaults, so array should be empty
 		self::assertCount(0, $user_query->toArray());
 	}
 
@@ -112,6 +127,12 @@ class UserQueryTest extends TestCase {
 		$user_query = new FreshRSS_UserQuery($query, [], []);
 		self::assertCount(6, $user_query->toArray());
 		self::assertSame($query, $user_query->toArray());
+	}
+
+	public static function testToArray_whenSort_returnsSort(): void {
+		$query = ['sort' => 'date'];
+		$user_query = new FreshRSS_UserQuery($query, [], []);
+		self::assertSame('date', $user_query->toArray()['sort'] ?? null);
 	}
 
 	public static function testHasSearch_whenSearch_returnsTrue(): void {
@@ -214,6 +235,28 @@ class UserQueryTest extends TestCase {
 		$query = ['get' => 'q'];
 		$user_query = new FreshRSS_UserQuery($query, [], []);
 		self::assertFalse($user_query->isDeprecated());
+	}
+
+	public static function test__construct_whenUserLabelPrefix_storesValue(): void {
+		$query = ['userLabelPrefix' => 'test/'];
+		$user_query = new FreshRSS_UserQuery($query, [], []);
+		self::assertSame('test/', $user_query->userLabelPrefix());
+	}
+
+	public static function test__construct_migration_fromPublishLabelsInsteadOfTags_whenEnabled(): void {
+		// Test of legacy migration
+		$query = ['publishLabelsInsteadOfTags' => true];
+		$user_query = new FreshRSS_UserQuery($query, [], []);
+		self::assertTrue($user_query->includeUserLabels());
+		self::assertTrue($user_query->excludeArticleTags());
+	}
+
+	public static function test__construct_migration_fromPublishLabelsInsteadOfTags_whenDisabled(): void {
+		// Test of legacy migration
+		$query = ['publishLabelsInsteadOfTags' => false];
+		$user_query = new FreshRSS_UserQuery($query, [], []);
+		self::assertFalse($user_query->includeUserLabels());
+		self::assertFalse($user_query->excludeArticleTags());
 	}
 
 }

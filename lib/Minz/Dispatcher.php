@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 /**
  * MINZ - Copyright 2011 Marien Fressinaud
- * Sous licence AGPL3 <http://www.gnu.org/licenses/>
+ * Licensed under AGPL3 <https://www.gnu.org/licenses/>
 */
 
 /**
@@ -100,6 +100,12 @@ final class Minz_Dispatcher {
 				Minz_Exception::ERROR
 			);
 		}
+		// PHP class names are case-insensitive, whereas controller names are not
+		if (!self::isRegistered($base_name) && get_class($controller) !== $controller_name) {
+			throw new Minz_ControllerNotExistException(
+				Minz_Exception::ERROR
+			);
+		}
 
 		$this->controller = $controller;
 	}
@@ -111,7 +117,8 @@ final class Minz_Dispatcher {
 	 */
 	private function launchAction(string $action_name): void {
 		$call = [$this->controller, $action_name];
-		if (!is_callable($call)) {
+		// PHP method names are case-insensitive, whereas action names are not
+		if (!is_callable($call) || !in_array($action_name, get_class_methods($this->controller), true)) {
 			throw new Minz_ActionException(
 				get_class($this->controller),
 				$action_name,

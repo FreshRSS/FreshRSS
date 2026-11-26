@@ -43,6 +43,7 @@ return array(
 		'open_url' => 'Open URL',	// IGNORE
 		'promote' => 'Promote',	// IGNORE
 		'purge' => 'Purge',	// IGNORE
+		'read_in_freshrss' => 'Read in FreshRSS',	// IGNORE
 		'refresh_opml' => 'Refresh OPML',	// IGNORE
 		'remove' => 'Remove',	// IGNORE
 		'rename' => 'Rename',	// IGNORE
@@ -190,6 +191,9 @@ return array(
 		'unsafe_csp_header' => 'The CSP header in use is unsafe and FreshRSS may be vulnerable to XSS attacks. <a target="_blank" href="https://freshrss.github.io/FreshRSS/en/admins/10_ServerConfig.html#security">See documentation</a>',	// IGNORE
 	),
 	'lang' => array(
+		'ar' => 'العربية',	// IGNORE
+		'az' => 'Azərbaycanca',	// IGNORE
+		'be' => 'Беларуская',	// IGNORE
 		'cs' => 'Čeština',	// IGNORE
 		'de' => 'Deutsch',	// IGNORE
 		'el' => 'Ελληνικά',	// IGNORE
@@ -205,6 +209,7 @@ return array(
 		'it' => 'Italiano',	// IGNORE
 		'ja' => '日本語',	// IGNORE
 		'ko' => '한국어',	// IGNORE
+		'lt' => 'Lietuvių',	// IGNORE
 		'lv' => 'Latviešu',	// IGNORE
 		'nl' => 'Nederlands',	// IGNORE
 		'oc' => 'Occitan',	// IGNORE

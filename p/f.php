@@ -27,7 +27,7 @@ function show_default_favicon(int $cacheSeconds = 3600): void {
 }
 
 $id = $_GET['h'] ?? '0';
-if (!is_string($id) || !ctype_xdigit($id)) {
+if (!is_string($id) || preg_match('/\\A[A-Za-z0-9_-]{1,11}\\z/', $id) !== 1) {
 	$id = '0';
 }
 

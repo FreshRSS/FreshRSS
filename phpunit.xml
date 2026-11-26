@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit
+	bootstrap="./tests/bootstrap.php"
+	displayDetailsOnAllIssues="true"
+	failOnDeprecation="true"
+	failOnEmptyTestSuite="true"
+	failOnIncomplete="true"
+	failOnNotice="true"
+	failOnPhpunitDeprecation="true"
+	failOnPhpunitWarning="true"
+	failOnRisky="true"
+	failOnSkipped="false"
+	failOnWarning="true"
+>
+	<!-- failOnSkipped="false": Skipped tests are legitimate e.g. for PHP < 8.4+ -->
+	<php>
+		<env name="FRESHRSS_ENV" value="silent" force="true"/> <!-- To avoid writing into log files -->
+	</php>
+	<testsuites>
+		<testsuite name="default">
+			<directory>./tests</directory>
+		</testsuite>
+	</testsuites>
+</phpunit>

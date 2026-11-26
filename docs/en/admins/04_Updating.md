@@ -19,7 +19,8 @@ See the [Backup page](05_Backup.md) for the full list and procedures.
 
 Web updates require group write permissions on the FreshRSS source folder.
 
-Log in as admin, open the Settings menu (top right), choose Administration, then Update, and press "Check for new updates". The page is also reachable at `http://<your_server>/i/?c=update`. This will check for and apply a new stable version, if available.
+Log in as admin, open the Settings menu (top right), choose Administration, then Update, and press “Check for new updates”.
+The page is also reachable at `http://<your_server>/i/?c=update`. This will check for and apply a new version, if available.
 
 ## Using git
 
@@ -31,7 +32,7 @@ Use git to update, change branches, or switch to a specific version. From your F
 git fetch --all
 git reset --hard          # discards local changes to tracked files
 git clean -f -d           # removes untracked files (custom themes, extensions, local edits)
-git checkout edge         # or `latest` for stable, or a tag like `1.27.1` for a specific version
+git checkout edge         # or `latest` for versioned releases, or a tag like `1.27.1` for a specific version
 git pull --ff-only        # skip for a tag checkout
 ```
 
@@ -43,7 +44,7 @@ See [Updating on Linux](07_LinuxUpdate.md#using-git) for the same flow with `sud
 
 Updating from a zip archive works for any source installation.
 
-1. Download the latest [stable](https://github.com/FreshRSS/FreshRSS/archive/latest.zip) or [rolling](https://github.com/FreshRSS/FreshRSS/archive/edge.zip) release and extract it (for a specific version, use the [releases page](https://github.com/FreshRSS/FreshRSS/releases)). The archive contains a top-level `FreshRSS-X.Y.Z/` folder.
+1. Download the latest [rolling release](https://github.com/FreshRSS/FreshRSS/archive/refs/heads/edge.zip) or [versioned release (slow)](https://github.com/FreshRSS/FreshRSS/archive/refs/heads/latest.zip) and extract it (for a specific version, use the [releases page](https://github.com/FreshRSS/FreshRSS/releases)). The archive contains a top-level `FreshRSS-X.Y.Z/` folder.
 2. Copy the extracted contents into your FreshRSS directory, overwriting existing files. Your user data, extensions, and custom themes are preserved.
 3. Re-apply file ownership and permissions.
 

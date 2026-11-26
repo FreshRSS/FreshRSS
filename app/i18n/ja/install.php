@@ -64,8 +64,8 @@ return array(
 		),
 		'database-title' => 'データベース',
 		'docroot' => array(
-			'nok' => 'Your web server document root does not seem to point to the <code>./p/</code> folder. Other folders such as <code>./data/</code> may be publicly accessible.',	// TODO
-			'ok' => 'Your web server document root correctly points to the <code>./p/</code> folder.',	// TODO
+			'nok' => 'Webサーバーのドキュメントルートが<code>./p/</code>ディレクトリを指していないようです。<code>./data/</code>などの他のディレクトリが公開されている可能性があります。',
+			'ok' => 'Webサーバーのドキュメントルートは<code>./p/</code>ディレクトリを正しく指しています。',
 		),
 		'dom' => array(
 			'nok' => 'DOMの操作に必要なライブラリが見つかりませんでした。',
@@ -81,8 +81,8 @@ return array(
 		),
 		'files' => 'ファイルインストール',
 		'gmp' => array(
-			'nok' => 'Cannot find the required GMP extension for 32-bit PHP (php-gmp package).',	// TODO
-			'ok' => 'You have the GMP extension required for 32-bit PHP.',	// TODO
+			'nok' => '32ビット版PHPに必要なGMP拡張機能が見つかりませんでした（php-gmpパッケージ）。',
+			'ok' => '32ビット版PHPに必要なGMP拡張機能はインストールされています。',
 		),
 		'intl' => array(
 			'nok' => '多言語・地域対応用のphp-intlライブラリが見つかりませんでした。',
@@ -149,7 +149,7 @@ return array(
 	'congratulations' => 'おめでとうございます！',
 	'default_user' => array(
 		'_' => 'デフォルトのユーザー名',
-		'max_char' => '1-39 characters: letters, digits, and <code>. _ @ -</code>',	// TODO
+		'max_char' => '1〜39文字：英字、数字、<code>. _ @ -</code>',
 	),
 	'fix_errors_before' => '次のステップへ移る前にエラーを修正してください。',
 	'javascript_is_better' => 'JavaScriptを有効にすると、FreshRSSをより快適に利用できます。',

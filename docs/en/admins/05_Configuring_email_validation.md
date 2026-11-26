@@ -17,7 +17,7 @@ You can also enable this feature directly in FreshRSS: `Administration` >
 
 ## Configure the SMTP server
 
-By default, FreshRSS will attempt to send emails with the [`mail`](https://www.php.net/manual/en/function.mail.php)
+By default, FreshRSS will attempt to send emails with the [`mail`](https://www.php.net/function.mail)
 function of PHP. It is the simpler solution but it might not work as expected.
 For example, we don’t support (yet?) sending emails from inside our official
 Docker images. We recommend to use a proper SMTP server.

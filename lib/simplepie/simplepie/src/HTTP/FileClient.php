@@ -45,7 +45,6 @@ final class FileClient implements Client
      */
     public function request(string $method, string $url, array $headers = []): Response
     {
-        // @phpstan-ignore-next-line Enforce PHPDoc type.
         if ($method !== self::METHOD_GET) {
             throw new InvalidArgumentException(sprintf(
                 '%s(): Argument #1 ($method) only supports method "%s".',

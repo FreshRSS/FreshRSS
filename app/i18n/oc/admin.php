@@ -14,8 +14,8 @@ return array(
 	'auth' => array(
 		'allow_anonymous' => 'Autorizar la lectura anonima dels articles de l’utilizaire per defaut (%s)',
 		'allow_anonymous_refresh' => 'Autorizar l’actualizacion anonime dels fluxes',
-		'api_enabled' => 'Autorizar l’accès per <abbr>API</abbr><small>(necessari per las aplicacions mobil and sharing user queries)</small>',	// DIRTY
-		'form' => 'Formulari (tradicional, demanda JavaScript)',
+		'api_enabled' => 'Autorizar l’accès per <abbr>API</abbr><small>(necessari per las aplicacions mobil and sharing user queries)</small>',	// DIRTY - Allow <abbr>API</abbr> access <small>(required for mobile apps and sharing user queries)</small>
+		'form' => 'Formulari (tradicional)',
 		'http' => 'HTTP (advanced: managed by Web server, OIDC, SSO…)',	// TODO
 		'none' => 'Cap (perilhós)',
 		'title' => 'Autentificacion',
@@ -137,7 +137,7 @@ return array(
 		'releaseChannel' => array(
 			'_' => 'Release channel',	// TODO
 			'edge' => 'Rolling release (“edge”)',	// TODO
-			'latest' => 'Stable release (“latest”)',	// TODO
+			'latest' => 'Versioned release (“latest”)',	// TODO
 		),
 		'title' => 'Sistèma de mesa a jorn',
 		'viaGit' => 'Update via git and GitHub.com started',	// TODO

@@ -43,6 +43,7 @@ return array(
 		'open_url' => 'Άνοιγμα συνδέσμου',
 		'promote' => 'Προαγωγή',
 		'purge' => 'Άδειασμα',
+		'read_in_freshrss' => 'Read in FreshRSS',	// TODO
 		'refresh_opml' => 'Φρεσκάρισμα OPML',
 		'remove' => 'Αφαίρεση',
 		'rename' => 'Μετονομασία',
@@ -174,12 +175,12 @@ return array(
 		'confirm_exit_slider' => 'Είστε σίγουροι οτι δεν θέλετε να αποθηκεύσετε τις τρέχουσες αλλαγές σας;',
 		'feedback' => array(
 			'body_new_articles' => array(
-				0 => 'Υπάρχουν %d νέα άρθρα να διαβάσετε στο FreshRSS.',	// DIRTY
-				1 => 'Υπάρχουν %d νέα άρθρα να διαβάσετε στο FreshRSS.',	// DIRTY
+				0 => 'Υπάρχουν %d νέα άρθρα να διαβάσετε στο FreshRSS.',	// DIRTY - There is %d new article to read on FreshRSS.
+				1 => 'Υπάρχουν %d νέα άρθρα να διαβάσετε στο FreshRSS.',	// DIRTY - There are %d new articles to read on FreshRSS.
 			),
 			'body_unread_articles' => array(
-				0 => '(αδιάβαστα: %d)',	// DIRTY
-				1 => '(αδιάβαστα: %d)',	// DIRTY
+				0 => '(αδιάβαστα: %d)',	// DIRTY - (unread: %d)
+				1 => '(αδιάβαστα: %d)',	// DIRTY - (unread: %d)
 			),
 			'request_failed' => 'Η αναζήτηση απέτυχε, ελέγξτε για πιθανά προβλήματα με την σύνδεση σας.',
 			'title_new_articles' => 'FreshRSS: Νέα άρθρα!',
@@ -190,6 +191,9 @@ return array(
 		'unsafe_csp_header' => 'Η επικεφαλίδα CSP που χρησιμοποιείται δεν είναι ασφαλής και το FreshRSS μπορεί να είναι ανασφαλές απέναντι σε επιθέσεις XSS. <a target="_blank" href="https://freshrss.github.io/FreshRSS/en/admins/10_ServerConfig.html#security">Δείτε τις οδηγίες χρήσης</a>',
 	),
 	'lang' => array(
+		'ar' => 'العربية',	// IGNORE
+		'az' => 'Azərbaycanca',	// IGNORE
+		'be' => 'Беларуская',	// IGNORE
 		'cs' => 'Čeština',	// IGNORE
 		'de' => 'Deutsch',	// IGNORE
 		'el' => 'Ελληνικά',	// IGNORE
@@ -205,6 +209,7 @@ return array(
 		'it' => 'Italiano',	// IGNORE
 		'ja' => '日本語',	// IGNORE
 		'ko' => '한국어',	// IGNORE
+		'lt' => 'Lietuvių',	// TODO
 		'lv' => 'Latviešu',	// IGNORE
 		'nl' => 'Nederlands',	// IGNORE
 		'oc' => 'Occitan',	// IGNORE
@@ -303,7 +308,7 @@ return array(
 		'linkedin' => 'LinkedIn',	// IGNORE
 		'mastodon' => 'Mastodon',	// IGNORE
 		'movim' => 'Movim',	// IGNORE
-		'nextcloud-bookmarks' => 'Nextcloud Σελιδοδείκτες',	// DIRTY
+		'nextcloud-bookmarks' => 'Nextcloud Σελιδοδείκτες',	// DIRTY - Nextcloud Bookmarks
 		'omnivore' => 'Omnivore',	// IGNORE
 		'pinboard' => 'Pinboard',	// IGNORE
 		'pinterest' => 'Pinterest',	// IGNORE

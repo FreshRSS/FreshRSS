@@ -108,8 +108,7 @@ Si vous êtes novice dans Git, voici quelques ressources qui pourraient vous
 
 * [Article du blog de GitHub](https://github.blog/news-insights/the-library/new-to-git/)
 * <https://docs.github.com/en/github/getting-started-with-github/set-up-git>
-* <http://sixrevisions.com/resources/git-tutorials-beginners/>
-* <http://rogerdudler.github.io/git-guide/>
+* <https://rogerdudler.github.io/git-guide/>
 
 ### Obtenir le dernier code du répertoire FreshRSS
 
@@ -166,4 +165,4 @@ Si nécessaire, une ligne blanche et une explication plus longue peuvent le
 suivre.
 
 Pour d’autres conseils, voir
-[ici](https://chris.beams.io/posts/git-commit/).
+[ici](https://chris.beams.io/git-commit).

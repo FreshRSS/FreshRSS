@@ -21,6 +21,7 @@ Les langues disponibles sont:
 
 | Langue (nom français)   | Langue (endonyme)      | Classé par code de langue (ISO-639-1) |
 |:------------------------|:-----------------------|:-------------------------------------|
+| Biélorusse              | Беларуская             | be                                   |
 | Tchèque                 | Čeština                | cs                                   |
 | Allemand                | Deutsch                | de                                   |
 | Grec                    | Ελληνικά               | el                                   |
@@ -222,7 +223,7 @@ Require user marie
 ```
 
 Plus d’informations dans [la documentation
-d’Apache.](http://httpd.apache.org/docs/trunk/howto/auth.html#gettingitworking)
+d’Apache.](https://httpd.apache.org/docs/trunk/howto/auth.html#gettingitworking)
 
 ## Gestion des flux
 

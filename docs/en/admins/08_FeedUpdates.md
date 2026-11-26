@@ -17,25 +17,31 @@ containing a valid cron minute definition such as `13,43` (recommended) or `*/20
 Not passing the `CRON_MIN` environment variable – or setting it to empty string – will disable the cron daemon.
 
 ```sh
-docker run ... \
+docker run -d ... \
   -e CRON_MIN=13,43 \
-  --name freshrss freshrss/freshrss
+  --name freshrss freshrss/freshrss:edge
 ```
 
 ## Cron as a trigger
 
-You’ll need to check the Cron documentation for your specific distribution ([Debian/Ubuntu](https://help.ubuntu.com/community/CronHowto), [Red Hat/Fedora/CentOS](https://fedoraproject.org/wiki/Administration_Guide_Draft/Cron), [Slackware](https://docs.slackware.com/slackbook:process_control#cron), [Gentoo](https://wiki.gentoo.org/wiki/Cron), [Arch Linux](https://wiki.archlinux.org/index.php/Cron) …) to make sure you set the Cron job correctly.
+You’ll need to check the Cron documentation for your specific distribution ([Debian/Ubuntu](https://ubuntu.com/server/docs/how-to/backups/back-up-using-shell-scripts/#run-with-cron), [Red Hat/Fedora/CentOS](https://fedoraproject.org/wiki/Administration_Guide_Draft/Cron), [Slackware](https://docs.slackware.com/slackbook:process_control#cron), [Gentoo](https://wiki.gentoo.org/wiki/Cron), [Arch Linux](https://wiki.archlinux.org/title/Cron) …) to make sure you set the Cron job correctly.
 
 It’s advisable that you run the Cron job as your Web server user (often `www-data`).
 
 ### Example on Debian/Ubuntu
 
-To run the updater script every hour, and 10 minutes past the hour:
+To run the updater script every hour, at 10 minutes past the hour:
 
 Edit `/etc/crontab` and append the following line:
 ```text
-10 * * * * www-data php -f /usr/share/FreshRSS/app/actualize_script.php > /tmp/FreshRSS.log 2>&1
+10 * * * * www-data php -f /usr/share/FreshRSS/app/actualize_script.php >> /tmp/FreshRSS.log 2>&1
 ```
+
+This will append new log lines to the end of the existing log file. You may want to set up `logrotate` or a similar utility to prevent the logfile from growing too large.
+
+> FreshRSS error: This PHP script may only be invoked from command line!
+
+If you receive this error message in the cron job's logs, try replacing `php` with the contents of `which php`, like `/usr/local/bin/php`.
 
 ## Systemd as a trigger
 

@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 /**
  * MINZ - Copyright 2011 Marien Fressinaud
- * Sous licence AGPL3 <http://www.gnu.org/licenses/>
+ * Licensed under AGPL3 <https://www.gnu.org/licenses/>
  */
 
 /**
@@ -76,9 +76,9 @@ class Minz_ModelPdo {
 				$this->pdo->setPrefix('');
 				break;
 			case 'pgsql':
-				$dsn = 'pgsql:host=' . (empty($dbServer['host']) ? $db['host'] : $dbServer['host']);
+				$dsn = "pgsql:host='" . addcslashes(empty($dbServer['host']) ? $db['host'] : $dbServer['host'], "'\\") . "'";
 				if (!empty($db['base'])) {
-					$dsn .= ';dbname=' . $db['base'];
+					$dsn .= ";dbname='" . addcslashes($db['base'], "'\\") . "'";
 				}
 				if (!empty($dbServer['port'])) {
 					$dsn .= ';port=' . $dbServer['port'];

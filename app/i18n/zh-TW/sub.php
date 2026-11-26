@@ -26,7 +26,7 @@ return array(
 		'archiving' => '歸檔',
 		'dynamic_opml' => array(
 			'_' => '動態 OPML',
-			'help' => '提供指向 <a href="http://opml.org/" target="_blank">OPML 檔案</a> 的 URL 以便動態地為此類別填充訂閱',
+			'help' => '提供指向 <a href="https://opml.org/" target="_blank">OPML 檔案</a> 的 URL 以便動態地為此類別填充訂閱',
 		),
 		'empty' => '空類別',
 		'error' => 'This dynamic OPML category has encountered a problem. Check that the OPML URL is still reachable and that the maximum number of feeds per user has not been exceeded.',	// TODO
@@ -54,18 +54,18 @@ return array(
 		'change_favicon' => '變更…',
 		'clear_cache' => '總是清除快取',
 		'content_action' => array(
-			'_' => '取得文章內容後的動作',
+			'_' => '擷取文章內容時的動作',
 			'append' => '新增在現有內容後面',
 			'prepend' => '新增在現有內容前面',
 			'replace' => '取代現有內容',
 		),
-		'content_retrieval' => 'Content retrieval',	// TODO
-		'css_cookie' => '在取得文章內容時使用 Cookies',
+		'content_retrieval' => '內容擷取',
+		'css_cookie' => '在擷取文章內容時使用 Cookies',
 		'css_cookie_help' => '範例: <kbd>foo=bar; gdpr_consent=true; cookie=value</kbd>',
-		'css_help' => '取得截斷的 RSS 訂閱源 (請注意，會需要更多時間)',
+		'css_help' => '擷取被截斷的 RSS 訂閱源 (請注意，會需要更多時間)',
 		'css_path' => '原始網站上的文章 CSS 選擇器',
 		'css_path_filter' => array(
-			'_' => '用於移除元素的 CSS 選擇器',
+			'_' => '移除元素用的 CSS 選擇器',
 			'help' => 'CSS 選擇器可以是清單，例如: <kbd>footer, aside, p[data-sanitized-class~="menu"]</kbd>',
 		),
 		'description' => '描述',
@@ -77,14 +77,15 @@ return array(
 			'label' => '匯出為 OPML',
 		),
 		'ext_favicon' => '自動設定',
-		'favicon_changed_by_ext' => 'The icon has been set by the <b>%s</b> extension.',	// TODO
+		'favicon_changed_by_ext' => '此圖示已由 <b>%s</b> 擴充功能設定。',
 		'filteractions' => array(
 			'_' => '過濾動作',
 			'help' => '每行一個搜尋過濾器。運算子<a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">請參閱說明文件</a>。',
 			'view_filter' => 'Preview filters on existing articles (new window)',	// TODO
 		),
+		'global_hint' => 'Use <a href="%s">the global view</a> to see how many articles in each feed are matching a state or a search expression',	// TODO
 		'http_headers' => 'HTTP 標頭',
-		'http_headers_help' => 'Headers are separated by a newline, and the name and value of a header are separated by a colon (e.g: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',	// TODO
+		'http_headers_help' => '標頭以換行分隔，其名稱與值則以冒號分隔 (例如: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>)。',
 		'icon' => '圖示',
 		'information' => '資訊',
 		'keep_adding_feed' => '繼續新增更多訂閱源',
@@ -124,15 +125,15 @@ return array(
 				),
 				'item_timeFormat' => array(
 					'_' => '自訂日期/時間格式',
-					'help' => '可選。被 <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> 支援的格式，例如 <code>d-m-Y H:i:s</code>',
+					'help' => '可選。被 <a href="https://www.php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> 支援的格式，例如 <code>d-m-Y H:i:s</code>',
 				),
 				'item_timestamp' => array(
 					'_' => '項目日期',
-					'help' => '結果將被 <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a> 解析',
+					'help' => '結果將被 <a href="https://www.php.net/strtotime" target="_blank"><code>strtotime()</code></a> 解析',
 				),
 				'item_title' => array(
 					'_' => '項目標題',
-					'help' => '注意使用 <a href="https://developer.mozilla.org/docs/Web/XPath/Axes" target="_blank">XPath 軸</a> <code>descendant::</code>，例如 <code>descendant::h2</code>',
+					'help' => '注意使用 <a href="https://developer.mozilla.org/docs/Web/XML/XPath/Reference/Axes" target="_blank">XPath 軸</a> <code>descendant::</code>，例如 <code>descendant::h2</code>',
 				),
 				'item_uid' => array(
 					'_' => '項目唯一 ID',
@@ -168,11 +169,11 @@ return array(
 				),
 				'item_timeFormat' => array(
 					'_' => '自訂日期/時間格式',
-					'help' => '可選。被 <a href="https://php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> 支援的格式，例如 <code>d-m-Y H:i:s</code>',
+					'help' => '可選。被 <a href="https://www.php.net/datetime.createfromformat" target="_blank"><code>DateTime::createFromFormat()</code></a> 支援的格式，例如 <code>d-m-Y H:i:s</code>',
 				),
 				'item_timestamp' => array(
 					'_' => '項目日期',
-					'help' => '結果將被 <a href="https://php.net/strtotime" target="_blank"><code>strtotime()</code></a> 解析',
+					'help' => '結果將被 <a href="https://www.php.net/strtotime" target="_blank"><code>strtotime()</code></a> 解析',
 				),
 				'item_title' => '項目標題',
 				'item_uid' => '項目唯一 ID',
@@ -213,7 +214,7 @@ return array(
 		'no_selected' => '未選擇訂閱源。',
 		'number_entries' => '%d 篇文章',
 		'open_feed' => '開啟訂閱源 %s',
-		'path_entries_conditions' => 'Conditions for content retrieval',	// TODO
+		'path_entries_conditions' => '內容擷取條件',
 		'priority' => array(
 			'_' => '可見度',
 			'category' => '在類別中顯示',
@@ -222,7 +223,7 @@ return array(
 			'important' => '顯示在重要訂閱源',
 			'main_stream' => '顯示在主資訊流',
 		),
-		'proxy' => '取得訂閱源時的代理',
+		'proxy' => '設定擷取此訂閱源使用的代理',
 		'proxy_help' => '選擇協定 (例如: SOCKS5) 並輸入代理位址 (例如: <kbd>127.0.0.1:1080</kbd> 或 <kbd>使用者名稱:密碼@127.0.0.1:1080</kbd>)',
 		'reset_favicon' => '重設至預設',
 		'selector_preview' => array(
@@ -265,11 +266,12 @@ return array(
 		'validator' => '檢查訂閱源有效性',
 		'website' => '網站 URL',
 		'websub' => 'WebSub 即時通知',
+		'websub_pending' => '已訂閱 WebSub。等待首則通知中。',
 	),
 	'import_export' => array(
 		'export' => array(
 			'_' => '匯出',
-			'sqlite' => '下載使用者資料庫為 SQLite 檔案',
+			'sqlite' => '下載使用者資料庫並儲存為 SQLite 格式檔案',
 			'sqlite_force' => 'Force export even if it exceeds the size limit',	// TODO
 			'sqlite_now' => 'Export current database now',	// TODO
 			'sqlite_too_large' => 'Database too large for a Web export (limit: %s). Use the command-line tool instead.',	// TODO

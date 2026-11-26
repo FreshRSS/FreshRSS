@@ -1,3 +1,3 @@
 # Migration
 
-see [English documentation](/en/developers/Minz/migrations.md)
+see [English documentation](../../../en/developers/Minz/migrations.md)

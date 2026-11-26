@@ -41,13 +41,15 @@ This is the recommended method.
 
 This method is only available if you have access to the scheduled tasks of the machine on which your FreshRSS instance is installed.
 
-The script is named *actualize_script.php* and is located in the *app* folder. The scheduled task syntax will not be explained here. However, here is [a quick introduction to crontab](http://www.adminschoice.com/crontab-quick-reference/) that might help you.
+The script is named *actualize_script.php* and is located in the *app* folder. The scheduled task syntax will not be explained here. However, here is [a quick introduction to crontab](https://adminschoice.com/crontab-quick-reference/) that might help you.
 
 Here is an example to trigger article update every hour.
 
 ```cron
-0 * * * * php /path/to/FreshRSS/app/actualize_script.php > /tmp/FreshRSS.log 2>&1
+0 * * * * php -f /usr/share/FreshRSS/app/actualize_script.php >> /tmp/FreshRSS.log 2>&1
 ```
+
+For further advice on cron, see [the admin instructions for cron](../admins/08_FeedUpdates.md#cron-as-a-trigger).
 
 ## Online cron
 

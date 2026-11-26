@@ -15,7 +15,7 @@ return array(
 		'allow_anonymous' => 'Дозволити анонімне читання статей типового користувача (%s)',
 		'allow_anonymous_refresh' => 'Дозволити анонімне оновлення статей',
 		'api_enabled' => 'Дозволити доступ через <abbr>API</abbr> <small>(треба для мобільних програм і поширення користувацьких запитів)</small>',
-		'form' => 'Вебформа (традиційно, треба JavaScript)',
+		'form' => 'Вебформа (традиційно)',
 		'http' => 'HTTP (складно: за допомогою вебсервера, OIDC, SSO…)',
 		'none' => 'Нема (небезпечно)',
 		'title' => 'Вхід',
@@ -137,7 +137,7 @@ return array(
 		'releaseChannel' => array(
 			'_' => 'Канал випусків',
 			'edge' => 'Крайній випуск («edge»)',
-			'latest' => 'Стабільний випуск («latest»)',
+			'latest' => 'Стабільний випуск («latest»)',	// DIRTY - Versioned release (“latest”)
 		),
 		'title' => 'Оновити FreshRSS',
 		'viaGit' => 'Розпочато оновлення за допомогою git і GitHub.com',

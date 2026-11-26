@@ -5,7 +5,7 @@ baseurl: /FreshRSS
 logo: /img/FreshRSS-logo.png
 
 include: [contributing.md]
-exclude: [CHANGELOG*.md, README.md, vendor]
+exclude: [CHANGELOG*.md, README.md, pull_request_template.md, threat_model.md, vendor, i18n, po4a.conf]
 
 defaults:
   -
