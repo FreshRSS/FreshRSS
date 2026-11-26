@@ -1,4 +1,4 @@
-﻿# FreshRSS changelog
+# FreshRSS changelog
 
 See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 
