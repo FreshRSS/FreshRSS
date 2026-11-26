@@ -29,7 +29,7 @@ return array(
 			'help' => '提供指向 <a href="https://opml.org/" target="_blank">OPML 檔案</a> 的 URL 以便動態地為此類別填充訂閱',
 		),
 		'empty' => '空類別',
-		'error' => 'This dynamic OPML category has encountered a problem. Check that the OPML URL is still reachable and that the maximum number of feeds per user has not been exceeded.',	// TODO
+		'error' => '此動態 OPML 分類遇到問題。請確認 OPML URL 仍可連通，且尚未超過每位使用者的訂閱源數量上限。',
 		'expand' => '展開類別',
 		'information' => '資訊',
 		'open' => '開啟類別',
@@ -81,9 +81,9 @@ return array(
 		'filteractions' => array(
 			'_' => '過濾動作',
 			'help' => '每行一個搜尋過濾器。運算子<a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">請參閱說明文件</a>。',
-			'view_filter' => 'Preview filters on existing articles (new window)',	// TODO
+			'view_filter' => '在現有文章上預覽篩選器（新視窗）',
 		),
-		'global_hint' => 'Use <a href="%s">the global view</a> to see how many articles in each feed are matching a state or a search expression',	// TODO
+		'global_hint' => '使用<a href="%s">全域檢視</a>查看每個訂閱源中有多少篇文章符合某個狀態或搜尋運算式',
 		'http_headers' => 'HTTP 標頭',
 		'http_headers_help' => '標頭以換行分隔，其名稱與值則以冒號分隔 (例如: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>)。',
 		'icon' => '圖示',
@@ -152,10 +152,10 @@ return array(
 					'_' => '訂閱源標題',
 					'help' => '範例: <code>meta.title</code> 或靜態字串: <code>"My custom feed"</code>',
 				),
-				'help' => 'A JSON dot notated uses dots between objects and brackets for arrays (e.g. <code>data.items[0].title</code>)',	// TODO
+				'help' => 'JSON 點記法在物件之間使用點號、陣列使用中括號（例如 <code>data.items[0].title</code>）',
 				'item' => array(
 					'_' => '尋找新聞<strong>項目</strong><br /><small>(最重要的)</small>',
-					'help' => 'JSON path to the array containing the items, e.g. <code>$</code> or <code>newsItems</code>',	// TODO
+					'help' => '包含項目之陣列的 JSON 路徑，例如 <code>$</code> 或 <code>newsItems</code>',
 				),
 				'item_author' => '項目作者',
 				'item_categories' => '項目標籤',
@@ -188,8 +188,8 @@ return array(
 			'rss' => 'RSS / Atom (預設)',
 			'xml_xpath' => 'XML + XPath',	// IGNORE
 		),
-		'last-entry-publication-date' => 'Last article published <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
-		'last-entry-received-date' => 'Last article received <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
+		'last-entry-publication-date' => '最近發布的文章 <time datetime="%1$s" title="%1$s">%2$s</time>。',
+		'last-entry-received-date' => '最近接收的文章 <time datetime="%1$s" title="%1$s">%2$s</time>。',
 		'last-error-date' => '上次錯誤更新 <time datetime="%1$s" title="%1$s">%2$s</time>。',
 		'last-update' => '上次成功更新 <time datetime="%1$s" title="%1$s">%2$s</time>。',
 		'maintenance' => array(
@@ -246,8 +246,8 @@ return array(
 		'ttl' => '最小自動刷新間隔',
 		'unicityCriteria' => array(
 			'_' => '文章唯一性標準',
-			'forced' => '<span title="Block the unicity criteria, even when the feed has duplicate articles">forced</span>',	// TODO
-			'help' => 'Relevant for invalid feeds.<br />⚠️ Changing the policy will create duplicates.',	// TODO
+			'forced' => '<span title="封鎖唯一性準則，即使訂閱源有重複的文章">強制</span>',
+			'help' => '與無效的訂閱源相關。<br />⚠️ 變更政策將會產生重複文章。',
 			'id' => '標準 ID (預設)',
 			'link' => '連結',
 			'sha1:content' => '內容',
