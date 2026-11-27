@@ -5,7 +5,23 @@ final class FreshRSS_http_Util {
 
 	private const RETRY_AFTER_PATH = DATA_PATH . '/Retry-After/';
 	private const NAT64_PREFIX_RFC6052 = '64:ff9b::/96';
-	private const NAT64_PREFIX_RFC8215 = '64:ff9b:1::/48';
+
+	/**
+	 * `FILTER_FLAG_GLOBAL_RANGE` does not reject everything yet:
+	 * https://github.com/php/php-src/pull/25426
+	 * @var list<string>
+	 */
+	private const ADDITIONAL_NON_GLOBAL_RANGES = [
+		'3fff::/20',	// RFC 9637 (Documentation)
+		'5f00::/16',	// RFC 9602 (SRv6 SIDs)
+		'64:ff9b:1::/48',	// RFC 8215 (Local-Use IPv4/IPv6 Translation Prefix)
+		'100:0:0:1::/64',	// RFC 9780 (Dummy IPv6 Prefix)
+		'192.88.99.0/24',	// RFC 7526 (deprecated 6to4 anycast)
+		'224.0.0.0/4',	// RFC 1112 (IPv4 multicast)
+		'2002::/16',	// RFC 3056 (6to4)
+		'fec0::/10',	// RFC 3879 (deprecated site-local)
+		'ff00::/8',	// RFC 4291 (IPv6 multicast)
+	];
 	/** @var array<string, string[]> $resolve_ok */
 	private static array $resolve_ok = [];
 	/** @var array<string, bool> $retry_after_domain_wide */
@@ -125,6 +141,11 @@ final class FreshRSS_http_Util {
 				$curl_params[$k] = array_filter($curl_params[$k],
 					fn($header) => is_string($header) && !preg_match('/^(Remote[-_\s]*User|X[-_\s]*WebAuth[-_\s]*User)\\s*:/i', $header));
 			}
+			// Forbid '/' in CURLOPT_PROXY [user[:pass]@]host[:port] (the scheme comes from CURLOPT_PROXYTYPE),
+			// to reject e.g. 'http://example.net/://decoy' and 'localhost:9050/path/to.sock'
+			if ($k === CURLOPT_PROXY && (!is_string($curl_params[$k]) || str_contains($curl_params[$k], '/'))) {
+				unset($curl_params[$k], $curl_params[CURLOPT_PROXYTYPE]);
+			}
 		}
 		return $curl_params;
 	}
@@ -135,7 +156,7 @@ final class FreshRSS_http_Util {
 			if (is_string($idn) && $idn != '') {
 				$puny = idn_to_ascii($idn);
 				$pos = strpos($url, $idn);
-				if ($puny != false && $pos !== false) {
+				if ($pos !== false && is_string($puny) && preg_match('/^[a-z0-9._-]+$/iD', $puny) === 1) {
 					$url = substr_replace($url, $puny, $pos, strlen($idn));
 				}
 			}
@@ -175,7 +196,7 @@ final class FreshRSS_http_Util {
 	 * Set an XML preamble to enforce the HTML content type charset received by HTTP.
 	 * @param string $html the raw downloaded HTML content
 	 * @param string $contentType an HTTP Content-Type such as 'text/html; charset=utf-8'
-	 * @return string an HTML string with XML encoding information for DOMDocument::loadHTML()
+	 * @return string an HTML string with Unicode BOM encoding information
 	 */
 	private static function enforceHttpEncoding(string $html, string $contentType = ''): string {
 		$httpCharset = preg_match('/\bcharset=([0-9a-z_-]{2,12})$/i', $contentType, $matches) === 1 ? $matches[1] : '';
@@ -229,56 +250,28 @@ final class FreshRSS_http_Util {
 	 * @return string an HTML string
 	 */
 	private static function enforceHtmlBase(string $html, string $href): string {
-		$doc = new DOMDocument();
-		$doc->loadHTML($html, LIBXML_NONET | LIBXML_NOERROR | LIBXML_NOWARNING);
-		if ($doc->documentElement === null) {
+		$doc = Dom\HTMLDocument::createFromString($html, LIBXML_NOERROR);
+		$documentElement = $doc->documentElement;
+		if ($documentElement === null) {
 			return '';
 		}
-		$xpath = new DOMXPath($doc);
-		$bases = $xpath->evaluate('//base');
-		if (!($bases instanceof DOMNodeList) || $bases->length === 0) {
+		if ($doc->querySelector('base') === null) {
 			$base = $doc->createElement('base');
-			if ($base === false) {
-				return $html;
-			}
 			$base->setAttribute('href', $href);
-			$head = null;
-			$heads = $xpath->evaluate('//head');
-			if ($heads instanceof DOMNodeList && $heads->length > 0) {
-				$head = $heads->item(0);
-			}
-			if ($head instanceof DOMElement) {
+			$head = $doc->querySelector('head');
+			if ($head instanceof Dom\Element) {
 				$head->insertBefore($base, $head->firstChild);
 			} else {
-				$doc->documentElement->insertBefore($base, $doc->documentElement->firstChild);
+				$documentElement->insertBefore($base, $documentElement->firstChild);
 			}
 		}
 
-		// Save the start of HTML because libxml2 saveHTML() risks scrambling it
-		$htmlPos = stripos($html, '<html');
-		$htmlStart = $htmlPos === false || $htmlPos > 512 ? '' : substr($html, 0, $htmlPos);
-
-		$encoding = strtolower($doc->encoding ?? '');
-		$bom = str_starts_with($html, "\xEF\xBB\xBF") ? "\xEF\xBB\xBF" : '';
-		if ($encoding === 'utf-8' || ($encoding === '' && $bom !== '')) {
-			// For a whole document, libxml2 saveHTML() only knows the charset from <meta http-equiv="Content-Type">.
-			// With <meta charset="UTF-8"> or a byte order mark, it writes non-ASCII characters as HTML entities,
-			// also inside <script>, where they are not decoded, which corrupts e.g. JSON data. Node by node, it writes UTF-8.
-			$utf8 = '';
-			foreach ($doc->childNodes as $node) {
-				$utf8 .= $doc->saveHTML($node) ?: '';
-			}
-			$html = $utf8 !== '' ? $bom . $utf8 : $html;
-		} else {
-			$html = $doc->saveHTML() ?: $html;
+		$saved = $doc->saveHTML();
+		if ($saved === '') {
+			return $html;
 		}
-		if ($htmlStart !== '' && !str_starts_with($html, $htmlStart)) {
-			// libxml2 saveHTML() risks removing Unicode BOM and XML declaration,
-			// which affects future detection of charset encoding, so manually restore it
-			$htmlPos = stripos($html, '<html');
-			$html = $htmlPos === false || $htmlPos > 512 ? $html : $htmlStart . substr($html, $htmlPos);
-		}
-		return $html;
+		// Re-add the Unicode byte order mark, for downstream charset detection
+		return (str_starts_with($html, "\xEF\xBB\xBF") ? "\xEF\xBB\xBF" : '') . $saved;
 	}
 
 	public static function compareURLOrigins(string $url1, string $url2): bool {
@@ -350,6 +343,13 @@ final class FreshRSS_http_Util {
 		if (in_array('*', $internal_host_allowlist, true)) {
 			return [];	// Disables SSRF checks entirely (unsafe)
 		}
+		if (filter_var($host, FILTER_VALIDATE_IP) === false) {
+			// cURL percent-decodes the host, converts non-ASCII to Punycode, and reads a host ending in a number as IPv4 (e.g. 0x7f.1).
+			// Refuse such hosts, as cURL would contact another name or address than the one checked and pinned here.
+			if (preg_match('/^[a-z0-9._-]+$/D', $host) !== 1 || preg_match('/(^|\.)(\d+|0x[0-9a-f]*)\.?$/D', $host) === 1) {
+				return false;
+			}
+		}
 
 		$resolve_str = "$host:$port:";
 		$ips_ok = [];
@@ -407,7 +407,7 @@ final class FreshRSS_http_Util {
 					continue;
 				}
 
-				if (filter_var($embedded_ipv4, FILTER_VALIDATE_IP, FILTER_FLAG_GLOBAL_RANGE) === false) {
+				if (self::isNonGlobalIp($embedded_ipv4)) {
 					continue;
 				}
 
@@ -415,9 +415,7 @@ final class FreshRSS_http_Util {
 				continue;
 			}
 
-			// `FILTER_FLAG_GLOBAL_RANGE` does not reject the NAT64 prefixes
-			if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_GLOBAL_RANGE) === false ||
-				self::checkCIDR($ip, self::NAT64_PREFIX_RFC8215)) {
+			if (self::isNonGlobalIp($ip)) {
 				continue;
 			}
 
@@ -512,8 +510,8 @@ final class FreshRSS_http_Util {
 			}
 		}
 		$proxy_type = is_int($curl_options[CURLOPT_PROXYTYPE] ?? null) ? $curl_options[CURLOPT_PROXYTYPE] : $proxy_type;
+		// CURLOPT_PROXY is already scheme-less by the time it reaches here:
 		$proxy = is_string($curl_options[CURLOPT_PROXY] ?? null) ? $curl_options[CURLOPT_PROXY] : $proxy;
-		$proxy = preg_replace('#^.*://#', '', $proxy) ?? $proxy;	// Strip scheme, as it is provided by CURLOPT_PROXYTYPE
 
 		if (($retryAfter = FreshRSS_http_Util::getRetryAfter($url, $proxy)) > 0) {
 			Minz_Log::warning('For that domain, will first retry after ' . date('c', $retryAfter) . '. ' . \SimplePie\Misc::url_remove_credentials($url));
@@ -817,6 +815,22 @@ final class FreshRSS_http_Util {
 		$ip_net_bits = substr($binary_ip, 0, $mask_bits);
 		$subnet_bits = substr($binary_subnet, 0, $mask_bits);
 		return $ip_net_bits === $subnet_bits;
+	}
+
+	/**
+	 * Whether $ip is outside the global answer ranges
+	 */
+	private static function isNonGlobalIp(string $ip): bool {
+		if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_GLOBAL_RANGE) === false) {
+			return true;
+		}
+		// `FILTER_FLAG_GLOBAL_RANGE` does not reject all special-use ranges
+		foreach (self::ADDITIONAL_NON_GLOBAL_RANGES as $range) {
+			if (self::checkCIDR($ip, $range)) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	/**

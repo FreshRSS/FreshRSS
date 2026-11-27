@@ -311,6 +311,7 @@ return array(
 		'sticky_sort' => 'Aangepaste sorteervolgorde behouden bij het bladeren',
 		'sticky_sort_help' => 'Bepaalt of de laatste aangepaste sorteervolgorde actief blijft of dat elke categorie of feed altijd zijn eigen standaard- of algemene instelling gebruikt.',
 		'title' => 'Lees modus',
+		'title_opens_website' => 'Clicking on the article title opens it on its original website',	// TODO
 		'view' => array(
 			'default' => 'Standaard weergave',
 			'global' => 'Globale weergave',

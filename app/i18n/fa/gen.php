@@ -43,6 +43,7 @@ return array(
 		'open_url' => ' URL را باز کنید',
 		'promote' => ' ترویج',
 		'purge' => ' پاکسازی',
+		'read_in_freshrss' => 'Read in FreshRSS',	// TODO
 		'refresh_opml' => ' OPML را بازخوانی کنید',
 		'remove' => ' حذف کنید',
 		'rename' => ' تغییر نام',

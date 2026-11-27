@@ -118,19 +118,13 @@ class FreshRSS_EntryDAOSQLite extends FreshRSS_EntryDAO {
 	 * Toggle the read marker on one or more article.
 	 * Then the cache is updated.
 	 *
-	 * @param numeric-string|array<numeric-string> $ids
+	 * @param numeric-string|list<numeric-string> $ids
 	 * @return int|false affected rows
 	 */
 	#[\Override]
 	public function markRead(array|string $ids, bool $is_read = true): int|false {
 		if (is_array($ids)) {	//Many IDs at once (used by API)
-			//if (true) {	//Speed heuristics	//TODO: Not implemented yet for SQLite (so always call IDs one by one)
-			$affected = 0;
-			foreach ($ids as $id) {
-				$affected += ($this->markRead($id, $is_read) ?: 0);
-			}
-			return $affected;
-			//}
+			return parent::markRead($ids, $is_read);
 		} else {
 			FreshRSS_UserDAO::touch();
 			$this->pdo->beginTransaction();

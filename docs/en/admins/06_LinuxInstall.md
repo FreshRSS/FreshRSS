@@ -84,5 +84,5 @@ Finally, symlink the public folder to your FreshRSS directory
 
 No database setup is needed with SQLite: it is created automatically during the installation.
 
-You can now finish the installation from a web browser by navigating to to `http://<your_server>/` and following the graphical prompts.
+You can now finish the installation from a web browser by navigating to `http://<your_server>/` and following the graphical prompts.
 Alternatively, you can finish the installation using [the cli](https://github.com/FreshRSS/FreshRSS/tree/edge/cli)

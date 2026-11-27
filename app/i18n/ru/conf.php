@@ -311,6 +311,7 @@ return array(
 		'sticky_sort' => 'Сохранять ручной порядок сортировки при навигации',	// DIRTY - Keep custom sort order during navigation
 		'sticky_sort_help' => 'Определяет, сохраняется ли последний ручной порядок сортировки или каждая категория либо лента всегда использует собственную настройку по умолчанию или глобальную.',	// DIRTY - Determines whether the last custom sort order is kept active or whether each category or feed always uses its own default or global setting.
 		'title' => 'Чтение',
+		'title_opens_website' => 'Clicking on the article title opens it on its original website',	// TODO
 		'view' => array(
 			'default' => 'Вид по умолчанию',
 			'global' => 'Глобальный вид',

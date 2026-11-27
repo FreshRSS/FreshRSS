@@ -2170,7 +2170,7 @@ JS;
             $info .= "No error found.\n";
         }
         $info .= "Extensions:\n";
-        $extensions = ['pcre', 'curl', 'zlib', 'mbstring', 'iconv', 'xmlreader', 'xml'];
+        $extensions = ['pcre', 'curl', 'zlib', 'mbstring', 'iconv', 'xml'];
         foreach ($extensions as $ext) {
             if (extension_loaded($ext)) {
                 $info .= "    $ext loaded\n";

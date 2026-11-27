@@ -143,7 +143,10 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 	public function readingAction(): void {
 		if (Minz_Request::isPost()) {
 			FreshRSS_Context::userConf()->posts_per_page = Minz_Request::paramInt('posts_per_page') ?: 10;
-			FreshRSS_Context::userConf()->view_mode = Minz_Request::paramStringNull('view_mode', true) ?? 'normal';
+			$viewMode = Minz_Request::paramString('view_mode') ?: FreshRSS_ViewMode::DEFAULT_VIEW_MODE;
+			if (FreshRSS_ViewMode::exists($viewMode)) {
+				FreshRSS_Context::userConf()->view_mode = $viewMode;
+			}
 			FreshRSS_Context::userConf()->default_view = Minz_Request::paramStringNull('default_view') ?? 'adaptive';
 			FreshRSS_Context::userConf()->show_fav_unread = Minz_Request::paramBoolean('show_fav_unread');
 			FreshRSS_Context::userConf()->auto_load_more = Minz_Request::paramBoolean('auto_load_more');
@@ -153,6 +156,7 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 			FreshRSS_Context::userConf()->onread_jump_next = Minz_Request::paramBoolean('onread_jump_next');
 			FreshRSS_Context::userConf()->lazyload = Minz_Request::paramBoolean('lazyload');
 			FreshRSS_Context::userConf()->sides_close_article = Minz_Request::paramBoolean('sides_close_article');
+			FreshRSS_Context::userConf()->title_opens_website = Minz_Request::paramBoolean('title_opens_website');
 			FreshRSS_Context::userConf()->sticky_post = Minz_Request::paramBoolean('sticky_post');
 			FreshRSS_Context::userConf()->sticky_sort = Minz_Request::paramBoolean('sticky_sort');
 			$markReadButton = Minz_Request::paramStringNull('mark_read_button', plaintext: true);
@@ -629,7 +633,8 @@ class FreshRSS_configure_Controller extends FreshRSS_ActionController {
 		$id = empty($queries) ? 0 : (max(array_keys($queries)) + 1);
 
 		/** @var array{get?:string,name?:string,order?:string,sort?:string,search?:string,state?:int,shareRss?:bool,shareOpml?:bool,description?:string,imageUrl?:string} $params */
-		$params = Minz_Request::paramArray('query') ?: array_filter($_GET, 'is_string', ARRAY_FILTER_USE_KEY);
+		$params = Minz_Request::paramArray('query') ?:
+			Minz_Helper::htmlspecialchars_utf8(array_intersect_key($_GET, array_flip(['get', 'order', 'sort', 'search', 'state'])));
 		$name = ($params['name'] ?? '') ?: _t('conf.query.number', $id + 1);
 		$queryParams = [];
 

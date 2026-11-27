@@ -361,6 +361,29 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 				],
 				'(search:"A or B") OR (search:"(C OR D)")',
 			],
+			'expanded name inside parentheses' => [
+				[
+					['search' => 'author:Alice', 'name' => 'First'],
+					['search' => 'intitle:World', 'name' => 'Second'],
+				],
+				'(inurl:a OR search:First) (-search:Second)',
+				[
+					'(((e.link LIKE ?)) OR ((e.author LIKE ?))) AND (NOT ((e.title LIKE ?)))',
+					['%a%', '%Alice%', '%World%'],
+				],
+				'(inurl:a OR search:First) (-search:Second)',
+			],
+			'expanded negated name as saved by a user query' => [
+				[
+					['search' => 'author:Alice', 'name' => 'First'],
+				],
+				'(-search:First) (inurl:a OR inurl:b)',
+				[
+					'(NOT ((e.author LIKE ?))) AND ((e.link LIKE ?) OR (e.link LIKE ?))',
+					['%Alice%', '%a%', '%b%'],
+				],
+				'(-search:First) (inurl:a OR inurl:b)',
+			],
 			'separate groups with AND' => [
 				[
 					['search' => 'author:Alice'],
@@ -756,6 +779,15 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 		$filterSearch = preg_replace('/\s+/', ' ', trim($filterSearch)) ?? '';
 		self::assertSame('(e.id >= ?) OR (e.`lastModified` >= ?)', $filterSearch);
 		self::assertSame([$startTime . '000000', $startTime], $filterValues);
+	}
+	public function test__add_boolean_searches_combines_with_and(): void {
+		$combined = new FreshRSS_BooleanSearch('');
+		$combined->add(new FreshRSS_BooleanSearch('ab'));
+		$combined->add(new FreshRSS_BooleanSearch('cd OR ef', 0, 'AND', allowUserQueries: false));
+		self::assertSame('ab (cd OR ef)', $combined->toString());
+
+		[$filterValues] = FreshRSS_EntryDAOPGSQL::sqlBooleanSearch('e.', $combined);
+		self::assertSame(['%ab%', '%ab%', '%cd%', '%cd%', '%ef%', '%ef%'], $filterValues);
 	}
 
 	/**
@@ -1391,6 +1423,18 @@ final class SearchTest extends \PHPUnit\Framework\TestCase {
 				'-search:News -search:Newsletter',
 				'-search:News -search:Newsletter',
 				'-author:Alice -author:Bob',
+			],
+			'Names inside parentheses' => [
+				$overlappingQueries,
+				'(-search:News) (a OR search:Newsletter)',
+				'(-search:News) (a OR search:Newsletter)',
+				'(-author:Alice) (a OR author:Bob)',
+			],
+			'Negated name before parentheses is saved inside parentheses' => [
+				$overlappingQueries,
+				'-search:News (a OR b)',
+				'(-search:News) (a OR b)',
+				'-author:Alice (a OR b)',
 			],
 		];
 	}

@@ -11,6 +11,7 @@ if (function_exists('opcache_reset')) {
 }
 header("Content-Security-Policy: default-src 'self'; frame-ancestors 'none'");
 header('Referrer-Policy: same-origin');
+header('Cross-Origin-Opener-Policy: same-origin');
 
 require LIB_PATH . '/lib_install.php';
 
@@ -116,13 +117,18 @@ function saveStep2(): void {
 			) {
 				Minz_Session::_param('db_error', 'Missing parameters!');
 			} else {
-				Minz_Session::_params([
+				$dbParams = [
 					'db_base' => substr($_POST['base'], 0, 64),
 					'db_host' => $_POST['host'],
 					'db_user' => $_POST['user'],
 					'db_password' => $_POST['pass'],
 					'db_prefix' => substr($_POST['prefix'], 0, 16),
-				]);
+				];
+				if (!checkDbParameters($dbParams['db_host'], $dbParams['db_user'], $dbParams['db_base'], $dbParams['db_prefix'])) {
+					Minz_Session::_param('db_error', 'Invalid parameters!');
+					return;
+				}
+				Minz_Session::_params($dbParams);
 			}
 		}
 

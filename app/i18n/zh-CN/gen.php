@@ -43,6 +43,7 @@ return array(
 		'open_url' => '打开链接',
 		'promote' => '设为管理员',
 		'purge' => '清理',
+		'read_in_freshrss' => '在 FreshRSS 中阅读',
 		'refresh_opml' => '刷新订阅源动态列表',
 		'remove' => '删除',
 		'rename' => '重命名',
@@ -73,7 +74,7 @@ return array(
 		),
 		'username' => array(
 			'_' => '用户名',
-			'format' => '<small>1-39 characters: letters, digits, and <code>. _ @ -</code></small>',	// TODO
+			'format' => '<small>1-39 个字符：字母、数字和 <code>. _ @ -</code></small>',
 		),
 	),
 	'date' => array(
@@ -200,7 +201,7 @@ return array(
 		'it' => 'Italiano',	// IGNORE
 		'ja' => '日本語',	// IGNORE
 		'ko' => '한국어',	// IGNORE
-		'lt' => 'Lietuvių',	// TODO
+		'lt' => 'Lietuvių',	// IGNORE
 		'lv' => 'Latviešu',	// IGNORE
 		'nl' => 'Nederlands',	// IGNORE
 		'oc' => 'Occitan',	// IGNORE
@@ -257,7 +258,7 @@ return array(
 		'categories' => '类别',
 		'content' => '内容',
 		'date_from' => '从',
-		'date_modified' => 'Server Modification Date',	// TODO
+		'date_modified' => '服务器修改日期',
 		'date_past' => '过去',	// DIRTY - In the past
 		'date_published' => '发布日期',
 		'date_range' => '日期范围',

@@ -264,7 +264,10 @@ class FreshRSS_Feed extends Minz_Model {
 				$params = $feedIconUrl !== '' ? $feedIconUrl . $this->proxyParam()
 					: $this->website(fallback: true) . $this->proxyParam();
 			}
-			$this->hashFavicon = hash('crc32b', $salt . (is_string($params) ? $params : ''));
+			$hash = hash_hmac('sha256', is_string($params) ? $params : '', $salt, binary: true);
+			$hash = substr($hash, 0, 8);	// Keep 64 bits
+			$hash = strtr(rtrim(base64_encode($hash), '='), '+/', '-_');	// URL-safe base64
+			$this->hashFavicon = $hash;	// Length 11
 		}
 		return $this->hashFavicon;
 	}
@@ -444,6 +447,7 @@ class FreshRSS_Feed extends Minz_Model {
 	public function faviconPrepare(bool $force = false): void {
 		require_once LIB_PATH . '/favicons.php';
 		if ($this->customFavicon()) {
+			$this->migrateCustomFavicon();
 			return;
 		}
 		$feedIconUrl = $this->attributeString('feedIconUrl') ?? '';
@@ -476,8 +480,29 @@ class FreshRSS_Feed extends Minz_Model {
 		}
 	}
 
+	/** Legacy favicon migration from FreshRSS < 1.31.0 */
+	private function migrateCustomFavicon(): void {
+		if (!$this->customFavicon()) {
+			return;
+		}
+		$salt = FreshRSS_Context::systemConf()->salt;
+		$params = $this->id . Minz_User::name();
+		$hookParams = Minz_ExtensionManager::callHook(Minz_HookType::CustomFaviconHash, $this);
+		if ($hookParams !== null) {
+			$params = $hookParams;
+		}
+		$newPath = FAVICONS_DIR . $this->hashFavicon() . '.ico';
+		if (!file_exists($newPath)) {
+			$legacyHash = hash('crc32b', $salt . (is_string($params) ? $params : ''));
+			$legacyPath = FAVICONS_DIR . $legacyHash . '.ico';
+			if (is_file($legacyPath)) {
+				@copy($legacyPath, $newPath);
+			}
+		}
+	}
+
 	public static function faviconDelete(string $hash): void {
-		if (!ctype_xdigit($hash)) {
+		if (preg_match('/\\A[A-Za-z0-9_-]{1,11}\\z/', $hash) !== 1) {
 			return;
 		}
 		$path = DATA_PATH . '/favicons/' . $hash;
@@ -485,6 +510,8 @@ class FreshRSS_Feed extends Minz_Model {
 		@unlink($path . '.txt');
 	}
 	public function favicon(bool $absolute = false): string {
+		require_once LIB_PATH . '/favicons.php';
+		$this->migrateCustomFavicon();
 		$hash = $this->hashFavicon();
 		$url = '/f.php?h=' . $hash;
 		if ($this->customFavicon()
@@ -999,29 +1026,18 @@ class FreshRSS_Feed extends Minz_Model {
 			return null;
 		}
 
-		$doc = new DOMDocument();
-		$doc->recover = true;
-		$doc->strictErrorChecking = false;
-		if (!$doc->loadHTML($html, LIBXML_NONET | LIBXML_NOERROR | LIBXML_NOWARNING)) {
-			return null;
-		}
-
-		$xpath = new DOMXPath($doc);
+		$doc = Dom\HTMLDocument::createFromString($html, LIBXML_NOERROR | Dom\HTML_NO_DEFAULT_NS);
+		$xpath = new Dom\XPath($doc);
 		$jsonFragments = @$xpath->evaluate($xPathToJson);
-		if ($jsonFragments === false) {
-			return null;
-		}
 		if (is_string($jsonFragments)) {
 			return $jsonFragments;
 		}
-		if ($jsonFragments instanceof DOMNodeList && $jsonFragments->length > 0) {
+		if ($jsonFragments instanceof Dom\NodeList && $jsonFragments->length > 0) {
 			// If the result is a list, then aggregate as a JSON array
 			$result = [];
 			foreach ($jsonFragments as $node) {
-				if (!($node instanceof DOMNode)) {
-					continue;
-				}
-				$json = json_decode($node->textContent, true);
+				/** @var \DOMNode $node */
+				$json = json_decode((string)$node->textContent, true);
 				if (json_last_error() === JSON_ERROR_NONE && is_array($json)) {
 					$result[] = $json;
 				}
@@ -1112,58 +1128,55 @@ class FreshRSS_Feed extends Minz_Model {
 		$view->entries = [];
 
 		try {
-			$doc = new DOMDocument();
-			$doc->recover = true;
-			$doc->strictErrorChecking = false;
-			$ok = false;
-
 			switch ($this->kind()) {
 				case FreshRSS_Feed::KIND_HTML_XPATH:
-					$ok = $doc->loadHTML($html, LIBXML_NONET | LIBXML_NOERROR | LIBXML_NOWARNING) !== false;
+					$doc = Dom\HTMLDocument::createFromString($html, LIBXML_NOERROR | Dom\HTML_NO_DEFAULT_NS);
 					break;
 				case FreshRSS_Feed::KIND_XML_XPATH:
-					$ok = $doc->loadXML($html, LIBXML_NONET | LIBXML_NOERROR | LIBXML_NOWARNING) !== false;
+					$doc = @Dom\XMLDocument::createFromString($html, LIBXML_NONET);
 					break;
+				default:
+					return null;
 			}
 
-			if (!$ok) {
-				return null;
-			}
+			$xpath = new Dom\XPath($doc);
+			$xPathEvaluate = function (string $expression, Dom\Node|\DOMNode|null $contextNode = null) use ($xpath): mixed {
+				if ($contextNode === null) {
+					return @$xpath->evaluate($expression);
+				}
+				return @$xpath->evaluate($expression, $contextNode);
+			};
 
-			$xpath = new DOMXPath($doc);
-			$xpathEvaluateString = function (string $expression, ?DOMNode $contextNode = null) use ($xpath): string {
-				$result = @$xpath->evaluate('normalize-space(' . $expression . ')', $contextNode);
+			$xpathEvaluateString = function (string $expression, Dom\Node|\DOMNode|null $contextNode = null) use ($xPathEvaluate): string {
+				$result = $xPathEvaluate('normalize-space(' . $expression . ')', $contextNode);
 				return is_string($result) ? $result : '';
 			};
 
 			$view->rss_title = $xPathFeedTitle == '' ? $this->name() :
 				htmlspecialchars($xpathEvaluateString($xPathFeedTitle), ENT_COMPAT, 'UTF-8');
 			$view->rss_base = htmlspecialchars(trim($xpathEvaluateString('//base/@href')), ENT_COMPAT, 'UTF-8');
-			$nodes = $xpath->query($xPathItem);
-			if ($nodes === false || $nodes->length === 0) {
+			$nodes = @$xpath->query($xPathItem);
+			if ($nodes->length === 0) {
 				return null;
 			}
 
 			foreach ($nodes as $node) {
-				if (!($node instanceof DOMNode)) {
-					continue;
-				}
 				$item = [];
 				$item['title'] = $xPathItemTitle == '' ? '' : $xpathEvaluateString($xPathItemTitle, $node);
 
 				$item['content'] = '';
 				if ($xPathItemContent != '') {
-					$result = @$xpath->evaluate($xPathItemContent, $node);
-					if ($result instanceof DOMNodeList) {
-						// List of nodes, save as HTML
+					$result = $xPathEvaluate($xPathItemContent, $node);
+					if ($result instanceof Dom\NodeList) {
+						// List of nodes, serialized as HTML or XML depending on the document
 						$content = '';
 						foreach ($result as $child) {
-							if ($child instanceof DOMNode) {
-								$content .= $doc->saveHTML($child) . "\n";
-							}
+							/** @var \DOMNode $child */
+							$content .= ($doc instanceof Dom\HTMLDocument ? $doc->saveHTML($child) :
+								($doc->saveXML($child) ?: '')) . "\n";
 						}
 						$item['content'] = $content;
-					} elseif (is_string($result) || is_int($result) || is_bool($result)) {
+					} elseif (is_string($result) || is_bool($result)) {
 						// Typed expression, save as-is
 						$item['content'] = (string)$result;
 					}
@@ -1184,15 +1197,14 @@ class FreshRSS_Feed extends Minz_Model {
 				}
 				$item['thumbnail'] = $xPathItemThumbnail == '' ? '' : $xpathEvaluateString($xPathItemThumbnail, $node);
 				if ($xPathItemCategories != '') {
-					$itemCategories = @$xpath->evaluate($xPathItemCategories, $node);
+					$itemCategories = $xPathEvaluate($xPathItemCategories, $node);
 					if (is_string($itemCategories) && $itemCategories !== '') {
 						$item['tags'] = [$itemCategories];
-					} elseif ($itemCategories instanceof DOMNodeList && $itemCategories->length > 0) {
+					} elseif ($itemCategories instanceof Dom\NodeList && $itemCategories->length > 0) {
 						$item['tags'] = [];
 						foreach ($itemCategories as $itemCategory) {
-							if ($itemCategory instanceof DOMNode) {
-								$item['tags'][] = $itemCategory->textContent;
-							}
+							/** @var \DOMNode $itemCategory */
+							$item['tags'][] = (string)$itemCategory->textContent;
 						}
 					}
 				}
@@ -1218,7 +1230,7 @@ class FreshRSS_Feed extends Minz_Model {
 					$view->entries[] = FreshRSS_Entry::fromArray($item);
 				}
 			}
-		} catch (Exception $ex) {
+		} catch (Throwable $ex) {
 			Minz_Log::warning($ex->getMessage());
 			return null;
 		}

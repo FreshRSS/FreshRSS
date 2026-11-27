@@ -43,6 +43,7 @@ return array(
 		'open_url' => 'Atverti URL',
 		'promote' => 'Paaukštinti',
 		'purge' => 'Išvalyti',
+		'read_in_freshrss' => 'Read in FreshRSS',	// TODO
 		'refresh_opml' => 'Atnaujinti OPML',
 		'remove' => 'Pašalinti',
 		'rename' => 'Pervadinti',

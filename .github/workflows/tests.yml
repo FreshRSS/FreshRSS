@@ -20,6 +20,22 @@ jobs:
     # https://github.com/actions/runner-images
     runs-on: ubuntu-26.04
 
+    services:
+      postgres:
+        image: postgres:19-alpine@sha256:8b0ff4cdf221f0c53d7fcda681d3b461be725c492cd881c5ec9c0ad25023f188
+        env:
+          POSTGRES_HOST_AUTH_METHOD: trust
+        ports:
+          - 127.0.0.1:5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+
+    env:
+      FRESHRSS_TEST_PGSQL_DSN: pgsql:host=127.0.0.1;dbname=postgres;user=postgres
+
     steps:
     - name: Git checkout source code
       uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -130,3 +146,41 @@ jobs:
 
     - name: Check spelling
       run: bin/typos
+
+  # https://github.com/shivammathur/setup-php
+  tests-oldest-php:
+    name: tests PHP 8.2
+    runs-on: ubuntu-26.04
+
+    steps:
+    - name: Git checkout source code
+      uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      with:
+        persist-credentials: false
+
+    - name: Use PHP 8.2
+      uses: shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962 # 2.40.0
+      with:
+        php-version: '8.2'
+
+    - name: Check PHP syntax
+      run: composer run-script php-lint
+
+    - name: Check PHTML syntax
+      run: composer run-script phtml-lint
+
+    - name: Use Composer cache
+      id: composer-cache
+      uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+      with:
+        path: vendor
+        key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-php-
+
+    - name: Run Composer install
+      run: composer install --prefer-dist --no-progress
+      if: steps.composer-cache.outputs.cache-hit != 'true'
+
+    - name: Run PHP unit tests
+      run: composer run-script phpunit -- --no-progress

@@ -30,30 +30,23 @@ function searchFavicon(string $url): string {
 	if ($url === '') {
 		return '';
 	}
-	$dom = new DOMDocument();
 	['body' => $html, 'effective_url' => $effective_url, 'fail' => $fail] =
 		FreshRSS_http_Util::httpGet($url, cachePath: CACHE_PATH . '/' . sha1($url) . '.html', type: 'html');
-	if ($fail || $html === '' || !@$dom->loadHTML($html, LIBXML_NONET | LIBXML_NOERROR | LIBXML_NOWARNING)) {
+	if ($fail || $html === '') {
 		return '';
 	}
-
-	$xpath = new DOMXPath($dom);
-	$links = $xpath->query('//link[@href][translate(@rel, "ABCDEFGHIJKLMNOPQRSTUVWXYZ", "abcdefghijklmnopqrstuvwxyz")="shortcut icon"'
-		. ' or translate(@rel, "ABCDEFGHIJKLMNOPQRSTUVWXYZ", "abcdefghijklmnopqrstuvwxyz")="icon"]');
-	if (!($links instanceof DOMNodeList)) {
-		return '';
-	}
+	$dom = Dom\HTMLDocument::createFromString($html, LIBXML_NOERROR);
+	$links = $dom->querySelectorAll('link[href][rel~="icon" i]');
 
 	// Use the base element for relative paths, if there is one
-	$baseElements = $xpath->query('//base[@href]');
-	$baseElement = ($baseElements !== false && $baseElements->length > 0) ? $baseElements->item(0) : null;
-	$baseUrl = ($baseElement instanceof DOMElement) ? $baseElement->getAttribute('href') : $effective_url;
+	$baseElement = $dom->querySelector('base[href]');
+	$baseUrl = ($baseElement !== null) ? ($baseElement->getAttribute('href') ?? '') : $effective_url;
 
 	foreach ($links as $link) {
-		if (!$link instanceof DOMElement) {
+		if (!$link instanceof Dom\Element) {
 			continue;
 		}
-		$href = trim($link->getAttribute('href'));
+		$href = trim($link->getAttribute('href') ?? '');
 		$urlParts = parse_url($effective_url);
 
 		// Handle protocol-relative URLs by adding the current URL's scheme

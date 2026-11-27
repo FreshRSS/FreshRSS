@@ -201,8 +201,8 @@ return array(
 			'_' => '套用的過濾器:',
 			'categories' => '按類別顯示',
 			'feeds' => '按訂閱源顯示',
-			'include_article_tags_label' => 'Include article tags from feeds',	// TODO
-			'include_user_labels_label' => 'Include user labels, with prefix:',	// TODO
+			'include_article_tags_label' => '包含訂閱源中的文章標籤',
+			'include_user_labels_label' => '包含使用者標籤，前綴為：',
 			'order' => '排序依據',
 			'search' => '表達式',
 			'shareOpml' => '啟用透過對應類別和訂閱源的 OPML 分享',
@@ -311,6 +311,7 @@ return array(
 		'sticky_sort' => '導覽時保持手動排序',
 		'sticky_sort_help' => '決定保持最近一次手動排序，還是讓每個分類或訂閱源始終使用各自的預設或全域設定。',
 		'title' => '閱讀',
+		'title_opens_website' => '點擊文章標題以開啟原始網站。',
 		'view' => array(
 			'default' => '預設檢視',
 			'global' => '全域檢視',

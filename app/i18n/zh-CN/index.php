@@ -85,14 +85,14 @@ return array(
 		'rss_view' => '订阅源',
 		'search_short' => '搜索',
 		'sort' => array(
-			'asc' => 'Ascending',	// TODO
+			'asc' => '升序',
 			'c' => array(
 				'name_asc' => '分类、订阅源标题 A→Z',
 				'name_desc' => '分类、订阅源标题 Z→A',
 			),
 			'date_asc' => '发布日期 1→9',
 			'date_desc' => '发布日期 9→1',
-			'desc' => 'Descending',	// TODO
+			'desc' => '降序',
 			'f' => array(
 				'name_asc' => '订阅源标题 A→Z',
 				'name_desc' => '订阅源标题 Z→A',
@@ -104,13 +104,13 @@ return array(
 			'link_asc' => '链接 A→Z',
 			'link_desc' => '链接 Z→A',
 			'primary' => array(
-				'_' => 'Sorting criterion',	// TODO
-				'help' => 'Sorting by <em>received</em> date is recommended in most cases, for consistency and performance',	// TODO
+				'_' => '排序标准',
+				'help' => '大多数情况下推荐按<em>接收</em>日期排序，以保证一致性和性能',
 			),
 			'rand' => '随机顺序',
 			'secondary' => array(
-				'_' => 'Secondary sorting criterion',	// TODO
-				'help' => 'Only relevant when the primary sorting criterion is categories or feeds titles',	// TODO
+				'_' => '次要排序标准',
+				'help' => '仅当主要排序标准为分类或订阅源标题时才相关',
 			),
 			'title_asc' => '标题 A→Z',
 			'title_desc' => '标题 Z→A',
