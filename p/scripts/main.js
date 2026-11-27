@@ -486,7 +486,7 @@ function toggleContent(new_active, old_active, skipping) {
 			new_active.classList.add('active');
 
 			// To ease navigation within article contents using the keyboard
-			new_active.querySelector('a.go_website').focus({ focusVisible: false });
+			new_active.querySelector('a.go_website')?.focus({ focusVisible: false, preventScroll: true });
 		}
 		new_active.classList.add('current');
 		if (old_active) {
