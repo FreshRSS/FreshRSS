@@ -34,8 +34,6 @@ return array(
 		'information' => 'Informasi',
 		'open' => 'Buka kategori',
 		'opml_url' => 'URL OPML',
-		'position' => 'Posisi tampilan',
-		'position_help' => 'Untuk mengatur urutan pengurutan kategori',
 		'title' => 'Judul',
 	),
 	'feed' => array(

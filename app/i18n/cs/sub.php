@@ -34,8 +34,6 @@ return array(
 		'information' => 'Informace',
 		'open' => 'Open category',	// TODO
 		'opml_url' => 'ADRESA URL OPML',
-		'position' => 'Zobrazit pozici',
-		'position_help' => 'Pro ovládání pořadí řazení kategorií',
 		'title' => 'Název',
 	),
 	'feed' => array(

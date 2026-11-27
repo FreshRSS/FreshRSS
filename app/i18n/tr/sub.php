@@ -34,8 +34,6 @@ return array(
 		'information' => 'Bilgi',
 		'open' => 'Kategoriyi aç',
 		'opml_url' => 'OPML URL’si',
-		'position' => 'Görüntüleme konumu',
-		'position_help' => 'Kategori sıralama düzenini kontrol etmek için',
 		'title' => 'Başlık',
 	),
 	'feed' => array(

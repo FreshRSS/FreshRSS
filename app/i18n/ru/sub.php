@@ -34,8 +34,6 @@ return array(
 		'information' => 'Информация',
 		'open' => 'Открыть категорию',
 		'opml_url' => 'OPML ссылка',
-		'position' => 'Положение отображения',
-		'position_help' => 'Влияет на порядок отображения категорий',
 		'title' => 'Заголовок',
 	),
 	'feed' => array(
