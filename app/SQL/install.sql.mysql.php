@@ -123,6 +123,17 @@ $GLOBALS['ALTER_TABLE_ENTRY_LAST_MODIFIED'] = <<<'SQL'
 ALTER TABLE `_entry`
 	ADD COLUMN IF NOT EXISTS `lastModified` BIGINT,	-- 1.29.0
 	ADD INDEX IF NOT EXISTS `entry_last_modified_index` (`lastModified`);
+
+CREATE TABLE IF NOT EXISTS `_feed_category` (
+	`feed_id`     INT NOT NULL,
+	`category_id` INT NOT NULL,
+	PRIMARY KEY (`feed_id`, `category_id`),
+	FOREIGN KEY (`feed_id`) REFERENCES `_feed`(`id`) ON DELETE CASCADE,
+	FOREIGN KEY (`category_id`) REFERENCES `_category`(`id`) ON DELETE CASCADE
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci
+ENGINE = INNODB;
+INSERT IGNORE INTO `_feed_category` (feed_id, category_id)
+	SELECT id, category FROM `_feed` WHERE category IS NOT NULL AND category != 0;
 SQL;
 
 $GLOBALS['SQL_DROP_TABLES'] = <<<'SQL'
