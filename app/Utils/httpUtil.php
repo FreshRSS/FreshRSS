@@ -7,7 +7,23 @@ final class FreshRSS_http_Util {
 
 	private const RETRY_AFTER_PATH = DATA_PATH . '/Retry-After/';
 	private const NAT64_PREFIX_RFC6052 = '64:ff9b::/96';
-	private const NAT64_PREFIX_RFC8215 = '64:ff9b:1::/48';
+
+	/**
+	 * `FILTER_FLAG_GLOBAL_RANGE` does not reject everything yet:
+	 * https://github.com/php/php-src/pull/25426
+	 * @var list<string>
+	 */
+	private const ADDITIONAL_NON_GLOBAL_RANGES = [
+		'3fff::/20',	// RFC 9637 (Documentation)
+		'5f00::/16',	// RFC 9602 (SRv6 SIDs)
+		'64:ff9b:1::/48',	// RFC 8215 (Local-Use IPv4/IPv6 Translation Prefix)
+		'100:0:0:1::/64',	// RFC 9780 (Dummy IPv6 Prefix)
+		'192.88.99.0/24',	// RFC 7526 (deprecated 6to4 anycast)
+		'224.0.0.0/4',	// RFC 1112 (IPv4 multicast)
+		'2002::/16',	// RFC 3056 (6to4)
+		'fec0::/10',	// RFC 3879 (deprecated site-local)
+		'ff00::/8',	// RFC 4291 (IPv6 multicast)
+	];
 	/** @var array<string, string[]> $resolve_ok */
 	private static array $resolve_ok = [];
 	/** @var array<string, bool> $retry_after_domain_wide */
@@ -445,7 +461,7 @@ final class FreshRSS_http_Util {
 					continue;
 				}
 
-				if (filter_var($embedded_ipv4, FILTER_VALIDATE_IP, FILTER_FLAG_GLOBAL_RANGE) === false) {
+				if (self::isNonGlobalIp($embedded_ipv4)) {
 					continue;
 				}
 
@@ -453,9 +469,7 @@ final class FreshRSS_http_Util {
 				continue;
 			}
 
-			// `FILTER_FLAG_GLOBAL_RANGE` does not reject the NAT64 prefixes
-			if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_GLOBAL_RANGE) === false ||
-				self::checkCIDR($ip, self::NAT64_PREFIX_RFC8215)) {
+			if (self::isNonGlobalIp($ip)) {
 				continue;
 			}
 
@@ -851,6 +865,22 @@ final class FreshRSS_http_Util {
 		$ip_net_bits = substr($binary_ip, 0, $mask_bits);
 		$subnet_bits = substr($binary_subnet, 0, $mask_bits);
 		return $ip_net_bits === $subnet_bits;
+	}
+
+	/**
+	 * Whether $ip is outside the global answer ranges
+	 */
+	private static function isNonGlobalIp(string $ip): bool {
+		if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_GLOBAL_RANGE) === false) {
+			return true;
+		}
+		// `FILTER_FLAG_GLOBAL_RANGE` does not reject all special-use ranges
+		foreach (self::ADDITIONAL_NON_GLOBAL_RANGES as $range) {
+			if (self::checkCIDR($ip, $range)) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	/**

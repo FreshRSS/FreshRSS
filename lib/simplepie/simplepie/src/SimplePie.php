@@ -1778,7 +1778,9 @@ class SimplePie
                         [
                             '#<(lastBuildDate|pubDate|updated|feedDate|dc:date|slash:comments)>[^<]+</\\1>#',
                             '#<(media:starRating|media:statistics) [^/<>]+/>#',
-                            '#<!--.{,8192}?(-->|(?=]]>))#s', // XML comments up to a max length and stops at apparent end of CDATA section
+                            // XML comments up to a max length and stops at apparent end of CDATA section,
+                            // or at the start of another comment (unless part of an end such as `<!-->`)
+                            '#<!--.{0,8192}?(-->|(?=]]>|<!--(?!-*>)))#s',
                         ],
                         '',
                         $stream_data

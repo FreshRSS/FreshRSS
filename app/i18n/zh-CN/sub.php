@@ -29,7 +29,7 @@ return array(
 			'help' => '使用 URL 上的 <a href="https://opml.org/" target="_blank">OPML 文件</a> 中的订阅源填充这一分类',
 		),
 		'empty' => '空分类',
-		'error' => 'This dynamic OPML category has encountered a problem. Check that the OPML URL is still reachable and that the maximum number of feeds per user has not been exceeded.',	// TODO
+		'error' => '此动态 OPML 分类遇到了问题。请检查 OPML URL 是否仍可访问，以及是否已超过每位用户的订阅源数量上限。',
 		'expand' => '展开分类',
 		'information' => '信息',
 		'open' => '打开分类',
@@ -83,12 +83,12 @@ return array(
 			'help' => '每行写一条过滤规则，过滤规则可见 <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">文档</a>。',
 			'view_filter' => '在现有文章上预览过滤器（新窗口）',
 		),
-		'global_hint' => 'Use <a href="%s">the global view</a> to see how many articles in each feed are matching a state or a search expression',	// TODO
+		'global_hint' => '使用<a href="%s">全局视图</a>查看每个订阅源中有多少篇文章符合某个状态或搜索表达式',
 		'http_headers' => 'HTTP 头部',
 		'http_headers_help' => '头部之间用换行符分隔，头部名称和值用冒号分隔（例如：<kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>）。',
 		'icon' => '图标',
 		'information' => '信息',
-		'keep_adding_feed' => 'Then add more feeds',	// TODO
+		'keep_adding_feed' => '然后继续添加更多订阅源',
 		'keep_min' => '至少保存的文章数',
 		'kind' => array(
 			'_' => '订阅源类型',
@@ -188,10 +188,10 @@ return array(
 			'rss' => 'RSS / Atom (默认)',
 			'xml_xpath' => 'XML + XPath',	// IGNORE
 		),
-		'last-entry-publication-date' => 'Last article published <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
-		'last-entry-received-date' => 'Last article received <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
-		'last-error-date' => 'Last erroneous update <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
-		'last-update' => 'Last successful update <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
+		'last-entry-publication-date' => '最近发表的文章 <time datetime="%1$s" title="%1$s">%2$s</time>。',
+		'last-entry-received-date' => '最近接收的文章 <time datetime="%1$s" title="%1$s">%2$s</time>。',
+		'last-error-date' => '最近一次出错的更新 <time datetime="%1$s" title="%1$s">%2$s</time>。',
+		'last-update' => '最近一次成功更新 <time datetime="%1$s" title="%1$s">%2$s</time>。',
 		'maintenance' => array(
 			'clear_cache' => '清理缓存',
 			'clear_cache_help' => '清除该feed的缓存',
@@ -266,7 +266,7 @@ return array(
 		'validator' => '检查订阅源有效性',
 		'website' => '网站地址',
 		'websub' => 'WebSub 即时通知',
-		'websub_pending' => 'Subscribed to WebSub. Waiting for the first notification.',	// TODO
+		'websub_pending' => '已订阅 WebSub，等待第一条通知。',
 	),
 	'import_export' => array(
 		'export' => array(

@@ -97,6 +97,39 @@ final class EntryTest extends \PHPUnit\Framework\TestCase {
 		self::assertStringContainsString('Hello', $html);
 	}
 
+	public function test_content_doesNotRepeatEnclosureTitleForEachThumbnail(): void {
+		$title = str_repeat('&quot;', 2000);
+		$thumbnails = implode('', array_map(static fn(int $i): string => "<media:thumbnail url=\"https://example.net/$i.png\" />", range(1, 500)));
+		$rss = <<<XML
+			<?xml version="1.0" encoding="UTF-8"?>
+			<rss version="2.0" xmlns:media="http://search.yahoo.com/mrss/">
+				<channel>
+					<title>Feed</title>
+					<link>https://example.net/</link>
+					<item>
+						<title>Gallery</title>
+						<link>https://example.net/article</link>
+						<guid isPermaLink="false">gallery-001</guid>
+						<media:content url="https://example.net/video.mp4" type="video/mp4">
+							<media:title>{$title}</media:title>
+							{$thumbnails}
+						</media:content>
+					</item>
+				</channel>
+			</rss>
+			XML;
+
+		$entries = self::entriesFromRss($rss);
+		self::assertCount(1, $entries);
+		$html = $entries[0]->content();
+
+		// All the thumbnails are shown, and the title is kept for the enclosure itself
+		self::assertSame(500, substr_count($html, 'class="enclosure-thumbnail"'));
+		self::assertSame(1, substr_count($html, 'title="' . $title . '"'));
+		// But the size of the article is not the length of the title multiplied by the number of thumbnails
+		self::assertLessThan(5 * strlen($rss), strlen($html));
+	}
+
 	/** ZIP/JSON export/import */
 	public function test_toGReaderFreshRssExportRoundTripsEncoding(): void {
 		$feed = new FreshRSS_Feed('http://example.net/feed.xml', validate: false);
