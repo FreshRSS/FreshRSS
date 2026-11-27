@@ -1,0 +1,1 @@
+var hoarder_Integration_vars = <?= htmlspecialchars_decode(urldecode($this -> hoarder_Integration_vars)) ?>;
