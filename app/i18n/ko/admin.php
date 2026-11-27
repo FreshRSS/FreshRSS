@@ -14,9 +14,9 @@ return array(
 	'auth' => array(
 		'allow_anonymous' => '누구나 기본 사용자의 글을 읽을 수 있도록 합니다(%s)',
 		'allow_anonymous_refresh' => '누구나 피드를 갱신할 수 있도록 합니다',
-		'api_enabled' => '<abbr>API</abbr> 사용을 허가합니다<small>(모바일 애플리케이션을 사용할 때 필요합니다	and sharing user queries)</small>',	// DIRTY - Allow <abbr>API</abbr> access <small>(required for mobile apps and sharing user queries)</small>
+		'api_enabled' => '<abbr>API</abbr> 접근 허용 <small>(모바일 앱 사용과 사용자 쿼리 공유에 필요)</small>',
 		'form' => '웹폼 (전통적인 방식)',
-		'http' => 'HTTP (advanced: managed by Web server, OIDC, SSO…)',	// TODO
+		'http' => 'HTTP (고급: 웹 서버, OIDC, SSO 등에서 관리)',
 		'none' => '사용하지 않음 (위험)',
 		'title' => '인증',
 		'token' => '마스터 인증 토큰',
@@ -29,9 +29,9 @@ return array(
 		'description' => '설명',
 		'disabled' => '비활성화됨',
 		'empty_list' => '설치된 확장 기능이 없습니다',
-		'empty_list_help' => 'Check the logs to determine the reason behind the empty extension list.',	// TODO
+		'empty_list_help' => '확장 기능 목록이 비어 있는 이유는 로그에서 확인하세요.',
 		'enabled' => '활성화됨',
-		'is_compatible' => 'Is compatible',	// TODO
+		'is_compatible' => '호환됨',
 		'latest' => '설치됨',
 		'name' => '이름',
 		'no_configure_view' => '이 확장 기능은 설정이 없습니다.',
@@ -48,8 +48,8 @@ return array(
 		'_' => '통계',
 		'all_feeds' => '모든 피드',
 		'category' => '카테고리',
-		'date_published' => 'Publication date',	// TODO
-		'date_received' => 'Received date',	// TODO
+		'date_published' => '발행일',
+		'date_received' => '수신일',
 		'entry_count' => '글 개수',
 		'entry_per_category' => '카테고리별 글 개수',
 		'entry_per_day' => '일일 글 개수 (최근 30 일)',
@@ -62,19 +62,19 @@ return array(
 		'idle' => '유휴 피드',
 		'main' => '주요 통계',
 		'main_stream' => '메인 스트림',
-		'nb_unreads' => 'Number of unread articles',	// TODO
+		'nb_unreads' => '읽지 않은 글 수',
 		'no_idle' => '유휴 피드가 없습니다!',
 		'number_entries' => '%d 개의 글',
-		'overview' => 'Overview',	// TODO
+		'overview' => '개요',
 		'percent_of_total' => '전체에서의 비율 (%)',
-		'repartition' => '글 분류: %s',	// DIRTY - Articles repartition: %s
+		'repartition' => '글 분포: %s',
 		'status_favorites' => '즐겨찾기',
 		'status_read' => '읽음',
 		'status_total' => '전체',
 		'status_unread' => '읽지 않음',
 		'title' => '통계',
 		'top_feed' => '상위 10 개 피드',
-		'unread_dates' => 'Dates with most unread articles',	// TODO
+		'unread_dates' => '읽지 않은 글이 가장 많은 날짜',
 	),
 	'system' => array(
 		'_' => '시스템 설정',
@@ -83,21 +83,21 @@ return array(
 			'_' => 'Base URL',	// IGNORE
 			'recommendation' => '자동 추천: <kbd>%s</kbd>',
 		),
-		'closed_registration_message' => 'Message if registrations are closed',	// TODO
+		'closed_registration_message' => '가입이 닫혀 있을 때 보여 줄 메시지',
 		'cookie-duration' => array(
 			'help' => '초',
 			'number' => '로그인 유지 시간',
 		),
-		'default_closed_registration_message' => 'This server does not accept new registrations at the moment.',	// TODO
+		'default_closed_registration_message' => '이 서버는 지금 새 가입을 받지 않습니다.',
 		'force_email_validation' => '이메일 주소 확인 강제화',
 		'instance-name' => '인스턴스 이름',
 		'internal-host-allowlist' => array(
-			'_' => 'Internal host allowlist',	// TODO
-			'help' => 'One entry per line:<ul><li>A <code>host:port</code>. For instance <code>127.0.0.1:8080</code> or <code>rss-bridge:80</code></li><li>A CIDR notation. For instance <code>0.0.0.0/0</code> to allow any IPv4, <code>::/0</code> to allow any IPv6</li><li>A <code>*</code> to allow any host (unsafe)</li></ul>',	// TODO
+			'_' => '내부 호스트 허용 목록',
+			'help' => '한 줄에 하나씩 입력하세요:<ul><li><code>host:port</code> 형식. 예: <code>127.0.0.1:8080</code> 또는 <code>rss-bridge:80</code></li><li>CIDR 표기. 예: 모든 IPv4를 허용하려면 <code>0.0.0.0/0</code>, 모든 IPv6를 허용하려면 <code>::/0</code></li><li>모든 호스트를 허용하려면 <code>*</code> (안전하지 않음)</li></ul>',
 		),
 		'max-categories' => '사용자별 카테고리 개수 제한',
 		'max-feeds' => '사용자별 피드 개수 제한',
-		'override-by-env-var' => 'This setting is set by the environment variable <kbd>%s</kbd>.',	// TODO
+		'override-by-env-var' => '이 설정은 환경 변수 <kbd>%s</kbd>로 지정되어 있습니다.',
 		'registration' => array(
 			'number' => '계정 최대 개수',
 			'select' => array(
@@ -114,7 +114,7 @@ return array(
 			),
 			'title' => '사용자 회원가입 양식',
 		),
-		'sensitive-parameter' => 'Sensitive parameter. <kbd>./data/config.php</kbd>에서 직접 수정',	// DIRTY - Sensitive parameter. Edit manually in <kbd>./data/config.php</kbd>
+		'sensitive-parameter' => '민감한 매개변수입니다. <kbd>./data/config.php</kbd>에서 직접 수정하세요',
 		'tos' => array(
 			'disabled' => '주어지지 않음',
 			'enabled' => '<a href="./?a=tos">활성화됨</a>',
@@ -137,7 +137,7 @@ return array(
 		'releaseChannel' => array(
 			'_' => '릴리즈 채널',
 			'edge' => '롤링 릴리즈 (“edge”)',
-			'latest' => '안정 릴리즈 (“latest”)',	// DIRTY - Versioned release (“latest”)
+			'latest' => '버전별 릴리스 (“latest”)',
 		),
 		'title' => '업데이트',
 		'viaGit' => 'Git 및 GitHub.com을 통한 업데이트 시작 됨',

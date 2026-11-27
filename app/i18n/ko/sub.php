@@ -29,10 +29,10 @@ return array(
 			'help' => '이 카테코리에 피드를 동적으로 채우려면 <a href="https://opml.org/" target="_blank">OPML 파일</a> 의 URL을 제공해주세요',
 		),
 		'empty' => '빈 카테고리',
-		'error' => 'This dynamic OPML category has encountered a problem. Check that the OPML URL is still reachable and that the maximum number of feeds per user has not been exceeded.',	// TODO
-		'expand' => 'Expand category',	// TODO
+		'error' => '이 동적 OPML 카테고리에 문제가 발생했습니다. OPML URL에 여전히 접속할 수 있는지, 사용자당 최대 피드 수를 넘지 않았는지 확인하세요.',
+		'expand' => '카테고리 펼치기',
 		'information' => '정보',
-		'open' => 'Open category',	// TODO
+		'open' => '카테고리 열기',
 		'opml_url' => 'OPML URL',	// IGNORE
 		'position' => '표시 위치',
 		'position_help' => '정렬 순서 제어',
@@ -51,7 +51,7 @@ return array(
 			'password' => 'HTTP 암호',
 			'username' => 'HTTP 사용자 이름',
 		),
-		'change_favicon' => 'Change…',	// TODO
+		'change_favicon' => '변경…',
 		'clear_cache' => '항상 캐시 지우기',
 		'content_action' => array(
 			'_' => '글 콘텐츠를 가져올 때의 동작',
@@ -59,7 +59,7 @@ return array(
 			'prepend' => '이미 존재하는 콘텐츠 이전에 추가',
 			'replace' => '이미 존재하는 콘텐츠 대체',
 		),
-		'content_retrieval' => 'Content retrieval',	// TODO
+		'content_retrieval' => '콘텐츠 가져오기',
 		'css_cookie' => '글 콘텐츠를 가져올 때 쿠키를 사용',
 		'css_cookie_help' => '예시: <kbd>foo=bar; gdpr_consent=true; cookie=value</kbd>',
 		'css_help' => '글의 일부가 포함된 RSS 피드를 가져옵니다 (주의, 시간이 좀 더 걸립니다!)',
@@ -70,33 +70,33 @@ return array(
 		),
 		'description' => '설명',
 		'empty' => '이 피드는 비어있습니다. 피드가 계속 운영되고 있는지 확인하세요.',
-		'error' => '이 피드에 문제가 발생했습니다. 이 피드에 접근 권한이 있는지 확인하세요.',	// DIRTY - This feed has encountered a problem. If this situation persists, please verify that it is still reachable.
+		'error' => '이 피드에 문제가 발생했습니다. 이 상황이 계속되면 피드에 여전히 접속할 수 있는지 확인하세요.',
 		'export-as-opml' => array(
 			'download' => '다운로드',
-			'help' => 'XML 파일 (data subset. <a href="https://freshrss.github.io/FreshRSS/en/developers/OPML.html" target="_blank">See documentation</a>)',	// DIRTY - XML file (data subset. <a href="https://freshrss.github.io/FreshRSS/en/developers/OPML.html" target="_blank">See documentation</a>)
+			'help' => 'XML 파일 (데이터 일부. <a href="https://freshrss.github.io/FreshRSS/en/developers/OPML.html" target="_blank">문서 보기</a>)',
 			'label' => 'OPML로 내보내기',
 		),
-		'ext_favicon' => 'Set automatically',	// TODO
-		'favicon_changed_by_ext' => 'The icon has been set by the <b>%s</b> extension.',	// TODO
+		'ext_favicon' => '자동으로 설정',
+		'favicon_changed_by_ext' => '아이콘이 <b>%s</b> 확장 기능으로 설정되었습니다.',
 		'filteractions' => array(
 			'_' => '필터 동작',
 			'help' => '한 줄에 한 검색 필터를 작성해 주세요. 실행시 <a href="https://freshrss.github.io/FreshRSS/en/users/10_filter.html#with-the-search-field" target="_blank">문서 참고</a>.',
-			'view_filter' => 'Preview filters on existing articles (new window)',	// TODO
+			'view_filter' => '기존 글에 필터 미리 보기 (새 창)',
 		),
-		'global_hint' => 'Use <a href="%s">the global view</a> to see how many articles in each feed are matching a state or a search expression',	// TODO
-		'http_headers' => 'HTTP Headers',	// TODO
-		'http_headers_help' => 'Headers are separated by a newline, and the name and value of a header are separated by a colon (e.g: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',	// TODO
-		'icon' => 'Icon',	// TODO
+		'global_hint' => '<a href="%s">전체 모드</a>에서 각 피드에 상태나 검색식과 일치하는 글이 몇 개인지 확인하세요',
+		'http_headers' => 'HTTP 헤더',
+		'http_headers_help' => '헤더는 줄바꿈으로 구분하고, 헤더 이름과 값은 콜론으로 구분합니다 (예: <kbd><code>Accept: application/atom+xml<br />Authorization: Bearer some-token</code></kbd>).',
+		'icon' => '아이콘',
 		'information' => '정보',
-		'keep_adding_feed' => 'Then add more feeds',	// TODO
+		'keep_adding_feed' => '이어서 피드 더 추가하기',
 		'keep_min' => '최소 유지 글 개수',
 		'kind' => array(
 			'_' => '피드 소스 유형',
 			'html_json' => array(
-				'_' => 'HTML + XPath + JSON dot notation (JSON in HTML)',	// TODO
+				'_' => 'HTML + XPath + JSON 점 표기법 (HTML 속 JSON)',
 				'xpath' => array(
-					'_' => 'XPath for JSON in HTML',	// TODO
-					'help' => 'Example: <code>normalize-space(//script[@type="application/json"])</code> (single JSON)<br />or: <code>//script[@type="application/ld+json"]</code> (one JSON object per article)',	// TODO
+					'_' => 'HTML 속 JSON용 XPath',
+					'help' => '예: <code>normalize-space(//script[@type="application/json"])</code> (단일 JSON)<br />또는: <code>//script[@type="application/ld+json"]</code> (글마다 JSON 객체 하나)',
 				),
 			),
 			'html_xpath' => array(
@@ -188,10 +188,10 @@ return array(
 			'rss' => 'RSS / Atom (기본값)',
 			'xml_xpath' => 'XML + XPath',	// IGNORE
 		),
-		'last-entry-publication-date' => 'Last article published <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
-		'last-entry-received-date' => 'Last article received <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
-		'last-error-date' => 'Last erroneous update <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
-		'last-update' => 'Last successful update <time datetime="%1$s" title="%1$s">%2$s</time>.',	// TODO
+		'last-entry-publication-date' => '마지막 글 발행: <time datetime="%1$s" title="%1$s">%2$s</time>.',
+		'last-entry-received-date' => '마지막 글 수신: <time datetime="%1$s" title="%1$s">%2$s</time>.',
+		'last-error-date' => '마지막 오류 업데이트: <time datetime="%1$s" title="%1$s">%2$s</time>.',
+		'last-update' => '마지막 성공 업데이트: <time datetime="%1$s" title="%1$s">%2$s</time>.',
 		'maintenance' => array(
 			'clear_cache' => '캐쉬 지우기',
 			'clear_cache_help' => '이 피드의 캐쉬 지우기.',
@@ -209,23 +209,23 @@ return array(
 		'moved_category_deleted' => '카테고리를 삭제하면, 해당 카테고리 아래에 있던 피드들은 자동적으로 <em>%s</em> 아래로 분류됩니다.',
 		'mute' => array(
 			'_' => '무기한 새로고침 금지',
-			'state_is_muted' => 'This feed is muted',	// TODO
+			'state_is_muted' => '이 피드는 음소거되었습니다',
 		),
 		'no_selected' => '선택된 피드가 없습니다.',
 		'number_entries' => '%d 개의 글',
-		'open_feed' => 'Open feed %s',	// TODO
-		'path_entries_conditions' => 'Conditions for content retrieval',	// TODO
+		'open_feed' => '%s 피드 열기',
+		'path_entries_conditions' => '콘텐츠 가져오기 조건',
 		'priority' => array(
 			'_' => '표시',
 			'category' => '피드가 속한 카테고리에만 표시하기',
-			'feed' => 'Show in its feed',	// TODO
+			'feed' => '해당 피드에 표시',
 			'hidden' => '표시하지 않음',
 			'important' => '중요 피드에서 표시',
 			'main_stream' => '메인 스트림에 표시하기',
 		),
 		'proxy' => '이 피드를 가져올 때 사용할 프록시 설정',
 		'proxy_help' => '프로토콜 선택 (예: SOCKS5) 그리고 프록시 주소 입력 (예: <kbd>127.0.0.1:1080</kbd> 혹은 <kbd>username:password@127.0.0.1:1080</kbd>)',
-		'reset_favicon' => 'Reset to default',	// TODO
+		'reset_favicon' => '기본값으로 되돌리기',
 		'selector_preview' => array(
 			'show_raw' => '소스코드 표시',
 			'show_rendered' => '콘텐츠 표시',
@@ -245,20 +245,20 @@ return array(
 		'title_add' => 'RSS 피드 추가',
 		'ttl' => '다음 시간이 지나기 전에 새로고침 금지',
 		'unicityCriteria' => array(
-			'_' => 'Article unicity criteria',	// TODO
-			'forced' => '<span title="Block the unicity criteria, even when the feed has duplicate articles">forced</span>',	// TODO
-			'help' => 'Relevant for invalid feeds.<br />⚠️ Changing the policy will create duplicates.',	// TODO
-			'id' => 'Standard ID (default)',	// TODO
-			'link' => 'Link',	// TODO
-			'sha1:content' => 'Content',	// TODO
-			'sha1:content_published' => 'Content + Date',	// TODO
-			'sha1:link_published' => 'Link + Date',	// TODO
-			'sha1:link_published_title' => 'Link + Date + Title',	// TODO
-			'sha1:link_published_title_content' => 'Link + Date + Title + Content',	// TODO
-			'sha1:published' => 'Date',	// TODO
-			'sha1:title' => 'Title',	// TODO
-			'sha1:title_published' => 'Title + Date',	// TODO
-			'sha1:title_published_content' => 'Title + Date + Content',	// TODO
+			'_' => '글 고유성 기준',
+			'forced' => '<span title="피드에 중복 글이 있어도 고유성 기준을 고정합니다">강제</span>',
+			'help' => '잘못된 피드에 해당합니다.<br />⚠️ 정책을 바꾸면 중복 글이 생깁니다.',
+			'id' => '표준 ID (기본값)',
+			'link' => '링크',
+			'sha1:content' => '내용',
+			'sha1:content_published' => '내용 + 날짜',
+			'sha1:link_published' => '링크 + 날짜',
+			'sha1:link_published_title' => '링크 + 날짜 + 제목',
+			'sha1:link_published_title_content' => '링크 + 날짜 + 제목 + 내용',
+			'sha1:published' => '날짜',
+			'sha1:title' => '제목',
+			'sha1:title_published' => '제목 + 날짜',
+			'sha1:title_published_content' => '제목 + 날짜 + 내용',
 		),
 		'url' => '피드 URL',
 		'useragent' => '이 피드를 가져올 때 사용할 유저 에이전트 설정',
@@ -266,12 +266,12 @@ return array(
 		'validator' => '피드 유효성 검사',
 		'website' => '웹사이트 URL',
 		'websub' => 'WebSub을 사용한 즉시 알림',
-		'websub_pending' => 'Subscribed to WebSub. Waiting for the first notification.',	// TODO
+		'websub_pending' => 'WebSub을 구독했습니다. 첫 알림을 기다리는 중입니다.',
 	),
 	'import_export' => array(
 		'export' => array(
 			'_' => '내보내기',
-			'sqlite' => 'Download user database as SQLite',	// TODO
+			'sqlite' => '사용자 데이터베이스를 SQLite로 다운로드',
 		),
 		'export_labelled' => '라벨이 표시된 글들 내보내기',
 		'export_opml' => '피드 목록 내보내기 (OPML)',
@@ -291,7 +291,7 @@ return array(
 			'idle' => '유휴 피드',
 			'main' => '주요 통계',
 			'repartition' => '글 분류',
-			'unread_dates' => 'Unread dates',	// TODO
+			'unread_dates' => '읽지 않은 날짜',
 		),
 		'subscription_management' => '구독 관리',
 		'subscription_tools' => '구독 도구',
@@ -309,7 +309,7 @@ return array(
 		'add_dynamic_opml' => '동적 OPML 추가',
 		'add_feed' => '피드 추가',
 		'add_label' => '라벨 추가',
-		'add_opml_category' => 'OPML category name',	// TODO
+		'add_opml_category' => 'OPML 카테고리 이름',
 		'delete_label' => '라벨 삭제',
 		'feed_management' => 'RSS 피드 관리',
 		'subscription_tools' => '구독 도구',
