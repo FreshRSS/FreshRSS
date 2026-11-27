@@ -17,7 +17,7 @@ containing a valid cron minute definition such as `13,43` (recommended) or `*/20
 Not passing the `CRON_MIN` environment variable – or setting it to empty string – will disable the cron daemon.
 
 ```sh
-docker run ... \
+docker run -d ... \
   -e CRON_MIN=13,43 \
   --name freshrss freshrss/freshrss:edge
 ```

@@ -200,22 +200,97 @@ final class httpUtilTest extends \PHPUnit\Framework\TestCase {
 	public static function providePrivateSubnets(): array {
 		return [
 			// One example per range, ensuring FILTER_FLAG_GLOBAL_RANGE and custom checks are sufficient
-			'127.0.0.0/8' => ['127.0.0.1'],	// RFC1700 (Loopback)
-			'10.0.0.0/8' => ['10.0.0.5'],	// RFC1918
-			'192.168.0.0/16' => ['192.168.1.5'],	// RFC1918
-			'172.16.0.0/12' => ['172.16.5.5'],	// RFC1918
-			'169.254.0.0/16' => ['169.254.5.5'],	// RFC3927
 			'0.0.0.0/8' => ['0.0.0.5'],	// RFC5735
-			'240.0.0.0/4' => ['240.0.0.5'],	// RFC1112
+			'3fff::/20' => ['3fff::1'],	// RFC9637 (Documentation)
+			'5f00::/16' => ['5f00::1'],	// RFC9602 (SRv6 SIDs)
+			'10.0.0.0/8' => ['10.0.0.5'],	// RFC1918
+			'64:ff9b:1::/48' => ['64:ff9b:1::c000:4260'],	// RFC8215 (Local-Use IPv4/IPv6 Translation Prefix)
+			'64:ff9b::/96' => ['64:ff9b::a9fe:a9fe'],	// RFC6052 (IPv4/IPv6 Translator, NAT64)
 			'100.64.0.0/10' => ['100.64.5.5'],	// RFC6598 (Shared Address Space of Carrier-Grade NAT)
+			'100:0:0:1::/64' => ['100:0:0:1::1'],	// RFC9780 (Dummy IPv6 Prefix)
+			'127.0.0.0/8' => ['127.0.0.1'],	// RFC1700 (Loopback)
+			'169.254.0.0/16' => ['169.254.5.5'],	// RFC3927
+			'172.16.0.0/12' => ['172.16.5.5'],	// RFC1918
+			'192.0.0.0/24' => ['192.0.0.170'],	// RFC6890 (IETF Protocol Assignments)
+			'192.0.2.0/24' => ['192.0.2.1'],	// RFC5737 (TEST-NET-1)
+			'192.88.99.0/24' => ['192.88.99.1'],	// RFC7526 (deprecated 6to4 anycast)
+			'192.168.0.0/16' => ['192.168.1.5'],	// RFC1918
+			'198.18.0.0/15' => ['198.18.0.1'],	// RFC2544 (Benchmarking)
+			'198.18.0.0/15 upper' => ['198.19.255.255'],
+			'198.51.100.0/24' => ['198.51.100.1'],	// RFC5737 (TEST-NET-2)
+			'203.0.113.0/24' => ['203.0.113.1'],	// RFC5737 (TEST-NET-3)
+			'224.0.0.0/4' => ['224.0.0.1'],	// RFC1112 (IPv4 multicast)
+			'224.0.0.0/4 upper' => ['239.255.255.255'],
+			'240.0.0.0/4' => ['240.0.0.5'],	// RFC1112
+			'2001::/32' => ['2001::1'],	// RFC4380 (Teredo)
+			'2002::/16' => ['2002::1'],	// RFC3056 (6to4)
+			'2002::/16 upper' => ['2002:ffff:ffff:ffff:ffff:ffff:ffff:ffff'],
+			'::/128' => ['::'],	// Unspecified address
 			'::1/128' => ['::1'],	// Loopback
+			'::ffff:0:0/96' => ['::ffff:10.0.0.5'],	// IPv4 translations
 			'fc00::/7' => ['fc00::5'],	// Unique Local Address
 			'fe80::/10' => ['fe80::5'],	// Link Local Address
-			'::ffff:0:0/96' => ['::ffff:10.0.0.5'],	// IPv4 translations
-			'64:ff9b::/96' => ['64:ff9b::a9fe:a9fe'],	// RFC6052 (IPv4/IPv6 Translator, NAT64)
-			'64:ff9b:1::/48' => ['64:ff9b:1::c000:4260'],	// RFC8215 (Local-Use IPv4/IPv6 Translation Prefix)
-			'::/128' => ['::'],	// Unspecified address
+			'fec0::/10' => ['fec0::1'],	// RFC3879 (deprecated site-local)
+			'fec0::/10 upper' => ['feff::1'],
+			'ff00::/8' => ['ff02::1'],	// RFC4291 (IPv6 multicast)
 		];
+	}
+
+	#[DataProvider('providePublicAddresses')]
+	public function test_getCurlResolveInfoAcceptsPublicAddresses(string $ip): void {
+		FreshRSS_Context::initSystem();
+		$url = str_contains($ip, ':') ? "https://[$ip]/feed" : "https://$ip/feed";
+		self::assertSame([], FreshRSS_http_Util::getCurlResolveInfo($url));
+	}
+
+	/** @return array<string,array{string}> */
+	public static function providePublicAddresses(): array {
+		return [
+			'public IPv4 alternate' => ['1.1.1.1'],
+			'public IPv4' => ['8.8.8.8'],
+			'below deprecated 6to4 anycast' => ['192.88.98.1'],
+			'above deprecated 6to4 anycast' => ['192.88.100.1'],
+			'below IPv4 multicast' => ['223.255.255.255'],
+			'public IPv6' => ['2001:4860:4860::8888'],
+			'outside 6to4' => ['2003::1'],
+			'outside documentation prefix' => ['3fff:1000::1'],
+			'outside SRv6 prefix' => ['5f01::1'],
+			'outside dummy IPv6 prefix' => ['100:0:0:2::1'],
+			'public NAT64' => ['64:ff9b::c000:4260'],	// RFC6052 embedding 192.0.66.96
+		];
+	}
+
+	/** cURL would rewrite these hosts, and contact another name or address than the one checked and pinned */
+	#[DataProvider('provideHostsRewrittenByCurl')]
+	public function test_getCurlResolveInfoRejectsHostsRewrittenByCurl(string $host): void {
+		FreshRSS_Context::initSystem();
+		$resolveOk = new ReflectionProperty(FreshRSS_http_Util::class, 'resolve_ok');
+		$resolveOk->setValue(null, [strtolower($host) => ['192.0.66.96']]);
+		self::assertFalse(FreshRSS_http_Util::getCurlResolveInfo("http://$host/feed"));
+		self::assertFalse(FreshRSS_http_Util::getCurlResolveInfo("socks5h://$host:1080"));
+	}
+
+	/** @return array<string,array{string}> */
+	public static function provideHostsRewrittenByCurl(): array {
+		return [
+			'percent-encoded underscore' => ['a%5F.example.test'],	// cURL resolves a_.example.test
+			'percent-encoded UTF-8' => ['%C3%A9.example.test'],	// cURL resolves xn--9ca.example.test
+			'non-ASCII' => ['é.example.test'],	// cURL resolves xn--9ca.example.test
+			'IPv4 as one number' => ['2130706433'],	// cURL connects to 127.0.0.1
+			'IPv4 as hexadecimal' => ['0x7f.1'],	// cURL connects to 127.0.0.1
+			'IPv4 as octal' => ['0177.0.0.1'],	// cURL connects to 127.0.0.1
+			'IPv4 with fewer parts' => ['127.1'],	// cURL connects to 127.0.0.1
+		];
+	}
+
+	/** Ordinary host names are still resolved and pinned as written */
+	public function test_getCurlResolveInfoAcceptsHostsUsedAsWrittenByCurl(): void {
+		FreshRSS_Context::initSystem();
+		$resolveOk = new ReflectionProperty(FreshRSS_http_Util::class, 'resolve_ok');
+		foreach (['a_b-c.example.test', 'xn--9ca.example.test', '1.example.test', 'example.7z', 'example.test.'] as $host) {
+			$resolveOk->setValue(null, [$host => ['192.0.66.96']]);
+			self::assertSame(["$host:80:192.0.66.96"], FreshRSS_http_Util::getCurlResolveInfo("http://$host/feed"));
+		}
 	}
 
 	/** Socks schemes default to port 1080, and an IP address proxy produces no resolve entry */

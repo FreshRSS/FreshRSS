@@ -132,7 +132,7 @@ return array(
 	'update' => array(
 		'can_apply' => 'FreshRSS will now be updated to the <strong>version %s</strong>.',	// IGNORE
 		'error' => 'The update process has encountered an error: %s',	// IGNORE
-		'file_is_nok' => 'New <strong>version %s</strong> available, but check permissions on <em>%s</em> directory. HTTP server must have have write permission',	// IGNORE
+		'file_is_nok' => 'New <strong>version %s</strong> available, but check permissions on <em>%s</em> directory. HTTP server must have write permission',	// IGNORE
 		'finished' => 'Update complete!',	// IGNORE
 		'none' => 'No update to apply',	// IGNORE
 		'server_not_found' => 'Update server cannot be found. [%s]',	// IGNORE

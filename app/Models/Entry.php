@@ -206,10 +206,35 @@ class FreshRSS_Entry extends Minz_Model {
 
 	/**
 	 * Provides the original content without additional content potentially added by loadCompleteContent().
+	 * In the style of MIME multipart boundaries, stored in the `full_content_delimiter` attribute.
 	 */
 	public function originalContent(): string {
-		return $this->attributeString('original_content') ??
-			preg_replace('#<!-- FULLCONTENT start //-->.*<!-- FULLCONTENT end //-->#s', '', $this->content) ?? '';
+		$originalContent = $this->attributeString('original_content');
+		if ($originalContent !== null) {
+			return $originalContent;
+		}
+		$html = $this->content;
+		if (!str_contains($html, '<!-- FULLCONTENT ')) {
+			return $html;
+		}
+		$delimiter = $this->attributeString('full_content_delimiter');
+		if ($delimiter === null || $delimiter === '') {
+			// Legacy unsafe markers
+			$startMarker = '<!-- FULLCONTENT start //-->';
+			$endMarker = '<!-- FULLCONTENT end //-->';
+		} else {
+			$startMarker = "<!-- FULLCONTENT {$delimiter} start //-->";
+			$endMarker = "<!-- FULLCONTENT {$delimiter} end //-->";
+		}
+		$startPos = strpos($html, $startMarker);
+		if ($startPos === false) {
+			return $html;	// Could not find the start boundary, so return the HTML as-is
+		}
+		$endPos = strpos($html, $endMarker, $startPos + strlen($startMarker));
+		if ($endPos === false) {
+			return $html;	// Could not find the end boundary, so return the HTML as-is
+		}
+		return substr($html, 0, $startPos) . substr($html, $endPos + strlen($endMarker));
 	}
 
 	/**
@@ -271,7 +296,8 @@ class FreshRSS_Entry extends Minz_Model {
 
 			foreach ($thumbnails as $thumbnail) {
 				if (is_string($thumbnail) && \SimplePie\Misc::is_remote_uri($thumbnail)) {
-					$content .= '<p><img class="enclosure-thumbnail" src="' . $thumbnail . '" alt="" title="' . $etitle . '" /></p>';
+					// No title here: it is output once with the enclosure itself below, not once more for each thumbnail
+					$content .= '<p><img class="enclosure-thumbnail" src="' . $thumbnail . '" alt="" /></p>';
 				}
 			}
 
@@ -1088,8 +1114,11 @@ class FreshRSS_Entry extends Minz_Model {
 					// The article is not yet in the database, so let’s fetch it
 					$fullContent = $this->getContentByParsing();
 					if ('' !== $fullContent) {
-						$fullContent = "<!-- FULLCONTENT start //-->{$fullContent}<!-- FULLCONTENT end //-->";
 						$originalContent = $this->originalContent();
+						// Unique delimiter, inspired by MIME multipart boundaries
+						$delimiter = bin2hex(random_bytes(16));
+						$this->_attribute('full_content_delimiter', $delimiter);
+						$fullContent = "<!-- FULLCONTENT {$delimiter} start //-->{$fullContent}<!-- FULLCONTENT {$delimiter} end //-->";
 						switch ($feed->attributeString('content_action')) {
 							case 'prepend':
 								$this->_attribute('original_content');
