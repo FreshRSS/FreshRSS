@@ -78,7 +78,6 @@ return array(
 	),
 	'system' => array(
 		'_' => 'Systeem configuratie',
-		'auto-update-url' => 'Automatische update server URL',
 		'base-url' => array(
 			'_' => 'Basis-url',
 			'recommendation' => 'Automatische aanbeveling: <kbd>%s</kbd>',
@@ -129,7 +128,6 @@ return array(
 		'apply' => 'Toepassen',
 		'changelog' => 'Changelog',	// IGNORE
 		'check' => 'Controleer op nieuwe versies',
-		'copiedFromURL' => 'update.php gekopieerd van %s naar ./data',
 		'current_version' => 'Uw huidige versie',
 		'last' => 'Laatste controle',
 		'loading' => 'Updaten…',

@@ -78,7 +78,6 @@ return array(
 	),
 	'system' => array(
 		'_' => 'Systemeinstellungen',
-		'auto-update-url' => 'URL des Aktualisierungsservers',
 		'base-url' => array(
 			'_' => 'Base URL',	// IGNORE
 			'recommendation' => 'Automatische Empfehlung: <kbd>%s</kbd>',
@@ -129,7 +128,6 @@ return array(
 		'apply' => 'Aktualisierung starten',
 		'changelog' => 'Liste der Änderungen',
 		'check' => 'Auf neue Aktualisierungen prüfen',
-		'copiedFromURL' => 'update.php wurde von %s nach ./data kopiert',
 		'current_version' => 'Aktuelle Version',
 		'last' => 'Letzte Überprüfung',
 		'loading' => 'Aktualisierung läuft…',

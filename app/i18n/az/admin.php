@@ -78,7 +78,6 @@ return array(
 	),
 	'system' => array(
 		'_' => 'Sistem parametrləri',
-		'auto-update-url' => 'Avtomatik yeniləmə serverinin URL-i',
 		'base-url' => array(
 			'_' => 'Əsas URL',
 			'recommendation' => 'Avtomatik tövsiyə: <kbd>%s</kbd>',
@@ -129,7 +128,6 @@ return array(
 		'apply' => 'Yeniləməni başlat',
 		'changelog' => 'Dəyişikliklər jurnalı',
 		'check' => 'Yeni yeniləmələri yoxla',
-		'copiedFromURL' => 'update.php %s ünvanından ./data qovluğuna kopyalandı',
 		'current_version' => 'Hazırda quraşdırılmış versiya',
 		'last' => 'Son yoxlama',
 		'loading' => 'Yenilənir…',

@@ -78,7 +78,6 @@ return array(
 	),
 	'system' => array(
 		'_' => 'System configuration',	// TODO
-		'auto-update-url' => 'Auto-update server URL',	// TODO
 		'base-url' => array(
 			'_' => 'Base URL',	// TODO
 			'recommendation' => 'Automatic recommendation: <kbd>%s</kbd>',	// TODO
@@ -129,7 +128,6 @@ return array(
 		'apply' => 'החלת העדכון',
 		'changelog' => 'Changelog',	// TODO
 		'check' => 'בדיקת עדכונים חדשים',
-		'copiedFromURL' => 'update.php copied from %s to ./data',	// TODO
 		'current_version' => 'Current installed version',	// TODO
 		'last' => 'תאריך בדיקה אחרון',
 		'loading' => 'Updating…',	// TODO
