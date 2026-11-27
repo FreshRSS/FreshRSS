@@ -38,11 +38,118 @@ final class httpUtilTest extends \PHPUnit\Framework\TestCase {
 			// port, so an allowlisted host:port could otherwise be smuggled into connecting to an
 			// arbitrary local socket.
 			'rejects a SOCKS Unix-domain-socket path' => ['localhost:9050/path/to.sock', false],
+			// Certain characters complicate normalizing of proxy URLs, so they're disallowed.
+			'rejects a query delimiter' => ['127.0.0.1?:6379', false],
+			'rejects a fragment delimiter' => ['127.0.0.1#:6379', false],
+			'rejects a query hiding a decoy host' => ['127.0.0.1?@10.0.0.1:80', false],
+			'rejects a fragment hiding a decoy host' => ['8.8.8.8#@127.0.0.1', false],
+			'rejects a backslash' => ['127.0.0.1\\@8.8.8.8:80', false],
+			'rejects a space' => ['127.0.0.1 :80', false],
+			'rejects a tab' => ["127.0.0.1\t:80", false],
+			'rejects a newline' => ["127.0.0.1\n:80", false],
+			'accepts percent-encoded credentials' => ['user:p%3Fss%23w%40rd@proxy.example.com:3128', true],
 			'accepts bare host:port' => ['127.0.0.1:8080', true],
 			'accepts hostname:port' => ['proxy.example.com:3128', true],
 			'accepts host:port with credentials' => ['user:pass@203.0.113.5:1080', true],
 			'accepts an IPv6 proxy' => ['[::1]:8080', true],
 		];
+	}
+
+	/**
+	 * @param array<int,mixed> $options
+	 * @param array<int,mixed> $expected
+	 */
+	#[DataProvider('provideProxyOptions')]
+	public function test_normalizeProxyOptions(array $options, array $expected): void {
+		self::assertEquals($expected, FreshRSS_http_Util::normalizeProxyOptions($options));
+	}
+
+	/** @return array<string,array{array<int,mixed>,array<int,mixed>}> */
+	public static function provideProxyOptions(): array {
+		return [
+			'CURLOPT_PROXYPORT is added' => [
+				[CURLOPT_PROXY => 'proxy.internal', CURLOPT_PROXYTYPE => CURLPROXY_HTTP, CURLOPT_PROXYPORT => 3128],
+				[CURLOPT_PROXY => 'proxy.internal:3128', CURLOPT_PROXYTYPE => CURLPROXY_HTTP]],
+			'port in CURLOPT_PROXY wins' => [
+				[CURLOPT_PROXY => 'proxy.internal:3128', CURLOPT_PROXYPORT => 4000],
+				[CURLOPT_PROXY => 'proxy.internal:3128', CURLOPT_PROXYTYPE => CURLPROXY_HTTP]],
+			'scheme in system config' => [
+				[CURLOPT_PROXY => 'http://proxy.internal:3128/'],
+				[CURLOPT_PROXY => 'proxy.internal:3128', CURLOPT_PROXYTYPE => CURLPROXY_HTTP]],
+			'scheme wins over type' => [
+				[CURLOPT_PROXY => 'socks5h://user:pass@proxy.internal', CURLOPT_PROXYTYPE => CURLPROXY_HTTP],
+				[CURLOPT_PROXY => 'user:pass@proxy.internal:1080', CURLOPT_PROXYTYPE => CURLPROXY_SOCKS5_HOSTNAME]],
+			'scheme with CURLOPT_PROXYPORT' => [
+				[CURLOPT_PROXY => 'http://proxy.internal', CURLOPT_PROXYPORT => 3128],
+				[CURLOPT_PROXY => 'proxy.internal:3128', CURLOPT_PROXYTYPE => CURLPROXY_HTTP]],
+			'scheme in uppercase' => [
+				[CURLOPT_PROXY => 'HTTP://proxy.internal:3128'],
+				[CURLOPT_PROXY => 'proxy.internal:3128', CURLOPT_PROXYTYPE => CURLPROXY_HTTP]],
+			'HTTPS scheme' => [
+				[CURLOPT_PROXY => 'https://proxy.internal'],
+				[CURLOPT_PROXY => 'proxy.internal:443', CURLOPT_PROXYTYPE => CURLPROXY_HTTPS]],
+			'unsupported scheme is left as is' => [
+				[CURLOPT_PROXY => 'ftp://proxy.internal:3128'],
+				[CURLOPT_PROXY => 'ftp://proxy.internal:3128']],
+			'default port for HTTPS' => [
+				[CURLOPT_PROXY => 'proxy.internal', CURLOPT_PROXYTYPE => CURLPROXY_HTTPS],
+				[CURLOPT_PROXY => 'proxy.internal:443', CURLOPT_PROXYTYPE => CURLPROXY_HTTPS]],
+			'IPv6 without port' => [
+				[CURLOPT_PROXY => '[::1]', CURLOPT_PROXYPORT => 3128],
+				[CURLOPT_PROXY => '[::1]:3128', CURLOPT_PROXYTYPE => CURLPROXY_HTTP]],
+			'IPv6 with port' => [
+				[CURLOPT_PROXY => '[::1]:3128'],
+				[CURLOPT_PROXY => '[::1]:3128', CURLOPT_PROXYTYPE => CURLPROXY_HTTP]],
+			'invalid value is left as is' => [
+				[CURLOPT_PROXY => 'http://127.0.0.1:8080/://8.8.8.8'],
+				[CURLOPT_PROXY => 'http://127.0.0.1:8080/://8.8.8.8']],
+			'query is left as is' => [
+				[CURLOPT_PROXY => '127.0.0.1?:6379'],
+				[CURLOPT_PROXY => '127.0.0.1?:6379']],
+			'fragment is left as is' => [
+				[CURLOPT_PROXY => 'http://127.0.0.1#:6379'],
+				[CURLOPT_PROXY => 'http://127.0.0.1#:6379']],
+			'proxy disabled' => [
+				[CURLOPT_PROXY => 'proxy.internal', CURLOPT_PROXYTYPE => -1],
+				[CURLOPT_PROXY => 'proxy.internal', CURLOPT_PROXYTYPE => -1]],
+			'no proxy' => [[CURLOPT_PROXYPORT => 3128], [CURLOPT_PROXYPORT => 3128]],
+		];
+	}
+
+	/**
+	 * Test sanitization against potential port mismatches after normalizing.
+	 * URLs are parsed differently in both normalizeProxyOptions and getCurlResolveInfo.
+	 */
+	#[DataProvider('provideAmbiguousFeedProxies')]
+	public function test_feedProxyIsNotAmbiguousForAllowlistCheck(string $proxy): void {
+		putenv('INTERNAL_HOST_ALLOWLIST=127.0.0.1:80');
+		try {
+			$options = FreshRSS_http_Util::normalizeProxyOptions(
+				FreshRSS_http_Util::sanitizeCurlParams([CURLOPT_PROXY => $proxy, CURLOPT_PROXYTYPE => CURLPROXY_HTTP]));
+			self::assertArrayNotHasKey(CURLOPT_PROXY, $options);
+			self::assertArrayNotHasKey(CURLOPT_PROXYTYPE, $options);
+		} finally {
+			putenv('INTERNAL_HOST_ALLOWLIST');
+		}
+	}
+
+	/** @return array<string,array{string}> */
+	public static function provideAmbiguousFeedProxies(): array {
+		return [
+			'query with port' => ['127.0.0.1?:6379'],
+			'fragment with port' => ['127.0.0.1#:6379'],
+			'query without port' => ['127.0.0.1?'],
+			'fragment without port' => ['127.0.0.1#'],
+			'query then credentials' => ['10.0.0.1?@:6379'],
+		];
+	}
+
+	public function test_proxyPortIsUsedByAllowlistCheck(): void {
+		putenv('INTERNAL_HOST_ALLOWLIST=127.0.0.1:3128');
+		$options = FreshRSS_http_Util::normalizeProxyOptions([CURLOPT_PROXY => '127.0.0.1', CURLOPT_PROXYPORT => 3128]);
+		self::assertIsString($options[CURLOPT_PROXY]);
+		self::assertSame([], FreshRSS_http_Util::getCurlResolveInfo('http://' . $options[CURLOPT_PROXY]));
+		putenv('INTERNAL_HOST_ALLOWLIST');
 	}
 
 	#[DataProvider('provideUrlsForCheckUrl')]

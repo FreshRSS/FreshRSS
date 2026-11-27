@@ -70,7 +70,32 @@ the global cURL options:
 ],
 ```
 
-This is useful for proxies such as VPN gateway containers. The option applies
+In the system config, `CURLOPT_PROXY` accepts `[scheme://][user:password@]host[:port]`, and the proxy can be described in several equivalent ways:
+
+```php
+// Type and port as separate options
+CURLOPT_PROXY => 'proxy.example.net',
+CURLOPT_PROXYTYPE => CURLPROXY_HTTP,
+CURLOPT_PROXYPORT => 8080,
+
+// Port in the address
+CURLOPT_PROXY => 'proxy.example.net:8080',
+CURLOPT_PROXYTYPE => CURLPROXY_HTTP,
+
+// Type and port in the address
+CURLOPT_PROXY => 'http://proxy.example.net:8080',
+```
+
+* The supported schemes are `http`, `https`, `socks4`, `socks4a`, `socks5` and `socks5h`.
+	If a scheme is given, it takes precedence over `CURLOPT_PROXYTYPE` (as in cURL).
+* If the address contains a port, it takes precedence over `CURLOPT_PROXYPORT`.
+	Otherwise, `CURLOPT_PROXYPORT` is used, and finally 443 for an `https` proxy or 1080 for the others.
+	FreshRSS always passes the port explicitly in the address to cURL (and no longer uses `CURLOPT_PROXYPORT` for the request),
+	because the default port of cURL, and how it combines `CURLOPT_PROXYPORT` with the address, depends on its version.
+* The proxy address (with its port) must be allowed by `internal_host_allowlist` if it is on a local network.
+* Proxies set per feed (in the user interface) do not accept a scheme, as their type is a separate setting.
+
+This is useful for proxies such as VPN gateway containers. The options apply
 to all feed requests unless overridden by a feed-specific configuration.
 
 ## Force HTTPS

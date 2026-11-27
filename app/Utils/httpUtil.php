@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 final class FreshRSS_http_Util {
 
+	private const PROXY_INVALID_CHARS = '~[/?#\\\\\s]~';
+
 	private const RETRY_AFTER_PATH = DATA_PATH . '/Retry-After/';
 	private const NAT64_PREFIX_RFC6052 = '64:ff9b::/96';
 
@@ -141,13 +143,61 @@ final class FreshRSS_http_Util {
 				$curl_params[$k] = array_filter($curl_params[$k],
 					fn($header) => is_string($header) && !preg_match('/^(Remote[-_\s]*User|X[-_\s]*WebAuth[-_\s]*User)\\s*:/i', $header));
 			}
-			// Forbid '/' in CURLOPT_PROXY [user[:pass]@]host[:port] (the scheme comes from CURLOPT_PROXYTYPE),
-			// to reject e.g. 'http://example.net/://decoy' and 'localhost:9050/path/to.sock'
-			if ($k === CURLOPT_PROXY && (!is_string($curl_params[$k]) || str_contains($curl_params[$k], '/'))) {
+			// Forbid '/', '?', '#', '\' and whitespace in CURLOPT_PROXY [user[:pass]@]host[:port] (the scheme comes from CURLOPT_PROXYTYPE),
+			// to reject e.g. 'http://example.net/://decoy', 'localhost:9050/path/to.sock' and '127.0.0.1?:6379'
+			// Credentials must be percent-encoded.
+			if ($k === CURLOPT_PROXY && (!is_string($curl_params[$k]) || preg_match(self::PROXY_INVALID_CHARS, $curl_params[$k]) === 1)) {
 				unset($curl_params[$k], $curl_params[CURLOPT_PROXYTYPE]);
 			}
 		}
 		return $curl_params;
+	}
+
+	/**
+	 * Make the proxy options explicit, so that the SSRF checks use the same proxy address as cURL will connect to:
+	 * `CURLOPT_PROXY` becomes `[user[:pass]@]host:port`, without scheme (which goes to `CURLOPT_PROXYTYPE`).
+	 * The port is the one of `CURLOPT_PROXY`, else `CURLOPT_PROXYPORT`, else documented port defaults of cURL,
+	 * which versions 8.21.0-8.23.x do not follow, hence made explicit.
+	 * `CURLOPT_PROXYPORT` is removed, as the port is then part of `CURLOPT_PROXY`.
+	 * A scheme in `CURLOPT_PROXY` is only expected in the system config, as `sanitizeCurlParams()` rejects it for feeds.
+	 * @param array<mixed> $curl_options
+	 * @return array<int,mixed>
+	 */
+	public static function normalizeProxyOptions(array $curl_options): array {
+		$curl_options = array_filter($curl_options, is_int(...), ARRAY_FILTER_USE_KEY);
+		$proxy = $curl_options[CURLOPT_PROXY] ?? null;
+		$type = $curl_options[CURLOPT_PROXYTYPE] ?? CURLPROXY_HTTP;
+		if (!is_string($proxy) || $proxy === '' || !is_int($type) || $type < 0 || $type === 3) {	// 3 is legacy for NONE
+			return $curl_options;	// No proxy, or disabled for this feed
+		}
+		defined('CURLPROXY_HTTPS') or define('CURLPROXY_HTTPS', 2);	// Compatibility cURL 7.51
+		if (preg_match('#^([a-z0-9]+)://([^/]*)/?$#i', $proxy, $matches) === 1) {
+			$type = match (strtolower($matches[1])) {	// As in cURL, the scheme takes precedence over `CURLOPT_PROXYTYPE`
+				'http' => CURLPROXY_HTTP,
+				'https' => CURLPROXY_HTTPS,
+				'socks4' => CURLPROXY_SOCKS4,
+				'socks4a' => CURLPROXY_SOCKS4A,
+				'socks5' => CURLPROXY_SOCKS5,
+				'socks5h' => CURLPROXY_SOCKS5_HOSTNAME,
+				default => null,
+			};
+			if ($type === null) {
+				return $curl_options;	// Unsupported scheme, left as is for the checks to fail
+			}
+			$proxy = $matches[2];
+		}
+		if (preg_match(self::PROXY_INVALID_CHARS, $proxy) === 1) {	// Makes the port check below safe, so it can't be tricked with e.g. 127.0.0.1?:6379
+			return $curl_options;	// Invalid, left as is for the checks to fail
+		}
+		if (preg_match('/:\\d+$/', $proxy) !== 1) {	// Does not end with :port (an IPv6 address like [::1] ends with ']', so is not mistaken for a port)
+			$port = $curl_options[CURLOPT_PROXYPORT] ?? null;
+			// Port defaults according to https://curl.se/libcurl/c/CURLOPT_PROXYPORT.html
+			$proxy .= ':' . (is_int($port) && $port > 0 && $port < 65536 ? $port : ($type === CURLPROXY_HTTPS ? 443 : 1080));
+		}
+		$curl_options[CURLOPT_PROXY] = $proxy;
+		$curl_options[CURLOPT_PROXYTYPE] = $type;
+		unset($curl_options[CURLOPT_PROXYPORT]);	// Now in `CURLOPT_PROXY`, and some cURL versions let it override a port equal to the scheme default
+		return $curl_options;
 	}
 
 	private static function idn_to_puny(string $url): string {
@@ -302,6 +352,7 @@ final class FreshRSS_http_Util {
 
 	/**
 	 * Returns a value for CURLOPT_RESOLVE as an array, null if no allowed IPs were found, false if the domain failed to resolve.
+	 * For proxy URLs, cURL options must be passed through `FreshRSS_http_Util::normalizeProxyOptions(...)` first.
 	 *
 	 * @return array<string>|null|false
 	 */
@@ -331,15 +382,18 @@ final class FreshRSS_http_Util {
 			$internal_host_allowlist = FreshRSS_Context::systemConf()->internal_host_allowlist;
 		}
 
+		// Fill in default port for website URLs if missing.
+		// Not intended for HTTP and HTTPS proxy URLs, see: https://github.com/curl/curl/issues/23681.
 		$port = parse_url($url)['port'] ?? match ($scheme) {
 			'http' => 80,
 			'https' => 443,
-			'socks4' => 1080,
-			'socks4a' => 1080,
-			'socks5' => 1080,
-			'socks5h' => 1080,
-			default => 0,
+			default => null,
 		};
+		if (!is_int($port)) {
+			// Default proxy ports vary by cURL version, so the port must be made explicit by passing
+			// proxy options through `FreshRSS_http_Util::normalizeProxyOptions(...)` first.
+			return false;
+		}
 		if (in_array('*', $internal_host_allowlist, true)) {
 			return [];	// Disables SSRF checks entirely (unsafe)
 		}
@@ -496,22 +550,15 @@ final class FreshRSS_http_Util {
 		}
 
 		$accept = '';
-		$proxy = is_string(FreshRSS_Context::systemConf()->curl_options[CURLOPT_PROXY] ?? null) ? FreshRSS_Context::systemConf()->curl_options[CURLOPT_PROXY] : '';
-		$proxy_type = is_int(FreshRSS_Context::systemConf()->curl_options[CURLOPT_PROXYTYPE] ?? null) ?
-			FreshRSS_Context::systemConf()->curl_options[CURLOPT_PROXYTYPE] : 0;
-		if (!empty($options)) {
-			$proxy = is_string($options[CURLOPT_PROXY] ?? null) ? $options[CURLOPT_PROXY] : $proxy;
-			$proxy_type = is_int($options[CURLOPT_PROXYTYPE] ?? null) ? $options[CURLOPT_PROXYTYPE] : $proxy_type;
-			if (is_array($options[CURLOPT_HTTPHEADER] ?? null)) {
-				// Add Accept header if it is not set
-				if (preg_grep('/^Accept\\s*:/i', $options[CURLOPT_HTTPHEADER]) === false) {
-					$options[CURLOPT_HTTPHEADER][] = 'Accept: ' . $accept;
-				}
+		$proxy_options = self::normalizeProxyOptions(array_replace(FreshRSS_Context::systemConf()->curl_options, $options, $curl_options));
+		$proxy = is_string($proxy_options[CURLOPT_PROXY] ?? null) ? $proxy_options[CURLOPT_PROXY] : '';
+		$proxy_type = is_int($proxy_options[CURLOPT_PROXYTYPE] ?? null) ? $proxy_options[CURLOPT_PROXYTYPE] : 0;
+		if (!empty($options) && is_array($options[CURLOPT_HTTPHEADER] ?? null)) {
+			// Add Accept header if it is not set
+			if (preg_grep('/^Accept\\s*:/i', $options[CURLOPT_HTTPHEADER]) === false) {
+				$options[CURLOPT_HTTPHEADER][] = 'Accept: ' . $accept;
 			}
 		}
-		$proxy_type = is_int($curl_options[CURLOPT_PROXYTYPE] ?? null) ? $curl_options[CURLOPT_PROXYTYPE] : $proxy_type;
-		// CURLOPT_PROXY is already scheme-less by the time it reaches here:
-		$proxy = is_string($curl_options[CURLOPT_PROXY] ?? null) ? $curl_options[CURLOPT_PROXY] : $proxy;
 
 		if (($retryAfter = FreshRSS_http_Util::getRetryAfter($url, $proxy)) > 0) {
 			Minz_Log::warning('For that domain, will first retry after ' . date('c', $retryAfter) . '. ' . \SimplePie\Misc::url_remove_credentials($url));
@@ -580,7 +627,7 @@ final class FreshRSS_http_Util {
 					// Unsupported proxy type
 					return ['body' => '', 'effective_url' => '', 'redirect_count' => 0, 'fail' => true, 'status' => -500, 'error' => '', 'method' => $c_method];
 				}
-				$proxy_url = "$proxy_scheme://$proxy"; // CURLOPT_PROXY ($proxy) is formatted as user:pass@hostname:port, with the part before @ being optional
+				$proxy_url = "$proxy_scheme://$proxy"; // `$proxy` is formatted as [user[:pass]@]host:port] (cURL proxy options are normalized before).
 				$resolve = self::getCurlResolveInfo($proxy_url);
 				if ($resolve === null) {
 					Minz_Log::warning('Failed to fetch this URL, because the proxy’s IP is not in the allowlist [' .
@@ -649,6 +696,9 @@ final class FreshRSS_http_Util {
 			}
 
 			curl_setopt_array($ch, $curl_options);
+			if ($proxy !== '') {	// Same address (with explicit port) as checked above, because the default proxy port of cURL varies
+				curl_setopt_array($ch, [CURLOPT_PROXY => $proxy, CURLOPT_PROXYTYPE => $proxy_type, CURLOPT_PROXYPORT => 0]);
+			}
 			curl_setopt($ch, CURLOPT_FOLLOWLOCATION, false);	// We handle HTTP redirections manually for security
 
 			$body = curl_exec($ch);
