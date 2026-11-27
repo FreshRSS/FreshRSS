@@ -59,7 +59,6 @@ html, body {
 /*=== Links */
 a, button.as-link {
 	color: var(--font-color-light);
-	outline: none;
 }
 
 a:hover .icon {

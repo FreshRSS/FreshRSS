@@ -1069,9 +1069,7 @@ li.item.active {
 /*============*/
 
 /*=== Links */
-a, button.as-link {
-	outline: none;
-}
+
 
 /*=== Forms */
 option,

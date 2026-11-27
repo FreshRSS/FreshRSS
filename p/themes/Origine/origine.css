@@ -95,7 +95,6 @@ html, body {
 /*=== Links */
 a, button.as-link {
 	color: var(--font-color-link);
-	outline: none;
 }
 
 a:hover,

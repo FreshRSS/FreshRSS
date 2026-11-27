@@ -100,7 +100,6 @@ html, body {
 /*=== Links */
 a, .as-link, button.as-link {
 	color: var(--font-color-link-general);
-	outline: none;
 }
 
 /*=== Forms */

@@ -34,7 +34,7 @@
 				if ($this->entry->isRead()) {
 					$arUrl['params']['is_read'] = '0';
 				}
-				?><a class="item-element read" href="<?= Minz_Url::display($arUrl) ?>" title="<?= _t('conf.shortcut.mark_read') ?>"><?=
+				?><a tabindex="-1" class="item-element read" href="<?= Minz_Url::display($arUrl) ?>" title="<?= _t('conf.shortcut.mark_read') ?>"><?=
 					_i($this->entry->isRead() ? 'read' : 'unread'); ?></a><?php
 			?></li><?php
 		}
@@ -44,7 +44,7 @@
 				if ($this->entry->isFavorite()) {
 					$arUrl['params']['is_favorite'] = '0';
 				}
-				?><a class="item-element bookmark" href="<?= Minz_Url::display($arUrl) ?>" title="<?= _t('conf.shortcut.mark_favorite') ?>"><?=
+				?><a tabindex="-1" class="item-element bookmark" href="<?= Minz_Url::display($arUrl) ?>" title="<?= _t('conf.shortcut.mark_favorite') ?>"><?=
 					_i($this->entry->isFavorite() ? 'starred' : 'non-starred'); ?></a><?php
 			?></li><?php
 		}
@@ -52,7 +52,7 @@
 
 	if ($topline_website !== 'none'):
 	?><li class="item website">
-		<a href="<?= _url('index', 'index', 'get', 'f_' . $this->feed->id()) ?>" class="item-element" title="<?= _t('gen.action.filter') ?>: <?= $this->feed->name() ?>">
+		<a tabindex="-1" href="<?= _url('index', 'index', 'get', 'f_' . $this->feed->id()) ?>" class="item-element" title="<?= _t('gen.action.filter') ?>: <?= $this->feed->name() ?>">
 			<?php if (FreshRSS_Context::userConf()->show_favicons && 'name' !== $topline_website): ?><img class="favicon" src="<?= $this->feed->favicon() ?>" alt="✇" loading="lazy" /><?php endif; ?><?php if ('icon' !== $topline_website): ?><span class="websiteName"><?= $this->feed->name() ?></span><?php endif; ?>
 		</a>
 		</li><?php
@@ -68,7 +68,7 @@
 	?></li><?php
 	endif; ?>
 	<li class="item titleAuthorSummaryDate">
-		<a target="_blank" rel="noreferrer" href="<?= $this->entry->link() ?>" class="item-element title" dir="auto"><?= $this->entry->title() ?><?php
+		<a tabindex="-1" target="_blank" rel="noreferrer" href="<?= $this->entry->link() ?>" class="item-element title" dir="auto"><?= $this->entry->title() ?><?php
 		if ($topline_display_authors):
 			?> <span class="author"><?= implode(' · ', $this->entry->authors()) ?></span><?php
 		endif;
@@ -83,7 +83,7 @@
 		<li class="item labels">
 			<div class="item-element dropdown dynamictags">
 				<div id="dropdown-labels2-<?= $this->entry->id() ?>" class="dropdown-target"></div>
-				<a class="dropdown-toggle" href="#dropdown-labels2-<?= $this->entry->id() ?>" title="<?= _t('index.menu.mylabels') ?>">
+				<a tabindex="-1" class="dropdown-toggle" href="#dropdown-labels2-<?= $this->entry->id() ?>" title="<?= _t('index.menu.mylabels') ?>">
 					<?= _i('label') ?>
 				</a>
 				<?php /* labels_article_template */ ?>
@@ -94,7 +94,7 @@
 		<li class="item share">
 			<div class="item-element dropdown">
 				<div id="dropdown-share2-<?= $this->entry->id() ?>" class="dropdown-target"></div>
-				<a class="dropdown-toggle" href="#dropdown-share2-<?= $this->entry->id() ?>" title="<?= _t('index.share') ?>">
+				<a tabindex="-1" class="dropdown-toggle" href="#dropdown-share2-<?= $this->entry->id() ?>" title="<?= _t('index.share') ?>">
 					<?= _i('share') ?>
 				</a>
 				<?php /* share_article_template */ ?>
@@ -105,7 +105,7 @@
 		if ($title_opens_website) {	// The title opens the original website, so this icon opens the article in FreshRSS instead
 			?><button type="button" class="item-element as-link" title="<?= _t('gen.action.read_in_freshrss') ?>"><?= _i('view-reader') ?></button><?php
 		} else {
-			?><a target="_blank" rel="noreferrer" href="<?= $this->entry->link() ?>" class="item-element" title="<?=
+			?><a tabindex="-1" target="_blank" rel="noreferrer" href="<?= $this->entry->link() ?>" class="item-element" title="<?=
 				_t('conf.shortcut.see_on_website') ?>"><?= _i('link') ?></a><?php
 		}
 	?></li><?php } ?>

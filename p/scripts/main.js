@@ -484,6 +484,9 @@ function toggleContent(new_active, old_active, skipping) {
 	if (old_active !== new_active) {
 		if (!skipping) {
 			new_active.classList.add('active');
+
+			// To ease navigation within article contents using the keyboard
+			new_active.querySelector('a.go_website').focus({ focusVisible: false });
 		}
 		new_active.classList.add('current');
 		if (old_active) {
