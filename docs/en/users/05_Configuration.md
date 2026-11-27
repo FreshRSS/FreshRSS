@@ -63,6 +63,8 @@ There’s no accounting for tastes, which is why FreshRSS offers 13 official the
 | Origine | Marien Fressinaud | (default theme) |
 | Origine-compact | Kevin Papst | |
 | Pafat | Plopoyop | |
+| Reed | SiggeMcKvack | |
+| Reed Compact | SiggeMcKvack | |
 | ~~Screwdriver~~ | Mister aiR | Was removed with FreshRSS V1.22.0 |
 | Swage | Patrick Crandol | |
 
