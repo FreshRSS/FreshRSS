@@ -302,8 +302,12 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 		FreshRSS_View::prependTitle(_t('gen.auth.registration.title') . ' · ');
 	}
 
+	public static function isOidc(): bool {
+		return ($_SERVER['AUTH_TYPE'] ?? '') === 'openid-connect';
+	}
+
 	public static function getLogoutUrl(): string {
-		if (($_SERVER['AUTH_TYPE'] ?? '') === 'openid-connect') {
+		if (self::isOidc()) {
 			$url_string = urlencode(Minz_Request::guessBaseUrl());
 			return './oidc/?logout=' . $url_string . '/';
 			# The trailing slash is necessary so that we don’t redirect to http://.
