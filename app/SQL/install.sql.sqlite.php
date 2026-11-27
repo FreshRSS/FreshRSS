@@ -59,10 +59,10 @@ CREATE TABLE IF NOT EXISTS `entry` (
 );
 CREATE INDEX IF NOT EXISTS entry_is_favorite_index ON `entry`(`is_favorite`);
 CREATE INDEX IF NOT EXISTS entry_is_read_index ON `entry`(`is_read`);
+CREATE INDEX IF NOT EXISTS entry_feed_read_id_index ON `entry`(`id_feed`,`is_read`,`id`);	-- v1.29.0
 CREATE INDEX IF NOT EXISTS entry_lastSeen_index ON `entry`(`lastSeen`);	-- //v1.1.1
 CREATE INDEX IF NOT EXISTS entry_last_modified_index ON `entry` (`lastModified`);
-CREATE INDEX IF NOT EXISTS entry_last_user_modified_index ON `entry` (`lastUserModified`);
-CREATE INDEX IF NOT EXISTS entry_feed_read_index ON `entry`(`id_feed`,`is_read`);	-- v1.7
+CREATE INDEX IF NOT EXISTS entry_last_user_modified_index ON `entry` (`lastUserModified`);	-- //v1.28.0
 
 INSERT OR IGNORE INTO `category` (id, name) VALUES(1, 'Uncategorized');
 
@@ -123,4 +123,6 @@ DROP TABLE IF EXISTS `category`;
 SQL;
 
 $GLOBALS['SQL_UPDATE_MINOR'] = <<<'SQL'
+CREATE INDEX IF NOT EXISTS entry_feed_read_id_index ON `entry`(`id_feed`,`is_read`,`id`);	-- v1.29.0
+DROP INDEX IF EXISTS entry_feed_read_index;
 SQL;
