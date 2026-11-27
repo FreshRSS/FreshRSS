@@ -1,0 +1,9 @@
+ingress:
+  enabled: false
+
+persistence:
+  enabled: true
+  size: 1Gi
+
+freshrss:
+  ADMIN_EMAIL: "admin@example.com"
