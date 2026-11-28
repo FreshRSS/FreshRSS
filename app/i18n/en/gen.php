@@ -204,6 +204,7 @@ return array(
 		'fi' => 'Suomi',
 		'fr' => 'Français',
 		'he' => 'עברית',
+		'hi' => 'हिन्दी',
 		'hu' => 'Magyar',
 		'id' => 'Bahasa Indonesia',
 		'it' => 'Italiano',
