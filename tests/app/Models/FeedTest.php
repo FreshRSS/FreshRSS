@@ -111,4 +111,48 @@ final class FeedTest extends \PHPUnit\Framework\TestCase {
 		unlink($legacyPath);
 		unlink($newPath);
 	}
+
+	public function test_favicon_migratesLegacyIcon(): void {
+		FreshRSS_Context::initSystem();
+		require_once LIB_PATH . '/favicons.php';
+		$feed = new FreshRSS_Feed('http://example.net/feed.xml', validate: false);
+		$feed->_id(987656);
+		$contents = file_get_contents(DEFAULT_FAVICON);
+		self::assertIsString($contents);
+		$newPath = FAVICONS_DIR . $feed->hashFavicon() . '.ico';
+		$newTxt = FAVICONS_DIR . $feed->hashFavicon() . '.txt';
+		@unlink($newPath);
+		@unlink($newTxt);
+		$legacyHash = hash('crc32b', FreshRSS_Context::systemConf()->salt . $feed->website(fallback: true) . $feed->proxyParam());
+		$legacyPath = FAVICONS_DIR . $legacyHash . '.ico';
+		$legacyTxt = FAVICONS_DIR . $legacyHash . '.txt';
+		file_put_contents($legacyPath, $contents);
+		file_put_contents($legacyTxt, 'http://example.net/');
+
+		$feed->favicon();
+
+		self::assertSame($contents, file_get_contents($newPath));
+		self::assertSame('http://example.net/', file_get_contents($newTxt));
+		unlink($legacyPath);
+		unlink($legacyTxt);
+		unlink($newPath);
+		unlink($newTxt);
+	}
+
+	public function test_favicon_doesNotMigrateEmptyLegacyIcon(): void {
+		FreshRSS_Context::initSystem();
+		require_once LIB_PATH . '/favicons.php';
+		$feed = new FreshRSS_Feed('http://example.net/feed.xml', validate: false);
+		$feed->_id(987657);
+		$newPath = FAVICONS_DIR . $feed->hashFavicon() . '.ico';
+		@unlink($newPath);
+		$legacyHash = hash('crc32b', FreshRSS_Context::systemConf()->salt . $feed->website(fallback: true) . $feed->proxyParam());
+		$legacyPath = FAVICONS_DIR . $legacyHash . '.ico';
+		file_put_contents($legacyPath, '');
+
+		$feed->favicon();
+
+		self::assertFileDoesNotExist($newPath);
+		unlink($legacyPath);
+	}
 }

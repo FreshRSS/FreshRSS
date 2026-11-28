@@ -446,8 +446,8 @@ class FreshRSS_Feed extends Minz_Model {
 
 	public function faviconPrepare(bool $force = false): void {
 		require_once LIB_PATH . '/favicons.php';
+		$this->migrateLegacyFavicon();
 		if ($this->customFavicon()) {
-			$this->migrateCustomFavicon();
 			return;
 		}
 		$feedIconUrl = $this->attributeString('feedIconUrl') ?? '';
@@ -481,22 +481,36 @@ class FreshRSS_Feed extends Minz_Model {
 	}
 
 	/** Legacy favicon migration from FreshRSS < 1.31.0 */
-	private function migrateCustomFavicon(): void {
-		if (!$this->customFavicon()) {
+	private function migrateLegacyFavicon(): void {
+		$newPath = FAVICONS_DIR . $this->hashFavicon() . '.ico';
+		if (file_exists($newPath)) {
 			return;
 		}
 		$salt = FreshRSS_Context::systemConf()->salt;
-		$params = $this->id . Minz_User::name();
-		$hookParams = Minz_ExtensionManager::callHook(Minz_HookType::CustomFaviconHash, $this);
-		if ($hookParams !== null) {
-			$params = $hookParams;
+		$customFavicon = $this->customFavicon();
+		if ($customFavicon) {
+			$params = $this->id . Minz_User::name();
+			$hookParams = Minz_ExtensionManager::callHook(Minz_HookType::CustomFaviconHash, $this);
+			if ($hookParams !== null) {
+				$params = $hookParams;
+			}
+		} else {
+			$feedIconUrl = $this->attributeString('feedIconUrl') ?? '';
+			$params = $feedIconUrl !== '' ? $feedIconUrl . $this->proxyParam() : $this->website(fallback: true) . $this->proxyParam();
 		}
-		$newPath = FAVICONS_DIR . $this->hashFavicon() . '.ico';
-		if (!file_exists($newPath)) {
-			$legacyHash = hash('crc32b', $salt . (is_string($params) ? $params : ''));
-			$legacyPath = FAVICONS_DIR . $legacyHash . '.ico';
-			if (is_file($legacyPath)) {
-				@copy($legacyPath, $newPath);
+		$legacyHash = hash('crc32b', $salt . (is_string($params) ? $params : ''));
+		$legacyPath = FAVICONS_DIR . $legacyHash . '.ico';
+		// An empty legacy icon means that the previous download failed, so leave it to a normal refresh
+		if (!is_file($legacyPath) || filesize($legacyPath) === 0) {
+			return;
+		}
+		if (!@copy($legacyPath, $newPath)) {
+			return;
+		}
+		if (!$customFavicon) {
+			$legacyTxt = FAVICONS_DIR . $legacyHash . '.txt';
+			if (is_file($legacyTxt)) {
+				@copy($legacyTxt, FAVICONS_DIR . $this->hashFavicon() . '.txt');
 			}
 		}
 	}
@@ -511,7 +525,7 @@ class FreshRSS_Feed extends Minz_Model {
 	}
 	public function favicon(bool $absolute = false): string {
 		require_once LIB_PATH . '/favicons.php';
-		$this->migrateCustomFavicon();
+		$this->migrateLegacyFavicon();
 		$hash = $this->hashFavicon();
 		$url = '/f.php?h=' . $hash;
 		if ($this->customFavicon()
