@@ -1,0 +1,25 @@
+# Acrescente este serviço ao /root/freshrss-stack/compose.yml
+#
+# Nota: NÃO há mapeamento de portas. O serviço é alcançável apenas pela rede
+# interna do Docker — pelo cloudflared e pelo próprio FreshRSS. Publicar a
+# porta no host exporia um servidor MCP sem autenticação à internet.
+
+  mcp-freshrss:
+    build: ./mcp-freshrss
+    container_name: mcp-freshrss
+    restart: unless-stopped
+    env_file:
+      - ./mcp-freshrss/.env
+    networks:
+      - default
+    depends_on:
+      - freshrss-local
+
+# E no config do cloudflared, adicione a rota:
+#
+#   ingress:
+#     - hostname: mcp-freshrss.rafaelmaciel.com.br
+#       service: http://mcp-freshrss:8080
+#     - hostname: freshrss.rafaelmaciel.com.br
+#       service: http://freshrss-local:80
+#     - service: http_status:404
