@@ -2047,6 +2047,11 @@ class SimplePie
                 elseif (isset($this->data['feed_url'])) {
                     // Do not need to do feed autodiscovery yet.
                     if ($this->data['feed_url'] !== $this->data['url']) {
+                        // Like in the Locator, credentials are only for the origin they were given for
+                        $this->curl_options = Misc::curl_options_for_origin($this->curl_options, $this->data['url'], $this->data['feed_url']);
+                        if (is_object($this->http_client) && $this->http_client instanceof FileClient) {
+                            $this->http_client = null;
+                        }
                         $this->set_feed_url($this->data['feed_url']);
                         $this->data['url'] = $this->data['feed_url'];
 
@@ -2195,7 +2200,8 @@ class SimplePie
                 $this->useragent,
                 $this->max_checked_feeds,
                 $this->force_fsockopen,
-                $this->curl_options
+                $this->curl_options,
+                $this->feed_url, // URL as requested, before possible redirects
             ]);
 
             $http_client = $this->get_http_client();

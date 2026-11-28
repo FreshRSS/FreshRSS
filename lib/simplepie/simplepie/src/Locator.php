@@ -61,9 +61,15 @@ class Locator implements RegistryAware
     private $http_client = null;
 
     /**
-     * @param array<int, mixed> $curl_options
+     * @var string URL for which the cURL options were given (FreshRSS)
      */
-    public function __construct(File $file, int $timeout = 10, ?string $useragent = null, int $max_checked_feeds = 10, bool $force_fsockopen = false, array $curl_options = [])
+    private $curl_options_url;
+
+    /**
+     * @param array<int, mixed> $curl_options
+     * @param string|null $curl_options_url URL for which the cURL options were given, if not the one of $file after redirects (FreshRSS)
+     */
+    public function __construct(File $file, int $timeout = 10, ?string $useragent = null, int $max_checked_feeds = 10, bool $force_fsockopen = false, array $curl_options = [], ?string $curl_options_url = null)
     {
         $this->file = $file;
         $this->useragent = $useragent;
@@ -71,6 +77,7 @@ class Locator implements RegistryAware
         $this->max_checked_feeds = $max_checked_feeds;
         $this->force_fsockopen = $force_fsockopen;
         $this->curl_options = $curl_options;
+        $this->curl_options_url = $curl_options_url ?? $file->get_final_requested_uri();
 
         $body = $this->file->get_body_content();
 
@@ -261,7 +268,7 @@ class Locator implements RegistryAware
                     ];
 
                     try {
-                        $feed = $this->get_http_client()->request(Client::METHOD_GET, $href, $headers);
+                        $feed = $this->get_http_client($href)->request(Client::METHOD_GET, $href, $headers);
 
                         if ((!Misc::is_remote_uri($feed->get_final_requested_uri()) || ($feed->get_status_code() === 200 || $feed->get_status_code() > 206 && $feed->get_status_code() < 300)) && $this->is_feed($feed, true)) {
                             $feeds[$href] = $feed;
@@ -394,7 +401,7 @@ class Locator implements RegistryAware
                 ];
 
                 try {
-                    $feed = $this->get_http_client()->request(Client::METHOD_GET, $value, $headers);
+                    $feed = $this->get_http_client($value)->request(Client::METHOD_GET, $value, $headers);
 
                     if ((!Misc::is_remote_uri($feed->get_final_requested_uri()) || ($feed->get_status_code() === 200 || $feed->get_status_code() > 206 && $feed->get_status_code() < 300)) && $this->is_feed($feed)) {
                         return [$feed];
@@ -426,7 +433,7 @@ class Locator implements RegistryAware
                 ];
 
                 try {
-                    $feed = $this->get_http_client()->request(Client::METHOD_GET, $value, $headers);
+                    $feed = $this->get_http_client($value)->request(Client::METHOD_GET, $value, $headers);
 
                     if ((!Misc::is_remote_uri($feed->get_final_requested_uri()) || ($feed->get_status_code() === 200 || $feed->get_status_code() > 206 && $feed->get_status_code() < 300)) && $this->is_feed($feed)) {
                         return [$feed];
@@ -443,8 +450,10 @@ class Locator implements RegistryAware
 
     /**
      * Get a HTTP client
+     *
+     * @param string $url URL about to be requested
      */
-    private function get_http_client(): Client
+    private function get_http_client(string $url): Client
     {
         assert($this->registry !== null);
 
@@ -453,7 +462,8 @@ class Locator implements RegistryAware
                 'timeout' => $this->timeout,
                 'redirects' => 5,
                 'force_fsockopen' => $this->force_fsockopen,
-                'curl_options' => $this->curl_options,
+                // FreshRSS: credentials are only for the origin they were given for, not for feeds discovered elsewhere
+                'curl_options' => Misc::curl_options_for_origin($this->curl_options, $this->curl_options_url, $url),
             ];
 
             if ($this->useragent !== null) {
