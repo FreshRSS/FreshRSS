@@ -51,21 +51,21 @@ return array(
 			'ok' => 'data 디렉토리의 권한이 올바르게 설정되었습니다.',
 		),
 		'database-connection' => array(
-			'nok' => 'Database connection error.',	// TODO
-			'ok' => 'Database connection is good.',	// TODO
+			'nok' => '데이터베이스 연결 오류입니다.',
+			'ok' => '데이터베이스 연결이 정상입니다.',
 		),
 		'database-table' => array(
-			'nok' => 'Database table "%s" is incomplete.',	// TODO
-			'ok' => 'Database table "%s" is good.',	// TODO
+			'nok' => '데이터베이스 테이블 "%s"이(가) 불완전합니다.',
+			'ok' => '데이터베이스 테이블 "%s"이(가) 정상입니다.',
 		),
 		'database-tables' => array(
-			'nok' => 'Some database tables are missing.',	// TODO
-			'ok' => 'All database tables exist.',	// TODO
+			'nok' => '일부 데이터베이스 테이블이 없습니다.',
+			'ok' => '모든 데이터베이스 테이블이 있습니다.',
 		),
-		'database-title' => 'Database',	// TODO
+		'database-title' => '데이터베이스',
 		'docroot' => array(
-			'nok' => 'Your web server document root does not seem to point to the <code>./p/</code> folder. Other folders such as <code>./data/</code> may be publicly accessible.',	// TODO
-			'ok' => 'Your web server document root correctly points to the <code>./p/</code> folder.',	// TODO
+			'nok' => '웹 서버의 문서 루트가 <code>./p/</code> 폴더를 가리키지 않는 것 같습니다. <code>./data/</code> 같은 다른 폴더가 공개될 수 있습니다.',
+			'ok' => '웹 서버의 문서 루트가 <code>./p/</code> 폴더를 올바르게 가리키고 있습니다.',
 		),
 		'dom' => array(
 			'nok' => 'DOM을 다룰 수 있는 라이브러리를 찾을 수 없습니다 (php-xml 패키지).',
@@ -81,12 +81,12 @@ return array(
 		),
 		'files' => '파일 시스템 설치 요구사항',
 		'gmp' => array(
-			'nok' => 'Cannot find the required GMP extension for 32-bit PHP (php-gmp package).',	// TODO
-			'ok' => 'You have the GMP extension required for 32-bit PHP.',	// TODO
+			'nok' => '32비트 PHP에 필요한 GMP 확장(php-gmp 패키지)을 찾을 수 없습니다.',
+			'ok' => '32비트 PHP에 필요한 GMP 확장이 있습니다.',
 		),
 		'intl' => array(
-			'nok' => 'Cannot find the recommended library php-intl for internationalisation.',	// TODO
-			'ok' => 'You have the recommended library php-intl for internationalisation.',	// TODO
+			'nok' => '국제화에 권장되는 php-intl 라이브러리를 찾을 수 없습니다.',
+			'ok' => '국제화에 권장되는 php-intl 라이브러리가 있습니다.',
 		),
 		'json' => array(
 			'nok' => 'JSON 확장 기능을 찾을 수 없습니다 (php-json 패키지).',
@@ -101,14 +101,14 @@ return array(
 			'ok' => '정규표현식을 위한 라이브러리가 설치되어 있습니다 (PCRE).',
 		),
 		'pdo-mysql' => array(
-			'nok' => 'Cannot find the required PDO driver for MySQL/MariaDB.',	// TODO
+			'nok' => 'MySQL/MariaDB에 필요한 PDO 드라이버를 찾을 수 없습니다.',
 		),
 		'pdo-pgsql' => array(
-			'nok' => 'Cannot find the required PDO driver for PostgreSQL.',	// TODO
+			'nok' => 'PostgreSQL에 필요한 PDO 드라이버를 찾을 수 없습니다.',
 		),
 		'pdo-sqlite' => array(
-			'nok' => 'Cannot find the PDO driver for SQLite.',	// TODO
-			'ok' => 'You have the PDO driver for SQLite.',	// TODO
+			'nok' => 'SQLite용 PDO 드라이버를 찾을 수 없습니다.',
+			'ok' => 'SQLite용 PDO 드라이버가 있습니다.',
 		),
 		'pdo' => array(
 			'nok' => '지원가능한 드라이버나 PDO를 찾을 수 없습니다 (pdo_sqlite, pdo_pgsql, pdo_mysql).',
@@ -149,7 +149,7 @@ return array(
 	'congratulations' => '축하합니다!',
 	'default_user' => array(
 		'_' => '기본 사용자 이름',
-		'max_char' => '1-39 characters: letters, digits, and <code>. _ @ -</code>',	// TODO
+		'max_char' => '1~39자: 영문자, 숫자, <code>. _ @ -</code>',
 	),
 	'fix_errors_before' => '다음 단계로 가기 전에 문제를 해결하세요.',
 	'javascript_is_better' => 'FreshRSS는 자바스크립트를 사용할 때 더욱 쾌적하고 강력합니다',
