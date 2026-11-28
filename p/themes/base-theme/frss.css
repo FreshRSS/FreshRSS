@@ -1591,6 +1591,26 @@ a.website:hover .favicon {
 	align-content: center;
 }
 
+/* Allow the article row to adapt to its own width, e.g. in a narrow list pane */
+.flux .flux_header {
+	container-type: inline-size;
+}
+
+@container (max-width: 40rem) {
+	/* When the article row is narrow, place the date below the title so that the title keeps enough room */
+	.flux .flux_header .item.titleAuthorSummaryDate {
+		grid-template-columns: minmax(0, 1fr);
+		grid-template-areas: "title"
+			"date"
+			"summary";
+	}
+
+	.flux .flux_header .item.titleAuthorSummaryDate .date {
+		text-align: left;
+		padding-top: 0;
+	}
+}
+
 .flux .flux_header .item .title {
 	grid-area: title;
 	color: var(--frss-font-color-dark);
