@@ -204,6 +204,7 @@ return array(
 		'fi' => 'Suomi',	// IGNORE
 		'fr' => 'Français',	// IGNORE
 		'he' => 'עברית',	// IGNORE
+		'hi' => 'हिन्दी',	// IGNORE
 		'hu' => 'Magyar',	// IGNORE
 		'id' => 'Bahasa Indonesia',	// IGNORE
 		'it' => 'Italiano',	// IGNORE
