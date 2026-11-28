@@ -47,7 +47,7 @@ class FreshRSS_Export_Service {
 	public function generateOpml(): array {
 		$view = new FreshRSS_View();
 		$day = date('Y-m-d');
-		$view->categories = $this->category_dao->listSortedCategories(prePopulateFeeds: true, details: true);
+		$view->categories = $this->category_dao->listSortedCategories(details: true);
 		$view->excludeMutedFeeds = false;
 		$view->includeSensitiveCurlParams = true;
 
@@ -73,16 +73,16 @@ class FreshRSS_Export_Service {
 	 */
 	public function generateStarredEntries(string $type): array {
 		$view = new FreshRSS_View();
-		$view->categories = $this->category_dao->listCategories(prePopulateFeeds: true);
+		$view->categories = $this->category_dao->listCategories();
 		$day = date('Y-m-d');
 
 		$view->list_title = _t('sub.import_export.starred_list');
 		$view->type = 'starred';
-		$entriesId = $this->entry_dao->listIdsWhere($type, 0, FreshRSS_Entry::STATE_ALL, order: 'ASC', limit: -1) ?? [];
+		$entriesId = $this->entry_dao->listIdsWhere($type, order: 'ASC', limit: -1) ?? [];
 		$view->entryIdsTagNames = $this->tag_dao->getEntryIdsTagNames($entriesId);
 		// The following is a streamable query, i.e. must be last
 		$view->entries = $this->entry_dao->listWhere(
-			$type, 0, FreshRSS_Entry::STATE_ALL, order: 'ASC', limit: -1
+			$type, order: 'ASC', limit: -1
 		);
 
 		return [
@@ -99,7 +99,7 @@ class FreshRSS_Export_Service {
 	 */
 	public function generateFeedEntries(int $feed_id, int $max_number_entries): ?array {
 		$view = new FreshRSS_View();
-		$view->categories = $this->category_dao->listCategories(prePopulateFeeds: true);
+		$view->categories = $this->category_dao->listCategories();
 
 		$feed = FreshRSS_Category::findFeed($view->categories, $feed_id);
 		if ($feed === null) {
@@ -113,12 +113,12 @@ class FreshRSS_Export_Service {
 		$view->list_title = _t('sub.import_export.feed_list', $feed->name());
 		$view->type = 'feed/' . $feed->id();
 		$entriesId = $this->entry_dao->listIdsWhere(
-			'f', $feed->id(), FreshRSS_Entry::STATE_ALL, order: 'ASC', limit: $max_number_entries
+			'f', $feed->id(), order: 'ASC', limit: $max_number_entries
 		) ?? [];
 		$view->entryIdsTagNames = $this->tag_dao->getEntryIdsTagNames($entriesId);
 		// The following is a streamable query, i.e. must be last
 		$view->entries = $this->entry_dao->listWhere(
-			'f', $feed->id(), FreshRSS_Entry::STATE_ALL, order: 'ASC', limit: $max_number_entries
+			'f', $feed->id(), order: 'ASC', limit: $max_number_entries
 		);
 
 		return [
