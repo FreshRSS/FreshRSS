@@ -19,7 +19,12 @@ Learn how to install, update, and backup FreshRSS, as well as how to use the com
 * [Setting up automatic feed updating](08_FeedUpdates.md)
 * [Database configuration](DatabaseConfig.md)
 * [Using the command line interface (CLI)](https://github.com/FreshRSS/FreshRSS/tree/edge/cli)
+<<<<<<< HEAD
 * [Configuration without a user interface](17_configs_not_ui.md)
+=======
+* [Configuration without an user interface](17_configs_not_ui.md)
+* [MCP server](19_MCP.md)
+>>>>>>> 6b68e6889 (feat: add mcp-freshrss server for read-only access to FreshRSS)
 * [Frequently asked questions](04_Frequently_Asked_Questions.md)
 
 ### User access
