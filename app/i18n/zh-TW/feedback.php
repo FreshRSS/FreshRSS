@@ -80,12 +80,14 @@ return array(
 			'deleted' => '已刪除類別',
 			'emptied' => '已清空類別',
 			'error' => '無法更新類別',
+			'muted' => 'Feeds of the category have been muted',	// TODO
 			'name_exists' => '類別名稱已存在。',
 			'no_id' => '您必須指定類別 ID。',
 			'no_name' => '類別名稱不能為空。',
 			'not_delete_default' => '您無法刪除預設類別！',
 			'not_exist' => '類別不存在！',
 			'over_max' => '您已達到類別數限制 (%d)',
+			'unmuted' => 'Feeds of the category have been unmuted',	// TODO
 			'updated' => '已更新類別。',
 		),
 		'feed' => array(

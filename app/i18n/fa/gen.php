@@ -35,6 +35,7 @@ return array(
 		'menu' => array(
 			'open' => 'باز کردن منو',
 		),
+		'mute_all_feeds' => 'Mute all feeds',	// TODO
 		'nav_buttons' => array(
 			'next' => 'مقاله بعدی',
 			'prev' => 'مقاله قبلی',
@@ -50,6 +51,7 @@ return array(
 		'see_website' => 'به وب‌سایت مراجعه کنید',
 		'submit' => ' ارسال کنید',
 		'truncate' => ' تمام مقالات را حذف کنید',
+		'unmute_all_feeds' => 'Unmute all feeds',	// TODO
 		'update' => ' به روز رسانی',
 	),
 	'auth' => array(

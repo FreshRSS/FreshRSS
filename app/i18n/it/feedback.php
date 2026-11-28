@@ -80,12 +80,14 @@ return array(
 			'deleted' => 'Categoria cancellata',
 			'emptied' => 'Categoria svuotata',
 			'error' => 'Categoria non aggiornata',
+			'muted' => 'Feeds of the category have been muted',	// TODO
 			'name_exists' => 'Categoria già esistente.',
 			'no_id' => 'Categoria senza ID.',
 			'no_name' => 'Il nome della categoria non può essere lasciato vuoto.',
 			'not_delete_default' => 'Non puoi cancellare la categoria predefinita!',
 			'not_exist' => 'La categoria non esite!',
 			'over_max' => 'Hai raggiunto il numero limite di categorie (%d)',
+			'unmuted' => 'Feeds of the category have been unmuted',	// TODO
 			'updated' => 'Categoria aggiornata.',
 		),
 		'feed' => array(

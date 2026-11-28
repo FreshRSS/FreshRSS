@@ -35,6 +35,7 @@ return array(
 		'menu' => array(
 			'open' => 'Menü öffnen',
 		),
+		'mute_all_feeds' => 'Mute all feeds',	// TODO
 		'nav_buttons' => array(
 			'next' => 'Nächster Artikel',
 			'prev' => 'Vorheriger Artikel',
@@ -50,6 +51,7 @@ return array(
 		'see_website' => 'Website ansehen',
 		'submit' => 'Speichern',
 		'truncate' => 'Alle Artikel löschen',
+		'unmute_all_feeds' => 'Unmute all feeds',	// TODO
 		'update' => 'Aktualisieren',
 	),
 	'auth' => array(

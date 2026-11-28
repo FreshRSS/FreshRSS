@@ -80,12 +80,14 @@ return array(
 			'deleted' => '已删除分类',
 			'emptied' => '已清空分类',
 			'error' => '更新分类失败',
+			'muted' => 'Feeds of the category have been muted',	// TODO
 			'name_exists' => '分类名已存在',
 			'no_id' => '你必须指定分类 ID',
 			'no_name' => '分类名不能为空',
 			'not_delete_default' => '你不能删除默认分类！',
 			'not_exist' => '分类不存在！',
 			'over_max' => '你已达到分类数上限（%d）',
+			'unmuted' => 'Feeds of the category have been unmuted',	// TODO
 			'updated' => '已更新分类',
 		),
 		'feed' => array(

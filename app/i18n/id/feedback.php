@@ -80,12 +80,14 @@ return array(
 			'deleted' => 'Kategori telah dihapus.',
 			'emptied' => 'Kategori telah dikosongkan',
 			'error' => 'Kategori tidak dapat diperbarui',
+			'muted' => 'Feeds of the category have been muted',	// TODO
 			'name_exists' => 'Nama kategori sudah ada.',
 			'no_id' => 'Anda harus menentukan id kategori.',
 			'no_name' => 'Nama kategori tidak boleh kosong.',
 			'not_delete_default' => 'Tidak dapat menghapus kategori baku!',
 			'not_exist' => 'Kategori ini tidak ada!',
 			'over_max' => 'Batas kategori Anda sudah tercapai (%d)',
+			'unmuted' => 'Feeds of the category have been unmuted',	// TODO
 			'updated' => 'Kategori ini telah diperbarui.',
 		),
 		'feed' => array(

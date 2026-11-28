@@ -80,12 +80,14 @@ return array(
 			'deleted' => 'Kategorija tika izdzēsta.',
 			'emptied' => 'Kategorija tika iztukšota',
 			'error' => 'Kategoriju nevar atjaunināt',
+			'muted' => 'Feeds of the category have been muted',	// TODO
 			'name_exists' => 'Kategorijas nosaukums jau pastāv.',
 			'no_id' => 'Ir jānorāda kategorijas ID.',
 			'no_name' => 'Kategorijas nosaukums nedrīkst būt tukšs.',
 			'not_delete_default' => 'Noklusējuma kategoriju nevar dzēst!',
 			'not_exist' => 'Kategorija neeksistē!',
 			'over_max' => 'Jūs esat sasniedzis savu kategoriju limitu (%d)',
+			'unmuted' => 'Feeds of the category have been unmuted',	// TODO
 			'updated' => 'Kategorija tika atjaunināta.',
 		),
 		'feed' => array(

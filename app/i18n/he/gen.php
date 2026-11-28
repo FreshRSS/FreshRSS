@@ -35,6 +35,7 @@ return array(
 		'menu' => array(
 			'open' => 'Open menu',	// TODO
 		),
+		'mute_all_feeds' => 'Mute all feeds',	// TODO
 		'nav_buttons' => array(
 			'next' => 'Next article',	// TODO
 			'prev' => 'Previous article',	// TODO
@@ -50,6 +51,7 @@ return array(
 		'see_website' => 'ראו אתר',
 		'submit' => 'אישור',
 		'truncate' => 'מחיקת כל המאמרים',
+		'unmute_all_feeds' => 'Unmute all feeds',	// TODO
 		'update' => 'Update',	// TODO
 	),
 	'auth' => array(

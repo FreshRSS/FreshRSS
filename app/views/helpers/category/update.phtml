@@ -306,6 +306,18 @@
 		</fieldset>
 
 		<fieldset>
+			<div class="form-group form-actions">
+				<div class="group-controls">
+					<button type="submit" class="btn"
+						formaction="<?= _url('category', 'mute', 'id', $this->category->id(), 'mute', 1) ?>"
+						formmethod="post"><?= _t('gen.action.mute_all_feeds') ?></button>
+
+					<button type="submit" class="btn"
+						formaction="<?= _url('category', 'mute', 'id', $this->category->id(), 'mute', 0) ?>"
+						formmethod="post"><?= _t('gen.action.unmute_all_feeds') ?></button>
+				</div>
+			</div>
+
 			<?php if (!$this->category->isDefault()): ?>
 			<p class="alert alert-warn">
 				<?= _t('sub.feed.moved_category_deleted', _t('gen.short.default_category')) ?>

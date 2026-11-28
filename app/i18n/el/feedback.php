@@ -80,12 +80,14 @@ return array(
 			'deleted' => 'Η κατηγορία διαγράφηκε.',
 			'emptied' => 'Η κατηγορία εκκενώθηκε',
 			'error' => 'Η κατηγορία δεν μπορεί να ενημερωθεί',
+			'muted' => 'Feeds of the category have been muted',	// TODO
 			'name_exists' => 'Το όνομα της κατηγορίας υπάρχει ήδη.',
 			'no_id' => 'Πρέπει να ορίσετε το ID της κατηγορίας.',
 			'no_name' => 'Το όνομα της κατηγορίας δεν μπορεί να είναι κενό.',
 			'not_delete_default' => 'Δεν μπορείτε να διαγράψετε την προεπιλεγμένη κατηγορία!',
 			'not_exist' => 'Η κατηγορία δεν υπάρχει!',
 			'over_max' => 'Έχετε φτάσει στο όριο των κατηγοριών σας (%d)',
+			'unmuted' => 'Feeds of the category have been unmuted',	// TODO
 			'updated' => 'Η κατηγορία έχει ενημερωθεί.',
 		),
 		'feed' => array(

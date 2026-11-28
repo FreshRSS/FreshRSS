@@ -35,6 +35,7 @@ return array(
 		'menu' => array(
 			'open' => '메뉴 열기',
 		),
+		'mute_all_feeds' => 'Mute all feeds',	// TODO
 		'nav_buttons' => array(
 			'next' => '다음 글',
 			'prev' => '이전 글',
@@ -50,6 +51,7 @@ return array(
 		'see_website' => '웹사이트 열기',
 		'submit' => '설정 저장',
 		'truncate' => '모든 글 삭제',
+		'unmute_all_feeds' => 'Unmute all feeds',	// TODO
 		'update' => '변경',
 	),
 	'auth' => array(

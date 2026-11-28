@@ -318,6 +318,40 @@ class FreshRSS_category_Controller extends FreshRSS_ActionController {
 	}
 
 	/**
+	 * This action mutes or unmutes all the feeds of a given category.
+	 *
+	 * Request parameters are:
+	 *   - id (of a category)
+	 *   - mute (truthy to mute the feeds, or falsy to unmute them)
+	 */
+	public function muteAction(): void {
+		$id = Minz_Request::paramInt('id');
+		$url_redirect = ['c' => 'subscription', 'a' => 'index', 'params' => ['id' => $id, 'type' => 'category']];
+
+		if (Minz_Request::isPost()) {
+			if ($id === 0) {
+				Minz_Request::bad(_t('feedback.sub.category.no_id'), $url_redirect);
+			}
+
+			invalidateHttpCache();
+
+			$mute = Minz_Request::paramBoolean('mute');
+			$feedDAO = FreshRSS_Factory::createFeedDao();
+			if ($feedDAO->muteFeedByCategory($id, $mute, FreshRSS_Context::userConf()->ttl_default) !== false) {
+				Minz_Request::good(
+					_t($mute ? 'feedback.sub.category.muted' : 'feedback.sub.category.unmuted'),
+					$url_redirect,
+					showNotification: FreshRSS_Context::userConf()->good_notification_timeout > 0
+				);
+			} else {
+				Minz_Request::bad(_t('feedback.sub.category.error'), $url_redirect);
+			}
+		}
+
+		Minz_Request::forward($url_redirect, true);
+	}
+
+	/**
 	 * Request parameter is:
 	 * - id (of a category)
 	 */

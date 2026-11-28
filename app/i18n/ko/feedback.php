@@ -80,12 +80,14 @@ return array(
 			'deleted' => '카테고리가 삭제되었습니다.',
 			'emptied' => '카테고리를 비웠습니다',
 			'error' => '카테고리를 변경할 수 없습니다',
+			'muted' => 'Feeds of the category have been muted',	// TODO
 			'name_exists' => '같은 카테고리 이름이 이미 존재합니다.',
 			'no_id' => '카테고리 id를 명시해야 합니다.',
 			'no_name' => '카테고리 이름을 명시해야 합니다.',
 			'not_delete_default' => '기본 카테고리는 삭제할 수 없습니다!',
 			'not_exist' => '카테고리가 존재하지 않습니다!',
 			'over_max' => '카테고리 개수 제한에 다다랐습니다 (%d)',
+			'unmuted' => 'Feeds of the category have been unmuted',	// TODO
 			'updated' => '카테고리가 변경되었습니다.',
 		),
 		'feed' => array(

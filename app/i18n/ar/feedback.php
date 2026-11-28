@@ -80,12 +80,14 @@ return array(
 			'deleted' => 'تم حذف التصنيف بنجاح.',
 			'emptied' => 'تم إفراغ التصنيف',
 			'error' => 'لا يمكن تحديث التصنيف',
+			'muted' => 'Feeds of the category have been muted',	// TODO
 			'name_exists' => 'اسم التصنيف موجود بالفعل.',
 			'no_id' => 'يجب تحديد معرّف التصنيف.',
 			'no_name' => 'لا يمكن أن يكون اسم التصنيف فارغًا.',
 			'not_delete_default' => 'لا يمكنك حذف التصنيف الافتراضي!',
 			'not_exist' => 'التصنيف غير موجود!',
 			'over_max' => 'لقد وصلت إلى الحد الأقصى من التصنيفات (%d)',
+			'unmuted' => 'Feeds of the category have been unmuted',	// TODO
 			'updated' => 'تم تحديث التصنيف بنجاح.',
 		),
 		'feed' => array(

@@ -80,12 +80,14 @@ return array(
 			'deleted' => 'Категорію видалено.',
 			'emptied' => 'Категорію спорожнено',
 			'error' => 'Не вдалося оновити категорію',
+			'muted' => 'Feeds of the category have been muted',	// TODO
 			'name_exists' => 'Категорія з такою назвою вже існує.',
 			'no_id' => 'Слід вказати ідентифікатор категорії.',
 			'no_name' => 'Категорії слід мати назву.',
 			'not_delete_default' => 'Неможливо видалити типову категорію!',
 			'not_exist' => 'Категорія не існує!',
 			'over_max' => 'Ви вже маєте максимум дозволених категорій (%d)',
+			'unmuted' => 'Feeds of the category have been unmuted',	// TODO
 			'updated' => 'Категорію оновлено.',
 		),
 		'feed' => array(
