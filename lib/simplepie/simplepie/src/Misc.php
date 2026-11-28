@@ -2215,6 +2215,40 @@ JS;
         // String cast for PHPStan while waiting to update to PHPStan 2+
         return (string) preg_replace('#^([a-z][a-z0-9+.-]*://)(?:[^/?\#@]*+@)++#i', '$1', $url);
     }
+
+    /**
+     * Restrict cURL options given for one URL to what may be sent to another URL:
+     * credentials, cookies, custom HTTP headers, and request body are removed when the origin (scheme, host, port) differs.
+     * @param array<int, mixed> $curl_options the cURL options, as given for $from_url.
+     * @param string $from_url the URL for which the cURL options were given.
+     * @param string $to_url the URL about to be requested.
+     * @return array<int, mixed> the cURL options to use for $to_url.
+     */
+    public static function curl_options_for_origin(array $curl_options, string $from_url, string $to_url)
+    {
+        $origins = [];
+        foreach ([$from_url, $to_url] as $url) {
+            $url_parts = parse_url(strtolower($url));
+            if ($url_parts === false || !isset($url_parts['scheme'], $url_parts['host'])) {
+                $origins[] = null;
+                continue;
+            }
+            if (!isset($url_parts['port'])) {
+                $url_parts['port'] = $url_parts['scheme'] === 'https' ? 443 : 80;
+            }
+            $origins[] = [$url_parts['scheme'], $url_parts['host'], $url_parts['port']];
+        }
+        if ($origins[0] === null || $origins[0] !== $origins[1]) {
+            unset(
+                $curl_options[CURLOPT_USERPWD],
+                $curl_options[CURLOPT_COOKIE],
+                $curl_options[CURLOPT_HTTPHEADER],
+                $curl_options[CURLOPT_POST],
+                $curl_options[CURLOPT_POSTFIELDS]
+            );
+        }
+        return $curl_options;
+    }
 }
 
 class_alias('SimplePie\Misc', 'SimplePie_Misc', false);

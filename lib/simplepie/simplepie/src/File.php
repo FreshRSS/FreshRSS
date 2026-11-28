@@ -158,10 +158,25 @@ class File implements Response
                         $this->success = false;
                         return;
                     }
-                    // CURLOPT_PROXY ($proxy) is expected to already be scheme-less: the scheme comes from
-                    // CURLOPT_PROXYTYPE, and the caller (e.g. FreshRSS_http_Util::sanitizeCurlParams()) rejects
-                    // any scheme-containing value before it's ever stored or used.
-                    $proxy_url = "$proxy_scheme://$proxy"; // formatted as user:pass@hostname:port, with the part before @ being optional
+                    // Fail closed if the value of `CURLOPT_PROXY` is ambiguous and could be parsed
+                    // differently by the SSRF checks below and by cURL: the scheme (e.g. 'http://proxy:8080')
+                    // belongs to `CURLOPT_PROXYTYPE` instead, and credentials must be percent-encoded.
+                    if (preg_match('/[\/?\\\\#\s]/', $proxy) === 1) {
+                        $this->error = 'Ambiguous proxy URL: ' . \SimplePie\Misc::url_remove_credentials($proxy);
+                        $this->success = false;
+                        return;
+                    }
+                    // Add the port explicitly, using the documented defaults of cURL, as libcurl
+                    // 8.21.0-8.23.x does not use them: https://github.com/curl/curl/issues/23681
+                    if (preg_match('/:\d+$/D', $proxy) !== 1) {
+                        $port = is_int($curl_options[CURLOPT_PROXYPORT] ?? null) ? $curl_options[CURLOPT_PROXYPORT] : 0;
+                        $proxy .= ':' . ($port > 0 && $port < 65536 ? $port : ($proxy_scheme === 'https' ? 443 : 1080));
+                    }
+                    unset($curl_options[CURLOPT_PROXYPORT]); // Now part of `CURLOPT_PROXY`, and to keep the same port among cURL versions
+                    // Use the normalized value as the actual option as well, in case the caller did not
+                    // already do the same, so that the SSRF checks and the connection agree.
+                    $curl_options[CURLOPT_PROXY] = $proxy;
+                    $proxy_url = "$proxy_scheme://$proxy"; // `$proxy` is now guaranteed to be scheme-less and to end with an explicit port
                     $resolve = $this->get_curl_resolve_info($proxy_url);
                     if ($resolve === null) {
                         $this->error = 'Failed to fetch this URL, because the proxy’s IP is not in the allowlist [' .
