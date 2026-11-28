@@ -2855,6 +2855,10 @@ html.slider-active {
 		width: 40px;
 	}
 
+	.flux .websitename .item.website {
+		display: none;
+	}
+
 	.flux:not(.current):hover .item.title {
 		position: relative;
 		width: auto;
