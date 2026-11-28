@@ -46,6 +46,5 @@ body.register {
 
 /*=== Links */
 a, button.as-link {
-	outline: none;
 	color: var(--main-first);
 }

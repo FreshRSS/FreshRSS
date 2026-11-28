@@ -123,7 +123,6 @@ li.tree-folder span.title {
 
 a {
 	color: var(--color-text-nav);
-	outline: none;
 
 	&#btn-subscription {
 		width: 76%;
@@ -1615,10 +1614,6 @@ main.global {
 	.nav_menu .stick {
 		margin: 0;
 	}
-}
-
-button.as-link {
-	outline: none;
 }
 
 .dropdown-target:target ~ .btn.dropdown-toggle {

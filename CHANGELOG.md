@@ -4,6 +4,8 @@ See also [the FreshRSS releases](https://github.com/FreshRSS/FreshRSS/releases).
 
 ## 2026-1X-XX FreshRSS 1.31.1-dev
 
+* Features
+	* Ease keyboard navigation within article contents [#9643](https://github.com/FreshRSS/FreshRSS/pull/9643)
 * Security
 	* SimplePie: Fix regex in clean hash (security + bug for PHP < 8.4) [#9616](https://github.com/FreshRSS/FreshRSS/pull/9616), [GHSA-8pj8-6xgr-8r8f](https://github.com/FreshRSS/FreshRSS/security/advisories/GHSA-8pj8-6xgr-8r8f)
 	* Harden SSRF guard: reject remaining reserved/special-use IP ranges [#9621](https://github.com/FreshRSS/FreshRSS/pull/9621),
