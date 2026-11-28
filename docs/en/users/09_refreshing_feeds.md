@@ -35,6 +35,10 @@ This update occurs on the selected feed only. To trigger it, simply click on the
 
 ![Feed menu](../img/users/refresh.2.png)
 
+If a new article is already in the source feed but is still missing after a manual
+update, open the feed’s **Manage** settings and choose **Maintenance → Clear cache**.
+Then reopen the same feed’s menu and select **Update feeds**.
+
 ## Automatic update with cron
 
 This is the recommended method.
