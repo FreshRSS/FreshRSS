@@ -47,9 +47,9 @@ return array(
 			),
 			'feed_title' => '피드 제목',
 			'icons' => array(
-				'_' => 'Article icons position<br /><small>(Reading view only)</small>',	// TODO
-				'above_title' => 'Above title',	// TODO
-				'with_authors' => 'In authors and date row',	// TODO
+				'_' => '글 아이콘 위치<br /><small>(읽기 모드에서만)</small>',
+				'above_title' => '제목 위',
+				'with_authors' => '저자와 날짜 줄',
 			),
 			'tags' => array(
 				'_' => '태그',
@@ -66,10 +66,10 @@ return array(
 		'darkMode' => array(
 			'_' => '자동 다크 모드',
 			'auto' => '자동',
-			'help' => 'For compatible themes only',	// TODO
+			'help' => '호환되는 테마에서만',
 			'no' => '끄기',
 		),
-		'display_enclosures' => 'Show enclosures',	// TODO
+		'display_enclosures' => '첨부 파일 표시',
 		'headline' => array(
 			'articles_header_footer' => '기사: 머리말/꼬리말',
 		),
@@ -91,13 +91,13 @@ return array(
 		'show_nav_buttons' => '내비게이션 버튼 보이기',
 		'show_title_unread' => '제목에 읽지 않은 기사 수 표시',
 		'show_unread_count' => array(
-			'_' => 'Show unread counts in sidebar',	// TODO
-			'all' => 'For all categories and feeds',	// TODO
-			'important' => 'For important feeds only',	// TODO
-			'important_locked' => 'Important feeds always show their unread count.',	// TODO
-			'none' => 'Never',	// TODO
+			'_' => '사이드바에 읽지 않은 글 수 표시',
+			'all' => '모든 카테고리와 피드',
+			'important' => '중요 피드만',
+			'important_locked' => '중요 피드는 항상 읽지 않은 글 수를 표시합니다.',
+			'none' => '표시 안 함',
 		),
-		'sidebar_hidden_by_default' => 'Hide sidebar by default',	// TODO
+		'sidebar_hidden_by_default' => '기본적으로 사이드바 숨기기',
 		'theme' => array(
 			'_' => '테마',
 			'deprecated' => array(
@@ -144,66 +144,66 @@ return array(
 		),
 	),
 	'mark_read_button' => array(
-		'_' => '“모두 읽음으로 표시” button',	// DIRTY - “Mark all as read” button
-		'big' => 'Big',	// TODO
-		'none' => 'None',	// TODO
-		'small' => 'Small',	// TODO
+		'_' => '“모두 읽음으로 표시” 버튼',
+		'big' => '크게',
+		'none' => '없음',
+		'small' => '작게',
 	),
 	'notification' => array(
-		'html5_enable_notif' => 'Enable notification',	// TODO
+		'html5_enable_notif' => '알림 사용',
 	),
 	'notification_timeout' => array(
 		'bad' => array(
-			'label' => 'Show warning banner',	// TODO
-			'seconds' => 'seconds (at least 1)',	// TODO
+			'label' => '경고 배너 표시',
+			'seconds' => '초 (최소 1)',
 		),
 		'good' => array(
-			'label' => 'Show acknowledgement banner',	// TODO
-			'seconds' => 'seconds (0 means not shown)',	// TODO
+			'label' => '확인 배너 표시',
+			'seconds' => '초 (0이면 표시 안 함)',
 		),
 	),
 	'privacy' => array(
-		'_' => 'Privacy',	// TODO
-		'retrieve_extension_list' => 'Retrieve extension list',	// TODO
-		'send_referrer_allowlist' => 'Sites allowed to see your server address (%s)',	// TODO
+		'_' => '개인정보 보호',
+		'retrieve_extension_list' => '확장 기능 목록 가져오기',
+		'send_referrer_allowlist' => '서버 주소를 볼 수 있는 사이트 (%s)',
 	),
 	'profile' => array(
 		'_' => '프로필 관리',
 		'api' => array(
 			'_' => 'API 관리',
-			'api_not_set' => 'API password not set',	// TODO
-			'api_set' => 'API password set',	// TODO
-			'check_link' => 'Check API status via: <kbd><a href="../api/" target="_blank">%s</a></kbd>',	// TODO
-			'disabled' => 'The API access is disabled.',	// TODO
-			'documentation_link' => 'See the <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">documentation and list of known apps</a>',	// TODO
-			'help' => 'See <a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>documentation</a>',	// TODO
-			'security_warning' => 'Use HTTPS. The API password is transmitted in clear text and may appear in server logs if sent via GET.',	// TODO
+			'api_not_set' => 'API 암호가 설정되지 않음',
+			'api_set' => 'API 암호가 설정됨',
+			'check_link' => 'API 상태 확인: <kbd><a href="../api/" target="_blank">%s</a></kbd>',
+			'disabled' => 'API 접근이 비활성화되어 있습니다.',
+			'documentation_link' => '<a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target="_blank">문서와 알려진 앱 목록</a>을 참고하세요',
+			'help' => '<a href="https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html#access-via-mobile-app" target=_blank>문서</a>를 참고하세요',
+			'security_warning' => 'HTTPS를 사용하세요. API 암호는 평문으로 전송되며, GET으로 보내면 서버 로그에 남을 수 있습니다.',
 		),
-		'change_password' => 'Change password',	// TODO
-		'confirm_new_password' => 'Confirm new password',	// TODO
-		'current_password' => 'Current password<br /><small>(for the Web-form login method)</small>',	// TODO
+		'change_password' => '암호 변경',
+		'confirm_new_password' => '새 암호 확인',
+		'current_password' => '현재 암호<br /><small>(웹 양식 로그인 방식용)</small>',
 		'delete' => array(
 			'_' => '계정 삭제',
 			'warn' => '당신의 계정과 관련된 모든 데이터가 삭제됩니다.',
 		),
 		'email' => '메일 주소',
-		'new_password' => 'New password',	// TODO
+		'new_password' => '새 암호',
 		'password_api' => 'API 암호<br /><small>(예: 모바일 애플리케이션)</small>',
 		'password_format' => '7 글자 이상이어야 합니다',
 		'title' => '프로필',
 	),
 	'query' => array(
 		'_' => '사용자 쿼리',
-		'create' => 'Create new user query',	// TODO
+		'create' => '새 사용자 쿼리 만들기',
 		'deprecated' => '이 쿼리는 더 이상 유효하지 않습니다. 해당하는 카테고리나 피드가 삭제되었습니다.',
-		'description' => 'Description',	// TODO
+		'description' => '설명',
 		'filter' => array(
 			'_' => '필터 적용:',
 			'categories' => '카테고리별로 표시',
 			'feeds' => '피드별로 표시',
-			'include_article_tags_label' => 'Include article tags from feeds',	// TODO
-			'include_user_labels_label' => 'Include user labels, with prefix:',	// TODO
-			'order' => 'Sort by',	// TODO
+			'include_article_tags_label' => '피드의 글 태그 포함',
+			'include_user_labels_label' => '사용자 라벨 포함, 접두사:',
+			'order' => '정렬 기준',
 			'search' => '정규 표현식',
 			'shareOpml' => '해당 카테고리와 피드에 대한 OPML 공유 활성화',
 			'shareRss' => 'HTML 및 RSS 공유 활성화',
@@ -211,8 +211,8 @@ return array(
 			'tags' => '태그별로 표시',
 			'type' => '유형',
 		),
-		'get_A' => 'Show all feeds, also those shown in their category',	// TODO
-		'get_Z' => 'Show all feeds, also archived ones',	// TODO
+		'get_A' => '모든 피드 표시 (카테고리에 표시되는 피드 포함)',
+		'get_Z' => '모든 피드 표시 (보관된 피드 포함)',
 		'get_all' => '모든 글 표시',
 		'get_all_labels' => '라벨이 있는 글 표시',
 		'get_category' => '“%s” 카테고리 표시',
@@ -221,12 +221,12 @@ return array(
 		'get_important' => '중요 피드의 글 표시',
 		'get_label' => '“%s” 라벨을 가진 글 표시',
 		'help' => '<a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank">유저 쿼리 및 HTML / RSS / OPML을 사용한 재공유 방법 문서</a> 살펴보기.',
-		'image_url' => 'Image URL',	// TODO
+		'image_url' => '이미지 URL',
 		'name' => '이름',
 		'no_filter' => '필터가 없습니다',
 		'no_queries' => array(
-			'_' => 'No user queries are saved yet.',	// TODO
-			'help' => 'See <a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank">documentation</a>',	// TODO
+			'_' => '저장된 사용자 쿼리가 아직 없습니다.',
+			'help' => '<a href="https://freshrss.github.io/FreshRSS/en/users/user_queries.html" target="_blank">문서</a>를 참고하세요',
 		),
 		'number' => '쿼리 #%d',
 		'order_asc' => '오래된 글 먼저 표시',
@@ -235,10 +235,10 @@ return array(
 		'share' => array(
 			'_' => '링크로 쿼리 공유',
 			'disabled' => array(
-				'_' => 'disabled',	// TODO
-				'title' => 'Sharing',	// TODO
+				'_' => '비활성화됨',
+				'title' => '공유',
 			),
-			'greader' => 'Shareable link to the GReader JSON',	// TODO
+			'greader' => 'GReader JSON 공유 링크',
 			'help' => '링크를 사용해서 쿼리를 공유하세요',
 			'html' => 'HTML 공유 링크',
 			'opml' => 'OPML 피드 목록 공유 링크',
@@ -259,7 +259,7 @@ return array(
 		'_' => '읽기',
 		'after_onread' => '“모두 읽음으로 표시” 후,',
 		'always_show_favorites' => '기본으로 즐겨찾기에 있는 모든 글을 표시',
-		'apply_to_individual_feed' => 'Applies to feeds individually',	// TODO
+		'apply_to_individual_feed' => '피드별로 적용',
 		'articles_per_page' => '페이지당 글 수',
 		'auto_load_more' => '페이지 하단에 다다르면 글 더 불러오기',
 		'auto_remove_article' => '글을 읽은 후 숨기기',
@@ -283,35 +283,35 @@ return array(
 			'article_viewed' => '글을 읽었을 때',
 			'focus' => '포커스 됐을 때 (중요 피드 제외)',
 			'keep_max_n_unread' => '읽지 않은 상태로 유지할 최대 글 개수',
-			'scroll' => '스크롤을 하며 지나갈 때 (except for important feeds)',	// DIRTY - while scrolling (except for important feeds)
+			'scroll' => '스크롤하며 지나갈 때 (중요 피드 제외)',
 			'upon_gone' => '원본 뉴스 피드에서 글 삭제 되었을 때',
 			'upon_reception' => '글을 가져오자마자',
 			'when' => '읽음으로 표시…',
-			'when_same_guid_in_category' => 'if an identical GUID already exists in the top <i>n</i> newest articles of the category',	// TODO
-			'when_same_title_in_category' => 'if an identical title already exists in the top <i>n</i> newest articles of the category',	// TODO
-			'when_same_title_in_feed' => '상위 <i>n</i>개의 최신 글에 동일한 제목이 이미 있는 경우 (of the feed)',	// DIRTY - if an identical title already exists in the top <i>n</i> newest articles of the feed
+			'when_same_guid_in_category' => '카테고리의 최신 글 상위 <i>n</i>개에 같은 GUID가 이미 있는 경우',
+			'when_same_title_in_category' => '카테고리의 최신 글 상위 <i>n</i>개에 같은 제목이 이미 있는 경우',
+			'when_same_title_in_feed' => '피드의 최신 글 상위 <i>n</i>개에 같은 제목이 이미 있는 경우',
 		),
 		'show' => array(
 			'_' => '글 표시 방식',
 			'active_category' => '활성화 된 카테고리',
-			'adaptive' => 'Show unreads if any, all articles otherwise',	// TODO
+			'adaptive' => '읽지 않은 글이 있으면 그 글만, 없으면 모든 글 표시',
 			'all_articles' => '모든 글 표시',
 			'all_categories' => '모든 카테고리',
 			'no_category' => '카테고리 없음',
 			'remember_categories' => '열린 카테고리 기억',
 			'unread' => '읽지 않은 글만 표시',
-			'unread_or_favorite' => 'Show unreads and favourites',	// TODO
+			'unread_or_favorite' => '읽지 않은 글과 즐겨찾기 표시',
 		),
 		'show_fav_unread_help' => '라벨에도 적용하기',
 		'sides_close_article' => '글 영역 바깥을 클릭하면 글 접기',
 		'star' => array(
-			'when' => 'Mark an article as favourite…',	// TODO
+			'when' => '글을 즐겨찾기로 표시…',
 		),
 		'sticky_post' => '글이 펼쳐진 경우 최상단에 고정하기',
-		'sticky_sort' => '탐색 중에도 수동 정렬 순서 유지',	// DIRTY - Keep custom sort order during navigation
-		'sticky_sort_help' => '마지막 수동 정렬 순서를 계속 사용할지, 아니면 각 카테고리나 피드가 항상 자체 기본값 또는 전역 설정을 사용할지 결정합니다.',	// DIRTY - Determines whether the last custom sort order is kept active or whether each category or feed always uses its own default or global setting.
+		'sticky_sort' => '탐색 중에도 사용자 지정 정렬 순서 유지',
+		'sticky_sort_help' => '마지막 사용자 지정 정렬 순서를 계속 쓸지, 아니면 카테고리나 피드마다 항상 자체 기본값 또는 전역 설정을 쓸지 정합니다.',
 		'title' => '읽기',
-		'title_opens_website' => 'Clicking on the article title opens it on its original website',	// TODO
+		'title_opens_website' => '글 제목을 클릭하면 원래 웹사이트에서 엽니다',
 		'view' => array(
 			'default' => '기본 보기 모드',
 			'global' => '전체 모드',
@@ -370,7 +370,7 @@ return array(
 		'skip_next_article' => '다음 글로 커서 이동',
 		'skip_previous_article' => '이전 글로 커서 이동',
 		'title' => '단축키',
-		'toggle_aside' => 'Toggle sidebar',	// TODO
+		'toggle_aside' => '사이드바 열기/닫기',
 		'toggle_media' => '미디어 재생/일시정지',
 		'user_filter' => '사용자 필터 사용하기',
 		'user_filter_help' => '사용자 필터가 하나만 설정되어 있다면 해당 필터를 사용하고, 그렇지 않다면 필터를 번호로 선택할 수 있습니다.',

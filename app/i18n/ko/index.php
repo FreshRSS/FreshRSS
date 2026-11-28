@@ -16,13 +16,13 @@ return array(
 		'agpl3' => '<a href="https://www.gnu.org/licenses/agpl-3.0.html">AGPL 3</a>',	// IGNORE
 		'bug_reports' => array(
 			'environment_information' => array(
-				'_' => 'System information',	// TODO
-				'browser' => 'Browser',	// TODO
-				'database' => 'Database',	// TODO
-				'server_software' => 'Server software',	// TODO
-				'version_curl' => 'cURL version',	// TODO
-				'version_frss' => 'FreshRSS version',	// TODO
-				'version_php' => 'PHP version',	// TODO
+				'_' => '시스템 정보',
+				'browser' => '브라우저',
+				'database' => '데이터베이스',
+				'server_software' => '서버 소프트웨어',
+				'version_curl' => 'cURL 버전',
+				'version_frss' => 'FreshRSS 버전',
+				'version_php' => 'PHP 버전',
 			),
 		),
 		'bugs_reports' => '버그 제보하기',
@@ -37,24 +37,24 @@ return array(
 	'feed' => array(
 		'empty' => '글이 없습니다.',
 		'published' => array(
-			'_' => 'Published',	// TODO
-			'future' => 'Published in the future',	// TODO
-			'today' => 'Published today',	// TODO
-			'yesterday' => 'Published yesterday',	// TODO
+			'_' => '발행됨',
+			'future' => '미래 날짜로 발행됨',
+			'today' => '오늘 발행됨',
+			'yesterday' => '어제 발행됨',
 		),
 		'received' => array(
-			'_' => 'Received',	// TODO
-			'today' => 'Received today',	// TODO
-			'yesterday' => 'Received yesterday',	// TODO
+			'_' => '수신됨',
+			'today' => '오늘 수신됨',
+			'yesterday' => '어제 수신됨',
 		),
 		'rss_of' => '%s의 피드',
 		'title' => '메인 스트림',
 		'title_fav' => '즐겨찾기',
 		'title_global' => '전체 모드',
 		'userModified' => array(
-			'_' => 'Modified by user',	// TODO
-			'today' => 'Modified by user today',	// TODO
-			'yesterday' => 'Modified by user yesterday',	// TODO
+			'_' => '사용자가 수정함',
+			'today' => '오늘 사용자가 수정함',
+			'yesterday' => '어제 사용자가 수정함',
 		),
 	),
 	'log' => array(
@@ -85,37 +85,37 @@ return array(
 		'rss_view' => 'RSS 피드',
 		'search_short' => '검색',
 		'sort' => array(
-			'asc' => 'Ascending',	// TODO
+			'asc' => '오름차순',
 			'c' => array(
-				'name_asc' => 'Category, feed titles A→Z',	// TODO
-				'name_desc' => 'Category, feed titles Z→A',	// TODO
+				'name_asc' => '카테고리, 피드 제목 A→Z',
+				'name_desc' => '카테고리, 피드 제목 Z→A',
 			),
-			'date_asc' => 'Publication date 1→9',	// TODO
-			'date_desc' => 'Publication date 9→1',	// TODO
-			'desc' => 'Descending',	// TODO
+			'date_asc' => '발행일 1→9',
+			'date_desc' => '발행일 9→1',
+			'desc' => '내림차순',
 			'f' => array(
-				'name_asc' => 'Feed title A→Z',	// TODO
-				'name_desc' => 'Feed title Z→A',	// TODO
+				'name_asc' => '피드 제목 A→Z',
+				'name_desc' => '피드 제목 Z→A',
 			),
-			'id_asc' => 'Freshly received last',	// TODO
-			'id_desc' => 'Freshly received first',	// TODO
-			'length_asc' => 'Content length 1→9',	// TODO
-			'length_desc' => 'Content length 9→1',	// TODO
-			'link_asc' => 'Link A→Z',	// TODO
-			'link_desc' => 'Link Z→A',	// TODO
+			'id_asc' => '최근 수신한 글을 마지막에',
+			'id_desc' => '최근 수신한 글을 먼저',
+			'length_asc' => '내용 길이 1→9',
+			'length_desc' => '내용 길이 9→1',
+			'link_asc' => '링크 A→Z',
+			'link_desc' => '링크 Z→A',
 			'primary' => array(
-				'_' => 'Sorting criterion',	// TODO
-				'help' => 'Sorting by <em>received</em> date is recommended in most cases, for consistency and performance',	// TODO
+				'_' => '정렬 기준',
+				'help' => '일관성과 성능을 위해 대부분의 경우 <em>수신</em> 날짜로 정렬하는 것을 권장합니다',
 			),
-			'rand' => 'Random order',	// TODO
+			'rand' => '무작위 순서',
 			'secondary' => array(
-				'_' => 'Secondary sorting criterion',	// TODO
-				'help' => 'Only relevant when the primary sorting criterion is categories or feeds titles',	// TODO
+				'_' => '보조 정렬 기준',
+				'help' => '기본 정렬 기준이 카테고리나 피드 제목일 때만 적용됩니다',
 			),
-			'title_asc' => 'Title A→Z',	// TODO
-			'title_desc' => 'Title Z→A',	// TODO
-			'user_modified_asc' => 'User modified 1→9',	// TODO
-			'user_modified_desc' => 'User modified 9→1',	// TODO
+			'title_asc' => '제목 A→Z',
+			'title_desc' => '제목 Z→A',
+			'user_modified_asc' => '사용자 수정일 1→9',
+			'user_modified_desc' => '사용자 수정일 9→1',
 		),
 		'starred' => '즐겨찾기만 표시',
 		'stats' => '통계',
